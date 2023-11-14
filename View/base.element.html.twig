@@ -1,0 +1,17 @@
+{% extends "base.article.html.twig" %}
+
+{% block article_content %}
+
+  {# Menu d'actions #}
+  <ul class="blog__action-menu">
+    <li><a href="?route=element&article={{GET.article}}&action=list">Visualiser les éléments</a></li>
+    <li><a href="?route=element&article={{GET.article}}&action=add">Ajouter un élément</a></li>
+    <li><a href="?route=element&article={{GET.article}}&action=edit">Éditer un élément</a></li>
+    <li><a href="?route=element&article={{GET.article}}&action=delete">Supprimer un élément</a></li>
+  </ul>
+
+  {# Contenu des actions #}
+  <main>
+    {% block action_content %}{% endblock %}
+  </main>
+{% endblock %}

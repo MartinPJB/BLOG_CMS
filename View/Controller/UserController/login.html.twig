@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+  <main>
+    <h1>Connexion</h1>
+
+    <form action="?route=user&action=login" method="post">
+      <fieldset>
+        <legend>Nom d'utilisateur</legend>
+        <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+      </fieldset>
+
+      <fieldset>
+        <legend>Mot de passe</legend>
+        <input type="password" name="password" placeholder="Mot de passe" required>
+      </fieldset>
+
+      <input type="submit" name="user_login" value="Se connecter">
+    </form>
+  </main>
+{% endblock %}
