@@ -104,11 +104,21 @@ class InstallationManager
       'image' => 'VARCHAR(255) NOT NULL',
       'category_id' => 'INT(6) UNSIGNED NOT NULL',
       'tags' => 'VARCHAR(255) NOT NULL',
+      'draft' => 'BOOLEAN NOT NULL DEFAULT FALSE',
+      'published' => 'BOOLEAN NOT NULL DEFAULT FALSE',
     ], [
       'FOREIGN KEY (author_id) REFERENCES users (id) ON DELETE CASCADE',
       'FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE CASCADE'
     ]);
     echo "Table articles créée avec succès.<br>";
+
+    $this->database->createTable('medias', [
+      'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
+      'name' => 'VARCHAR(255) NOT NULL',
+      'src' => 'VARCHAR(255) NOT NULL',
+      'alt' => 'TEXT NOT NULL',
+    ]);
+    echo "Table medias créée avec succès.<br>";
 
     $this->database->createTable('elements', [
       'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
