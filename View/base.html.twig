@@ -18,11 +18,7 @@
 
       <ul>
         {% if session.user is defined and (session.user_id is not null or session.user is not empty) %}
-          <li><a href="?route=user&action=see&id={{ session.user_id }}">{{ session.user.username }}</a></li>
-          <li><a href="?route=user&action=logout">Déconnexion</a></li
-        {% else %}
-          <li><a href="?route=user&action=login">Connexion</a></li>
-          <li><a href="?route=user&action=register">S'inscrire</a></li>
+          <li><a href="?route=user&action=logout">Déconnexion</a></li>
         {% endif %}
       </ul>
     </nav>

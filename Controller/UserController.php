@@ -13,8 +13,6 @@ class UserController extends ControllerBase implements ControllerInterface
 
   const ACTION_LOGOUT = 'logout';
 
-  const ACTION_REGISTER = 'register';
-
   private User $model;
 
   /**
@@ -110,85 +108,6 @@ class UserController extends ControllerBase implements ControllerInterface
     }
 
     return array_merge($this->GET_login(), [
-      'erreurs' => $erreurs
-    ]);
-  }
-
-  /**
-   * @return array Retourne un array contenant rien
-   */
-  public function POST_register(): array
-  {
-    $erreurs = [];
-
-    if(isset($_POST['user_register'])) {
-      // On vérifie que les champs sont remplis
-      if (!isset($_POST['username']) || empty($_POST['username'])) {
-        $erreurs[] = "Le nom d'utilisateur est obligatoire.";
-      }
-
-      if (!isset($_POST['email']) || empty($_POST['email'])) {
-        $erreurs[] = "L'adresse mail est obligatoire.";
-      }
-
-      if (!isset($_POST['password']) || empty($_POST['password'])) {
-        $erreurs[] = "Le mot de passe est obligatoire.";
-      }
-
-      if (!isset($_POST['validate_password']) || empty($_POST['validate_password'])) {
-        $erreurs[] = "La validation du mot de passe est obligatoire.";
-      }
-
-      // On vérifie si un utilisateur existe déjà avec ce nom
-      $user = $this->model->readUser([], [
-        'username' => TypeEscaper::escapeString($_POST['username'])
-      ]);
-
-      if (!empty($user)) {
-        $erreurs[] = "Un utilisateur existe déjà avec ce nom.";
-      }
-
-      // On vérifie si un utilisateur existe déjà avec cette adresse mail (en redéfinissant user)
-      $user = $this->model->readUser([], [
-        'email' => TypeEscaper::escapeString($_POST['email'])
-      ]);
-
-      if (!empty($user)) {
-        $erreurs[] = "Un utilisateur existe déjà avec cette adresse mail.";
-      }
-
-
-      // Si aucune erreure, on peut continuer sur le step 2
-      if (empty($erreurs)) {
-        // On vérifie si les deux mots de passes sont valides
-        if ($_POST['password'] !== $_POST['validate_password']) {
-          $erreurs[] = "Les mots de passes ne correspondent pas.";
-        }
-
-        // On vérifie si l'email passé est un email valide
-        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-          $erreurs[] = "L'adresse mail entrée n'est pas valide.";
-        }
-
-        // Toujours pas d'erreurs, on peut continuer sur le step 3
-        if (empty($erreurs)) {
-          // On inscrit l'utilisateur dans la base de données et on le connecte
-          $user = $this->model->createUser([
-            'username' => TypeEscaper::escapeString($_POST['username']),
-            'email' => TypeEscaper::escapeString($_POST['email']),
-            'password' => password_hash(TypeEscaper::escapeString($_POST['password']), PASSWORD_DEFAULT),
-            'role' => 'user'
-          ]);
-
-          $_SESSION['user_id'] = $user['id'];
-          $_SESSION['user'] = $user;
-
-          $this->redirectToSubroute('login');
-        }
-      }
-    }
-
-    return array_merge($this->GET_register(), [
       'erreurs' => $erreurs
     ]);
   }
