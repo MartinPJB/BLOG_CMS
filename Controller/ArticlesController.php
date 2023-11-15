@@ -12,7 +12,7 @@ class ArticlesController extends ControllerBase implements ControllerInterface
   const ACTION_LIST = 'list';
 
   private Article $model;
-  private bool $admin_only = true;
+  private bool $admin_only = false;
 
   /**
    * @inheritDoc
