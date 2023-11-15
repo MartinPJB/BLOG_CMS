@@ -8,17 +8,18 @@
 			{% endblock %}
 		</title>
 
-		<link rel="stylesheet" href="./public/css/blog.css"> {% block stylesheet %}{% endblock %}{% block javascript %}{% endblock %}
+    <base href="{{ SITE_SETTINGS.project_root }}">
+		<link rel="stylesheet" href="public/css/blog.css"> {% block stylesheet %}{% endblock %}{% block javascript %}{% endblock %}
 	</head>
 	<body>
     <nav class="blog-nav">
       <ul>
-        <li class="blog-nav__brand"><a href="?route=articles&action=list">{{ SITE_SETTINGS.name }}</a></li>
+        <li class="blog-nav__brand"><a href="./articles/list">{{ SITE_SETTINGS.name }}</a></li>
       </ul>
 
       <ul>
         {% if session.user is defined and (session.user_id is not null or session.user is not empty) %}
-          <li><a href="?route=user&action=logout">Déconnexion</a></li>
+          <li><a href="./user/logout">Déconnexion</a></li>
         {% endif %}
       </ul>
     </nav>

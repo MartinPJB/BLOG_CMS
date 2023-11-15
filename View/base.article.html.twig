@@ -5,8 +5,8 @@
   {# Menu d'actions #}
   {% if session.user is defined and (session.user_id is not null or session.user is not empty) and session.user.role == "admin" %}
   <ul class="blog__action-menu blog__action-menu--small">
-    <li><a href="?route=articles&article={{GET.article}}&action=settings">Paramètres de l'article</a></li>
-    <li><a href="?route=element&article={{GET.article}}&action=list">Modifier les éléments</a></li>
+    <li><a href="/articles/settings/{{GET.article}}">Paramètres de l'article</a></li>
+    <li><a href="/element/list/{{GET.article}}">Modifier les éléments</a></li>
   </ul>
   {% endif %}
 
