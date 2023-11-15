@@ -20,7 +20,7 @@ function basicLogger(string $message)
 }
 
 /* Check si la base de données est initialisée, sinon on installe */
-$installation_manager = new Inc\InstallationManager($config['database']);
+$installation_manager = new Include\InstallationManager($config['database']);
 $installation_db_name = $config['database']['database'];
 
 if (!$installation_manager->isInstalled($installation_db_name)) {

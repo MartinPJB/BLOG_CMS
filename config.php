@@ -4,7 +4,7 @@
 $config = [
   'database' => [
     'host' => 'localhost',
-    'database' => 'info3_blog',
+    'database' => 'cuej_blog',
     'user' => 'root',
     'password'=> '',
   ],
