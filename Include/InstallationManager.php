@@ -80,6 +80,13 @@ class InstallationManager
    */
   private function createElementsTable(): void
   {
+    $this->database->createTable('site_settings', [
+      'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
+      'name' => 'VARCHAR(255) NOT NULL',
+      'description' => 'TEXT NOT NULL',
+    ]);
+    echo "Table site_settings créée avec succès.<br>";
+
     $this->database->createTable('users', [
       'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
       'username' => 'VARCHAR(255) NOT NULL',
@@ -157,7 +164,6 @@ class InstallationManager
         'name' => 'Catégorie par défaut',
       ]);
 
-
       // Création des articles par défaut
       $this->database->create('articles', [
         'title' => 'Article d\'exemple',
@@ -182,6 +188,12 @@ class InstallationManager
         'text' => 'Mais c\'est incroyable me direz-vous!',
         'css' => 'color: blue; font-size: 1.2em;',
         'article_id' => 1,
+      ]);
+
+      // Ajout des paramètres du site
+      $this->database->create('site_settings', [
+        'name' => $config['name'],
+        'description' => $config['description'],
       ]);
 
     } catch (Exception $e) {

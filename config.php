@@ -13,7 +13,10 @@ $config = [
     'name' => 'admin',
     'email' => 'admin@site.example',
     'password' => 'admin',
-  ]
+  ],
+
+  'name' => 'CUEJ Blog',
+  'description' => 'Un blog pour le CUEJ',
 ];
 
 // Autoloader pour les classes
