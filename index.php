@@ -60,6 +60,8 @@ if (!is_null($route)) {
     $site_settings->connectToDatabase($config['database']['database']);
     $site_settings = $site_settings->read('site_settings')[0];
 
+    $site_settings['project_root'] = $config['root'];
+
     $twig->addGlobal('SITE_SETTINGS', $site_settings);
     unset($site_settings);
 
