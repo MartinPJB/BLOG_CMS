@@ -1,7 +1,7 @@
 <?php
 
 require_once './config.php';
-require_once './Inc/twig.php';
+require_once './Include/twig.php';
 
 // Démarre la session si elle n'est pas déjà démarrée
 if (session_status() === PHP_SESSION_NONE) session_start();

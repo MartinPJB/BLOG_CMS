@@ -5,7 +5,7 @@ namespace Controller;
 use Controller\ControllerBase;
 use Controller\ControllerInterface;
 use Model\Article;
-use Inc\TypeEscaper;
+use Include\TypeEscaper;
 
 class ArticlesController extends ControllerBase implements ControllerInterface
 {

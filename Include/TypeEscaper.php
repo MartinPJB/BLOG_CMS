@@ -1,6 +1,6 @@
 <?php
 
-namespace Inc;
+namespace Include;
 
 /**
  * Permet d'escape les données passées en argument en fonction de leur type.
