@@ -153,9 +153,9 @@ class InstallationManager
     try {
       // Création du compte administrateur
       $this->database->create('users', [
-        'username' => $config['name'],
-        'password' => password_hash($config['password'], PASSWORD_DEFAULT),
-        'email' => $config['email'],
+        'username' => $config['admin']['name'],
+        'password' => password_hash($config['admin']['password'], PASSWORD_DEFAULT),
+        'email' => $config['admin']['email'],
         'role' => 'admin',
       ]);
 
@@ -212,7 +212,7 @@ class InstallationManager
   {
     $this->initializeDatabase($config['database']['database']);
     $this->initializeTables();
-    $this->initializeSite($config['admin']);
+    $this->initializeSite($config);
   }
 
   /**
