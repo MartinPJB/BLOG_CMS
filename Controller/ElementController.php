@@ -36,7 +36,7 @@ class ElementController extends ControllerBase implements ControllerInterface
   public function initializeSubRoutes(): void
   {
     // Pas d'article sélectionné
-    if (!isset($_GET['article'])) {
+    if (!isset($_GET['article']) || empty($_GET['article'])) {
       $this->redirectToRoute('articles', ArticlesController::ACTION_LIST);
     }
 

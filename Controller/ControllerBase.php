@@ -116,8 +116,16 @@ class ControllerBase
   public function handleGET(): void
   {
     $keys = array_keys($this->subRoutes['GET']);
-    $action = $_GET['action'] ?? reset($keys);
+    $action = $_GET['action'];
     $data = [];
+
+    if (empty($action)) {
+      $action = reset($keys);
+    }
+
+    if (!isset($this->subRoutes['GET'][$action])) {
+      $this->redirectToRoute('articles', ArticlesController::ACTION_LIST);
+    }
 
     // Vérifie si est accessible (en fonction du status de connexion)
     if (!$this->canAccess($this->subRoutes['GET'][$action]['accessLevel'])) {
@@ -146,8 +154,16 @@ class ControllerBase
   public function handlePOST(): void
   {
     $keys = array_keys($this->subRoutes['POST']);
-    $action = $_GET['action'] ?? reset($keys);
+    $action = $_GET['action'];
     $data = NULL;
+
+    if (empty($action)) {
+      $action = reset($keys);
+    }
+
+    if (!isset($this->subRoutes['GET'][$action])) {
+      $this->redirectToRoute('articles', ArticlesController::ACTION_LIST);
+    }
 
     // Vérifie si est accessible (en fonction du status de connexion)
     if (!$this->canAccess($this->subRoutes['GET'][$action]['accessLevel'])) {
@@ -197,8 +213,10 @@ class ControllerBase
    */
   protected function redirectToSubroute(string $subRoute, array $parameters = []): void
   {
+    $currentPath = $_SERVER['REQUEST_URI'];
+    $basePath = array_slice(explode('/', $currentPath), 0, -1)[1];
     $parameters = http_build_query($parameters);
-    header("Location: index.php?route=$this->route&action=$subRoute&$parameters");
+    header("Location: /$basePath/$this->route/$subRoute&$parameters");
     exit;
   }
 
@@ -211,8 +229,10 @@ class ControllerBase
    */
   protected function redirectToRoute(string $route, string $subRoute = '', array $parameters = []): void
   {
+    $currentPath = $_SERVER['REQUEST_URI'];
+    $basePath = array_slice(explode('/', $currentPath), 0, -1)[1];
     $parameters = http_build_query($parameters);
-    header("Location: index.php?route=$route&action=$subRoute&$parameters");
+    header("Location: /$basePath/$route/$subRoute&$parameters");
     exit;
   }
 }

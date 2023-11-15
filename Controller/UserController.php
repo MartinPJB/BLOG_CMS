@@ -32,12 +32,10 @@ class UserController extends ControllerBase implements ControllerInterface
   {
     // Add GET routes
     $this->addSubRoute(self::ACTION_LOGIN, 'login.html.twig', [$this, 'GET_login'], 'GET', 2);
-    $this->addSubRoute(self::ACTION_REGISTER, 'register.html.twig', [$this, 'GET_register'], 'GET', 2);
     $this->addSubRoute(self::ACTION_LOGOUT, null, [$this, 'GET_logout'], 'GET', 1);
 
     // Add POST routes
     $this->addSubRoute(self::ACTION_LOGIN, 'login.html.twig', [$this, 'POST_login'], 'POST', 2);
-    $this->addSubRoute(self::ACTION_REGISTER, 'register.html.twig', [$this, 'POST_register'], 'POST', 2);
   }
 
   /**
