@@ -38,7 +38,7 @@ class ArticlesController extends ControllerBase implements ControllerInterface
    */
   public function GET_list(): array
   {
-    $articles = $this->model->readElement();
+    $articles = $this->model->readElement([], ['published' => 1]);
 
     return [
       'articles' => $articles
