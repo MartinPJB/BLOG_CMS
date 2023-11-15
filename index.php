@@ -51,18 +51,24 @@ if (!is_null($route)) {
 
   if (class_exists($controller)) {
     $twig = init_twig(__DIR__);
+
+    // Ajout de variables globales
     $twig->addGlobal('session', $_SESSION);
     $twig->addGlobal('GET', $_GET);
+
+    $site_settings = new Include\DatabaseManager($config['database']);
+    $site_settings->connectToDatabase($config['database']['database']);
+    $site_settings = $site_settings->read('site_settings')[0];
+
+    $twig->addGlobal('SITE_SETTINGS', $site_settings);
+    unset($site_settings);
+
     $controller = new $controller($config['database'], $twig);
     $controller->handleRequest();
   } else {
     echo "Erreur: le contrôleur $controller n'existe pas";
   }
 }
-
-// $twig = init_twig();
-// $elementController = new Controller\ElementController($config['database'], $twig);
-// $elementController->handleRequest();
 
 // Unset de la variable $config pour éviter les fuites d'informations
 unset($config);

@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Blog -
-			{% block title %}Welcome
+		<title>{{ SITE_SETTINGS.name }} -
+			{% block title %}Articles
 			{% endblock %}
 		</title>
 
@@ -13,7 +13,7 @@
 	<body>
     <nav class="blog-nav">
       <ul>
-        <li class="blog-nav__brand"><a href="?route=articles&action=list">Blog</a></li>
+        <li class="blog-nav__brand"><a href="?route=articles&action=list">{{ SITE_SETTINGS.name }}</a></li>
       </ul>
 
       <ul>
