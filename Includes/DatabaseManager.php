@@ -126,9 +126,35 @@ class DatabaseManager
   public function read(string $table, array $columns = [], array $whereConditions = []): array
   {
     $columns = $this->buildColumns($columns);
-    $whereClause = $this->buildWhereClause($whereConditions);
+    $whereClause = $this->buildWhereClause($table, $whereConditions);
 
     $sql = "SELECT $columns FROM `$table`$whereClause";
+    return $this->executeAndFetch($sql, $whereConditions);
+  }
+
+  /**
+   * Lis des données dans une table en utilisant une/des jointure(s)
+   *
+   * @param string $table Le nom de la table à lire
+   * @param array $columns Les colonnes à lire
+   * @param array $whereConditions Les conditions de lecture
+   * @param array $joinTables Les tables à joindre
+   * @param array $joinConditions Les conditions de jointure
+   * @return array Retourne un tableau contenant les données lues
+   */
+  public function readWithJoin(string $table, array $columns = [], array $whereConditions = [], array $joinTables = [], array $joinConditions = []): array
+  {
+    $columns = $this->buildColumns($columns);
+    $whereClause = $this->buildWhereClause($table, $whereConditions);
+
+    $joinClause = '';
+    if (!empty($joinTables) && !empty($joinConditions)) {
+      $joinClause = ' ' . implode(' ', array_map(function ($joinTable, $joinCondition) {
+        return "JOIN `$joinTable` ON $joinCondition";
+      }, $joinTables, $joinConditions));
+    }
+
+    $sql = "SELECT $columns FROM `$table`$joinClause$whereClause";
     return $this->executeAndFetch($sql, $whereConditions);
   }
 
@@ -159,7 +185,7 @@ class DatabaseManager
   public function update(string $table, array $data, array $whereConditions): array
   {
     $setClause = $this->buildSetClause($whereConditions, $table);
-    $whereClause = $this->buildWhereClause($data);
+    $whereClause = $this->buildWhereClause($table, $data);
 
     $sql = "UPDATE `$table` $setClause $whereClause";
     return $this->executeAndFetch($sql, array_merge($data, $whereConditions));
@@ -174,7 +200,7 @@ class DatabaseManager
    */
   public function delete(string $table, array $whereConditions): array
   {
-    $whereClause = $this->buildWhereClause($whereConditions);
+    $whereClause = $this->buildWhereClause($table, $whereConditions);
 
     $sql = "DELETE FROM `$table` $whereClause";
     return $this->executeAndFetch($sql, $whereConditions);
@@ -212,6 +238,22 @@ class DatabaseManager
   }
 
   /**
+   * Vérifie si un tableau est associatif ou séquentiel
+   * Le code de cette fonctions se base sur la fonction en PHP 8.1 array_is_list()
+   *
+   * @param array $array Le tableau à vérifier
+   * @return boolean Retourne True si le tableau est associatif, sinon False
+   */
+  function isAssociativeArray(array $array): bool
+  {
+    if ($array === []) {
+        return true;
+    }
+    return array_keys($array) === range(0, count($array) - 1);
+  }
+
+
+  /**
    * Construit la clause des colonnes à lire
    *
    * @param array $columns Les colonnes à lire
@@ -219,7 +261,22 @@ class DatabaseManager
    */
   private function buildColumns(array $columns): string
   {
-    return empty($columns) ? '*' : implode(', ', $columns);
+    if ($this->isAssociativeArray($columns)) {
+      return empty($columns) ? '*' : implode(', ', $columns);
+    }
+
+    $result = [];
+
+    foreach ($columns as $table => $values) {
+      var_dump($this->isAssociativeArray($values));
+      if ($this->isAssociativeArray($columns[$table])) {
+        foreach ($values as $value) {
+          $result[] = "$table.$value";
+        }
+      }
+    }
+
+    return empty($result) ? '*' : implode(', ', $result);
   }
 
   /**
@@ -228,13 +285,13 @@ class DatabaseManager
    * @param array $whereConditions Les conditions de lecture
    * @return string Retourne la clause des conditions de lecture
    */
-  private function buildWhereClause(array $whereConditions): string
+  private function buildWhereClause(string $tableName, array $whereConditions): string
   {
     $whereClause = '';
     if (!empty($whereConditions)) {
       $conditions = [];
       foreach ($whereConditions as $columnName => $value) {
-        $conditions[] = "`$columnName` = :$columnName";
+        $conditions[] = "`$tableName`.`$columnName` = :$columnName";
       }
       $whereClause = ' WHERE ' . implode(' AND ', $conditions);
     }
