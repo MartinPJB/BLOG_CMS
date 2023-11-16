@@ -89,6 +89,7 @@ class InstallationManager
       'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
       'name' => 'VARCHAR(255) NOT NULL',
       'description' => 'TEXT NOT NULL',
+      'theme' => 'VARCHAR(255) NOT NULL DEFAULT "default"',
     ]);
     echo "Table site_settings créée avec succès.<br>";
 
@@ -132,19 +133,15 @@ class InstallationManager
     ]);
     echo "Table medias créée avec succès.<br>";
 
-    $this->database->createTable('elements', [
+    $this->database->createTable('blocs', [
       'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
-      'balise' => 'VARCHAR(255) NOT NULL',
-      'text' => 'TEXT NOT NULL',
-      'css' => 'TEXT NOT NULL',
-      'src' => 'VARCHAR(255) NOT NULL',
-      'alt' => 'TEXT NOT NULL',
-      'href' => 'VARCHAR(255) NOT NULL',
+      'nom_bloc' => 'VARCHAR(255) NOT NULL',
+      'contenu_json' => 'TEXT NOT NULL',
       'article_id' => 'INT(6) UNSIGNED NOT NULL'
     ], [
       'FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE CASCADE'
     ]);
-    echo "Table elements créée avec succès.<br>";
+    echo "Table blocs créée avec succès.<br>";
   }
 
   /**
@@ -178,21 +175,6 @@ class InstallationManager
         'image' => 'https://picsum.photos/seed/'. rand() .'/400/250',
         'category_id' => 1,
         'tags' => 'Exemple, Article de fou, Incroyable',
-      ]);
-
-      // Création des éléments par défaut
-      $this->database->create('elements', [
-        'balise' => 'h1',
-        'text' => 'Exemple de h1 stocké dans la bdd!',
-        'css' => 'color: red; font-size: 2em;',
-        'article_id' => 1,
-      ]);
-
-      $this->database->create('elements', [
-        'balise' => 'p',
-        'text' => 'Mais c\'est incroyable me direz-vous!',
-        'css' => 'color: blue; font-size: 1.2em;',
-        'article_id' => 1,
       ]);
 
       // Ajout des paramètres du site
