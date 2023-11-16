@@ -59,7 +59,12 @@ class InstallationManager
       $this->database->createDatabase($db_name);
       $this->database->connectToDatabase($db_name);
     } catch (PDOException $e) {
-      throw new PDOException($e->getMessage(), (int)$e->getCode());
+      echo "<h1>Une erreur lors de la connexion à la base de données s'est produite.</h1>";
+      echo "<span>Tentez de vider le cache du navigateur pour résoudre le problème.</span>";
+
+      $msg = $e->getMessage();
+      echo "<pre>$msg</pre>";
+      // throw new PDOException($e->getMessage(), (int)$e->getCode());
     }
   }
 
