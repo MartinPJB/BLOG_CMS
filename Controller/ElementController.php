@@ -6,7 +6,7 @@ use Controller\ControllerBase;
 use Controller\ControllerInterface;
 use Model\Article;
 use Model\Element;
-use Include\TypeEscaper;
+use Includes\TypeEscaper;
 
 class ElementController extends ControllerBase implements ControllerInterface
 {

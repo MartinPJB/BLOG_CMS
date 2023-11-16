@@ -1,6 +1,6 @@
 <?php
 
-namespace Include;
+namespace Includes;
 
 use Exception;
 use PDOException;

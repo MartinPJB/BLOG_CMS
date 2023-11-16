@@ -2,7 +2,7 @@
 
 namespace Model;
 
-use Include\DatabaseManager;
+use Includes\DatabaseManager;
 
 /**
  * Classe pour gérer les éléments dans la base de données.

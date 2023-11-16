@@ -5,7 +5,7 @@ namespace Controller;
 use Controller\ControllerBase;
 use Controller\ControllerInterface;
 use Model\User;
-use Include\TypeEscaper;
+use Includes\TypeEscaper;
 
 class UserController extends ControllerBase implements ControllerInterface
 {

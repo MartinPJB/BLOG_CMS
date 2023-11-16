@@ -1,7 +1,7 @@
 <?php
 
 require_once './config.php';
-require_once './Include/twig.php';
+require_once './Includes/twig.php';
 
 // Démarre la session si elle n'est pas déjà démarrée
 if (session_status() === PHP_SESSION_NONE) session_start();
@@ -20,7 +20,7 @@ function basicLogger(string $message)
 }
 
 /* Check si la base de données est initialisée, sinon on installe */
-$installation_manager = new Include\InstallationManager($config['database']);
+$installation_manager = new Includes\InstallationManager($config['database']);
 $installation_db_name = $config['database']['database'];
 
 if (!$installation_manager->isInstalled($installation_db_name)) {
@@ -56,7 +56,7 @@ if (!is_null($route)) {
     $twig->addGlobal('session', $_SESSION);
     $twig->addGlobal('GET', $_GET);
 
-    $site_settings = new Include\DatabaseManager($config['database']);
+    $site_settings = new Includes\DatabaseManager($config['database']);
     $site_settings->connectToDatabase($config['database']['database']);
     $site_settings = $site_settings->read('site_settings')[0];
 
