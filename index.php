@@ -1,7 +1,7 @@
 <?php
 
 // Inclusion des fichiers nécessaires
-require_once './config.php';
+require_once './default_congig.php';
 require_once './Includes/twig.php';
 
 // Démarre la session si elle n'est pas déjà démarrée
