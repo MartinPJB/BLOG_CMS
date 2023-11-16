@@ -1,37 +1,40 @@
 <?php
 
+// Inclusion des fichiers nécessaires
 require_once './config.php';
 require_once './Includes/twig.php';
 
 // Démarre la session si elle n'est pas déjà démarrée
-if (session_status() === PHP_SESSION_NONE) session_start();
-
-// User check
-if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
-  $user = new Model\User($config['database']);
-  $data = $user->readUser(['role', 'username'], ['id' => $_SESSION['user_id']])[0];
-  $_SESSION['user'] = $data;
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
 }
 
-/* Un logger basique histoire de montrer des messages à l'utilisateur */
+// Vérification de l'utilisateur
+if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
+  $user = new Model\User($config['database']);
+  $userData = $user->readUser(['role', 'username'], ['id' => $_SESSION['user_id']])[0];
+  $_SESSION['user'] = $userData;
+}
+
+/* Fonction pour afficher des messages */
 function basicLogger(string $message)
 {
   echo "<p><b>blog$></b> $message</p>";
 }
 
-/* Check si la base de données est initialisée, sinon on installe */
-$installation_manager = new Includes\InstallationManager($config['database']);
-$installation_db_name = $config['database']['database'];
+// Vérification de l'installation de la base de données
+$installationManager = new Includes\InstallationManager($config['database']);
+$installationDbName = $config['database']['database'];
 
-if (!$installation_manager->isInstalled($installation_db_name)) {
+if (!$installationManager->isInstalled($installationDbName)) {
   basicLogger("Installation du Blog en cours");
 
   try {
-    $installation_manager->install($config);
+    $installationManager->install($config);
   } catch (Exception $e) {
     basicLogger("Erreur: " . $e->getMessage());
-    $installation_manager->cancel($installation_db_name);
-    unset($installation_manager);
+    $installationManager->cancel($installationDbName);
+    unset($installationManager);
     exit;
   }
 
@@ -39,44 +42,49 @@ if (!$installation_manager->isInstalled($installation_db_name)) {
   header("refresh:5;");
   exit;
 }
-unset($installation_manager);
 
+unset($installationManager);
 
 // Initialisation d'un routeur primitif
 $route = $_GET['route'] ?? NULL;
 
+// Récupération des paramètres du site depuis la base de données
+$siteSettingsManager = new Includes\DatabaseManager($config['database']);
+$siteSettingsManager->connectToDatabase($config['database']['database']);
+$siteSettings = $siteSettingsManager->read('site_settings')[0];
+
 if (!is_null($route)) {
-  $controller = ucfirst($route) . 'Controller';
-  $controller = "Controller\\$controller";
+  $controllerName = ucfirst($route) . 'Controller';
+  $controllerClass = "Controller\\$controllerName";
 
-  if (class_exists($controller)) {
-    $twig = init_twig(__DIR__);
+  // Initialisation de Twig
+  $twig = init_twig(__DIR__, $siteSettings['theme']);
 
-    // Ajout de variables globales
-    $twig->addGlobal('session', $_SESSION);
-    $twig->addGlobal('GET', $_GET);
+  // Ajout de variables globales à Twig
+  $twig->addGlobal('session', $_SESSION);
+  $twig->addGlobal('GET', $_GET);
 
-    $site_settings = new Includes\DatabaseManager($config['database']);
-    $site_settings->connectToDatabase($config['database']['database']);
-    $site_settings = $site_settings->read('site_settings')[0];
+  $siteSettings['project_root'] = $config['root'];
+  $twig->addGlobal('SITE_SETTINGS', $siteSettings);
 
-    $site_settings['project_root'] = $config['root'];
-
-    $twig->addGlobal('SITE_SETTINGS', $site_settings);
-    unset($site_settings);
-
-    $controller = new $controller($config['database'], $twig);
+  if (class_exists($controllerClass)) {
+    // Initialisation du contrôleur
+    $controller = new $controllerClass($config['database'], $twig);
     $controller->handleRequest();
   } else {
-    echo "Erreur: le contrôleur $controller n'existe pas";
+
+    // 404 Not Found
+    header("HTTP/1.0 404 Not Found");
+    echo $twig->render('Error/404.html.twig');
   }
 }
 
 // Si aucune route n'est définie, on redirige vers la route par défaut
 if (!isset($_GET["route"]) || empty($_GET["route"])) {
-  $route = $config['default_route'];
-  header("Location: $route");
+  $defaultRoute = $config['default_route'];
+  header("Location: $defaultRoute");
 }
 
-// Unset de la variable $config pour éviter les fuites d'informations
+// Nettoyage pour éviter les fuites d'informations
+unset($siteSettingsManager);
 unset($config);
