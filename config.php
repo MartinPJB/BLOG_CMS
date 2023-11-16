@@ -18,6 +18,7 @@ $config = [
   'name' => 'CUEJ Blog',
   'description' => 'Un blog pour le CUEJ',
   'root' => 'http://localhost/CUEJ_CMS/',
+  'default_route' => 'articles',
 ];
 
 // Autoloader pour les classes

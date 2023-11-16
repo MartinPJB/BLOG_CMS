@@ -72,5 +72,11 @@ if (!is_null($route)) {
   }
 }
 
+// Si aucune route n'est définie, on redirige vers la route par défaut
+if (!isset($_GET["route"]) || empty($_GET["route"])) {
+  $route = $config['default_route'];
+  header("Location: $route");
+}
+
 // Unset de la variable $config pour éviter les fuites d'informations
 unset($config);
