@@ -268,7 +268,6 @@ class DatabaseManager
     $result = [];
 
     foreach ($columns as $table => $values) {
-      var_dump($this->isAssociativeArray($values));
       if ($this->isAssociativeArray($columns[$table])) {
         foreach ($values as $value) {
           $result[] = "$table.$value";
