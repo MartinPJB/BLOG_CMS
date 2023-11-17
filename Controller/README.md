@@ -5,4 +5,4 @@
 Ordre des query:
 - route
 - action
-- article
+- id
