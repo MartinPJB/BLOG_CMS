@@ -20,7 +20,6 @@ class ControllerBase
     $this->route = $route;
     $this->routeFolder = 'Controller/' . ucfirst($route) . 'Controller/';
     $this->admin_only = $admin_only;
-
     $this->twig = $twig;
   }
 
@@ -69,16 +68,59 @@ class ControllerBase
 
     switch ($method) {
       case 'GET':
-        $this->handleGET();
-        break;
-
       case 'POST':
-        $this->handlePOST();
+        $this->handleRequestByMethod($method);
         break;
 
       default:
-        $this->handleGET();
+        $this->handleRequestByMethod('GET');
         break;
+    }
+  }
+
+  /**
+   * Gère la demande HTTP en GET ou POST.
+   *
+   * @param string $method La méthode HTTP (GET ou POST)
+   * @return void Retourne rien
+   */
+  private function handleRequestByMethod(string $method): void
+  {
+    $keys = array_keys($this->subRoutes[$method]);
+    $action = $_GET['action'] ?? '';
+    $data = [];
+
+    if (empty($action)) {
+      $action = reset($keys);
+    }
+
+    if (!isset($this->subRoutes[$method][$action])) {
+      $this->redirectToRoute('articles', ArticlesController::ACTION_LIST);
+    }
+
+    if (!$this->canAccess($this->subRoutes[$method][$action]['accessLevel'])) {
+      $this->redirectToRoute('articles', ArticlesController::ACTION_LIST);
+    }
+
+    $callback = $this->subRoutes[$method][$action]['callback'] ?? null;
+
+    if (!is_callable($callback)) {
+      $this->redirectToRoute('articles', ArticlesController::ACTION_LIST);
+    }
+
+    try {
+      $data = $callback();
+    } catch (\Exception $e) {
+      $data = [
+        'erreurs' => [
+          'Une erreur s\'est produite lors de l\'envoi du formulaire... 😢',
+          $e->getMessage(),
+        ],
+      ];
+    }
+
+    if (is_array($data)) {
+      $this->render($this->subRoutes[$method][$action], $data);
     }
   }
 
@@ -105,89 +147,6 @@ class ControllerBase
 
       default:
         return false;
-    }
-  }
-
-  /**
-   * Gère la demande HTTP en GET.
-   *
-   * @return void Retourne rien
-   */
-  public function handleGET(): void
-  {
-    $keys = array_keys($this->subRoutes['GET']);
-    $action = $_GET['action'];
-    $data = [];
-
-    if (empty($action)) {
-      $action = reset($keys);
-    }
-
-    if (!isset($this->subRoutes['GET'][$action])) {
-      $this->redirectToRoute('articles', ArticlesController::ACTION_LIST);
-    }
-
-    // Vérifie si est accessible (en fonction du status de connexion)
-    if (!$this->canAccess($this->subRoutes['GET'][$action]['accessLevel'])) {
-      $this->redirectToRoute('articles', ArticlesController::ACTION_LIST);
-    }
-
-    if (array_key_exists($action, $this->subRoutes['GET'])) {
-      $data = $this->subRoutes['GET'][$action]['callback']();
-    } else {
-      $first = reset($this->subRoutes['GET']);
-      $data = $first['callback']();
-    }
-
-    if (!is_array($data)) {
-      throw new \Exception('Le callback doit retourner un array');
-    }
-
-    $this->render($this->subRoutes['GET'][$action], $data);
-  }
-
-  /**
-   * Gère la demande HTTP en POST.
-   *
-   * @return void Retourne rien
-   */
-  public function handlePOST(): void
-  {
-    $keys = array_keys($this->subRoutes['POST']);
-    $action = $_GET['action'];
-    $data = NULL;
-
-    if (empty($action)) {
-      $action = reset($keys);
-    }
-
-    if (!isset($this->subRoutes['GET'][$action])) {
-      $this->redirectToRoute('articles', ArticlesController::ACTION_LIST);
-    }
-
-    // Vérifie si est accessible (en fonction du status de connexion)
-    if (!$this->canAccess($this->subRoutes['GET'][$action]['accessLevel'])) {
-      $this->redirectToRoute('articles', ArticlesController::ACTION_LIST);
-    }
-
-    try {
-      if (array_key_exists($action, $this->subRoutes['POST'])) {
-        $data = $this->subRoutes['POST'][$action]['callback']();
-      } else {
-        $first = reset($this->subRoutes['POST']);
-        $data = $first['callback']();
-      }
-    } catch (\Exception $e) {
-      $data = [
-        'erreurs' => [
-          'Une erreur s\'est produite lors de l\'envoi du formulaire... 😢',
-          $e->getMessage()
-        ]
-      ];
-    }
-
-    if (is_array($data)) {
-      $this->render($this->subRoutes['POST'][$action], $data);
     }
   }
 
