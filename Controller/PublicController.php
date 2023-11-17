@@ -111,37 +111,36 @@ class PublicController extends ControllerBase implements ControllerInterface
    */
   private function displayFileContent(string $filename, string $subfolder)
   {
-      if (!isset($filename) || empty($filename)) {
-          return [];
-      }
+    if (!isset($filename) || empty($filename)) {
+      return [];
+    }
 
-      $filename = TypeEscaper::escapeString($filename);
-      $getFile = $this->findFileRecursively($this->themeFolder . $subfolder . '/', $filename);
+    $filename = TypeEscaper::escapeString($filename);
+    $getFile = $this->findFileRecursively($this->themeFolder . $subfolder . '/', $filename);
 
-      if (!$getFile || !file_exists($getFile)) {
-          return [];
-      }
+    if (!$getFile || !file_exists($getFile)) {
+      return [];
+    }
 
-      $finfo = finfo_open(FILEINFO_MIME_TYPE);
-      $mime_type = finfo_file($finfo, $getFile);
-      finfo_close($finfo);
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mime_type = finfo_file($finfo, $getFile);
+    finfo_close($finfo);
 
-      if (empty($mime_type)) {
-          return [];
-      }
+    if (empty($mime_type)) {
+      return [];
+    }
 
-      $content = file_get_contents($getFile);
+    $content = file_get_contents($getFile);
 
-      if ($content === false) {
-          return [];
-      }
+    if ($content === false) {
+      return [];
+    }
 
-      header("Content-type: $mime_type");
-      echo $content;
+    header("Content-type: $mime_type");
+    echo $content;
 
-      return [
-          'content' => $content,
-      ];
+    return [
+      'content' => $content,
+    ];
   }
-
 }
