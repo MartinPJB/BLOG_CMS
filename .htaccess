@@ -1,11 +1,8 @@
 RewriteEngine On
 RewriteBase /CUEJ_CMS/
 
-# Exclure le dossier "public" des règles de réécriture
-RewriteCond %{REQUEST_URI} !^/public/
-
 # Règle générale pour les routes
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^([^/]+)/?([^/]*)/?(\d*)/?$ index.php?route=$1&action=$2&id=$3 [L]
+RewriteRule ^([^/]+)/?([^/]*)/?([^/]+)/?$ index.php?route=$1&action=$2&id=$3 [L]
 
