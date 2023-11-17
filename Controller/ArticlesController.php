@@ -4,14 +4,14 @@ namespace Controller;
 
 use Controller\ControllerBase;
 use Controller\ControllerInterface;
-use Model\Article;
+use Model\Base;
 use Includes\TypeEscaper;
 
 class ArticlesController extends ControllerBase implements ControllerInterface
 {
   const ACTION_LIST = 'list';
 
-  private Article $model;
+  private Base $model;
   private bool $admin_only = false;
 
   /**
@@ -20,7 +20,7 @@ class ArticlesController extends ControllerBase implements ControllerInterface
   public function __construct(array $database_credentials, $twig)
   {
     parent::__construct('articles', $twig, $this->admin_only);
-    $this->model = new Article($database_credentials);
+    $this->model = new Base($database_credentials, 'articles');
     $this->initializeSubRoutes();
   }
 

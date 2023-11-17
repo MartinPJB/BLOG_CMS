@@ -11,8 +11,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Vérification de l'utilisateur
 if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
-  $user = new Model\User($config['database']);
-  $userData = $user->readUser(['role', 'username'], ['id' => $_SESSION['user_id']])[0];
+  $user = new Model\Base($config['database'], 'users');
+  $userData = $user->readElement(['role', 'username'], ['id' => $_SESSION['user_id']])[0];
   $_SESSION['user'] = $userData;
 }
 

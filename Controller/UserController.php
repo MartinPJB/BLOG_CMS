@@ -4,7 +4,7 @@ namespace Controller;
 
 use Controller\ControllerBase;
 use Controller\ControllerInterface;
-use Model\User;
+use Model\Base;
 use Includes\TypeEscaper;
 
 class UserController extends ControllerBase implements ControllerInterface
@@ -12,7 +12,7 @@ class UserController extends ControllerBase implements ControllerInterface
     const ACTION_LOGIN = 'login';
     const ACTION_LOGOUT = 'logout';
 
-    private User $model;
+    private Base $model;
 
     /**
      * @inheritDoc
@@ -20,7 +20,7 @@ class UserController extends ControllerBase implements ControllerInterface
     public function __construct(array $database_credentials, $twig)
     {
         parent::__construct('user', $twig);
-        $this->model = new User($database_credentials);
+        $this->model = new Base($database_credentials, 'users');
         $this->initializeSubRoutes();
     }
 
@@ -107,7 +107,7 @@ class UserController extends ControllerBase implements ControllerInterface
 
     private function authenticateUser(): void
     {
-        $user = $this->model->readUser([], [
+        $user = $this->model->readElement([], [
             'username' => TypeEscaper::escapeString($_POST['username'])
         ])[0];
 
