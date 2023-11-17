@@ -7,24 +7,25 @@ use Includes\DatabaseManager;
 /**
  * Classe pour gérer les éléments dans la base de données.
  */
-class Article extends DatabaseManager
+class Base extends DatabaseManager
 {
   /**
    * Le nom de la table dans la base de données.
    *
    * @var string $tableName
    */
-  private string $tableName = "articles";
+  private string $tableName;
 
   /**
    * Constructeur de la classe Element.
    *
    * @param array $database_credentials Les informations de connexion à la base de données.
    */
-  public function __construct(array $database_credentials)
+  public function __construct(array $database_credentials, string $tableName)
   {
     parent::__construct($database_credentials);
     $this->connectToDatabase($database_credentials['database']);
+    $this->tableName = $tableName;
   }
 
   /**
