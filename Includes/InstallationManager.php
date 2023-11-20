@@ -135,8 +135,8 @@ class InstallationManager
 
     $this->database->createTable('blocs', [
       'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
-      'nom_bloc' => 'VARCHAR(255) NOT NULL',
-      'contenu_json' => 'TEXT NOT NULL',
+      'name' => 'VARCHAR(255) NOT NULL',
+      'json_content' => 'JSON NOT NULL',
       'article_id' => 'INT(6) UNSIGNED NOT NULL'
     ], [
       'FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE CASCADE'
