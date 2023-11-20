@@ -40,26 +40,11 @@
 	</head>
 
 	<body>
-    <nav class="cuej-nav">
-      <ul class="cuej-nave__links">
-        <li class="cuej-nav__brand"><a href="./articles/list">{{ SITE_SETTINGS.name }}</a></li>
-      </ul>
-
-      <ul class="cuej-nave__links">
-        {% if session.user is defined and (session.user_id is not null or session.user is not empty) %}
-          <li><a href="./user/logout">Déconnexion</a></li>
-        {% endif %}
-      </ul>
-    </nav>
+    {# Menu #}
+    {% include "navigation/menu.html.twig" %}
 
     {# Affichage des erreurs #}
-		{% if erreurs is defined %}
-			<ul class="cuej__erreur">
-				{% for erreur in erreurs %}
-					<li>{{ erreur }}</li>
-				{% endfor %}
-			</ul>
-		{% endif %}
+    {% include "misc/errors.html.twig" %}
 
     {# Affichage du contenu #}
 		{% block content %}{% endblock %}

@@ -18,7 +18,7 @@ class ControllerBase
   protected function __construct(string $route, $twig, bool $admin_only = false)
   {
     $this->route = $route;
-    $this->routeFolder = 'Controller/' . ucfirst($route) . 'Controller/';
+    $this->routeFolder = 'pages/' . ucfirst($route) . '/';
     $this->admin_only = $admin_only;
     $this->twig = $twig;
   }

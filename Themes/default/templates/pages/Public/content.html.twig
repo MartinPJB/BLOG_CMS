@@ -1,0 +1,13 @@
+{#
+  Nom: content.html.twig
+  Path: default/templates/pages/Public/content.html.twig
+
+  Variables locales:
+  - content: contenu de la page (string)
+#}
+
+{% if content is not defined %}
+  Le fichier demandé n'a pas été trouvé...
+{% else %}
+  {{ content }}
+{% endif %}

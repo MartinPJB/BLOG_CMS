@@ -30,7 +30,7 @@ class ArticlesController extends ControllerBase implements ControllerInterface
   public function initializeSubRoutes(): void
   {
     // Add GET routes
-    $this->addSubRoute(self::ACTION_LIST, 'list.html.twig', [$this, 'GET_list'], 'GET');
+    $this->addSubRoute(self::ACTION_LIST, 'list.html.twig', [$this, 'GET_list'], 'GET', 0);
   }
 
   /**
