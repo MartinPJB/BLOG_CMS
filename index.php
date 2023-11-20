@@ -74,7 +74,7 @@ if (!is_null($route)) {
   } else {
     // 404 Not Found
     header("HTTP/1.0 404 Not Found");
-    echo $twig->render('Error/404.html.twig');
+    echo $twig->render('http-codes/404.html.twig');
   }
 }
 

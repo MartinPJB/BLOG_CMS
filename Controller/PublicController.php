@@ -44,11 +44,11 @@ class PublicController extends ControllerBase implements ControllerInterface
   public function initializeSubRoutes(): void
   {
     // Add GET routes
-    $this->addSubRoute(self::ACTION_CSS, 'content.html.twig', [$this, 'GET_css'], 'GET');
-    $this->addSubRoute(self::ACTION_JS, 'content.html.twig', [$this, 'GET_js'], 'GET');
-    $this->addSubRoute(self::ACTION_IMG, 'content.html.twig', [$this, 'GET_img'], 'GET');
-    $this->addSubRoute(self::ACTION_AUDIO, 'content.html.twig', [$this, 'GET_audio'], 'GET');
-    $this->addSubRoute(self::ACTION_VIDEO, 'content.html.twig', [$this, 'GET_video'], 'GET');
+    $this->addSubRoute(self::ACTION_CSS, 'content.html.twig', [$this, 'GET_css'], 'GET', 0);
+    $this->addSubRoute(self::ACTION_JS, 'content.html.twig', [$this, 'GET_js'], 'GET', 0);
+    $this->addSubRoute(self::ACTION_IMG, 'content.html.twig', [$this, 'GET_img'], 'GET', 0);
+    $this->addSubRoute(self::ACTION_AUDIO, 'content.html.twig', [$this, 'GET_audio'], 'GET', 0);
+    $this->addSubRoute(self::ACTION_VIDEO, 'content.html.twig', [$this, 'GET_video'], 'GET', 0);
   }
 
   /**
