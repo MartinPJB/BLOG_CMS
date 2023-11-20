@@ -4,5 +4,4 @@ RewriteBase /CUEJ_CMS/
 # Règle générale pour les routes
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^([^/]+)/?([^/]*)/?([^/]+)/?$ index.php?route=$1&action=$2&id=$3 [L]
-
+RewriteRule ^([^/]+)/?([^/]*)/?([^/]*)?$ index.php?route=$1&action=$2&id=$3 [L]

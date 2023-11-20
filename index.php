@@ -72,7 +72,6 @@ if (!is_null($route)) {
     $controller = new $controllerClass($config['database'], $twig);
     $controller->handleRequest();
   } else {
-
     // 404 Not Found
     header("HTTP/1.0 404 Not Found");
     echo $twig->render('Error/404.html.twig');
