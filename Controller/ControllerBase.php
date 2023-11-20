@@ -102,6 +102,11 @@ class ControllerBase
       $this->redirectToRoute('articles', ArticlesController::ACTION_LIST);
     }
 
+    // Ajout de cette ligne pour signaler que le template se trouve dans un sous dossier 'admin' puisque admin only.
+    if ($this->subRoutes[$method][$action]['accessLevel'] == 3) {
+      $this->subRoutes[$method][$action]['template'] = 'admin/' . $this->subRoutes[$method][$action]['template'];
+    }
+
     $callback = $this->subRoutes[$method][$action]['callback'] ?? null;
 
     if (!is_callable($callback)) {
