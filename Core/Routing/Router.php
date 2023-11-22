@@ -65,6 +65,11 @@ class Router
       $params = $requestContext->getParameters();
       $params['id'] = $id;
 
+      // If no action defined, it means that the action is set as the index action
+      if (!$action) {
+        $action = 'index';
+      }
+
       // Call the action method of the controller
       $controller = new $controller($requestContext);
       $controller->$action($params);
