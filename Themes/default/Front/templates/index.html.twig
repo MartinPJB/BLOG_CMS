@@ -1,0 +1,34 @@
+{#
+  Nom: index.html.twig
+  Path: default/Front/templates/index.html.twig
+#}
+
+{# Définitions variables #}
+{% set is_logged = session.user is defined and (session.user_id is not null or session.user is not empty) %}
+{% set is_admin = is_logged and session.user.role == 'admin' %}
+{% set lang = "fr" %}
+
+{# HTML #}
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{% block title %}{% endblock %}</title>
+
+    {# Blocs stylesheet et JS #}
+    {% block stylesheet %}{% endblock %}
+    {% block javascript %}{% endblock %}
+	</head>
+
+	<body>
+    {# Menu #}
+    {% include "navigation/menu.html.twig" %}
+
+    {# Affichage des erreurs #}
+    {% include "misc/errors.html.twig" %}
+
+    {# Affichage du contenu #}
+		{% block content %}{% endblock %}
+	</body>
+</html>

@@ -1,0 +1,27 @@
+{#
+  Nom: index.html.twig
+  Path: default/Front/templates/pages/Articles/index.html.twig
+#}
+{% extends "index.html.twig" %}
+
+{% block content %}
+  <section>
+    <h1>Articles</h1>
+    {% for article in articles|sort((a, b) => date(a.date) - date(b.date)) %}
+      <article>
+        <img src="{{ article.image }}" alt="{{ article.title }}">
+
+        <div>
+          <h2>{{ article.title }}</h2>
+          <p>{{ article.description }}</p>
+
+          <span>Publié le {{ article.date|date("d/m/Y H:i", "Europe/Paris") }}</span>
+        </div>
+
+      </article>
+    {% else %}
+      <p>Aucun article n'a été publié.</p>
+    {% endfor %}
+  </section>
+{% endblock %}
+
