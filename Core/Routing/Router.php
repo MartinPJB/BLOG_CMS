@@ -8,10 +8,13 @@ use \Core\Routing\RequestContext;
 /**
  * Router class
  */
-class Router {
+class Router
+{
   protected static array $routes = [];
 
-  private function __construct() {}
+  private function __construct()
+  {
+  }
 
   /**
    * Add a route to the routes array
@@ -25,7 +28,8 @@ class Router {
    * @example Router::addRoute('articles', 'delete', ArticleController::class, 'POST'); // POST /articles/delete -> ArticleController::delete()
    * @return void
    */
-  public static function addRoute(string $routeName, string $action, mixed $controller, int $accessLevel = 0, string $method = 'GET'): void {
+  public static function addRoute(string $routeName, string $action, mixed $controller, int $accessLevel = 0, string $method = 'GET'): void
+  {
     if (!array_key_exists($routeName, self::$routes)) {
       self::$routes[$routeName] = [];
     }
@@ -37,7 +41,8 @@ class Router {
    *
    * @return array
    */
-  public static function getRoutes(): array {
+  public static function getRoutes(): array
+  {
     return self::$routes;
   }
 
@@ -47,7 +52,8 @@ class Router {
    * @param string $action Action name
    * @return void
    */
-  public static function dispatch(RequestContext $requestContext): void {
+  public static function dispatch(RequestContext $requestContext): void
+  {
     $route = $requestContext->getRoute();
     $action = $requestContext->getAction();
 
@@ -72,7 +78,8 @@ class Router {
    * @param int $code Error code
    * @return void
    */
-  public static function dispatchError(int $code): void {
+  public static function dispatchError(int $code): void
+  {
     switch ($code) {
       case 404:
         header('HTTP/1.0 404 Not Found');

@@ -5,7 +5,8 @@ namespace Core\Routing;
 /**
  * Route class
  */
-class Route {
+class Route
+{
   protected mixed $controller;
   protected string $method;
   protected int $accessLevel = 0;
@@ -16,7 +17,8 @@ class Route {
    * @param mixed $controller Controller class
    * @param int $accessLevel = 0 Access level required to access the route (0 = public, 1 = user, 2 = admin)
    */
-  public function __construct(mixed $controller, int $accessLevel = 0, string $method = 'GET') {
+  public function __construct(mixed $controller, int $accessLevel = 0, string $method = 'GET')
+  {
     $this->controller = $controller;
     $this->accessLevel = $accessLevel;
     $this->method = $method;
@@ -27,7 +29,8 @@ class Route {
    *
    * @return mixed
    */
-  public function getController(): mixed {
+  public function getController(): mixed
+  {
     return $this->controller;
   }
 
@@ -36,7 +39,8 @@ class Route {
    *
    * @return int
    */
-  public function getAccessLevel(): int {
+  public function getAccessLevel(): int
+  {
     return $this->accessLevel;
   }
 
@@ -45,7 +49,8 @@ class Route {
    *
    * @return string
    */
-  public function getMethod(): string {
+  public function getMethod(): string
+  {
     return $this->method;
   }
 }

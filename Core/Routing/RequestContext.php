@@ -5,7 +5,8 @@ namespace Core\Routing;
 /**
  * Request context class
  */
-class RequestContext {
+class RequestContext
+{
   public string $uri;
   public ?string $route;
   public ?string $action;
@@ -14,7 +15,8 @@ class RequestContext {
   public string $method;
   public array $parameters;
 
-  public function __construct(string $URI, string $method = 'GET', array $parameters = []) {
+  public function __construct(string $URI, string $method = 'GET', array $parameters = [])
+  {
     $this->uri = $URI;
     $this->method = $method;
 
@@ -37,7 +39,8 @@ class RequestContext {
    *
    * @return string
    */
-  public function getUri(): string {
+  public function getUri(): string
+  {
     return $this->uri;
   }
 
@@ -46,7 +49,8 @@ class RequestContext {
    *
    * @return string
    */
-  public function getRoute(): string {
+  public function getRoute(): string
+  {
     return $this->route;
   }
 
@@ -55,7 +59,8 @@ class RequestContext {
    *
    * @return string
    */
-  public function getAction(): ?string {
+  public function getAction(): ?string
+  {
     return $this->action;
   }
 
@@ -64,7 +69,8 @@ class RequestContext {
    *
    * @return string
    */
-  public function getId(): ?string {
+  public function getId(): ?string
+  {
     return $this->id;
   }
 
@@ -73,7 +79,8 @@ class RequestContext {
    *
    * @return string
    */
-  public function getMethod(): string {
+  public function getMethod(): string
+  {
     return $this->method;
   }
 
@@ -82,7 +89,8 @@ class RequestContext {
    *
    * @return array
    */
-  public function getParameters(): array {
+  public function getParameters(): array
+  {
     return $this->parameters;
   }
 
@@ -92,7 +100,8 @@ class RequestContext {
    * @param string $name Parameter name
    * @return string
    */
-  public function getParameter(string $name): string {
+  public function getParameter(string $name): string
+  {
     return $this->parameters[$name];
   }
 
@@ -102,7 +111,8 @@ class RequestContext {
    * @param string $name Parameter name
    * @return bool
    */
-  public function hasParameter(string $name): bool {
+  public function hasParameter(string $name): bool
+  {
     return isset($this->parameters[$name]);
   }
 }

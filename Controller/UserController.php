@@ -16,8 +16,10 @@ use \Model\User;
  * @property string $name Controller name
  * @property string $description Controller description
  */
-class UserController extends ControllerBase implements ControllerInterface {
-  public function __construct(RequestContext $requestContext) {
+class UserController extends ControllerBase implements ControllerInterface
+{
+  public function __construct(RequestContext $requestContext)
+  {
     parent::__construct($requestContext);
   }
 
@@ -27,7 +29,8 @@ class UserController extends ControllerBase implements ControllerInterface {
    * @param array $params Parameters
    * @return void
    */
-  public function index(array $params): void {
+  public function index(array $params): void
+  {
     $users = [
       new User('admin', 'admin'),
       new User('user', 'user')

@@ -13,6 +13,7 @@ use \Core\Routing\RequestContext;
  * @property string $name Controller name
  * @property string $description Controller description
  */
-interface ControllerInterface {
+interface ControllerInterface
+{
   public function __construct(RequestContext $requestContext);
 }
