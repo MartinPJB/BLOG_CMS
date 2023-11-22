@@ -3,23 +3,14 @@
 namespace Controller;
 
 /**
- * Interface ControllerInterface
- * @package Controller
- * @property mixed $model Le modèle associé au controller
- * @property bool $admin_only Si l'action est réservée aux administrateurs
+ * Controller interface
+ *
+ * @package CUEJ_CMS\Controller
+ * @version 0.0.1
+ * @since 0.0.1
+ * @property string $name Controller name
+ * @property string $description Controller description
  */
-interface ControllerInterface
-{
-  /**
-   * @param array $database_credentials Les identifiants de connexion à la base de données
-   * @param $twig L'instance de Twig
-   */
-  public function __construct(array $database_credentials, $twig);
-
-  /**
-   * Permet d'initialiser les sous-routes.
-   *
-   * @return void Retourne rien
-   */
-  public function initializeSubRoutes(): void;
+interface ControllerInterface {
+  public function __construct();
 }
