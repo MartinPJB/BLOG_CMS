@@ -57,7 +57,7 @@ class Router
     $route = $requestContext->getRoute();
     $action = $requestContext->getAction();
 
-    if (array_key_exists($route, self::$routes) && array_key_exists($action, self::$routes[$route])) {
+    if ($route && (array_key_exists($route, self::$routes) && array_key_exists($action, self::$routes[$route]))) {
       $controller = self::$routes[$route][$action]->getController();
 
       // Get the id from the request context

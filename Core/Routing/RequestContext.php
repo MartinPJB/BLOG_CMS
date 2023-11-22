@@ -47,9 +47,9 @@ class RequestContext
   /**
    * Get the value of route
    *
-   * @return string
+   * @return ?string
    */
-  public function getRoute(): string
+  public function getRoute(): ?string
   {
     return $this->route;
   }
