@@ -1,6 +1,6 @@
 <?php
 
-namespace Router;
+namespace Core\Routing;
 
 /**
  * Request context class

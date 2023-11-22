@@ -1,8 +1,8 @@
 <?php
 
-namespace Router;
+namespace Core\Routing;
 
-use \Router\RequestContext;
+use \Core\Routing\RequestContext;
 
 /**
  * Route class

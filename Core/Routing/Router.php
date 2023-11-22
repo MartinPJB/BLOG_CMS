@@ -1,8 +1,8 @@
 <?php
 
-namespace Router;
+namespace Core\Routing;
 
-use \Router\Route;
+use \Core\Routing\Route;
 
 /**
  * Router class

@@ -1,6 +1,6 @@
 <?php
 
-use \Router\Router;
+use \Core\Routing\Router;
 
 // Requires autoloads
 require_once 'vendor/autoload.php';
