@@ -15,10 +15,10 @@ class ControllerBase
   /**
    * Constructor
    *
-   * @param string $themeName = 'Front/default' Theme name (folder name in /Themes/)
+   * @param string $themeName = 'default/Front' Theme name (folder name in /Themes/)
    * @return void
    */
-  protected function __construct(RequestContext $requestContext, string $themeName = 'Front/default')
+  protected function __construct(RequestContext $requestContext, string $themeName = 'default/Front')
   {
     $this->requestContext = $requestContext;
     $this->twigEngine = $this->initializeTwig(__DIR__ . '/../..', $themeName);
@@ -33,7 +33,7 @@ class ControllerBase
    */
   private function initializeTwig(string $directory, string $themeName): \Twig\Environment
   {
-    $loader = new \Twig\Loader\FilesystemLoader("$directory/Themes/$themeName/templates");
+    $loader = new \Twig\Loader\FilesystemLoader("$directory/Themes/$themeName/templates/");
     $twig = new \Twig\Environment($loader, [
       'debug' => true,
     ]);
@@ -52,7 +52,7 @@ class ControllerBase
    */
   protected function render(string $view, array $variables = []): void
   {
-    $template = $this->twigEngine->load("$view.html.twig");
+    $template = $this->twigEngine->load("pages/$view.html.twig");
     echo $template->render($variables);
   }
 }
