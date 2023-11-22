@@ -3,5 +3,9 @@
 use \Core\Routing\Router;
 use \Controller\UserController;
 
-// string $routeName, string $action, mixed $controller, string $method = 'GET', array $params = []
+/*
+  Usage:
+  Router::addRoute('route', 'action', Controller::class, accessLevel, method);
+*/
+
 Router::addRoute('users', 'index', UserController::class);
