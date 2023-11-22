@@ -2,27 +2,24 @@
 
 namespace Core\Routing;
 
-use \Core\Routing\RequestContext;
-
 /**
  * Route class
  */
 class Route {
   protected mixed $controller;
-  protected RequestContext $requestContext;
+  protected string $method;
   protected int $accessLevel = 0;
 
   /**
    * Constructor
    *
    * @param mixed $controller Controller class
-   * @param RequestContext $requestContext Request context
    * @param int $accessLevel = 0 Access level required to access the route (0 = public, 1 = user, 2 = admin)
    */
-  public function __construct(mixed $controller, RequestContext $requestContext, int $accessLevel = 0) {
+  public function __construct(mixed $controller, int $accessLevel = 0, string $method = 'GET') {
     $this->controller = $controller;
-    $this->requestContext = $requestContext;
     $this->accessLevel = $accessLevel;
+    $this->method = $method;
   }
 
   /**
@@ -35,20 +32,20 @@ class Route {
   }
 
   /**
-   * Get the request context
-   *
-   * @return RequestContext
-   */
-  public function getRequestContext(): RequestContext {
-    return $this->requestContext;
-  }
-
-  /**
    * Get the access level
    *
    * @return int
    */
   public function getAccessLevel(): int {
     return $this->accessLevel;
+  }
+
+  /**
+   * Get the method
+   *
+   * @return string
+   */
+  public function getMethod(): string {
+    return $this->method;
   }
 }

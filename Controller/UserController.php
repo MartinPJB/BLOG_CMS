@@ -2,8 +2,9 @@
 
 namespace Controller;
 
-use \Controller\ControllerInterface;
-use \Controller\ControllerBase;
+use \Core\Routing\RequestContext;
+use \Core\Controller\ControllerInterface;
+use \Core\Controller\ControllerBase;
 use \Model\User;
 
 /**
@@ -16,16 +17,17 @@ use \Model\User;
  * @property string $description Controller description
  */
 class UserController extends ControllerBase implements ControllerInterface {
-  public function __construct() {
-    parent::__construct();
+  public function __construct(RequestContext $requestContext) {
+    parent::__construct($requestContext);
   }
 
   /**
    * Index route
    *
+   * @param array $params Parameters
    * @return void
    */
-  public function index(): void {
+  public function index(array $params): void {
     $users = [
       new User('admin', 'admin'),
       new User('user', 'user')

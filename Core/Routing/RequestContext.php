@@ -6,14 +6,48 @@ namespace Core\Routing;
  * Request context class
  */
 class RequestContext {
-  public string $action;
+  public string $uri;
+  public ?string $route;
+  public ?string $action;
+  public ?string $id;
+
   public string $method;
   public array $parameters;
 
-  public function __construct(string $action, string $method = 'GET', array $parameters = []) {
-    $this->action = $action;
+  public function __construct(string $URI, string $method = 'GET', array $parameters = []) {
+    $this->uri = $URI;
     $this->method = $method;
+
+    // Get the route name as well as the action and the id if they exist
+    $this->route = $parameters['GET']['route'] ?? null;
+    $this->action = $parameters['GET']['action'] ?? null;
+    $this->id = $parameters['GET']['id'] ?? null;
+
+    // Remove the route name, the action and the id from the parameters array
+    unset($parameters['GET']['route']);
+    unset($parameters['GET']['action']);
+    unset($parameters['GET']['id']);
+
+    // Set the parameters
     $this->parameters = $parameters;
+  }
+
+  /**
+   * Get the value of uri
+   *
+   * @return string
+   */
+  public function getUri(): string {
+    return $this->uri;
+  }
+
+  /**
+   * Get the value of route
+   *
+   * @return string
+   */
+  public function getRoute(): string {
+    return $this->route;
   }
 
   /**
@@ -21,8 +55,17 @@ class RequestContext {
    *
    * @return string
    */
-  public function getAction(): string {
+  public function getAction(): ?string {
     return $this->action;
+  }
+
+  /**
+   * Get the value of id
+   *
+   * @return string
+   */
+  public function getId(): ?string {
+    return $this->id;
   }
 
   /**
@@ -51,17 +94,6 @@ class RequestContext {
    */
   public function getParameter(string $name): string {
     return $this->parameters[$name];
-  }
-
-  /**
-   * Set a parameter
-   *
-   * @param string $name Parameter name
-   * @param string $value Parameter value
-   * @return void
-   */
-  public function setParameter(string $name, string $value): void {
-    $this->parameters[$name] = $value;
   }
 
   /**

@@ -1,12 +1,15 @@
 <?php
 
-namespace Controller;
+namespace Core\Controller;
+
+use \Core\Routing\RequestContext;
 
 /**
  * Base controller class
  */
 class ControllerBase {
   protected mixed $twigEngine;
+  protected RequestContext $requestContext;
 
   /**
    * Constructor
@@ -14,8 +17,9 @@ class ControllerBase {
    * @param string $themeName = 'Front/default' Theme name (folder name in /Themes/)
    * @return void
    */
-  protected function __construct(string $themeName = 'Front/default') {
-    $this->twigEngine = $this->initializeTwig(__DIR__ . '/..', $themeName);
+  protected function __construct(RequestContext $requestContext, string $themeName = 'Front/default') {
+    $this->requestContext = $requestContext;
+    $this->twigEngine = $this->initializeTwig(__DIR__ . '/../..', $themeName);
   }
 
   /**

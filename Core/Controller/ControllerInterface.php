@@ -1,6 +1,8 @@
 <?php
 
-namespace Controller;
+namespace Core\Controller;
+
+use \Core\Routing\RequestContext;
 
 /**
  * Controller interface
@@ -12,5 +14,5 @@ namespace Controller;
  * @property string $description Controller description
  */
 interface ControllerInterface {
-  public function __construct();
+  public function __construct(RequestContext $requestContext);
 }

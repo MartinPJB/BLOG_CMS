@@ -3,6 +3,7 @@
 namespace Core\Routing;
 
 use \Core\Routing\Route;
+use \Core\Routing\RequestContext;
 
 /**
  * Router class
@@ -17,20 +18,18 @@ class Router {
    * @param string $routeName Route name
    * @param string $action Action name
    * @param mixed $controller Controller class
+   * @param int $accessLevel = 0 Access level required to access the route (0 = public, 1 = user, 2 = admin)
    * @param string $method = 'GET' HTTP method
    * @param array $params = [] Parameters
    * @example Router::addRoute('articles', 'list', ArticleController::class); // GET /articles/list -> ArticleController::list()
    * @example Router::addRoute('articles', 'delete', ArticleController::class, 'POST'); // POST /articles/delete -> ArticleController::delete()
-   * @example Router::addRoute('articles', 'edit', ArticleController::class, 'POST', ['id' => 1]); // POST /articles/edit?id=1 -> ArticleController::edit()
    * @return void
    */
-  public static function addRoute(string $routeName, string $action, mixed $controller, string $method = 'GET', array $params = []): void {
-    $rqContext = new RequestContext($action, $method, $params);
+  public static function addRoute(string $routeName, string $action, mixed $controller, int $accessLevel = 0, string $method = 'GET'): void {
     if (!array_key_exists($routeName, self::$routes)) {
       self::$routes[$routeName] = [];
     }
-
-    self::$routes[$routeName][$action] = new Route($controller, $rqContext);
+    self::$routes[$routeName][$action] = new Route($controller, $accessLevel, $method);
   }
 
   /**
@@ -48,14 +47,21 @@ class Router {
    * @param string $action Action name
    * @return void
    */
-  public static function dispatchRoute(string $routeName, string $action): void {
-    if (array_key_exists($routeName, self::$routes) && array_key_exists($action, self::$routes[$routeName])) {
-      $route = self::$routes[$routeName][$action];
+  public static function dispatch(RequestContext $requestContext): void {
+    $route = $requestContext->getRoute();
+    $action = $requestContext->getAction();
 
-      $controller = $route->getController();
-      $action = $route->getRequestContext()->getAction();
+    if (array_key_exists($route, self::$routes) && array_key_exists($action, self::$routes[$route])) {
+      $controller = self::$routes[$route][$action]->getController();
 
-      $controller->$action();
+      // Get the id from the request context
+      $id = $requestContext->getId();
+      $params = $requestContext->getParameters();
+      $params['id'] = $id;
+
+      // Call the action method of the controller
+      $controller = new $controller($requestContext);
+      $controller->$action($params);
     } else {
       self::dispatchError(404);
     }
