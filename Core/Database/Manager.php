@@ -48,7 +48,6 @@ class Manager
 
     if (!self::$pdo) {
       $host = self::$credentials['host'] ?? 'localhost';
-      var_dump($host);
       self::$pdo = new PDO("mysql:host=$host;charset=utf8mb4", $credentials['user'], $credentials['password'], [
         PDO::ATTR_EMULATE_PREPARES => false,
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
