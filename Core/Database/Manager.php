@@ -5,6 +5,9 @@ namespace Core\Database;
 use PDO;
 use PDOException;
 
+/**
+ * Database manager | Handles all actions related to the database
+ */
 class Manager
 {
 
@@ -65,7 +68,15 @@ class Manager
   public static function connectToDatabase(string $database): void
   {
     self::$current_db_name = $database;
-    self::getConnection()->exec("USE `{$database}`");
+    self::executeStatement("USE `{$database}`");
+  }
+
+  /**
+   * Get the current database name
+   */
+  public static function getCurrentDatabaseName(): string
+  {
+    return self::$current_db_name;
   }
 
   /**
@@ -76,7 +87,7 @@ class Manager
   public static function createDatabase(string $database): void
   {
     $sql = "CREATE DATABASE IF NOT EXISTS `{$database}`";
-    self::getConnection()->exec($sql);
+    self::executeStatement($sql);
   }
 
   /**
