@@ -3,6 +3,7 @@
 namespace Core\Database;
 
 use \Core\Database\Manager;
+use \Core\Config;
 
 /**
  * Database installer | Handles all actions related to the database installation
@@ -18,14 +19,12 @@ class Installer
 
   /**
    * Install the CMS by creating the database and all needed tables
-   *
-   * @param array $config The configuration array
    */
-  public static function install(array $config): void
+  public static function install(): void
   {
-    self::createDatabase($config);
+    self::createDatabase();
     self::createTables();
-    self::initializeData($config);
+    self::initializeData();
   }
 
   /**
@@ -38,13 +37,11 @@ class Installer
 
   /**
    * Create the database in order to use the CMS
-   *
-   * @param array $config The configuration array
    */
-  private static function createDatabase(array $config): void
+  private static function createDatabase(): void
   {
-    Manager::createDatabase($config['database']['name']);
-    Manager::connectToDatabase($config['database']['name']);
+    Manager::createDatabase(Config::get('database_name'));
+    Manager::connectToDatabase(Config::get('database_name'));
   }
 
   /**
@@ -117,22 +114,20 @@ class Installer
 
   /**
    * Sets up all the needed data in the database in order to use the CMS
-   *
-   * @param array $config The configuration array
    */
-  private static function initializeData(array $config)
+  private static function initializeData()
   {
     // Site settings
     Manager::create('site_settings', [
-      'name' => $config['site']['name'],
-      'description' => $config['site']['description'],
+      'name' => Config::get('site_default_name'),
+      'description' => Config::get('site_default_description'),
     ]);
 
     // Admin user
     Manager::create('users', [
-      'username' => $config['admin']['name'],
-      'password' => password_hash($config['admin']['password'], PASSWORD_DEFAULT),
-      'email' => $config['admin']['email'],
+      'username' => Config::get('admin_name'),
+      'password' => Config::get('admin_password'),
+      'email' => Config::get('admin_email'),
       'role' => 'admin',
     ]);
 

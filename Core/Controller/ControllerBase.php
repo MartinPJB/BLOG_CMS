@@ -2,6 +2,7 @@
 
 namespace Core\Controller;
 
+use \Core\Config;
 use \Core\RequestContext;
 
 /**
@@ -39,6 +40,13 @@ class ControllerBase
 
     $twig->addExtension(new \Twig\Extension\DebugExtension());
 
+    // Add global variables
+    $twig->addGlobal('site_root', Config::get('site_root'));
+    $twig->addGlobal('site_default_route', Config::get('site_default_route'));
+    $twig->addGlobal('site_name', Config::get('site_name'));
+    $twig->addGlobal('site_description', Config::get('site_description'));
+    $twig->addGlobal('site_language', Config::get('site_language'));
+
     return $twig;
   }
 
@@ -52,5 +60,17 @@ class ControllerBase
   {
     $template = $this->twigEngine->load("pages/$view.html.twig");
     echo $template->render($variables);
+  }
+
+  /**
+   * Redirect to a route
+   *
+   * @param string $route Route to redirect to
+   */
+  protected function redirect(string $route): void
+  {
+    $redirection = Config::get('site_root') . $route;
+    header("Location: $redirection");
+    exit;
   }
 }

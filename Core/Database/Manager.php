@@ -2,6 +2,7 @@
 
 namespace Core\Database;
 
+use Core\Config;
 use PDO;
 use PDOException;
 
@@ -42,16 +43,11 @@ class Manager
    *
    * @return PDO
    */
-  public static function getConnection(array $credentials = []): PDO
+  public static function getConnection(): PDO
   {
-    if (empty($credentials)) {
-      $credentials = self::$credentials;
-    }
-    self::$credentials = $credentials;
-
     if (!self::$pdo) {
-      $host = self::$credentials['host'] ?? 'localhost';
-      self::$pdo = new PDO("mysql:host=$host;charset=utf8mb4", $credentials['user'], $credentials['password'], [
+      $host = Config::get('database_host') ?? 'localhost';
+      self::$pdo = new PDO("mysql:host=$host;charset=utf8mb4", Config::get('database_user'), Config::get('database_password'), [
         PDO::ATTR_EMULATE_PREPARES => false,
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
       ]);

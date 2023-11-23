@@ -5,6 +5,7 @@ use \Core\Routing\Router;
 
 use \Core\Database\Manager;
 use \Core\Database\Installer;
+use \Core\Config;
 
 // Requires autoloads
 require_once 'vendor/autoload.php';
@@ -14,11 +15,11 @@ require_once 'autoload.php';
 require_once 'config/default.php';
 
 // Database connection || installation
-Manager::getConnection($config['database']);
+Manager::getConnection();
 try {
-  Manager::connectToDatabase($config['database']['name']);
+  Manager::connectToDatabase(Config::get('database_name'));
 } catch (PDOException $e) {
-  Installer::install($config);
+  Installer::install();
   echo "Database installed successfully !";
 }
 

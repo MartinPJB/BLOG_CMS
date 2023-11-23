@@ -13,3 +13,4 @@ use \Controller\ArticlesController;
 // GET
 Router::addRoute('articles', '', ArticlesController::class);
 Router::addRoute('articles', 'list', ArticlesController::class);
+Router::addRoute('articles', 'see', ArticlesController::class);
