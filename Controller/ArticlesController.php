@@ -33,4 +33,33 @@ class ArticlesController extends ControllerBase implements ControllerInterface
       'articles' => $articles,
     ]);
   }
+
+  /**
+   * List has the same behavior as index
+   *
+   * @param array $params The parameters passed to the controller
+   */
+  public function list(array $params): void
+  {
+    $this->index($params);
+  }
+
+  /**
+   * See a specific article
+   *
+   * @param array $params The parameters passed to the controller
+   */
+  public function see(array $params): void
+  {
+    $article_id = intval($this->requestContext->id);
+
+    if (!isset($article_id) || $article_id === 0) {
+      $this->redirect('articles');
+    }
+
+    $article = Articles::getArticle((int) $params['id']);
+    $this->render('Articles/see', [
+      'article' => $article,
+    ]);
+  }
 }

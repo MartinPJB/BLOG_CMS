@@ -1,0 +1,18 @@
+{#
+  Nom: see.html.twig
+  Path: default/Front/templates/pages/Articles/see.html.twig
+
+  Variables:
+    - {@object} article: Article to display:
+      - {@object} image: Image to display:
+        - {@string} path: Image path
+        - {@string} alt: Image alt
+      - {@string} title: Article title
+      - {@string} description: Article description
+      - {@string} date: Article date
+      - {@string} author: Article author
+      - {@object} category: Article category:
+        - {@string} name: Category name
+      - {@array} tags: Article tags list
+#}
+{% extends "index.html.twig" %}

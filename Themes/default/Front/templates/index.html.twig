@@ -1,22 +1,33 @@
 {#
   Nom: index.html.twig
   Path: default/Front/templates/index.html.twig
+
+  Global variables:
+    - {@string} site_name: Website's name
+    - {@string} site_root: Website's root
+    - {@array} session: Session's variables
+    - {@bool} is_logged: Boolean, true if user is logged
+    - {@bool} is_admin: Boolean, true if user is logged and is admin
+    - {@string} site_language: Website's language
+    - {@array} errors: Contains errors to display
 #}
 
-{# Définitions variables #}
+{# Variable definition #}
 {% set is_logged = session.user is defined and (session.user_id is not null or session.user is not empty) %}
 {% set is_admin = is_logged and session.user.role == 'admin' %}
-{% set lang = "fr" %}
 
 {# HTML #}
 <!DOCTYPE html>
-<html lang="{{ lang }}">
+<html lang="{{ site_language }}">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>{% block title %}{% endblock %}</title>
+		<title>{{ site_name }} - {% block title %}{% endblock %}</title>
 
-    {# Blocs stylesheet et JS #}
+    {# Base #}
+    <base href="{{ site_root }}">
+
+    {# JS and CSS blocks #}
     {% block stylesheet %}{% endblock %}
     {% block javascript %}{% endblock %}
 	</head>
@@ -25,10 +36,10 @@
     {# Menu #}
     {% include "navigation/menu.html.twig" %}
 
-    {# Affichage des erreurs #}
+    {# Display errors if defined #}
     {% include "misc/errors.html.twig" %}
 
-    {# Affichage du contenu #}
+    {# Display content #}
 		{% block content %}{% endblock %}
 	</body>
 </html>

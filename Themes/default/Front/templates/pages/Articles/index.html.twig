@@ -1,12 +1,32 @@
 {#
   Nom: index.html.twig
   Path: default/Front/templates/pages/Articles/index.html.twig
+
+  Variables:
+    - {@array} articles: Articles list to display:
+      - {@object} article: Article to display:
+        - {@object} image: Image to display:
+          - {@string} path: Image path
+          - {@string} alt: Image alt
+        - {@string} title: Article title
+        - {@string} description: Article description
+        - {@string} date: Article date
+        - {@string} author: Article author
+        - {@object} category: Article category:
+          - {@string} name: Category name
+        - {@array} tags: Article tags list
 #}
 {% extends "index.html.twig" %}
 
+{# Set title #}
+{% block title %}Articles{% endblock %}
+
+{# Set content #}
 {% block content %}
   <section>
     <h1>Articles</h1>
+
+    {# Display each articles #}
     {% for article in articles|sort((a, b) => date(a.getDate()) - date(b.getDate())) %}
 
       {# Variables #}
@@ -20,15 +40,17 @@
 
       {# Affichage #}
       <article>
-        <img src="{{ image.getPath() }}" alt="{{ image.getAlt() }}">
-        <div>
-          <h2>{{ title }}</h2>
-          <p>{{ description }}</p>
+        <a href="articles/see/{{ article.getId() }}">
+          <img src="{{ image.getPath() }}" alt="{{ image.getAlt() }}" loading="lazy">
+          <div>
+            <h2>{{ title }}</h2>
+            <p>{{ description }}</p>
 
-          <p>Publié le {{ date|date("d/m/Y H:i", "Europe/Paris") }} par {{ author }}</p>
-          <p>Tags: {{ tags|join(', ') }}</p>
-          <p>{{ category.getName() }}</p>
-        </div>
+            <p>Publié le {{ date|date("d/m/Y H:i", "Europe/Paris") }} par {{ author }}</p>
+            <p>Tags: {{ tags|join(', ') }}</p>
+            <p>{{ category.getName() }}</p>
+          </div>
+        </a>
       </article>
     {% else %}
       <p>Aucun article n'a été publié.</p>
