@@ -3,10 +3,10 @@
 namespace Core\Routing;
 
 use \Core\Routing\Route;
-use \Core\Routing\RequestContext;
+use \Core\RequestContext;
 
 /**
- * Router class
+ * Router class | Manages the routes of the application and dispatches them.
  */
 class Router
 {
@@ -18,6 +18,7 @@ class Router
 
   /**
    * Add a route to the routes array
+   *
    * @param string $routeName Route name
    * @param string $action Action name
    * @param mixed $controller Controller class
@@ -26,7 +27,6 @@ class Router
    * @param array $params = [] Parameters
    * @example Router::addRoute('articles', 'list', ArticleController::class); // GET /articles/list -> ArticleController::list()
    * @example Router::addRoute('articles', 'delete', ArticleController::class, 'POST'); // POST /articles/delete -> ArticleController::delete()
-   * @return void
    */
   public static function addRoute(string $routeName, string $action, mixed $controller, int $accessLevel = 0, string $method = 'GET'): void
   {
@@ -39,7 +39,7 @@ class Router
   /**
    * Get the value of routes
    *
-   * @return array
+   * @return array Routes array
    */
   public static function getRoutes(): array
   {
@@ -48,9 +48,9 @@ class Router
 
   /**
    * Dispatch the route corresponding to the given URI
+   *
    * @param string $routeName Route name
    * @param string $action Action name
-   * @return void
    */
   public static function dispatch(RequestContext $requestContext): void
   {
@@ -79,9 +79,9 @@ class Router
   }
 
   /**
-   * HTTP ERROR CODES
+   * Dispatch an error code to the client (404, 405, 500)
+   *
    * @param int $code Error code
-   * @return void
    */
   public static function dispatchError(int $code): void
   {

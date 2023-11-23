@@ -2,10 +2,10 @@
 
 namespace Core\Controller;
 
-use \Core\Routing\RequestContext;
+use \Core\RequestContext;
 
 /**
- * Base controller class
+ * Base controller class | All controllers must extend this class
  */
 class ControllerBase
 {
@@ -13,10 +13,9 @@ class ControllerBase
   protected RequestContext $requestContext;
 
   /**
-   * Constructor
+   * Constructor of the ControllerBase class
    *
    * @param string $themeName = 'default/Front' Theme name (folder name in /Themes/)
-   * @return void
    */
   protected function __construct(RequestContext $requestContext, string $themeName = 'default/Front')
   {
@@ -48,7 +47,6 @@ class ControllerBase
    *
    * @param string $view View (folder +) name (without the extension)
    * @param array $variables = [] Variables to pass to the view
-   * @return void
    */
   protected function render(string $view, array $variables = []): void
   {

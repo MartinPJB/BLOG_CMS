@@ -5,7 +5,7 @@ namespace Model;
 use \Core\Database\Manager;
 
 /**
- * Categories model
+ * Categories model | Handles all actions related to categories
  */
 class Categories
 {
@@ -29,7 +29,7 @@ class Categories
   /**
    * Get all categories from the database
    *
-   * @return array
+   * @return array Array of categories
    */
   public static function getAllCategories(): array
   {
@@ -50,7 +50,7 @@ class Categories
    * Get a category by its ID
    *
    * @param integer $id Category ID
-   * @return self
+   * @return self Category
    */
   public static function getCategoryById(int $id): self
   {
@@ -66,7 +66,6 @@ class Categories
    * Create a category
    *
    * @param string $name Category name
-   * @return void
    */
   public static function createCategory(string $name): void
   {
@@ -78,7 +77,6 @@ class Categories
    *
    * @param integer $id Category ID
    * @param string $name Category name
-   * @return void
    */
   public static function updateCategory(int $id, string $name): void
   {
@@ -89,7 +87,6 @@ class Categories
    * Delete a category
    *
    * @param integer $id Category ID
-   * @return void
    */
   public static function deleteCategory(int $id): void
   {
@@ -99,7 +96,7 @@ class Categories
   /**
    * Get the value of id
    *
-   * @return integer
+   * @return integer Category ID
    */
   public function getId(): int
   {
@@ -109,7 +106,7 @@ class Categories
   /**
    * Get the value of name
    *
-   * @return string
+   * @return string Category name
    */
   public function getName(): string
   {

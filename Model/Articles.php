@@ -7,7 +7,7 @@ use \Core\Database\Manager;
 use \Model\Categories;
 
 /**
- * Articles model
+ * Articles model | Handles all actions related to articles
  */
 class Articles
 {
@@ -63,7 +63,7 @@ class Articles
   /**
    * Get all published articles from the database
    *
-   * @return array
+   * @return array Array of articles
    */
   public static function getAllPublishedArticles(): array
   {
@@ -91,7 +91,7 @@ class Articles
   /**
    * Get all articles from the database
    *
-   * @return array
+   * @return array Array of articles
    */
   public static function getAllArticles(): array
   {
@@ -120,7 +120,7 @@ class Articles
    * Get an article from the database by its ID
    *
    * @param integer $id Article ID
-   * @return self
+   * @return self Articles
    */
   public static function getArticle(int $id): self
   {
@@ -151,7 +151,6 @@ class Articles
    * @param array $tags Article tags
    * @param boolean $is_draft Is the article a draft
    * @param boolean $is_published Is the article published
-   * @return void
    */
   public static function createArticle(
     string $title,
@@ -188,7 +187,6 @@ class Articles
    * @param array $tags Article tags
    * @param boolean $is_draft Is the article a draft
    * @param boolean $is_published Is the article published
-   * @return void
    */
   public static function updateArticle(
     int $id,
@@ -218,7 +216,6 @@ class Articles
    * Delete an article from the database
    *
    * @param integer $id Article ID
-   * @return void
    */
   public static function deleteArticle(int $id): void
   {
@@ -228,7 +225,7 @@ class Articles
   /**
    * Get the value of id
    *
-   * @return integer
+   * @return integer Article ID
    */
   public function getId(): int
   {
@@ -238,7 +235,7 @@ class Articles
   /**
    * Get the value of title
    *
-   * @return string
+   * @return string Article title
    */
   public function getTitle(): string
   {
@@ -248,7 +245,7 @@ class Articles
   /**
    * Get the value of description
    *
-   * @return string
+   * @return string Article description
    */
   public function getDescription(): string
   {
@@ -258,7 +255,7 @@ class Articles
   /**
    * Get the value of author_id
    *
-   * @return integer
+   * @return integer Author ID
    */
   public function getAuthorId(): int
   {
@@ -268,7 +265,7 @@ class Articles
   /**
    * Get the value of date
    *
-   * @return DateTime
+   * @return DateTime Article date
    */
   public function getDate(): DateTime
   {
@@ -278,7 +275,7 @@ class Articles
   /**
    * Get the value of image
    *
-   * @return string
+   * @return string Article image
    */
   public function getImage(): string
   {
@@ -288,7 +285,7 @@ class Articles
   /**
    * Get the value of category_id
    *
-   * @return integer
+   * @return integer Category ID
    */
   public function getCategoryId(): int
   {
@@ -297,6 +294,8 @@ class Articles
 
   /**
    * Get the category directly
+   *
+   * @return Categories Category object
    */
   public function getCategory(): Categories
   {
@@ -306,7 +305,7 @@ class Articles
   /**
    * Get the value of tags
    *
-   * @return array
+   * @return array Article tags
    */
   public function getTags(): array
   {
@@ -316,7 +315,7 @@ class Articles
   /**
    * Get the value of is_draft
    *
-   * @return boolean
+   * @return boolean Is the article a draft
    */
   public function isDraft(): bool
   {
@@ -326,7 +325,7 @@ class Articles
   /**
    * Get the value of is_published
    *
-   * @return boolean
+   * @return boolean Is the article published
    */
   public function isPublished(): bool
   {

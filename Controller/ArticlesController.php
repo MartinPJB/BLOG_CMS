@@ -4,11 +4,11 @@ namespace Controller;
 
 use \Core\Controller\ControllerInterface;
 use \Core\Controller\ControllerBase;
-use \Core\Routing\RequestContext;
+use \Core\RequestContext;
 use \Model\Articles;
 
 /**
- * Article controller
+ * Article controller | Handles all requests related to articles
  */
 class ArticlesController extends ControllerBase implements ControllerInterface
 {
@@ -16,10 +16,7 @@ class ArticlesController extends ControllerBase implements ControllerInterface
   public string $description = 'Handles all requests related to articles.';
 
   /**
-   * Constructor
-   *
-   * @param RequestContext $requestContext
-   * @return void
+   * {@inheritDoc}
    */
   public function __construct(RequestContext $requestContext)
   {
@@ -27,11 +24,9 @@ class ArticlesController extends ControllerBase implements ControllerInterface
   }
 
   /**
-   * Index action
-   *
-   * @return void
+   * {@inheritDoc}
    */
-  public function index(): void
+  public function index(array $params): void
   {
     $articles = Articles::getAllArticles();
 

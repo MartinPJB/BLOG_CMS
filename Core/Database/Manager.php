@@ -61,7 +61,6 @@ class Manager
    * Connects to a specific database
    *
    * @param string $database The name of the database to connect to
-   * @return void
    */
   public static function connectToDatabase(string $database): void
   {
@@ -73,7 +72,6 @@ class Manager
    * Creates a new database if it does not already exist
    *
    * @param string $database The name of the database to create
-   * @return void
    */
   public static function createDatabase(string $database): void
   {
@@ -85,7 +83,6 @@ class Manager
    * Drops a database if it exists
    *
    * @param string $database The name of the database to drop
-   * @return void
    */
   public static function dropDatabase(string $database): void
   {
@@ -99,7 +96,6 @@ class Manager
    * @param string $table The name of the table to create
    * @param array $columns The columns of the table to create
    * @param array $options The options for the table to create
-   * @return void
    */
   public static function createTable(string $table, array $columns, array $options = []): void
   {
@@ -231,8 +227,7 @@ class Manager
   /**
    * Executes a SQL statement
    *
-   * @param string $sql The SQL statement to execute
-   * @return void Returns nothing
+   * @param string $sql The SQL statement to execute Returns nothing
    */
   public static function executeStatement(string $sql): void
   {

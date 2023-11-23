@@ -1,6 +1,6 @@
 <?php
 
-use \Core\Routing\RequestContext;
+use \Core\RequestContext;
 use \Core\Routing\Router;
 use \Core\Database\Manager;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Routing;
+namespace Core;
 
 /**
  * Request context class
@@ -37,7 +37,7 @@ class RequestContext
   /**
    * Get the value of uri
    *
-   * @return string
+   * @return string URI of the request context
    */
   public function getUri(): string
   {
@@ -47,7 +47,7 @@ class RequestContext
   /**
    * Get the value of route
    *
-   * @return ?string
+   * @return ?string Route name of the request context (null if not set)
    */
   public function getRoute(): ?string
   {
@@ -57,7 +57,7 @@ class RequestContext
   /**
    * Get the value of action
    *
-   * @return string
+   * @return ?string Action name of the request context (null if not set)
    */
   public function getAction(): ?string
   {
@@ -67,7 +67,7 @@ class RequestContext
   /**
    * Get the value of id
    *
-   * @return string
+   * @return ?string Id of the request context (null if not set)
    */
   public function getId(): ?string
   {
@@ -77,7 +77,7 @@ class RequestContext
   /**
    * Get the value of method
    *
-   * @return string
+   * @return string Method of the request context
    */
   public function getMethod(): string
   {
@@ -87,7 +87,7 @@ class RequestContext
   /**
    * Get all the parameters
    *
-   * @return array
+   * @return array Parameters of the request context
    */
   public function getParameters(): array
   {
@@ -98,7 +98,7 @@ class RequestContext
    * Get a parameter
    *
    * @param string $name Parameter name
-   * @return string
+   * @return string Parameter value
    */
   public function getParameter(string $name): string
   {
@@ -109,7 +109,7 @@ class RequestContext
    * Check if a parameter exists
    *
    * @param string $name Parameter name
-   * @return bool
+   * @return bool True if the parameter exists, false otherwise
    */
   public function hasParameter(string $name): bool
   {
