@@ -5,6 +5,7 @@ namespace Model;
 use \DateTime;
 use \Core\Database\Manager;
 use \Model\Categories;
+use \Model\Medias;
 
 /**
  * Articles model | Handles all actions related to articles
@@ -16,7 +17,7 @@ class Articles
   private string $description;
   private int $author_id;
   private DateTime $date;
-  private string $image;
+  private int $image;
   private int $category_id;
   private array $tags;
   private bool $is_draft;
@@ -30,7 +31,7 @@ class Articles
    * @param string $description Article description
    * @param integer $author_id Author ID
    * @param string $date Article date
-   * @param string $image Article image
+   * @param integer $image Article image ID
    * @param integer $category_id Category ID
    * @param array $tags Article tags
    * @param boolean $is_draft Is the article a draft
@@ -42,7 +43,7 @@ class Articles
     string $description,
     int $author_id,
     string $date,
-    string $image,
+    int $image,
     int $category_id,
     array $tags,
     bool $is_draft,
@@ -273,13 +274,23 @@ class Articles
   }
 
   /**
-   * Get the value of image
+   * Get the id value of image
    *
-   * @return string Article image
+   * @return int Article image
    */
-  public function getImage(): string
+  public function getImageId(): int
   {
     return $this->image;
+  }
+
+  /**
+   * Get the image directly
+   *
+   * @return Medias Image object
+   */
+  public function getImage(): Medias
+  {
+    return Medias::getMediaById($this->image);
   }
 
   /**

@@ -29,7 +29,6 @@ class ArticlesController extends ControllerBase implements ControllerInterface
   public function index(array $params): void
   {
     $articles = Articles::getAllArticles();
-
     $this->render('Articles/index', [
       'articles' => $articles,
     ]);

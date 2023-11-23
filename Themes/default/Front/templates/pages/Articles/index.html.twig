@@ -7,17 +7,28 @@
 {% block content %}
   <section>
     <h1>Articles</h1>
-    {% for article in articles|sort((a, b) => date(a.date) - date(b.date)) %}
+    {% for article in articles|sort((a, b) => date(a.getDate()) - date(b.getDate())) %}
+
+      {# Variables #}
+      {% set image = article.getImage() %}
+      {% set title = article.getTitle() %}
+      {% set description = article.getDescription() %}
+      {% set date = article.getDate() %}
+      {% set author = article.getAuthorId() %}
+      {% set category = article.getCategory() %}
+      {% set tags = article.getTags() %}
+
+      {# Affichage #}
       <article>
-        <img src="{{ article.image }}" alt="{{ article.title }}">
-
+        <img src="{{ image.getPath() }}" alt="{{ image.getAlt() }}">
         <div>
-          <h2>{{ article.title }}</h2>
-          <p>{{ article.description }}</p>
+          <h2>{{ title }}</h2>
+          <p>{{ description }}</p>
 
-          <span>Publié le {{ article.date|date("d/m/Y H:i", "Europe/Paris") }}</span>
+          <p>Publié le {{ date|date("d/m/Y H:i", "Europe/Paris") }} par {{ author }}</p>
+          <p>Tags: {{ tags|join(', ') }}</p>
+          <p>{{ category.getName() }}</p>
         </div>
-
       </article>
     {% else %}
       <p>Aucun article n'a été publié.</p>
