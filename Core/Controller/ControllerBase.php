@@ -3,6 +3,7 @@
 namespace Core\Controller;
 
 use \Core\Config;
+use Core\Database\Manager;
 use \Core\RequestContext;
 
 /**
@@ -40,12 +41,16 @@ class ControllerBase
 
     $twig->addExtension(new \Twig\Extension\DebugExtension());
 
+    $site_name = Manager::read('site_settings', ['name'])[0]['name'];
+    $site_description = Manager::read('site_settings', ['description'])[0]['description'];
+
     // Add global variables
     $twig->addGlobal('site_root', Config::get('site_root'));
     $twig->addGlobal('site_default_route', Config::get('site_default_route'));
-    $twig->addGlobal('site_name', Config::get('site_default_name'));
-    $twig->addGlobal('site_description', Config::get('site_default_description'));
+    $twig->addGlobal('site_name', $site_name);
+    $twig->addGlobal('site_description', $site_description);
     $twig->addGlobal('site_language', Config::get('site_language'));
+    $twig->addGlobal('session', $_SESSION ?? []);
 
     return $twig;
   }

@@ -1,0 +1,23 @@
+{#
+  Nom: see.html.twig
+  Path: default/Front/templates/pages/Users/see.html.twig
+
+  Variables:
+    - {@object} user: User to display:
+      - {@int} id: User's id
+      - {@string} email: User's email
+      - {@string} username: User's username
+      - {@string} role: User's role
+#}
+{% extends 'index.html.twig' %}
+
+{% block content %}
+  <h1>@{{ user.username }}</h1>
+
+  <ul>
+    <li><strong>Id:</strong> {{ user.id }}</li>
+    <li><strong>Email:</strong> {{ user.email }}</li>
+    <li><strong>Username:</strong> {{ user.username }}</li>
+    <li><strong>Role:</strong> {{ user.role }}</li>
+  </ul>
+{% endblock %}

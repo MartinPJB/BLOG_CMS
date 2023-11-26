@@ -3,6 +3,7 @@
 use \Core\Routing\Router;
 
 use \Controller\ArticlesController;
+use \Controller\UsersController;
 
 /*
   Usage:
@@ -11,6 +12,16 @@ use \Controller\ArticlesController;
 
 /* -- Articles routes -- */
 // GET
-Router::addRoute('articles', '', ArticlesController::class);
-Router::addRoute('articles', 'list', ArticlesController::class);
-Router::addRoute('articles', 'see', ArticlesController::class);
+Router::addRoute('articles', '', ArticlesController::class, 0, 'GET');
+Router::addRoute('articles', 'list', ArticlesController::class, 0, 'GET');
+Router::addRoute('articles', 'see', ArticlesController::class, 0, 'GET');
+
+
+/* -- Users routes -- */
+// GET
+Router::addRoute('users', 'see', UsersController::class, 0, 'GET');
+Router::addRoute('users', 'login', UsersController::class, 0, 'GET');
+Router::addRoute('users', 'logout', UsersController::class, 1, 'GET');
+
+// POST
+Router::addRoute('users', 'process_login', UsersController::class, 0, 'POST');

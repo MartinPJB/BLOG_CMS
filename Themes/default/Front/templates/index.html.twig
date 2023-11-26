@@ -4,17 +4,19 @@
 
   Global variables:
     - {@string} site_name: Website's name
+    - {@string} site_description: Website's description
     - {@string} site_root: Website's root
+    - {@string} site_language: Website's language
+    - {@string} site_default_route: Website's default route
     - {@array} session: Session's variables
     - {@bool} is_logged: Boolean, true if user is logged
     - {@bool} is_admin: Boolean, true if user is logged and is admin
-    - {@string} site_language: Website's language
     - {@array} errors: Contains errors to display
 #}
 
 {# Variable definition #}
-{% set is_logged = session.user is defined and (session.user_id is not null or session.user is not empty) %}
-{% set is_admin = is_logged and session.user.role == 'admin' %}
+{% set is_logged = session.user is defined and session.user is not empty %}
+{% set is_admin = is_logged and session.user.getRole() == 'admin' %}
 
 {# HTML #}
 <!DOCTYPE html>
@@ -40,6 +42,8 @@
     {% include "misc/errors.html.twig" %}
 
     {# Display content #}
-		{% block content %}{% endblock %}
+    <main>
+		  {% block content %}{% endblock %}
+    </main>
 	</body>
 </html>

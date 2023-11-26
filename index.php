@@ -23,7 +23,8 @@ try {
   echo "Database installed successfully !";
 }
 
-
+// Session start
+session_start();
 
 // Add routes
 require_once 'routes.php';

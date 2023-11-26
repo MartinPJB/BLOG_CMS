@@ -13,8 +13,12 @@
 	<ul class="nav__links">
 		{% if is_logged %}
 			<li>
-				<a href="./user/logout">Déconnexion</a>
+				<a href="./users/logout">Déconnexion</a>
 			</li>
-		{% endif %}
+		{% else %}
+      <li>
+        <a href="./users/login">Connexion</a>
+      </li>
+    {% endif %}
 	</ul>
 </nav>

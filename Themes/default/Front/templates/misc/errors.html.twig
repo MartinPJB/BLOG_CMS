@@ -3,9 +3,9 @@
   Path: default/Front/templates/misc/errors.html.twig
 #}
 
-{% if erreurs is defined %}
-	<ul class="erreurs">
-		{% for erreur in erreurs %}
+{% if errors is defined %}
+	<ul class="errors">
+		{% for erreur in errors %}
 			<li>{{ erreur }}</li>
 		{% endfor %}
 	</ul>

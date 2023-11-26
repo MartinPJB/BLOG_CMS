@@ -4,6 +4,7 @@ namespace Core\Routing;
 
 use \Core\Routing\Route;
 use \Core\RequestContext;
+use \Model\Users;
 
 /**
  * Router class | Manages the routes of the application and dispatches them.
@@ -47,6 +48,33 @@ class Router
   }
 
   /**
+   * Check access level of the given route
+   */
+  public static function checkAccessLevel(RequestContext $requestContext): bool
+  {
+    $route = $requestContext->getRoute();
+    $action = $requestContext->getAction();
+
+    if ($route && (array_key_exists($route, self::$routes) && array_key_exists($action, self::$routes[$route]))) {
+      $accessLevel = self::$routes[$route][$action]->getAccessLevel();
+      $user = Users::getAuthentificatedUser();
+
+      if ($accessLevel === 0) {
+        // Public route
+        return true;
+      } else if ($accessLevel === 1 && $user) {
+        // User route
+        return true;
+      } else if ($accessLevel === 2 && $user && $user->getRole() == 'admin') {
+        // Admin route
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
    * Dispatch the route corresponding to the given URI
    *
    * @param string $routeName Route name
@@ -59,6 +87,18 @@ class Router
 
     if ($route && (array_key_exists($route, self::$routes) && array_key_exists($action, self::$routes[$route]))) {
       $controller = self::$routes[$route][$action]->getController();
+
+      // Check if the HTTP method is allowed
+      if (self::$routes[$route][$action]->getMethod() !== $requestContext->getMethod()) {
+        self::dispatchError(405);
+        return;
+      }
+
+      // Check if the user has the required access level
+      if (!self::checkAccessLevel($requestContext)) {
+        self::dispatchError(403);
+        return;
+      }
 
       // Get the id from the request context
       $id = $requestContext->getId();
