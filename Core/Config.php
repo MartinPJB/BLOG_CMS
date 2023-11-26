@@ -37,7 +37,7 @@ class Config
    * @param string $name The name of the configuration variable
    * @return ?string The value of the configuration variable (null if not found)
    */
-  public static function get(string $name): string
+  public static function get(string $name): ?string
   {
     return self::$configs[$name] ?? null;
   }
