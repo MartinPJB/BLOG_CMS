@@ -6,6 +6,7 @@ use \DateTime;
 use \Core\Database\Manager;
 use \Model\Categories;
 use \Model\Medias;
+use \Model\Users;
 
 /**
  * Articles model | Handles all actions related to articles
@@ -261,6 +262,16 @@ class Articles
   public function getAuthorId(): int
   {
     return $this->author_id;
+  }
+
+  /**
+   * Get the author directly
+   *
+   * @return Users Author object
+   */
+  public function getAuthor(): Users
+  {
+    return Users::getUser($this->author_id);
   }
 
   /**

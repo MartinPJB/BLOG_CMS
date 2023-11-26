@@ -16,3 +16,26 @@
       - {@array} tags: Article tags list
 #}
 {% extends "index.html.twig" %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{# Variables #}
+{% set image = article.getImage() %}
+{% set title = article.getTitle() %}
+{% set description = article.getDescription() %}
+{% set date = article.getDate() %}
+{% set author = article.getAuthor() %}
+{% set category = article.getCategory() %}
+{% set tags = article.getTags() %}
+
+{# Affichage #}
+{% block content %}
+  <img src="{{ image.getPath() }}" alt="{{ image.getAlt() }}" loading="lazy">
+  <div>
+    <h1>{{ title }}</h1>
+    <p>{{ description }}</p>
+    <p>Publié le {{ date|date("d/m/Y H:i", "Europe/Paris") }} par {{ author.getUsername() }}</p>
+    <p>Tags: {{ tags|join(', ') }}</p>
+    <p>{{ category.getName() }}</p>
+  </div>
+{% endblock %}

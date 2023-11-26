@@ -34,7 +34,7 @@
       {% set title = article.getTitle() %}
       {% set description = article.getDescription() %}
       {% set date = article.getDate() %}
-      {% set author = article.getAuthorId() %}
+      {% set author = article.getAuthor() %}
       {% set category = article.getCategory() %}
       {% set tags = article.getTags() %}
 
@@ -46,7 +46,7 @@
             <h2>{{ title }}</h2>
             <p>{{ description }}</p>
 
-            <p>Publié le {{ date|date("d/m/Y H:i", "Europe/Paris") }} par {{ author }}</p>
+            <p>Publié le {{ date|date("d/m/Y H:i", "Europe/Paris") }} par {{ author.getUsername() }}</p>
             <p>Tags: {{ tags|join(', ') }}</p>
             <p>{{ category.getName() }}</p>
           </div>
