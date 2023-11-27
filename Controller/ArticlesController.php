@@ -2,46 +2,64 @@
 
 namespace Controller;
 
-use Controller\ControllerBase;
-use Controller\ControllerInterface;
-use Model\Base;
-use Includes\TypeEscaper;
+use \Core\Controller\ControllerInterface;
+use \Core\Controller\ControllerBase;
+use \Core\RequestContext;
+use \Model\Articles;
 
+/**
+ * Article controller | Handles all requests related to articles
+ */
 class ArticlesController extends ControllerBase implements ControllerInterface
 {
-  const ACTION_LIST = 'list';
-
-  private Base $model;
-  private bool $admin_only = false;
+  public string $name = 'Article';
+  public string $description = 'Handles all requests related to articles.';
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
-  public function __construct(array $database_credentials, $twig)
+  public function __construct(RequestContext $requestContext)
   {
-    parent::__construct('articles', $twig, $this->admin_only);
-    $this->model = new Base($database_credentials, 'articles');
-    $this->initializeSubRoutes();
+    parent::__construct($requestContext);
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
-  public function initializeSubRoutes(): void
+  public function index(array $params): void
   {
-    // Add GET routes
-    $this->addSubRoute(self::ACTION_LIST, 'list.html.twig', [$this, 'GET_list'], 'GET', 0);
+    $articles = Articles::getAllArticles();
+    $this->render('Articles/index', [
+      'articles' => $articles,
+    ]);
   }
 
   /**
-   * @return array Retourne un array contenant les éléments
+   * List has the same behavior as index
+   *
+   * @param array $params The parameters passed to the controller
    */
-  public function GET_list(): array
+  public function list(array $params): void
   {
-    $articles = $this->model->readElement([], ['published' => 1]);
+    $this->index($params);
+  }
 
-    return [
-      'articles' => $articles
-    ];
+  /**
+   * See a specific article
+   *
+   * @param array $params The parameters passed to the controller
+   */
+  public function see(array $params): void
+  {
+    $article_id = intval($this->requestContext->id);
+
+    if (!isset($article_id) || $article_id === 0) {
+      $this->redirect('articles');
+    }
+
+    $article = Articles::getArticle((int) $params['id']);
+    $this->render('Articles/see', [
+      'article' => $article,
+    ]);
   }
 }

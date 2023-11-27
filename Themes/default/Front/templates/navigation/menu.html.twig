@@ -1,0 +1,24 @@
+{#
+  Nom: menu.html.twig
+  Path: default/Front/templates/navigation/menu.html.twig
+#}
+
+<nav class="nav">
+	<ul class="nav__links">
+		<li class="nav__brand">
+			<a href="{{ site_default_route }}">{{ site_name }}</a>
+		</li>
+	</ul>
+
+	<ul class="nav__links">
+		{% if is_logged %}
+			<li>
+				<a href="./users/logout">Déconnexion</a>
+			</li>
+		{% else %}
+      <li>
+        <a href="./users/login">Connexion</a>
+      </li>
+    {% endif %}
+	</ul>
+</nav>

@@ -1,7 +1,9 @@
 RewriteEngine On
 RewriteBase /CUEJ_CMS/
 
-# Règle générale pour les routes
+# General rewrite rules
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+
+# Here: index.php?route=home&action=show&id=1 => /home/show/1
 RewriteRule ^([^/]+)/?([^/]*)/?([^/]*)?$ index.php?route=$1&action=$2&id=$3 [L]
