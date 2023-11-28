@@ -23,7 +23,7 @@ class RequestContext
     // Get the route name as well as the action and the id if they exist
     $this->route = $parameters['GET']['route'] ?? null;
     $this->action = $parameters['GET']['action'] ?? null;
-    $this->id = $parameters['GET']['id'] ?? null;
+    $this->id = urldecode($parameters['GET']['id']) ?? null;
 
     // Remove the route name, the action and the id from the parameters array
     unset($parameters['GET']['route']);
