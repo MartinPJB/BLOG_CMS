@@ -51,10 +51,11 @@ class Installer
   {
     // Site settings table
     Manager::createTable('site_settings', [
-      'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
       'name' => 'VARCHAR(255) NOT NULL',
       'description' => 'TEXT NOT NULL',
       'theme' => 'VARCHAR(255) NOT NULL DEFAULT "default"',
+      'site_language' => 'VARCHAR(255) NOT NULL DEFAULT "fr"',
+      'default_route' => 'VARCHAR(255) NOT NULL DEFAULT "articles"',
     ]);
 
     // Users table
@@ -123,6 +124,8 @@ class Installer
     Manager::create('site_settings', [
       'name' => Config::get('site_default_name'),
       'description' => Config::get('site_default_description'),
+      'site_language' => Config::get('site_language'),
+      'default_route' => Config::get('site_default_route'),
     ]);
 
     // Admin user
