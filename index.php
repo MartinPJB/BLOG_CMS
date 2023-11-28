@@ -20,7 +20,6 @@ try {
   Manager::connectToDatabase(Config::get('database_name'));
 } catch (PDOException $e) {
   Installer::install();
-  echo "Database installed successfully !";
 }
 
 // Session start
