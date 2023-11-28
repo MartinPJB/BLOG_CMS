@@ -106,7 +106,9 @@ class Installer
       'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
       'name' => 'VARCHAR(255) NOT NULL',
       'json_content' => 'JSON NOT NULL',
-      'article_id' => 'INT(6) UNSIGNED NOT NULL'
+      'article_id' => 'INT(6) UNSIGNED NOT NULL',
+      'type' => 'VARCHAR(255) NOT NULL',
+      'weight' => 'INT(6) UNSIGNED NOT NULL',
     ], [
       'FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE CASCADE'
     ]);
