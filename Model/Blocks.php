@@ -54,7 +54,7 @@ class Blocks
     $result = [];
 
     foreach ($blocks as $block) {
-      $result[] = new Blocks(
+      $result[] = new self(
         $block['id'],
         $block['name'],
         $block['json_content'],
@@ -79,7 +79,7 @@ class Blocks
     $result = [];
 
     foreach ($blocks as $block) {
-      $result[] = new Blocks(
+      $result[] = new self(
         $block['id'],
         $block['name'],
         $block['json_content'],
@@ -102,7 +102,7 @@ class Blocks
   {
     $block = Manager::read('blocks', [], ['id' => $id])[0];
 
-    return new Blocks(
+    return new self(
       $block['id'],
       $block['name'],
       $block['json_content'],
