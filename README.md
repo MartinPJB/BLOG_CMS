@@ -54,8 +54,8 @@ The Controller must extend the `ControllerBase` class, and must implement the `C
 namespace Controller;
 
 // Import the required classes.
-use Core\ControllerBase;
-use Core\ControllerInterface;
+use \Core\ControllerBase;
+use \Core\ControllerInterface;
 use \Core\RequestContext;
 
 // Create the Controller class.
@@ -88,8 +88,8 @@ A Controller can have as many methods as you want. However, it must have at leas
 
 namespace Controller;
 
-use Core\ControllerBase;
-use Core\ControllerInterface;
+use \Core\ControllerBase;
+use \Core\ControllerInterface;
 use \Core\RequestContext;
 
 // Create the Controller class.
@@ -140,7 +140,7 @@ You can then import your Controller's class, and register a new route using the 
 use \Core\Routing\Router;
 
 // Import the Controller class.
-use Controller\HomeController;
+use \Controller\HomeController;
 
 // Register a new route -> GET /home (the action will be index by default)
 Router::addRoute('home', '', HomeController::class, 0, 'GET');
