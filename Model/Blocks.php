@@ -130,7 +130,7 @@ class Blocks
   ): void {
     Manager::create('blocks', [
       'name' => $name,
-      'json_content' => $json_content,
+      'json_content' => json_encode($json_content),
       'article_id' => $article_id,
       'type' => $type,
       'weight' => $weight
@@ -157,7 +157,7 @@ class Blocks
   ): void {
     Manager::update('blocks', [
       'name' => $name,
-      'json_content' => $json_content,
+      'json_content' => json_encode($json_content),
       'article_id' => $article_id,
       'type' => $type,
       'weight' => $weight
