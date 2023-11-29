@@ -40,7 +40,7 @@ You can edit the config `default.php` file, but I'd recommend you to duplicate i
 
 Controllers are the main part of the application. They are the ones that will handle the requests, and send back the appropriate response.
 
-### Creating a Controller
+### I. Creating a Controller
 
 To create a new Controller, you must create a new file in the `Controller/` folder. The name of the file must be the name of the Controller, with the first letter in uppercase, and the suffix `Controller`. For example, if you want to create a `home` Controller, you must create a file named `HomeController.php`.
 
@@ -121,13 +121,13 @@ The `ControllerBase` class provides a few methods that can be used in the Contro
 
 - `redirect(string $url)`: Redirects the user to the specified URL. The URL must be relative to the root of the website.
 
-### Controller Routing
+### II. Controller Routing
 
 The Controller routing is handled by the `Router` class. The `Router` class is located in the `Core/Routing` folder.
 
 The `Router` class is a singleton, which means that there can only be one instance of this class. This class is used to register routes, and to match the current request to the appropriate route.
 
-#### Registering a route
+#### A. Registering a route
 
 To register a route, you must first go in the `routes.php` folder located in the root of the project. This file contains all the routes of the application.
 
