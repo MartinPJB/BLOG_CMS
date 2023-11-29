@@ -11,7 +11,8 @@ namespace Controller;
 use \Core\Controller\ControllerInterface;
 use \Core\Controller\ControllerBase;
 use \Core\RequestContext;
-use \Model\PublicFiles;
+use \Model\Files;
+use \Model\SiteSettings;
 
 /**
  * Public controller | Handles all requests related to public files
@@ -46,20 +47,24 @@ class PublicController extends ControllerBase implements ControllerInterface
    */
   private function getFileContent(string $directory, string $file_name): ?array
   {
-    $file_path = PublicFiles::findFile($directory, $file_name);
+    $file_path = Files::findFile($directory, $file_name);
+    if (!$file_path) {
+      return null;
+    }
 
-    if (!$file_path) return null;
+    $file_content = Files::getFileContent($file_path);
+    $file_content['content'] = $file_content['content'] ?? '';
 
-    $file_content = PublicFiles::getFileContent($file_path);
-
-    if (!$file_content) $file_content['content'] = '';
-    if (!isset($file_content['type'])) return null;
+    if (!isset($file_content['type'])) {
+      return null;
+    }
 
     return [
       'content' => $file_content['content'],
       'type' => $file_content['type'],
     ];
   }
+
 
   /**
    * Get a public file from the theme Front directory
@@ -68,16 +73,20 @@ class PublicController extends ControllerBase implements ControllerInterface
    */
   public function displayFileContent($directory): void
   {
+    $theme = SiteSettings::getSiteSettings()->getTheme();
+    $parent_directory = dirname(__DIR__) . '/Themes/';
+    $public_directory = $parent_directory . "$theme/$directory/public/";
+
     $file_name = $this->requestContext->id;
+
     if (!$file_name) {
       header('HTTP/1.0 404 Not Found');
       return;
     }
 
-    // Get the file content
-    $file_content = $this->getFileContent($directory, $file_name);
+    // Obtenez le contenu du fichier
+    $file_content = $this->getFileContent($public_directory, $file_name);
 
-    // No need for templates!
     if (!$file_content) {
       header('HTTP/1.0 404 Not Found');
       return;
