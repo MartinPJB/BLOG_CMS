@@ -5,27 +5,27 @@ use \Core\Config;
 // Default configuration
 $config = [
   'database' => [
-    'host' => 'localhost',
-    'name' => 'cuej_blog',
-    'user' => 'root',
+    'host' => '',
+    'name' => '',
+    'user' => '',
     'password' => '',
   ],
 
   'admin' => [
-    'name' => 'admin',
-    'email' => 'admin@site.example',
-    'password' => password_hash('admin', PASSWORD_DEFAULT),
+    'name' => '',
+    'email' => '',
+    'password' => password_hash('', PASSWORD_DEFAULT),
   ],
 
   'site' => [
     // ❗ After installation, these values will be read from the database and not from the Config class anymore!
-    'default_name' => 'CUEJ_CMS Blog',
-    'default_description' => 'Un blog pour le CUEJ_CMS',
+    'default_name' => '',
+    'default_description' => '',
     'default_route' => 'articles',
-    'language' => 'fr',
+    'language' => '',
 
     // ✔️ These values will be read from the Config class
-    'root' => 'http://' . $_SERVER['HTTP_HOST'] . '/CUEJ_CMS/',
+    'root' => 'http://' . $_SERVER['HTTP_HOST'],
   ],
 ];
 
