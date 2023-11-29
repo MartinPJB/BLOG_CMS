@@ -40,13 +40,13 @@ class UsersController extends ControllerBase implements ControllerInterface
    */
   public function see(array $params): void
   {
-    $user_id = intval($this->requestContext->id);
+    $user_id = intval($this->requestContext->getOptParam());
 
     if (!isset($user_id) || $user_id === 0) {
       $this->redirect('articles');
     }
 
-    $user = Users::getUser((int) $params['id']);
+    $user = Users::getUser($user_id);
     $this->render('Users/see', [
       'user' => $user,
     ]);

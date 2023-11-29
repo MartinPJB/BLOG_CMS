@@ -51,13 +51,13 @@ class ArticlesController extends ControllerBase implements ControllerInterface
    */
   public function see(array $params): void
   {
-    $article_id = intval($this->requestContext->id);
+    $article_id = intval($this->requestContext->getOptParam());
 
     if (!isset($article_id) || $article_id === 0) {
       $this->redirect('articles');
     }
 
-    $article = Articles::getArticle((int) $params['id']);
+    $article = Articles::getArticle($article_id);
     $this->render('Articles/see', [
       'article' => $article,
     ]);

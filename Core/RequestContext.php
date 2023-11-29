@@ -7,28 +7,30 @@ namespace Core;
  */
 class RequestContext
 {
-  public string $uri;
-  public ?string $route;
-  public ?string $action;
-  public ?string $id;
+  private string $uri;
+  private ?string $route;
+  private ?string $action;
+  private ?string $opt_param;
 
-  public string $method;
-  public array $parameters;
+  private string $method;
+  private array $parameters;
 
   public function __construct(string $URI, string $method = 'GET', array $parameters = [])
   {
     $this->uri = $URI;
     $this->method = $method;
 
-    // Get the route name as well as the action and the id if they exist
+    // Get the route name as well as the action and the optional param if they exist
     $this->route = $parameters['GET']['route'] ?? null;
     $this->action = $parameters['GET']['action'] ?? null;
-    $this->id = urldecode($parameters['GET']['id']) ?? null;
+
+    $this->opt_param = $parameters['GET']['opt_param'] ?? null;
+    $this->opt_param = urldecode($this->opt_param);
 
     // Remove the route name, the action and the id from the parameters array
     unset($parameters['GET']['route']);
     unset($parameters['GET']['action']);
-    unset($parameters['GET']['id']);
+    unset($parameters['GET']['opt_param']);
 
     // Set the parameters
     $this->parameters = $parameters;
@@ -65,13 +67,13 @@ class RequestContext
   }
 
   /**
-   * Get the value of id
+   * Get the value of opt_param
    *
-   * @return ?string Id of the request context (null if not set)
+   * @return ?string Optional param of the request context (null if not set)
    */
-  public function getId(): ?string
+  public function getOptParam(): ?string
   {
-    return $this->id;
+    return $this->opt_param;
   }
 
   /**

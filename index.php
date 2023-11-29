@@ -12,7 +12,7 @@ require_once 'vendor/autoload.php';
 require_once 'autoload.php';
 
 // Config import
-require_once 'config/default.php';
+require_once 'config/local.php';
 
 // Database connection || installation
 Manager::getConnection();

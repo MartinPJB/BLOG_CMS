@@ -77,7 +77,7 @@ class PublicController extends ControllerBase implements ControllerInterface
     $parent_directory = dirname(__DIR__) . '/Themes/';
     $public_directory = $parent_directory . "$theme/$directory/public/";
 
-    $file_name = $this->requestContext->id;
+    $file_name = $this->requestContext->getOptParam();
 
     if (!$file_name) {
       header('HTTP/1.0 404 Not Found');
