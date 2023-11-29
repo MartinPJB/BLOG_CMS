@@ -146,5 +146,5 @@ use \Controller\HomeController;
 Router::addRoute('home', '', HomeController::class, 0, 'GET');
 
 // Register a new route -> GET /home/somestuff (the action will be somestuff, which means that the method to be called will be somestuff)
-Router::addRoute('home_index', 'somestuff', HomeController::class, 0, 'GET');
+Router::addRoute('home', 'somestuff', HomeController::class, 0, 'GET');
 ```
