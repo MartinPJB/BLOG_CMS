@@ -79,7 +79,7 @@ The `__construct` method is required, and must call the parent constructor, pass
 
 `RequestContext` is a class that contains information about the request such as the method, parameters, etc... It is automatically created by the router, and passed to the Controller's constructor.
 
-### Controller Methods
+### II. Controller Methods
 
 A Controller can have as many methods as you want. However, it must have at least one method, which is the `index` method. This method will be called if no action is provided in the URL.
 
@@ -121,7 +121,7 @@ The `ControllerBase` class provides a few methods that can be used in the Contro
 
 - `redirect(string $url)`: Redirects the user to the specified URL. The URL must be relative to the root of the website.
 
-### II. Controller Routing
+### III. Controller Routing
 
 The Controller routing is handled by the `Router` class. The `Router` class is located in the `Core/Routing` folder.
 
