@@ -46,13 +46,14 @@ class PublicController extends ControllerBase implements ControllerInterface
    */
   private function getFileContent(string $directory, string $file_name): ?array
   {
-    $file_path = PublicFiles::findFileRecursively($directory, $file_name);
+    $file_path = PublicFiles::findFile($directory, $file_name);
 
     if (!$file_path) return null;
 
     $file_content = PublicFiles::getFileContent($file_path);
 
     if (!$file_content) $file_content['content'] = '';
+    if (!isset($file_content['type'])) return null;
 
     return [
       'content' => $file_content['content'],

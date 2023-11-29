@@ -12,14 +12,14 @@ use \Core\Config;
 class PublicFiles
 {
   /**
-   * Search for a file in the public directory of the theme
+   * Search for a file in the public desired directory of the theme
    *
    * @param string $directory Directory to search in (Front or Back)
    * @param string $file_name File name to search for
    * @param string $frontOrBack Front or back office ('Front' or 'Back', default: Front)
    * @return ?string File path if found, null otherwise
    */
-  public static function findFileRecursively(string $directory, string $file_name): ?string
+  public static function findFile(string $directory, string $file_name): ?string
   {
     $theme = SiteSettings::getSiteSettings()->getTheme();
     $parent_directory = dirname(__DIR__) . '/Themes/';
@@ -28,18 +28,28 @@ class PublicFiles
     // Check if directory exists
     if (!is_dir($public_directory)) return null;
 
-    $iterator = new \RecursiveIteratorIterator(
-      new \RecursiveDirectoryIterator($public_directory),
-      \RecursiveIteratorIterator::SELF_FIRST
-    );
+    // Get the file
+    $file_path = $public_directory . $file_name;
 
-    foreach ($iterator as $file) {
-      if ($file->isFile() && $file->getFilename() === $file_name) {
-        return $file->getPathname();
-      }
-    }
+    if (!file_exists($file_path)) return null;
 
-    return null;
+    return $file_path;
+
+    // // Check if directory exists
+    // if (!is_dir($public_directory)) return null;
+
+    // $iterator = new \RecursiveIteratorIterator(
+    //   new \RecursiveDirectoryIterator($public_directory),
+    //   \RecursiveIteratorIterator::SELF_FIRST
+    // );
+
+    // foreach ($iterator as $file) {
+    //   if ($file->isFile() && $file->getFilename() === $file_name) {
+    //     return $file->getPathname();
+    //   }
+    // }
+
+    // return null;
   }
 
   /**
@@ -56,7 +66,10 @@ class PublicFiles
     $file_type = finfo_file($file_infos, $path);
     finfo_close($file_infos);
 
+    if (is_dir($path)) return null;
+
     $file_content = file_get_contents($path);
+    if (is_null($file_content)) return null;
 
     if (empty($file_type)) return null;
     if (empty($file_content)) $file_type = 'text/plain';
