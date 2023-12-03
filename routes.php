@@ -5,6 +5,7 @@ use \Core\Routing\Router;
 use \Controller\ArticlesController;
 use \Controller\UsersController;
 use \Controller\PublicController;
+use \Controller\AdminController;
 
 /*
   Usage:
@@ -32,3 +33,9 @@ Router::addRoute('users', 'process_login', UsersController::class, 0, 'POST');
 // GET
 Router::addRoute('public', 'front', PublicController::class, 0, 'GET');
 Router::addRoute('public', 'back', PublicController::class, 0, 'GET');
+
+
+/* -- Admin routes -- */
+// GET
+Router::addRoute('admin', '', AdminController::class, 2, 'GET');
+Router::addRoute('admin', 'articles', AdminController::class, 2, 'GET');

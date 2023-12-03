@@ -1,0 +1,79 @@
+{#
+  Name: list.html.twig
+  Path: default/Back/templates/pages/Articles/list.html.twig
+
+  Variables:
+    - {@array} articles: Articles list to display:
+      - {@object} article: Article to display:
+        - {@object} image: Image to display:
+          - {@string} path: Image path
+          - {@string} alt: Image alt
+        - {@string} title: Article title
+        - {@string} description: Article description
+        - {@string} date: Article date
+        - {@string} author: Article author
+        - {@object} category: Article category:
+          - {@string} name: Category name
+        - {@array} tags: Article tags list
+#}
+{% extends "index.html.twig" %}
+
+{# Set title #}
+{% block title %}Articles{% endblock %}
+
+{# Set content #}
+{% block content %}
+  <h1>Articles créés</h1>
+  <p>Voici la liste de tous les articles créés.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Titre</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Auteur</th>
+        <th>Catégorie</th>
+        <th>Tags</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {# Display each articles #}
+      {% for article in articles|sort((a, b) => date(a.getDate()) - date(b.getDate())) %}
+        {# Variables #}
+        {% set title = article.getTitle() %}
+        {% set description = article.getDescription() %}
+        {% set date = article.getDate() %}
+        {% set author = article.getAuthor() %}
+        {% set category = article.getCategory() %}
+        {% set tags = article.getTags() %}
+
+        <tr>
+          <td>{{ title }}</td>
+          <td>{{ description }}</td>
+          <td>{{ date|date("d/m/Y H:i", "Europe/Paris") }}</td>
+          <td>{{ author.getUsername() }}</td>
+          <td>{{ category.getName() }}</td>
+          <td>
+            {% for tag in tags %}
+              {{ tag }}
+            {% endfor %}
+          </td>
+          <td>
+            <a href="">Modifier</a>
+            <a href="">Supprimer</a>
+          </td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="8">Aucun article n'a été publié.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="admin/articles/create">Créer un article</a>
+
+{% endblock %}
+
