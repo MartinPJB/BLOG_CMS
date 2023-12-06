@@ -123,6 +123,8 @@ class Medias
    * @param string $path Media path
    * @param string $alt Media alt
    * @param string $uploaded_at Media uploaded_at
+   *
+   * @return self Media
    */
   public static function create(
     string $name,
@@ -131,7 +133,7 @@ class Medias
     string $path,
     string $alt,
     string $uploaded_at
-  ): void {
+  ): self {
     Manager::create('media', [
       'name' => $name,
       'type' => $type,
@@ -140,6 +142,16 @@ class Medias
       'alt' => $alt,
       'uploaded_at' => $uploaded_at
     ]);
+
+    return new self(
+      Manager::getLastInsertedId(),
+      $name,
+      $type,
+      $size,
+      $path,
+      $alt,
+      $uploaded_at
+    );
   }
 
   /**

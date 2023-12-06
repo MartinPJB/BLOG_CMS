@@ -52,6 +52,24 @@ class Files
       return null;
     }
 
+    // In case finfo is too old to handle mime types properly
+    if ($file_type === 'text/plain') {
+      $ext = pathinfo($path, PATHINFO_EXTENSION);
+      switch ($ext) {
+        case 'css':
+          $file_type = 'text/css';
+          break;
+
+        case 'js':
+          $file_type = 'text/javascript';
+          break;
+
+        case 'json':
+          $file_type = 'application/json';
+          break;
+      }
+    }
+
     $file_type = $file_type ?: 'text/plain';
 
     return [

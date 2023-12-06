@@ -1,0 +1,1 @@
+# Files uploaded by the admin will simply be stocked here.

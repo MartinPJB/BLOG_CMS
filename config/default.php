@@ -26,6 +26,7 @@ $config = [
 
     // ✔️ These values will be read from the Config class
     'root' => 'http://' . $_SERVER['HTTP_HOST'],
+    'file_size_limit' => 1e+7, // 10MB
   ],
 ];
 

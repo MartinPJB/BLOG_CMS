@@ -6,6 +6,7 @@ use \Controller\ArticlesController;
 use \Controller\UsersController;
 use \Controller\PublicController;
 use \Controller\AdminController;
+use \Controller\AdminSubControllers\AdminArticlesController;
 
 /*
   Usage:
@@ -36,6 +37,11 @@ Router::addRoute('public', 'back', PublicController::class, 0, 'GET');
 
 
 /* -- Admin routes -- */
-// GET
 Router::addRoute('admin', '', AdminController::class, 2, 'GET');
-Router::addRoute('admin', 'articles', AdminController::class, 2, 'GET');
+
+/* -- Admin Articles -- */
+// GET
+Router::addRoute('admin', 'articles', AdminArticlesController::class, 2, 'GET');
+
+// POST
+Router::addRoute('admin', 'create_article', AdminArticlesController::class, 2, 'POST');

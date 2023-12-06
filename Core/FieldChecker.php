@@ -58,17 +58,6 @@ class FieldChecker {
   }
 
   /**
-   * Clean an integer field to avoid XSS attacks and SQL injections
-   *
-   * @param mixed $field The field to clean
-   * @return int The cleaned field
-   */
-  public static function cleanInt(mixed $field): int
-  {
-    return intval($field);
-  }
-
-  /**
    * Check if a field is a valid integer
    *
    * @param mixed $field The field to check
@@ -77,6 +66,17 @@ class FieldChecker {
   public static function checkInt(mixed $field): bool
   {
     return filter_var($field, FILTER_VALIDATE_INT);
+  }
+
+  /**
+   * Clean an integer field to avoid XSS attacks and SQL injections
+   *
+   * @param mixed $field The field to clean
+   * @return int The cleaned field
+   */
+  public static function cleanInt(mixed $field): int
+  {
+    return intval($field);
   }
 
   /**
@@ -89,4 +89,43 @@ class FieldChecker {
   {
     return filter_var($field, FILTER_VALIDATE_BOOLEAN);
   }
+
+  /**
+   * Clean a boolean field to avoid XSS attacks and SQL injections
+   *
+   * @param mixed $field The field to clean
+   * @return bool The cleaned field
+   */
+  public static function cleanBool(mixed $field): bool
+  {
+    return boolval($field);
+  }
+
+  /**
+   * Check if a field is a date (DD/MM/YYYY)
+   *
+   * @param mixed $field The field to check
+   * @return bool True if the field is a valid date, false otherwise
+   */
+  public static function checkDate(mixed $field): bool
+  {
+    $date = explode('/', $field);
+    if (count($date) !== 3) {
+      return false;
+    }
+    return checkdate($date[1], $date[0], $date[2]);
+  }
+
+  /**
+   * Clean a date field to avoid XSS attacks and SQL injections
+   *
+   * @param mixed $field The field to clean
+   * @return string The cleaned field
+   */
+  public static function cleanDate(mixed $field): string
+  {
+    return date('Y-m-d', strtotime($field));
+  }
+
+
 }
