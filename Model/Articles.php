@@ -154,7 +154,7 @@ class Articles
    * @param boolean $is_draft Is the article a draft
    * @param boolean $is_published Is the article published
    */
-  public static function createArticle(
+  public static function create(
     string $title,
     string $description,
     int $author_id,
@@ -190,7 +190,7 @@ class Articles
    * @param boolean $is_draft Is the article a draft
    * @param boolean $is_published Is the article published
    */
-  public static function updateArticle(
+  public static function update(
     int $id,
     string $title,
     string $description,
@@ -219,7 +219,7 @@ class Articles
    *
    * @param integer $id Article ID
    */
-  public static function deleteArticle(int $id): void
+  public static function delete(int $id): void
   {
     Manager::delete('articles', ['id' => $id]);
   }

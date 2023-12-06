@@ -62,7 +62,7 @@ class SiteSettings {
    * @param string $default_route Site default route
    * @return void
    */
-  public static function updateSiteSettings(
+  public static function update(
     string $name,
     string $description,
     string $theme,

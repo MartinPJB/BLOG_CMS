@@ -67,7 +67,7 @@ class Categories
    *
    * @param string $name Category name
    */
-  public static function createCategory(string $name): void
+  public static function create(string $name): void
   {
     Manager::create('categories', ['name' => $name]);
   }
@@ -78,7 +78,7 @@ class Categories
    * @param integer $id Category ID
    * @param string $name Category name
    */
-  public static function updateCategory(int $id, string $name): void
+  public static function update(int $id, string $name): void
   {
     Manager::update('categories', ['name' => $name], ['id' => $id]);
   }
@@ -88,7 +88,7 @@ class Categories
    *
    * @param integer $id Category ID
    */
-  public static function deleteCategory(int $id): void
+  public static function delete(int $id): void
   {
     Manager::delete('categories', ['id' => $id]);
   }

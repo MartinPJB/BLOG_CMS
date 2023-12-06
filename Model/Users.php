@@ -114,7 +114,7 @@ class Users {
    * @param string $email User email
    * @param string $role User role
    */
-  public static function createUser(
+  public static function create(
     string $username,
     string $password,
     string $email,
@@ -137,7 +137,7 @@ class Users {
    * @param string $email User email
    * @param string $role User role
    */
-  public static function updateUser(
+  public static function update(
     int $id,
     string $username,
     string $password,
@@ -229,7 +229,7 @@ class Users {
    *
    * @param integer $id User ID
    */
-  public static function deleteUser(int $id): void
+  public static function delete(int $id): void
   {
     Manager::delete('users', ['id' => $id]);
   }

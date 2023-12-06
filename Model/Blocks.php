@@ -121,7 +121,7 @@ class Blocks
    * @param string $type Block type
    * @param integer $weight Block weight
    */
-  public static function createBlock(
+  public static function create(
     string $name,
     mixed $json_content,
     int $article_id,
@@ -147,7 +147,7 @@ class Blocks
    * @param string $type Block type
    * @param integer $weight Block weight
    */
-  public static function updateBlock(
+  public static function update(
     int $id,
     string $name,
     mixed $json_content,
@@ -169,7 +169,7 @@ class Blocks
    *
    * @param integer $id Block ID
    */
-  public static function deleteBlock(int $id): void
+  public static function delete(int $id): void
   {
     Manager::delete('blocks', ['id' => $id]);
   }
