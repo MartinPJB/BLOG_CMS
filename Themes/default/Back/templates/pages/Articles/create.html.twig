@@ -12,7 +12,7 @@
 
   <h1>Créer un article</h1>
 
-  <form action="admin/create_article" method="post">
+  <form action="admin/create_article" method="post" enctype="multipart/form-data">
     <fieldset>
       <legend>Titre de l'article</legend>
       <input type="text" name="title" placeholder="Titre de l'article" required>
@@ -30,7 +30,7 @@
 
     <fieldset>
       <legend>Catégorie de l'article</legend>
-      <select name="category" required>
+      <select name="category_id" required>
         {% for category in categories %}
           <option value="{{ category.getId() }}">{{ category.getName() }}</option>
         {% endfor %}

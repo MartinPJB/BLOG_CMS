@@ -132,7 +132,7 @@ class AdminController extends ControllerBase implements ControllerInterface
             ucfirst(explode('.', $name)[0]),
             mime_content_type($file_destination),
             $file_size,
-            "public/back/admin_upload/{$name}",
+            "public/back/admin_uploads/{$name}",
             $name,
             date('Y-m-d H:i:s')
           );
