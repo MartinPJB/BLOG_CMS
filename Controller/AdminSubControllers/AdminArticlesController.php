@@ -56,7 +56,7 @@ class AdminArticlesController extends AdminController {
    *
    * @param array $params The parameters passed to the controller
    */
-  public function create_article(array $params)
+  public function create_article(array $params): void
   {
     try {
       $processed = $this->process_fields();
@@ -88,7 +88,7 @@ class AdminArticlesController extends AdminController {
    *
    * @param array $params The parameters passed to the controller
    */
-  public function edit_article(array $params)
+  public function edit_article(array $params): void
   {
     $article_id = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {
@@ -126,7 +126,7 @@ class AdminArticlesController extends AdminController {
    *
    * @param array $params The parameters passed to the controller
    */
-  public function delete_article(array $params)
+  public function delete_article(array $params): void
   {
     $article_id = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {
