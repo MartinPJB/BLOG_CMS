@@ -7,6 +7,7 @@ use \Controller\UsersController;
 use \Controller\PublicController;
 use \Controller\AdminController;
 use \Controller\AdminSubControllers\AdminArticlesController;
+use \Controller\AdminSubControllers\AdminMediasController;
 
 /*
   Usage:
@@ -47,3 +48,10 @@ Router::addRoute('admin', 'articles', AdminArticlesController::class, 2, 'GET');
 Router::addRoute('admin', 'create_article', AdminArticlesController::class, 2, 'POST');
 Router::addRoute('admin', 'edit_article', AdminArticlesController::class, 2, 'POST');
 Router::addRoute('admin', 'delete_article', AdminArticlesController::class, 2, 'POST');
+
+/* -- Admin Medias -- */
+// GET
+// Router::addRoute('admin', 'medias', AdminArticlesController::class, 2, 'GET');
+
+// POST
+Router::addRoute('admin', 'delete_media', AdminMediasController::class, 2, 'GET');

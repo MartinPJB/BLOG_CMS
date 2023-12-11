@@ -89,17 +89,17 @@ class Installer
       'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
       'title' => 'VARCHAR(255) NOT NULL',
       'description' => 'TEXT NOT NULL',
-      'author_id' => 'INT(6) UNSIGNED NOT NULL',
+      'author_id' => 'INT(6) UNSIGNED NULL',
       'date' => 'DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP',
       'image' => 'INT(6) UNSIGNED NULL DEFAULT NULL',
-      'category_id' => 'INT(6) UNSIGNED NOT NULL',
+      'category_id' => 'INT(6) UNSIGNED NULL',
       'tags' => 'VARCHAR(255) NOT NULL DEFAULT ""',
       'draft' => 'BOOLEAN NOT NULL DEFAULT TRUE',
       'published' => 'BOOLEAN NOT NULL DEFAULT FALSE',
     ], [
-      'FOREIGN KEY (author_id) REFERENCES users (id) ON DELETE CASCADE',
-      'FOREIGN KEY (image) REFERENCES media (id) ON DELETE CASCADE',
-      'FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE CASCADE'
+      'FOREIGN KEY (author_id) REFERENCES users (id) ON DELETE SET NULL',
+      'FOREIGN KEY (image) REFERENCES media (id) ON DELETE SET NULL',
+      'FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE SET NULL'
     ]);
 
     // Blocks table
@@ -107,11 +107,13 @@ class Installer
       'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
       'name' => 'VARCHAR(255) NOT NULL',
       'json_content' => 'JSON NOT NULL',
-      'article_id' => 'INT(6) UNSIGNED NOT NULL',
+      'article_id' => 'INT(6) UNSIGNED NULL',
       'type' => 'VARCHAR(255) NOT NULL',
-      'weight' => 'INT(6) UNSIGNED NOT NULL',
+      'weight' => 'INT(6) UNSIGNED NULL',
+      'media' => 'INT(6) UNSIGNED NULL DEFAULT NULL',
     ], [
-      'FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE CASCADE'
+      'FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE SET NULL',
+      'FOREIGN KEY (media) REFERENCES media (id) ON DELETE SET NULL'
     ]);
   }
 

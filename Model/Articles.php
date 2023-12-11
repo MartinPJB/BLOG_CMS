@@ -18,7 +18,7 @@ class Articles
   private string $description;
   private int $author_id;
   private DateTime $date;
-  private int $image;
+  private ?int $image;
   private int $category_id;
   private array $tags;
   private bool $is_draft;
@@ -32,7 +32,7 @@ class Articles
    * @param string $description Article description
    * @param integer $author_id Author ID
    * @param string $date Article date
-   * @param integer $image Article image ID
+   * @param ?integer $image Article image ID
    * @param integer $category_id Category ID
    * @param array $tags Article tags
    * @param boolean $is_draft Is the article a draft
@@ -44,7 +44,7 @@ class Articles
     string $description,
     int $author_id,
     string $date,
-    int $image,
+    ?int $image,
     int $category_id,
     array $tags,
     bool $is_draft,
@@ -287,9 +287,9 @@ class Articles
   /**
    * Get the id value of image
    *
-   * @return int Article image
+   * @return ?int Article image
    */
-  public function getImageId(): int
+  public function getImageId(): ?int
   {
     return $this->image;
   }
@@ -297,10 +297,14 @@ class Articles
   /**
    * Get the image directly
    *
-   * @return Medias Image object
+   * @return ?Medias Image object
    */
-  public function getImage(): Medias
+  public function getImage(): ?Medias
   {
+    if ($this->image === null) {
+      return null;
+    }
+
     return Medias::getMediaById($this->image);
   }
 
