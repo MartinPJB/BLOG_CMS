@@ -3,6 +3,7 @@
 namespace Controller\AdminSubControllers;
 
 use \Controller\AdminController;
+use \Core\FieldChecker;
 use \Model\Articles;
 use \Model\Categories;
 use \Model\Users;
@@ -30,13 +31,16 @@ class AdminArticlesController extends AdminController {
         ]);
         break;
       case 'edit':
+        $article = Articles::getArticle($article_id);
         $this->render('Articles/edit', [
-          'article_id' => $article_id,
+          'article' => $article,
+          'categories' => Categories::getAllCategories(),
         ]);
         break;
       case 'delete':
+        $article = Articles::getArticle($article_id);
         $this->render('Articles/delete', [
-          'article_id' => $article_id,
+          'article' => $article,
         ]);
         break;
       default:
@@ -79,4 +83,60 @@ class AdminArticlesController extends AdminController {
     }
   }
 
+  /**
+   * The process edit method, will handle the edition of articles
+   *
+   * @param array $params The parameters passed to the controller
+   */
+  public function edit_article(array $params)
+  {
+    $article_id = FieldChecker::cleanInt($this->requestContext->getOptParam());
+    try {
+      $processed = $this->process_fields();
+      $author_id = Users::getAuthentificatedUser()->getId();
+      $media = Articles::getArticle($article_id)->getImage();
+
+      if (isset($_FILES['image'])) {
+        $media = $this->upload_file($_FILES['image']);
+      }
+
+      Articles::update(
+        $article_id,
+        $processed['title'],
+        $processed['description'],
+        $author_id,
+        $media->getId(),
+        $processed['category_id'],
+        explode(', ', $processed['tags']),
+        $processed['status'] == 'draft',
+        $processed['status'] == 'published'
+      );
+
+      $this->redirect('admin/articles');
+    } catch(\Exception $e) {
+      $this->render('Articles/edit', [
+        'article_id' => $article_id,
+        'errors' => [$e->getMessage()],
+      ]);
+    }
+  }
+
+  /**
+   * The process delete method, will handle the deletion of articles
+   *
+   * @param array $params The parameters passed to the controller
+   */
+  public function delete_article(array $params)
+  {
+    $article_id = FieldChecker::cleanInt($this->requestContext->getOptParam());
+    try {
+      Articles::delete($article_id);
+      $this->redirect('admin/articles');
+    } catch (\Exception $e) {
+      $this->render('Articles/list', [
+        'articles' => Articles::getAllArticles(),
+        'errors' => [$e->getMessage()],
+      ]);
+    }
+  }
 }

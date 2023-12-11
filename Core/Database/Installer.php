@@ -91,7 +91,7 @@ class Installer
       'description' => 'TEXT NOT NULL',
       'author_id' => 'INT(6) UNSIGNED NOT NULL',
       'date' => 'DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP',
-      'image' => 'INT(6) UNSIGNED NOT NULL DEFAULT 1',
+      'image' => 'INT(6) UNSIGNED NULL DEFAULT NULL',
       'category_id' => 'INT(6) UNSIGNED NOT NULL',
       'tags' => 'VARCHAR(255) NOT NULL DEFAULT ""',
       'draft' => 'BOOLEAN NOT NULL DEFAULT TRUE',

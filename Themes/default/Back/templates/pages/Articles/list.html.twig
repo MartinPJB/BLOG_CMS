@@ -43,6 +43,7 @@
       {# Display each articles #}
       {% for article in articles|sort((a, b) => a.getDate() > b.getDate()) %}
         {# Variables #}
+        {% set id = article.getId() %}
         {% set title = article.getTitle() %}
         {% set description = article.getDescription() %}
         {% set date = article.getDate() %}
@@ -69,8 +70,8 @@
             {% endif %}
           </td>
           <td>
-            <a href="">Modifier</a>
-            <a href="">Supprimer</a>
+            <a href="admin/articles/edit/{{ id }}">Modifier</a>
+            <a href="admin/articles/delete/{{ id }}">Supprimer</a>
           </td>
         </tr>
       {% else %}

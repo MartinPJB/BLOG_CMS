@@ -45,3 +45,5 @@ Router::addRoute('admin', 'articles', AdminArticlesController::class, 2, 'GET');
 
 // POST
 Router::addRoute('admin', 'create_article', AdminArticlesController::class, 2, 'POST');
+Router::addRoute('admin', 'edit_article', AdminArticlesController::class, 2, 'POST');
+Router::addRoute('admin', 'delete_article', AdminArticlesController::class, 2, 'POST');
