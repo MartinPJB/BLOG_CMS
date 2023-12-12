@@ -1,5 +1,5 @@
 {#
-  Nom: menu.html.twig
+  Name: menu.html.twig
   Path: default/Front/templates/navigation/menu.html.twig
 #}
 
@@ -15,6 +15,14 @@
 			<li>
 				<a href="./users/logout">Déconnexion</a>
 			</li>
+
+      {% if is_admin %}
+
+        <li>
+          <a href="./admin">Administration</a>
+        </li>
+
+      {% endif %}
 		{% else %}
       <li>
         <a href="./users/login">Connexion</a>

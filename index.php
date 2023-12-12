@@ -12,7 +12,7 @@ require_once 'vendor/autoload.php';
 require_once 'autoload.php';
 
 // Config import
-require_once 'config/default.php';
+require_once 'config/local.php';
 
 // Database connection || installation
 Manager::getConnection();
@@ -20,7 +20,6 @@ try {
   Manager::connectToDatabase(Config::get('database_name'));
 } catch (PDOException $e) {
   Installer::install();
-  echo "Database installed successfully !";
 }
 
 // Session start

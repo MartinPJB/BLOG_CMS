@@ -1,5 +1,5 @@
 {#
-  Nom: index.html.twig
+  Name: index.html.twig
   Path: default/Front/templates/pages/Articles/index.html.twig
 
   Variables:
@@ -26,7 +26,7 @@
   <h1>Articles</h1>
 
   {# Display each articles #}
-  {% for article in articles|sort((a, b) => date(a.getDate()) - date(b.getDate())) %}
+  {% for article in articles|sort((a, b) => a.getDate() > b.getDate()) %}
 
     {# Variables #}
     {% set image = article.getImage() %}

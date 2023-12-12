@@ -1,0 +1,72 @@
+{#
+  Name: edit.html.twig
+  Path: default/Back/templates/pages/Articles/edit.html.twig
+#}
+{% extends "index.html.twig" %}
+
+{# Set title #}
+{% block title %}Articles - Modification{% endblock %}
+
+{# Set content #}
+{% block content %}
+
+  <h1>Modifier un article</h1>
+
+  <form action="admin/edit_article/{{ article.getId() }}" method="post" enctype="multipart/form-data">
+    <section>
+      <label for="title">Titre de l'article</label>
+      <input type="text" name="title" id="title" placeholder="Titre de l'article" value="{{ article.getTitle() }}" required>
+    </section>
+
+    <section>
+      <label for="description">Description de l'article</label>
+      <textarea name="description" id="description" placeholder="Description de l'article" required>{{ article.getDescription() }}</textarea>
+    </section>
+
+    <section>
+      {% if article.getImage() != null %}
+        <img src="{{ article.getImage().getPath() }}" alt="Image de l'article">
+        <input type="button" id="cuej__delete_media" data-id="{{ article.getImage().getId() }}" value="Remplacer l'image">
+      {% else %}
+        <label for="image">Image de l'article</label>
+        <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg, .gif, .webp, .svg" required>
+      {% endif %}
+    </section>
+
+    <section>
+      <label for="category_id">Catégorie de l'article</label>
+      <select name="category_id" id="category_id" required>
+        {% for category in categories %}
+          <option
+            value="{{ category.getId() }}"
+            {% if category.getName() == article.getCategory().getName() %}
+              selected
+            {% endif %}
+          >
+            {{ category.getName() }}
+          </option>
+        {% endfor %}
+      </select>
+    </section>
+
+    <section>
+      <label for="rags">Tags de l'article (séparés par une virgule)</label>
+      <input type="text" name="tags" id="tags" placeholder="tag1, tag2, tag3..." required value="{{ article.getTags()|join(",") }}">
+    </section>
+
+    <fieldset>
+      <legend>État de publication</legend>
+
+      <section>
+        <label for="draft">Brouillon</label>
+        <input type="radio" value="draft" name="status" id="draft" {% if article.isDraft() %}checked{% endif %}>
+
+        <label for="published">Publié</label>
+        <input type="radio" value="published" name="status" id="published" {% if article.isPublished() %}checked{% endif %}>
+      </section>
+    </fieldset>
+
+    <input type="submit" value="Modifier l'article">
+  </form>
+
+{% endblock %}

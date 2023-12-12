@@ -100,10 +100,7 @@ class Router
         return;
       }
 
-      // Get the id from the request context
-      $id = $requestContext->getId();
       $params = $requestContext->getParameters();
-      $params['id'] = $id;
 
       // If no action defined, it means that the action is set as the index action
       if (!$action) {

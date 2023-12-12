@@ -76,6 +76,14 @@ class Manager
   }
 
   /**
+   * Get the last inserted ID
+   */
+  public static function getLastInsertedId(): int
+  {
+    return self::getConnection()->lastInsertId();
+  }
+
+  /**
    * Creates a new database if it does not already exist
    *
    * @param string $database The name of the database to create

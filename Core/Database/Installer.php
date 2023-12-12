@@ -51,10 +51,11 @@ class Installer
   {
     // Site settings table
     Manager::createTable('site_settings', [
-      'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
       'name' => 'VARCHAR(255) NOT NULL',
       'description' => 'TEXT NOT NULL',
       'theme' => 'VARCHAR(255) NOT NULL DEFAULT "default"',
+      'site_language' => 'VARCHAR(255) NOT NULL DEFAULT "fr"',
+      'default_route' => 'VARCHAR(255) NOT NULL DEFAULT "articles"',
     ]);
 
     // Users table
@@ -88,17 +89,17 @@ class Installer
       'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
       'title' => 'VARCHAR(255) NOT NULL',
       'description' => 'TEXT NOT NULL',
-      'author_id' => 'INT(6) UNSIGNED NOT NULL',
-      'date' => 'DATETIME NOT NULL',
-      'image' => 'INT(6) UNSIGNED NOT NULL',
-      'category_id' => 'INT(6) UNSIGNED NOT NULL',
-      'tags' => 'VARCHAR(255) NOT NULL',
-      'draft' => 'BOOLEAN NOT NULL DEFAULT FALSE',
+      'author_id' => 'INT(6) UNSIGNED NULL',
+      'date' => 'DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP',
+      'image' => 'INT(6) UNSIGNED NULL DEFAULT NULL',
+      'category_id' => 'INT(6) UNSIGNED NULL',
+      'tags' => 'VARCHAR(255) NOT NULL DEFAULT ""',
+      'draft' => 'BOOLEAN NOT NULL DEFAULT TRUE',
       'published' => 'BOOLEAN NOT NULL DEFAULT FALSE',
     ], [
-      'FOREIGN KEY (author_id) REFERENCES users (id) ON DELETE CASCADE',
-      'FOREIGN KEY (image) REFERENCES media (id) ON DELETE CASCADE',
-      'FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE CASCADE'
+      'FOREIGN KEY (author_id) REFERENCES users (id) ON DELETE SET NULL',
+      'FOREIGN KEY (image) REFERENCES media (id) ON DELETE SET NULL',
+      'FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE SET NULL'
     ]);
 
     // Blocks table
@@ -106,9 +107,13 @@ class Installer
       'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
       'name' => 'VARCHAR(255) NOT NULL',
       'json_content' => 'JSON NOT NULL',
-      'article_id' => 'INT(6) UNSIGNED NOT NULL'
+      'article_id' => 'INT(6) UNSIGNED NULL',
+      'type' => 'VARCHAR(255) NOT NULL',
+      'weight' => 'INT(6) UNSIGNED NULL',
+      'media' => 'INT(6) UNSIGNED NULL DEFAULT NULL',
     ], [
-      'FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE CASCADE'
+      'FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE SET NULL',
+      'FOREIGN KEY (media) REFERENCES media (id) ON DELETE SET NULL'
     ]);
   }
 
@@ -121,6 +126,8 @@ class Installer
     Manager::create('site_settings', [
       'name' => Config::get('site_default_name'),
       'description' => Config::get('site_default_description'),
+      'site_language' => Config::get('site_language'),
+      'default_route' => Config::get('site_default_route'),
     ]);
 
     // Admin user
