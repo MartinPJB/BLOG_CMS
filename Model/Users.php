@@ -8,27 +8,27 @@ use \Core\Database\Manager;
  * Users model | Handles all actions related to users
  */
 class Users {
-  private int $id;
-  private string $username;
-  private ?string $password;
-  private string $email;
-  private string $role;
+  private $id;
+  private $username;
+  private $password;
+  private $email;
+  private $role;
 
   /**
    * Constructor for the Users model
    *
    * @param integer $id User ID
    * @param string $username User username
-   * @param ?string $password User password
+   * @param string|null $password User password
    * @param string $email User email
    * @param string $role User role
    */
   public function __construct(
-    int $id,
-    string $username,
-    ?string $password,
-    string $email,
-    string $role
+    $id,
+    $username,
+    $password,
+    $email,
+    $role
   ) {
     $this->id = $id;
     $this->username = $username;
@@ -42,7 +42,7 @@ class Users {
    *
    * @return array Array of users
    */
-  public static function getAllUsers(): array
+  public static function getAllUsers()
   {
     $users = Manager::read('users');
     $result = [];
@@ -66,7 +66,7 @@ class Users {
    * @param integer $id User ID
    * @return Users|null User object (null if not found)
    */
-  public static function getUser(int $id): ?Users
+  public static function getUser($id)
   {
     $user = Manager::read('users', [], ['id' => $id]);
 
@@ -89,7 +89,7 @@ class Users {
    * @param string $email User email
    * @return Users|null User object (null if not found)
    */
-  public static function getUserByEmail(string $email): ?Users
+  public static function getUserByEmail($email)
   {
     $user = Manager::read('users', [], ['email' => $email]);
 
@@ -115,11 +115,11 @@ class Users {
    * @param string $role User role
    */
   public static function create(
-    string $username,
-    string $password,
-    string $email,
-    string $role
-  ): void {
+    $username,
+    $password,
+    $email,
+    $role
+  ) {
     Manager::create('users', [
       'username' => $username,
       'password' => $password,
@@ -138,12 +138,12 @@ class Users {
    * @param string $role User role
    */
   public static function update(
-    int $id,
-    string $username,
-    string $password,
-    string $email,
-    string $role
-  ): void {
+    $id,
+    $username,
+    $password,
+    $email,
+    $role
+  ) {
     Manager::update('users', [
       'username' => $username,
       'password' => $password,
@@ -162,10 +162,9 @@ class Users {
    * @return Users|null User object (null if not found)
    */
   public static function authentificateUser(
-    string $email,
-    string $password
-  )
-  {
+    $email,
+    $password
+  ) {
     $user = Manager::read('users', [], ['email' => $email]);
     if (empty($user)) {
       return null;
@@ -191,17 +190,19 @@ class Users {
    *
    * @return boolean True if the user is authentificated, false otherwise
    */
-  public static function isAuthentificated(): bool
+  public static function isAuthentificated()
   {
     return isset($_SESSION['user']);
   }
 
   /**
    * Get the authentificated user
+   *
+   * @return Users|null User object (null if not found)
    */
-  public static function getAuthentificatedUser(): ?Users
+  public static function getAuthentificatedUser()
   {
-    return $_SESSION['user'] ?? null;
+    return isset($_SESSION['user']) ? $_SESSION['user'] : null;
   }
 
   /**
@@ -209,7 +210,7 @@ class Users {
    *
    * @return boolean True if the user is an admin, false otherwise
    */
-  public static function isAdmin(): bool
+  public static function isAdmin()
   {
     return isset($_SESSION['user']) && $_SESSION['user']->getRole() === 'admin';
   }
@@ -219,7 +220,7 @@ class Users {
    *
    * @return void
    */
-  public static function disconnect(): void
+  public static function disconnect()
   {
     unset($_SESSION['user']);
   }
@@ -229,7 +230,7 @@ class Users {
    *
    * @param integer $id User ID
    */
-  public static function delete(int $id): void
+  public static function delete(int $id)
   {
     Manager::delete('users', ['id' => $id]);
   }
@@ -239,7 +240,7 @@ class Users {
    *
    * @return integer User ID
    */
-  public function getId(): int
+  public function getId()
   {
     return $this->id;
   }
@@ -249,7 +250,7 @@ class Users {
    *
    * @return string User username
    */
-  public function getUsername(): string
+  public function getUsername()
   {
     return $this->username;
   }
@@ -259,7 +260,7 @@ class Users {
    *
    * @return string User password
    */
-  public function getPassword(): string
+  public function getPassword()
   {
     return $this->password;
   }
@@ -269,7 +270,7 @@ class Users {
    *
    * @return string User email
    */
-  public function getEmail(): string
+  public function getEmail()
   {
     return $this->email;
   }
@@ -279,7 +280,7 @@ class Users {
    *
    * @return string User role
    */
-  public function getRole(): string
+  public function getRole()
   {
     return $this->role;
   }

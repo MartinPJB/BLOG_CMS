@@ -13,16 +13,16 @@ use \Model\Users;
  */
 class Articles
 {
-  private int $id;
-  private string $title;
-  private string $description;
-  private int $author_id;
-  private DateTime $date;
-  private ?int $image;
-  private int $category_id;
-  private array $tags;
-  private bool $is_draft;
-  private bool $is_published;
+  private $id;
+  private $title;
+  private $description;
+  private $author_id;
+  private $date;
+  private $image;
+  private $category_id;
+  private $tags;
+  private $is_draft;
+  private $is_published;
 
   /**
    * Constructor for the Articles model
@@ -39,16 +39,16 @@ class Articles
    * @param boolean $is_published Is the article published
    */
   public function __construct(
-    int $id,
-    string $title,
-    string $description,
-    int $author_id,
-    string $date,
-    ?int $image,
-    int $category_id,
-    array $tags,
-    bool $is_draft,
-    bool $is_published
+    $id,
+    $title,
+    $description,
+    $author_id,
+    $date,
+    $image,
+    $category_id,
+    $tags,
+    $is_draft,
+    $is_published
   ) {
     $this->id = $id;
     $this->title = $title;
@@ -67,7 +67,7 @@ class Articles
    *
    * @return array Array of articles
    */
-  public static function getAllPublishedArticles(): array
+  public static function getAllPublishedArticles()
   {
     $articles = Manager::read('articles', [], ['published' => 1, 'draft' => 0]);
     $result = [];
@@ -95,7 +95,7 @@ class Articles
    *
    * @return array Array of articles
    */
-  public static function getAllArticles(): array
+  public static function getAllArticles()
   {
     $articles = Manager::read('articles');
     $result = [];
@@ -124,7 +124,7 @@ class Articles
    * @param integer $id Article ID
    * @return self Articles
    */
-  public static function getArticle(int $id): self
+  public static function getArticle($id)
   {
     $article = Manager::read('articles', [], ['id' => $id])[0];
 
@@ -155,15 +155,15 @@ class Articles
    * @param boolean $is_published Is the article published
    */
   public static function create(
-    string $title,
-    string $description,
-    int $author_id,
-    string $image,
-    int $category_id,
-    array $tags,
-    bool $is_draft,
-    bool $is_published
-  ): void {
+    $title,
+    $description,
+    $author_id,
+    $image,
+    $category_id,
+    $tags,
+    $is_draft,
+    $is_published
+  ) {
     Manager::create('articles', [
       'title' => $title,
       'description' => $description,
@@ -191,16 +191,16 @@ class Articles
    * @param boolean $is_published Is the article published
    */
   public static function update(
-    int $id,
-    string $title,
-    string $description,
-    int $author_id,
-    string $image,
-    int $category_id,
-    array $tags,
-    bool $is_draft,
-    bool $is_published
-  ): void {
+    $id,
+    $title,
+    $description,
+    $author_id,
+    $image,
+    $category_id,
+    $tags,
+    $is_draft,
+    $is_published
+  ) {
     Manager::update('articles', [
       'title' => $title,
       'description' => $description,
@@ -219,7 +219,7 @@ class Articles
    *
    * @param integer $id Article ID
    */
-  public static function delete(int $id): void
+  public static function delete($id)
   {
     Manager::delete('articles', ['id' => $id]);
   }
@@ -229,7 +229,7 @@ class Articles
    *
    * @return integer Article ID
    */
-  public function getId(): int
+  public function getId()
   {
     return $this->id;
   }
@@ -239,7 +239,7 @@ class Articles
    *
    * @return string Article title
    */
-  public function getTitle(): string
+  public function getTitle()
   {
     return $this->title;
   }
@@ -249,7 +249,7 @@ class Articles
    *
    * @return string Article description
    */
-  public function getDescription(): string
+  public function getDescription()
   {
     return $this->description;
   }
@@ -259,7 +259,7 @@ class Articles
    *
    * @return integer Author ID
    */
-  public function getAuthorId(): int
+  public function getAuthorId()
   {
     return $this->author_id;
   }
@@ -269,7 +269,7 @@ class Articles
    *
    * @return Users Author object
    */
-  public function getAuthor(): Users
+  public function getAuthor()
   {
     return Users::getUser($this->author_id);
   }
@@ -279,7 +279,7 @@ class Articles
    *
    * @return DateTime Article date
    */
-  public function getDate(): DateTime
+  public function getDate()
   {
     return $this->date;
   }
@@ -287,9 +287,9 @@ class Articles
   /**
    * Get the id value of image
    *
-   * @return ?int Article image
+   * @return int|null Article image
    */
-  public function getImageId(): ?int
+  public function getImageId()
   {
     return $this->image;
   }
@@ -297,9 +297,9 @@ class Articles
   /**
    * Get the image directly
    *
-   * @return ?Medias Image object
+   * @return Medias|null Image object
    */
-  public function getImage(): ?Medias
+  public function getImage()
   {
     if ($this->image === null) {
       return null;
@@ -313,7 +313,7 @@ class Articles
    *
    * @return integer Category ID
    */
-  public function getCategoryId(): int
+  public function getCategoryId()
   {
     return $this->category_id;
   }
@@ -323,7 +323,7 @@ class Articles
    *
    * @return Categories Category object
    */
-  public function getCategory(): Categories
+  public function getCategory()
   {
     return Categories::getCategoryById($this->category_id);
   }
@@ -333,7 +333,7 @@ class Articles
    *
    * @return array Article tags
    */
-  public function getTags(): array
+  public function getTags()
   {
     return $this->tags;
   }
@@ -343,7 +343,7 @@ class Articles
    *
    * @return boolean Is the article a draft
    */
-  public function isDraft(): bool
+  public function isDraft()
   {
     return $this->is_draft;
   }
@@ -353,7 +353,7 @@ class Articles
    *
    * @return boolean Is the article published
    */
-  public function isPublished(): bool
+  public function isPublished()
   {
     return $this->is_published;
   }

@@ -16,9 +16,9 @@ class Files
    * @param string $directory Directory to search in (Front or Back)
    * @param string $file_name File name to search for
    * @param string $frontOrBack Front or back office ('Front' or 'Back', default: Front)
-   * @return ?string File path if found, null otherwise
+   * @return string|null File path if found, null otherwise
    */
-  public static function findFile(string $directory, string $file_name): ?string
+  public static function findFile($directory, $file_name)
   {
     $directory = rtrim($directory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
     if (!is_dir($directory)) {
@@ -35,9 +35,9 @@ class Files
    * Get the content to the desired file
    *
    * @param string $path File path
-   * @return ?array File details if found, null otherwise
+   * @return array|null File details if found, null otherwise
    */
-  public static function getFileContent(string $path): ?array
+  public static function getFileContent($path)
   {
     if (!$path || is_dir($path)) {
       return null;

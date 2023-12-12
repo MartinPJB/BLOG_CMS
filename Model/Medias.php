@@ -10,13 +10,13 @@ use \Core\Database\Manager;
  */
 class Medias
 {
-  private int $id;
-  private string $name;
-  private string $type;
-  private int $size;
-  private string $path;
-  private string $alt;
-  private DateTime $uploaded_at;
+  private $id;
+  private $name;
+  private $type;
+  private $size;
+  private $path;
+  private $alt;
+  private $uploaded_at;
 
   /**
    * Constructor for the Medias model
@@ -30,13 +30,13 @@ class Medias
    * @param string $uploaded_at Media uploaded_at
    */
   public function __construct(
-    int $id,
-    string $name,
-    string $type,
-    int $size,
-    string $path,
-    string $alt,
-    string $uploaded_at
+    $id,
+    $name,
+    $type,
+    $size,
+    $path,
+    $alt,
+    $uploaded_at
   ) {
     $this->id = $id;
     $this->name = $name;
@@ -52,7 +52,7 @@ class Medias
    *
    * @return array Array of medias
    */
-  public static function getAllMedias(): array
+  public static function getAllMedias()
   {
     $medias = Manager::read('media');
     $result = [];
@@ -78,7 +78,7 @@ class Medias
    * @param integer $id Media ID
    * @return self Media
    */
-  public static function getMediaById(int $id): self
+  public static function getMediaById($id)
   {
     $media = Manager::read('media', [], ['id' => $id])[0];
 
@@ -99,7 +99,7 @@ class Medias
    * @param string $type Media type
    * @return self Media
    */
-  public static function getMediaByType(string $type): self
+  public static function getMediaByType($type)
   {
     $media = Manager::read('media', [], ['type' => $type])[0];
 
@@ -127,13 +127,13 @@ class Medias
    * @return self Media
    */
   public static function create(
-    string $name,
-    string $type,
-    int $size,
-    string $path,
-    string $alt,
-    string $uploaded_at
-  ): self {
+    $name,
+    $type,
+    $size,
+    $path,
+    $alt,
+    $uploaded_at
+   ) {
     Manager::create('media', [
       'name' => $name,
       'type' => $type,
@@ -166,14 +166,14 @@ class Medias
    * @param string $uploaded_at Media uploaded_at
    */
   public static function update(
-    int $id,
-    string $name,
-    string $type,
-    int $size,
-    string $path,
-    string $alt,
-    string $uploaded_at
-  ): void {
+    $id,
+    $name,
+    $type,
+    $size,
+    $path,
+    $alt,
+    $uploaded_at
+  ) {
     Manager::update('media', [
       'name' => $name,
       'type' => $type,
@@ -189,7 +189,7 @@ class Medias
    *
    * @param integer $id Media ID
    */
-  public static function delete(int $id): void
+  public static function delete($id)
   {
     Manager::delete('media', ['id' => $id]);
   }
@@ -199,7 +199,7 @@ class Medias
    *
    * @return integer Media ID
    */
-  public function getId(): int
+  public function getId()
   {
     return $this->id;
   }
@@ -209,7 +209,7 @@ class Medias
    *
    * @return string Media name
    */
-  public function getName(): string
+  public function getName()
   {
     return $this->name;
   }
@@ -219,7 +219,7 @@ class Medias
    *
    * @return string Media type
    */
-  public function getType(): string
+  public function getType()
   {
     return $this->type;
   }
@@ -229,7 +229,7 @@ class Medias
    *
    * @return integer Media size
    */
-  public function getSize(): int
+  public function getSize()
   {
     return $this->size;
   }
@@ -239,7 +239,7 @@ class Medias
    *
    * @return string Media path
    */
-  public function getPath(): string
+  public function getPath()
   {
     return $this->path;
   }
@@ -249,7 +249,7 @@ class Medias
    *
    * @return string Media alt
    */
-  public function getAlt(): string
+  public function getAlt()
   {
     return $this->alt;
   }
@@ -259,7 +259,7 @@ class Medias
    *
    * @return DateTime Media uploaded_at
    */
-  public function getUploadedAt(): DateTime
+  public function getUploadedAt()
   {
     return $this->uploaded_at;
   }
