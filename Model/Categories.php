@@ -3,6 +3,7 @@
 namespace Model;
 
 use \Core\Database\Manager;
+use \Model\Media;
 
 /**
  * Categories model | Handles all actions related to categories
@@ -11,19 +12,27 @@ class Categories
 {
   private $id;
   private $name;
+  private $description;
+  private $image;
 
   /**
    * Constructor for the Categories model
    *
    * @param integer $id Category ID
    * @param string $name Category name
+   * @param string $description Category description
+   * @param int $image Category image id
    */
   public function __construct(
     $id,
-    $name
+    $name,
+    $description,
+    $image
   ) {
     $this->id = $id;
     $this->name = $name;
+    $this->description = $description;
+    $this->image = $image;
   }
 
   /**
@@ -39,7 +48,9 @@ class Categories
     foreach ($categories as $key => $category) {
       $result[] = new self(
         $category['id'],
-        $category['name']
+        $category['name'],
+        $category['description'],
+        $category['image']
       );
     }
 
@@ -58,7 +69,9 @@ class Categories
 
     return new self(
       $category['id'],
-      $category['name']
+      $category['name'],
+      $category['description'],
+      $category['image']
     );
   }
 
@@ -66,10 +79,12 @@ class Categories
    * Create a category
    *
    * @param string $name Category name
+   * @param string $description Category description
+   * @param int $image Category image id
    */
-  public static function create($name)
+  public static function create($name, $description, $image)
   {
-    Manager::create('categories', ['name' => $name]);
+    Manager::create('categories', ['name' => $name, 'description' => $description, 'image' => $image]);
   }
 
   /**
@@ -77,10 +92,12 @@ class Categories
    *
    * @param integer $id Category ID
    * @param string $name Category name
+   * @param string $description Category description
+   * @param int $image Category image id
    */
-  public static function update($id, $name)
+  public static function update($id, $name, $description, $image)
   {
-    Manager::update('categories', ['name' => $name], ['id' => $id]);
+    Manager::update('categories', ['name' => $name, 'description' => $description, 'image' => $image], ['id' => $id]);
   }
 
   /**
@@ -111,5 +128,35 @@ class Categories
   public function getName()
   {
     return $this->name;
+  }
+
+  /**
+   * Get the value of description
+   *
+   * @return string Category description
+   */
+  public function getDescription()
+  {
+    return $this->description;
+  }
+
+  /**
+   * Get the value of image
+   *
+   * @return int Category image id
+   */
+  public function getImageId()
+  {
+    return $this->image;
+  }
+
+  /**
+   * Get the value of image
+   *
+   * @return Medias Category image
+   */
+  public function getImage()
+  {
+    return Medias::getMediaById($this->image);
   }
 }

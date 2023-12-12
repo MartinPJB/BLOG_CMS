@@ -1,0 +1,55 @@
+{#
+  Name: list.html.twig
+  Path: default/Back/templates/pages/Categories/list.html.twig
+
+  Variables:
+    - {@array} categories: Categories list to display:
+      - {@object} category: Category to display:
+        - {@string} name: Article name
+#}
+{% extends "index.html.twig" %}
+
+{# Set title #}
+{% block title %}Chapitres{% endblock %}
+
+{# Set content #}
+{% block content %}
+  <h1>Chapitres créés</h1>
+  <p>Voici la liste de tous les chapitres créés.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {# Display each categories #}
+      {% for category in categories %}
+        {# Variables #}
+        {% set id = category.id %}
+        {% set name = category.name %}
+        {% set description = category.description %}
+
+        <tr>
+          <td>{{ name }}</td>
+          <td>{{ description }}</td>
+          <td>
+            <a href="admin/category/edit/{{ id }}">Modifier</a>
+            <a href="admin/category/delete/{{ id }}">Supprimer</a>
+          </td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="8">Aucune catégorie n'a été créée.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="admin/articles/create">Créer un article</a>
+
+{% endblock %}
+

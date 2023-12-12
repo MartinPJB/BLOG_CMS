@@ -11,7 +11,7 @@
 {% block content %}
   <h1>Suppression d'un article</h1>
   <p>Êtes-vous sûr de vouloir supprimer l'article "{{ article.title }}" ? Cette action est irréversible.</p>
-  <form action="admin/delete_article/{{ article.getId() }}" method="post">
+  <form action="admin/delete_article/{{ article.id }}" method="post">
     <a href="admin/articles">Annuler</a>
     <input type="submit" value="Supprimer" />
   </form>

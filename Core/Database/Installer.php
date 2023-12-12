@@ -67,12 +67,6 @@ class Installer
       'role' => 'VARCHAR(255) NOT NULL',
     ]);
 
-    // Categories table
-    Manager::createTable('categories', [
-      'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
-      'name' => 'VARCHAR(255) NOT NULL',
-    ]);
-
     // Media table
     Manager::createTable('media', [
       'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
@@ -82,6 +76,16 @@ class Installer
       'path' => 'VARCHAR(255) NOT NULL',
       'alt' => 'VARCHAR(255) NOT NULL',
       'uploaded_at' => 'DATETIME NOT NULL',
+    ]);
+
+    // Categories table
+    Manager::createTable('categories', [
+      'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
+      'name' => 'VARCHAR(255) NOT NULL',
+      'description' => 'TEXT NOT NULL',
+      'image' => 'INT(6) UNSIGNED NULL DEFAULT NULL',
+    ], [
+      'FOREIGN KEY (image) REFERENCES media (id) ON DELETE SET NULL'
     ]);
 
     // Articles table
@@ -141,6 +145,8 @@ class Installer
     // Categories
     Manager::create('categories', [
       'name' => 'Uncategorized',
+      'description' => 'This is the default category. You can edit it or delete it.',
+      'image' => 1,
     ]);
 
     // Media

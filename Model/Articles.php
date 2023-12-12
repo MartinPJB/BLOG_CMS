@@ -69,10 +69,7 @@ class Articles
    */
   public static function getAllPublishedArticles($category_id = null)
   {
-    $conditions = ['published' => 1, 'draft' => 0];
-    $category_id ? $conditions = array_merge($conditions, ['category_id' => $category_id]) : null;
-    $articles = Manager::read('articles', [], $conditions);
-
+    $articles = Manager::read('articles', [], ['published' => 1, 'draft' => 0]);
     $result = [];
 
     foreach ($articles as $key => $article) {
