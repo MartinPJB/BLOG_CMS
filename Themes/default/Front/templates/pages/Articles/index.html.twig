@@ -23,36 +23,38 @@
 
 {# Set content #}
 {% block content %}
-  <h1>Articles</h1>
-
+<h1>Articles</h1>
+{% if articles %}
+<nav>
   {# Display each articles #}
   {% for article in articles|sort((a, b) => a.getDate() > b.getDate()) %}
 
     {# Variables #}
-    {% set image = article.getImage() %}
-    {% set title = article.getTitle() %}
-    {% set description = article.getDescription() %}
-    {% set date = article.getDate() %}
-    {% set author = article.getAuthor() %}
-    {% set category = article.getCategory() %}
-    {% set tags = article.getTags() %}
+    {% set image = article.image %}
+    {% set title = article.title %}
+    {% set description = article.description %}
+    {% set date = article.date %}
+    {% set author = article.author %}
+    {% set category = article.gategory %}
+    {% set tags = article.tags %}
 
     {# Affichage #}
-    <section>
+    <article>
       <a href="articles/see/{{ article.getId() }}">
-        <img src="{{ image.getPath() }}" alt="{{ image.getAlt() }}" loading="lazy">
+        <img src="{{ image.path }}" alt="{{ image.alt }}" loading="lazy">
         <div>
           <h2>{{ title }}</h2>
           <p>{{ description }}</p>
 
-          <p>Publié le {{ date|date("d/m/Y H:i", "Europe/Paris") }} par {{ author.getUsername() }}</p>
+          <p>Publié le {{ date|date("d/m/Y H:i", "Europe/Paris") }} par {{ author.username }}</p>
           <p>Tags: {{ tags|join(', ') }}</p>
-          <p>{{ category.getName() }}</p>
+          <p>{{ category.name }}</p>
         </div>
       </a>
-    </section>
-  {% else %}
-    <p>Aucun article n'a été publié.</p>
+    </article>
   {% endfor %}
+</nav>
+{% else %}
+<p>Aucun article n'a été publié.</p>
+{% endif %}
 {% endblock %}
-

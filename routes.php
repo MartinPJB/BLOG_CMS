@@ -2,6 +2,7 @@
 
 use \Core\Routing\Router;
 use \Controller\ArticlesController;
+use \Controller\CategoriesController;
 use \Controller\UsersController;
 use \Controller\PublicController;
 use \Controller\AdminController;
@@ -12,6 +13,12 @@ use \Controller\AdminSubControllers\AdminMediasController;
   Usage:
   Router::addRoute('route', 'action', Controller::class, accessLevel, method);
 */
+
+/* -- Categories routes -- */
+// GET
+Router::addRoute('categories', '', CategoriesController::class, 0, 'GET');
+Router::addRoute('categories', 'list', CategoriesController::class, 0, 'GET');
+Router::addRoute('categories', 'see', CategoriesController::class, 0, 'GET');
 
 /* -- Articles routes -- */
 // GET
@@ -50,4 +57,4 @@ Router::addRoute('admin', 'delete_article', '\Controller\AdminSubControllers\Adm
 // Router::addRoute('admin', 'medias', '\Controller\AdminSubControllers\AdminArticlesController', 2, 'GET');
 
 // POST
-Router::addRoute('admin', 'delete_media', '\Controller\AdminSubControllers\AdminMediasController', 2, 'GET');
+Router::addRoute('admin', 'create_article', AdminArticlesController::class, 2, 'POST');

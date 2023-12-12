@@ -1,0 +1,63 @@
+{#
+Name: see.html.twig
+Path: default/Front/templates/pages/Categories/see.html.twig
+
+{#
+  Name: index.html.twig
+  Path: default/Front/templates/pages/Categories/index.html.twig
+
+  Variables:
+    - {@object} category: The actual category:
+      - {@int} id: category id:
+      - {@string} name: category name:
+    - {@array} articles: Articles list to display:
+      - {@object} article: Article to display:
+        - {@object} image: Image to display:
+          - {@string} path: Image path
+          - {@string} alt: Image alt
+        - {@string} title: Article title
+        - {@string} description: Article description
+        - {@string} date: Article date
+        - {@string} author: Article author
+        - {@object} category: Article category:
+          - {@string} name: Category name
+        - {@array} tags: Article tags list
+#}
+{% extends "index.html.twig" %}
+
+{% block title %}{{ category.name }}{% endblock %}
+
+{# Set content #}
+{% block content %}
+<h1>{{ category.name }}</h1>
+{% if articles %}
+<nav>
+  {# Display each articles #}
+  {% for article in articles|sort((a, b) => a.getDate() > b.getDate()) %}
+
+  {# Variables #}
+  {% set image = article.image %}
+  {% set title = article.title %}
+  {% set description = article.description %}
+  {% set date = article.date %}
+  {% set author = article.author %}
+  {% set tags = article.tags %}
+
+  {# Affichage #}
+  <article>
+    <a href="articles/see/{{ article.getId() }}">
+      <img src="{{ image.path }}" alt="{{ image.alt }}" loading="lazy">
+      <div>
+        <h2>{{ title }}</h2>
+        <p>{{ description }}</p>
+
+        <p>Publié le {{ date|date("d/m/Y H:i", "Europe/Paris") }} par {{ author.username }}</p>
+      </div>
+    </a>
+  </article>
+  {% endfor %}
+</nav>
+{% else %}
+<p>Aucun article n'a été publié.</p>
+{% endif %}
+{% endblock %}

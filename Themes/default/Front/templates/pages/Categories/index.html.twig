@@ -1,0 +1,29 @@
+{#
+Name: index.html.twig
+Path: default/Front/templates/pages/Categories/index.html.twig
+
+Variables:
+- {@object} category
+  - {@string} name: Category name
+#}
+{% extends "index.html.twig" %}
+
+{# Set title #}
+{% block title %}Accueil{% endblock %}
+
+{# Set content #}
+{% block content %}
+<h1>Liste des Chapitres</h1>
+{% if categories %}
+<nav>
+  {# Display each categories #}
+  {% for category in categories %}
+  <a href="categories/see/{{ category.id }}">
+    <h2>{{ category.name }}</h2>
+  </a>
+  {% endfor %}
+</nav>
+{% else %}
+<p>Aucun chapitre n'a été publiée.</p>
+{% endif %}
+{% endblock %}
