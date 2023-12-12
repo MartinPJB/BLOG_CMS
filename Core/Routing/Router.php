@@ -2,16 +2,16 @@
 
 namespace Core\Routing;
 
-use \Core\Routing\Route;
-use \Core\RequestContext;
-use \Model\Users;
+use Core\Routing\Route;
+use Core\RequestContext;
+use Model\Users;
 
 /**
  * Router class | Manages the routes of the application and dispatches them.
  */
 class Router
 {
-  protected static array $routes = [];
+  protected static $routes = [];
 
   private function __construct()
   {
@@ -29,7 +29,7 @@ class Router
    * @example Router::addRoute('articles', 'list', ArticleController::class); // GET /articles/list -> ArticleController::list()
    * @example Router::addRoute('articles', 'delete', ArticleController::class, 'POST'); // POST /articles/delete -> ArticleController::delete()
    */
-  public static function addRoute(string $routeName, string $action, mixed $controller, int $accessLevel = 0, string $method = 'GET'): void
+  public static function addRoute($routeName, $action, $controller, $accessLevel = 0, $method = 'GET')
   {
     if (!array_key_exists($routeName, self::$routes)) {
       self::$routes[$routeName] = [];
@@ -42,7 +42,7 @@ class Router
    *
    * @return array Routes array
    */
-  public static function getRoutes(): array
+  public static function getRoutes()
   {
     return self::$routes;
   }
@@ -50,7 +50,7 @@ class Router
   /**
    * Check access level of the given route
    */
-  public static function checkAccessLevel(RequestContext $requestContext): bool
+  public static function checkAccessLevel(RequestContext $requestContext)
   {
     $route = $requestContext->getRoute();
     $action = $requestContext->getAction();
@@ -62,10 +62,10 @@ class Router
       if ($accessLevel === 0) {
         // Public route
         return true;
-      } else if ($accessLevel === 1 && $user) {
+      } elseif ($accessLevel === 1 && $user) {
         // User route
         return true;
-      } else if ($accessLevel === 2 && $user && $user->getRole() == 'admin') {
+      } elseif ($accessLevel === 2 && $user && $user->getRole() == 'admin') {
         // Admin route
         return true;
       }
@@ -80,7 +80,7 @@ class Router
    * @param string $routeName Route name
    * @param string $action Action name
    */
-  public static function dispatch(RequestContext $requestContext): void
+  public static function dispatch(RequestContext $requestContext)
   {
     $route = $requestContext->getRoute();
     $action = $requestContext->getAction();
@@ -120,7 +120,7 @@ class Router
    *
    * @param int $code Error code
    */
-  public static function dispatchError(int $code): void
+  public static function dispatchError($code)
   {
     switch ($code) {
       case 404:

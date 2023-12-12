@@ -2,8 +2,8 @@
 
 namespace Core\Database;
 
-use \Core\Database\Manager;
-use \Core\Config;
+use Core\Database\Manager;
+use Core\Config;
 
 /**
  * Database installer | Handles all actions related to the database installation
@@ -20,7 +20,7 @@ class Installer
   /**
    * Install the CMS by creating the database and all needed tables
    */
-  public static function install(): void
+  public static function install()
   {
     self::createDatabase();
     self::createTables();
@@ -30,7 +30,7 @@ class Installer
   /**
    * Uninstall the CMS by deleting the database
    */
-  public static function uninstall(): void
+  public static function uninstall()
   {
     Manager::dropDatabase(Manager::getCurrentDatabaseName());
   }
@@ -38,7 +38,7 @@ class Installer
   /**
    * Create the database in order to use the CMS
    */
-  private static function createDatabase(): void
+  private static function createDatabase()
   {
     Manager::createDatabase(Config::get('database_name'));
     Manager::connectToDatabase(Config::get('database_name'));
@@ -47,7 +47,7 @@ class Installer
   /**
    * Create all needed tables in the database in order to use the CMS
    */
-  private static function createTables(): void
+  private static function createTables()
   {
     // Site settings table
     Manager::createTable('site_settings', [
