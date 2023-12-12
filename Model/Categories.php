@@ -9,8 +9,8 @@ use \Core\Database\Manager;
  */
 class Categories
 {
-  private int $id;
-  private string $name;
+  private $id;
+  private $name;
 
   /**
    * Constructor for the Categories model
@@ -19,8 +19,8 @@ class Categories
    * @param string $name Category name
    */
   public function __construct(
-    int $id,
-    string $name
+    $id,
+    $name
   ) {
     $this->id = $id;
     $this->name = $name;
@@ -31,7 +31,7 @@ class Categories
    *
    * @return array Array of categories
    */
-  public static function getAllCategories(): array
+  public static function getAllCategories()
   {
     $categories = Manager::read('categories');
     $result = [];
@@ -52,7 +52,7 @@ class Categories
    * @param integer $id Category ID
    * @return self Category
    */
-  public static function getCategoryById(int $id): self
+  public static function getCategoryById($id)
   {
     $category = Manager::read('categories', [], ['id' => $id])[0];
 
@@ -67,7 +67,7 @@ class Categories
    *
    * @param string $name Category name
    */
-  public static function create(string $name): void
+  public static function create($name)
   {
     Manager::create('categories', ['name' => $name]);
   }
@@ -78,7 +78,7 @@ class Categories
    * @param integer $id Category ID
    * @param string $name Category name
    */
-  public static function update(int $id, string $name): void
+  public static function update($id, $name)
   {
     Manager::update('categories', ['name' => $name], ['id' => $id]);
   }
@@ -88,7 +88,7 @@ class Categories
    *
    * @param integer $id Category ID
    */
-  public static function delete(int $id): void
+  public static function delete($id)
   {
     Manager::delete('categories', ['id' => $id]);
   }
@@ -98,7 +98,7 @@ class Categories
    *
    * @return integer Category ID
    */
-  public function getId(): int
+  public function getId()
   {
     return $this->id;
   }
@@ -108,7 +108,7 @@ class Categories
    *
    * @return string Category name
    */
-  public function getName(): string
+  public function getName()
   {
     return $this->name;
   }

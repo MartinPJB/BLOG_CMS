@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Core/Compatibility.php';
+
 use \Core\RequestContext;
 use \Core\Routing\Router;
 

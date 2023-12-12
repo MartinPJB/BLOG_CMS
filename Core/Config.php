@@ -7,8 +7,7 @@ namespace Core;
  */
 class Config
 {
-  private static array $configs = [];
-
+  private static $configs = [];
 
   /**
    * Prevents direct instantiation of the class
@@ -20,7 +19,7 @@ class Config
   /**
    * Set the configuration variables automatically (recursively in case of nested arrays)
    */
-  public static function setConfig(array $config, string $prefix = ''): void
+  public static function setConfig($config, $prefix = '')
   {
     foreach ($config as $key => $value) {
       if (is_array($value)) {
@@ -35,11 +34,11 @@ class Config
    * Get a value from the configuration
    *
    * @param string $name The name of the configuration variable
-   * @return ?string The value of the configuration variable (null if not found)
+   * @return string|null The value of the configuration variable (null if not found)
    */
-  public static function get(string $name): ?string
+  public static function get($name)
   {
-    return self::$configs[$name] ?? null;
+    return isset(self::$configs[$name]) ? self::$configs[$name] : null;
   }
 
   /**
@@ -48,7 +47,7 @@ class Config
    * @param string $name The name of the configuration variable
    * @param string $value The value of the configuration variable
    */
-  public static function set(string $name, string $value): void
+  public static function set($name, $value)
   {
     self::$configs[$name] = $value;
   }

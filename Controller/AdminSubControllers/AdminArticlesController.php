@@ -5,6 +5,7 @@ namespace Controller\AdminSubControllers;
 use \Controller\AdminController;
 use \Core\FieldChecker;
 use \Model\Articles;
+use \Model\Medias;
 use \Model\Categories;
 use \Model\Users;
 
@@ -17,8 +18,7 @@ class AdminArticlesController extends AdminController {
    *
    * @param array $params The parameters passed to the controller
    */
-  public function articles(array $params): void
-  {
+  public function articles(array $params) {
     $additional_params = $this->parseOptParam();
 
     $action = $additional_params['action'];
@@ -56,12 +56,12 @@ class AdminArticlesController extends AdminController {
    *
    * @param array $params The parameters passed to the controller
    */
-  public function create_article(array $params): void
-  {
+  public function create_article(array $params) {
     try {
       $processed = $this->process_fields();
       $author_id = Users::getAuthentificatedUser()->getId();
-      $media = $this->upload_file($_FILES['image']);
+      $new_media_id = $this->upload_file($_FILES['image']);
+      $media = Medias::getMediaById($new_media_id);
 
       Articles::create(
         $processed['title'],
@@ -78,7 +78,7 @@ class AdminArticlesController extends AdminController {
     } catch (\Exception $e) {
       $this->render('Articles/create', [
         'categories' => Categories::getAllCategories(),
-        'errors' => [$e->getMessage()],
+        'errors' => [$e->getMessage() . ' ' . $e->getFile()  . ' ' . $e->getLine()],
       ]);
     }
   }
@@ -88,8 +88,7 @@ class AdminArticlesController extends AdminController {
    *
    * @param array $params The parameters passed to the controller
    */
-  public function edit_article(array $params): void
-  {
+  public function edit_article(array $params) {
     $article_id = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {
       $processed = $this->process_fields();
@@ -126,8 +125,7 @@ class AdminArticlesController extends AdminController {
    *
    * @param array $params The parameters passed to the controller
    */
-  public function delete_article(array $params): void
-  {
+  public function delete_article(array $params) {
     $article_id = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {
       Articles::delete($article_id);

@@ -11,18 +11,18 @@ use \Model\SiteSettings;
  */
 class ControllerBase
 {
-  protected mixed $twigEngine;
-  protected RequestContext $requestContext;
-  protected SiteSettings $siteSettings;
+  protected $twigEngine;
+  protected $requestContext;
+  protected $siteSettings;
 
   /**
    * Constructor of the ControllerBase class
    *
    * @param string $themePart = '/Front' Theme part you want to use (default: Front)
    */
-  protected function __construct(RequestContext $requestContext, string $themePart = 'Front')
+  protected function __construct(RequestContext $requestContext, $themePart = 'Front')
   {
-    $this ->siteSettings = SiteSettings::getSiteSettings();
+    $this->siteSettings = SiteSettings::getSiteSettings();
     $this->requestContext = $requestContext;
     $this->twigEngine = $this->initializeTwig(__DIR__ . '/../..', $this->siteSettings->getTheme() . '/' . $themePart);
   }
@@ -32,9 +32,9 @@ class ControllerBase
    *
    * @param string $directory
    * @param string $themePart
-   * @return \Twig\Environment
+   * @return \Twig\Environment|\Twig_Environment
    */
-  private function initializeTwig(string $directory, string $themePart): \Twig\Environment
+  private function initializeTwig($directory, $themePart)
   {
     $loader = new \Twig\Loader\FilesystemLoader("$directory/Themes/$themePart/templates/");
     $twig = new \Twig\Environment($loader, [
@@ -43,11 +43,12 @@ class ControllerBase
 
     $twig->addExtension(new \Twig\Extension\DebugExtension());
 
+
     // Grabs the site settings from the database
-    $site_name = $this->siteSettings ->getName();
-    $site_description = $this->siteSettings ->getDescription();
-    $site_language = $this->siteSettings ->getSiteLanguage();
-    $site_default_route = $this->siteSettings ->getDefaultRoute();
+    $site_name = $this->siteSettings->getName();
+    $site_description = $this->siteSettings->getDescription();
+    $site_language = $this->siteSettings->getSiteLanguage();
+    $site_default_route = $this->siteSettings->getDefaultRoute();
 
     // Add global variables
     $twig->addGlobal('site_root', Config::get('site_root'));
@@ -55,7 +56,7 @@ class ControllerBase
     $twig->addGlobal('site_name', $site_name);
     $twig->addGlobal('site_description', $site_description);
     $twig->addGlobal('site_language', $site_language);
-    $twig->addGlobal('session', $_SESSION ?? []);
+    $twig->addGlobal('session', isset($_SESSION) ? $_SESSION : []);
 
     return $twig;
   }
@@ -66,7 +67,7 @@ class ControllerBase
    * @param string $view View (folder +) name (without the extension)
    * @param array $variables = [] Variables to pass to the view
    */
-  protected function render(string $view, array $variables = []): void
+  protected function render($view, $variables = [])
   {
     $template = $this->twigEngine->load("pages/$view.html.twig");
     echo $template->render($variables);
@@ -77,7 +78,7 @@ class ControllerBase
    *
    * @param string $route Route to redirect to
    */
-  protected function redirect(string $route): void
+  protected function redirect($route)
   {
     $redirection = Config::get('site_root') . $route;
     header("Location: $redirection");

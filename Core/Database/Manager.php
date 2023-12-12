@@ -11,25 +11,24 @@ use PDOException;
  */
 class Manager
 {
-
   /**
    * The PDO connection to the database
    *
    * @var PDO|null
    */
-  private static ?PDO $pdo = null;
+  private static $pdo = null;
 
   /**
    * The credentials to connect to the database
    */
-  private static array $credentials;
+  private static $credentials;
 
   /**
    * The name of the current database
    *
    * @var string
    */
-  private static string $current_db_name;
+  private static $current_db_name;
 
   /**
    * Prevents direct instantiation of the class
@@ -43,14 +42,18 @@ class Manager
    *
    * @return PDO
    */
-  public static function getConnection(): PDO
+  public static function getConnection()
   {
     if (!self::$pdo) {
-      $host = Config::get('database_host') ?? 'localhost';
-      self::$pdo = new PDO("mysql:host=$host;charset=utf8mb4", Config::get('database_user'), Config::get('database_password'), [
-        PDO::ATTR_EMULATE_PREPARES => false,
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-      ]);
+      $host = Config::get('database_host') ? Config::get('database_host') : 'localhost';
+
+      try {
+        self::$pdo = new PDO("mysql:host=$host;charset=utf8mb4", Config::get('database_user'), Config::get('database_password'));
+        self::$pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      } catch (PDOException $e) {
+        die("Connection failed: " . $e->getMessage());
+      }
     }
 
     return self::$pdo;
@@ -61,7 +64,7 @@ class Manager
    *
    * @param string $database The name of the database to connect to
    */
-  public static function connectToDatabase(string $database): void
+  public static function connectToDatabase($database)
   {
     self::$current_db_name = $database;
     self::executeStatement("USE `{$database}`");
@@ -70,7 +73,7 @@ class Manager
   /**
    * Get the current database name
    */
-  public static function getCurrentDatabaseName(): string
+  public static function getCurrentDatabaseName()
   {
     return self::$current_db_name;
   }
@@ -78,7 +81,7 @@ class Manager
   /**
    * Get the last inserted ID
    */
-  public static function getLastInsertedId(): int
+  public static function getLastInsertedId()
   {
     return self::getConnection()->lastInsertId();
   }
@@ -88,7 +91,7 @@ class Manager
    *
    * @param string $database The name of the database to create
    */
-  public static function createDatabase(string $database): void
+  public static function createDatabase($database)
   {
     $sql = "CREATE DATABASE IF NOT EXISTS `{$database}`";
     self::executeStatement($sql);
@@ -99,7 +102,7 @@ class Manager
    *
    * @param string $database The name of the database to drop
    */
-  public static function dropDatabase(string $database): void
+  public static function dropDatabase($database)
   {
     $sql = "DROP DATABASE IF EXISTS `{$database}`";
     self::executeStatement($sql);
@@ -112,7 +115,7 @@ class Manager
    * @param array $columns The columns of the table to create
    * @param array $options The options for the table to create
    */
-  public static function createTable(string $table, array $columns, array $options = []): void
+  public static function createTable($table, $columns, $options = [])
   {
     $columnDefinitions = [];
     foreach ($columns as $columnName => $columnDefinition) {
@@ -133,7 +136,7 @@ class Manager
    * @param array $whereConditions The conditions for the read
    * @return array Returns an array containing the data read
    */
-  public static function read(string $table, array $columns = [], array $whereConditions = []): array
+  public static function read($table, $columns = [], $whereConditions = [])
   {
     $columns = self::buildColumns($columns);
     $whereClause = self::buildWhereClause($table, $whereConditions);
@@ -151,7 +154,7 @@ class Manager
    * @param array $joinConditions The conditions for the joins
    * @return array Returns an array containing the data read
    */
-  public static function readWithJoin(string $table, array $columns = [], array $whereConditions = [], array $joinTables = [], array $joinConditions = []): array
+  public static function readWithJoin($table, $columns = [], $whereConditions = [], $joinTables = [], $joinConditions = [])
   {
     $columns = self::buildColumns($columns);
     $whereClause = self::buildWhereClause($table, $whereConditions);
@@ -172,15 +175,16 @@ class Manager
    *
    * @param string $table The name of the table to create data in
    * @param array $data The data to create
-   * @return array Returns an array containing the data created
    */
-  public static function create(string $table, array $data): array
+  public static function create($table, $data)
   {
     $columns = implode(', ', array_keys($data));
-    $values = implode(', ', array_map(fn ($column) => ":$column", array_keys($data)));
+    $values = implode(', ', array_map(function ($column) {
+      return ":$column";
+    }, array_keys($data)));
 
     $sql = "INSERT INTO `$table` ($columns) VALUES ($values)";
-    return self::executeAndFetch($sql, $data);
+    self::execute($sql, $data);
   }
 
   /**
@@ -191,7 +195,7 @@ class Manager
    * @param array $whereConditions The conditions for the update
    * @return array Returns an array containing the data updated
    */
-  public static function update(string $table, array $data, array $whereConditions): array
+  public static function update($table, $data, $whereConditions)
   {
     $setClause = self::buildSetClause($data, $table);
     $whereClause = self::buildWhereClause($table, $whereConditions);
@@ -205,14 +209,13 @@ class Manager
    *
    * @param string $table The name of the table to delete data from
    * @param array $whereConditions The conditions for the delete
-   * @return array Returns an array containing the data deleted
    */
-  public static function delete(string $table, array $whereConditions): array
+  public static function delete($table, $whereConditions)
   {
     $whereClause = self::buildWhereClause($table, $whereConditions);
 
     $sql = "DELETE FROM `$table` $whereClause";
-    return self::executeAndFetch($sql, $whereConditions);
+    self::execute($sql, $whereConditions);
   }
 
   /**
@@ -220,7 +223,7 @@ class Manager
    *
    * @return string Returns the name of the current database
    */
-  public static function getDatabaseName(): string
+  public static function getDatabaseName()
   {
     return self::$current_db_name;
   }
@@ -232,11 +235,28 @@ class Manager
    * @param array $params The parameters for the SQL statement
    * @return array Returns an array containing the results of the SQL statement
    */
-  public static function executeAndFetch(string $sql, array $params = []): array
+  public static function executeAndFetch($sql, $params = [])
+  {
+    try {
+      $stmt = self::getConnection()->prepare($sql);
+      $stmt->execute($params);
+      return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+      echo "Error: " . $e->getMessage();
+      return [];
+    }
+  }
+
+  /**
+   * Executes a SQL statement and does not return the results
+   *
+   * @param string $sql The SQL statement to execute
+   * @param array $params The parameters for the SQL statement
+   */
+  public static function execute($sql, $params = [])
   {
     $stmt = self::getConnection()->prepare($sql);
     $stmt->execute($params);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   /**
@@ -244,7 +264,7 @@ class Manager
    *
    * @param string $sql The SQL statement to execute Returns nothing
    */
-  public static function executeStatement(string $sql): void
+  public static function executeStatement($sql)
   {
     self::getConnection()->exec($sql);
   }
@@ -257,7 +277,7 @@ class Manager
    * @param array $array The array to check
    * @return boolean Returns True if the array is associative, otherwise False
    */
-  private static function isAssociativeArray(array $array): bool
+  private static function isAssociativeArray($array)
   {
     if ($array === []) {
       return true;
@@ -271,7 +291,7 @@ class Manager
    * @param array $columns The columns to read
    * @return string Returns the clause of the columns to read
    */
-  private static function buildColumns(array $columns): string
+  private static function buildColumns($columns)
   {
     if (self::isAssociativeArray($columns)) {
       return empty($columns) ? '*' : implode(', ', $columns);
@@ -296,7 +316,7 @@ class Manager
    * @param array $whereConditions The conditions to read
    * @return string Returns the clause of the conditions to read
    */
-  private static function buildWhereClause(string $tableName, array $whereConditions): string
+  private static function buildWhereClause($tableName, $whereConditions)
   {
     $whereClause = '';
     if (!empty($whereConditions)) {
@@ -316,7 +336,7 @@ class Manager
    * @param string $table The name of the table to update
    * @return string Returns the clause of the data to update
    */
-  private static function buildSetClause(array $data, string $table): string
+  private static function buildSetClause($data, $table)
   {
     $setClause = '';
     if (!empty($data)) {

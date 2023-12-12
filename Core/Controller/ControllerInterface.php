@@ -22,14 +22,11 @@ interface ControllerInterface
    */
   public function __construct(RequestContext $requestContext);
 
-
   /**
    * Index action (mandatory), is called when no action is specified
    *
    * @param array $params Parameters of the request context (GET, POST, ...)
    * @example // GET /articles/ -> ArticleController::index()
    */
-  public function index(array $params): void;
-
-
+  public function index(array $params);
 }

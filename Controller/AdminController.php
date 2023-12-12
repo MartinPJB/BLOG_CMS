@@ -8,6 +8,7 @@ use \Core\RequestContext;
 use \Core\FieldChecker;
 use \Model\Medias;
 use \Core\Config;
+use Core\Database\Manager;
 use \Model\SiteSettings;
 
 /**
@@ -15,8 +16,8 @@ use \Model\SiteSettings;
  */
 class AdminController extends ControllerBase implements ControllerInterface
 {
-  public string $name = 'Admin';
-  public string $description = 'Handles all requests related to the admin page.';
+  public $name = 'Admin';
+  public $description = 'Handles all requests related to the admin page.';
 
   /**
    * {@inheritDoc}
@@ -29,7 +30,7 @@ class AdminController extends ControllerBase implements ControllerInterface
   /**
    * {@inheritDoc}
    */
-  public function index(array $params): void
+  public function index(array $params)
   {
     $this->render('Admin/index');
   }
@@ -39,21 +40,21 @@ class AdminController extends ControllerBase implements ControllerInterface
    *
    * @return array The different actions and ID needed
    */
-  protected function parseOptParam(): array
+  protected function parseOptParam()
   {
     $opt_param = $this->requestContext->getOptParam();
     $opt_param = explode('/', $opt_param);
 
     return [
       'action' => !empty($opt_param[0]) ? $opt_param[0] : 'list',
-      'id' => $opt_param[1] ?? null,
+      'id' => isset($opt_param[1]) ? $opt_param[1] : null,
     ];
   }
 
   /**
    * The process create method, will handle the validation of all the fields in the admin panel (articles, categories, etc.)
    */
-  protected function process_fields(): array
+  protected function process_fields()
   {
     $POST = $this->requestContext->getParameters()['POST'];
 
@@ -109,7 +110,7 @@ class AdminController extends ControllerBase implements ControllerInterface
    * @param array $file The file to upload
    * @return mixed The uploaded file
    */
-  protected function upload_file(array $file, string $name = ""): mixed
+  protected function upload_file(array $file, $name = "")
   {
     if (empty($file)) return false;
     if (empty($name)) $name = uniqid() . '.' . explode('/', $file['type'])[1];
@@ -125,15 +126,15 @@ class AdminController extends ControllerBase implements ControllerInterface
 
     if ($file_error === UPLOAD_ERR_OK) {
       if ($file_size <= $file_size_limit) {
-        $directory = dirname(__DIR__, 1) . '/Themes/' . $this->siteSettings->getTheme() . '/Back/public/admin_uploads/';
+        $directory = dirname(__DIR__) . '/Themes/' . $this->siteSettings->getTheme() . '/Back/public/admin_uploads/';
 
         // Create the folder if it doesn't exist
         if (!file_exists($directory . $file_ext . '/')) mkdir($directory . $file_ext . '/', 0777, true);
 
         // $file_destination = __DIR__ . '/../../' . $this->siteSettings->getTheme() . '/Back/public/admin_upload/' . $name;
-        $file_destination = dirname(__DIR__, 1) . '/Themes/' . $this->siteSettings->getTheme() . '/Back/public/admin_uploads/' . $file_ext . '/' . $name;
+        $file_destination = dirname(__DIR__) . '/Themes/' . $this->siteSettings->getTheme() . '/Back/public/admin_uploads/' . $file_ext . '/' . $name;
         if (move_uploaded_file($file_tmp, $file_destination)) {
-          $new_media = Medias::create(
+          Medias::create(
             ucfirst(explode('.', $name)[0]),
             mime_content_type($file_destination),
             $file_size,
@@ -141,7 +142,7 @@ class AdminController extends ControllerBase implements ControllerInterface
             $name,
             date('Y-m-d H:i:s')
           );
-          return $new_media;
+          return Manager::getLastInsertedId();
         }
       }
 

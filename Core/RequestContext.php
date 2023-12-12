@@ -7,27 +7,27 @@ namespace Core;
  */
 class RequestContext
 {
-  private string $uri;
-  private ?string $route;
-  private ?string $action;
-  private ?string $opt_param;
+  private $uri;
+  private $route;
+  private $action;
+  private $opt_param;
 
-  private string $method;
-  private array $parameters;
+  private $method;
+  private $parameters;
 
-  public function __construct(string $URI, string $method = 'GET', array $parameters = [])
+  public function __construct($URI, $method = 'GET', $parameters = [])
   {
     $this->uri = $URI;
     $this->method = $method;
 
     // Get the route name as well as the action and the optional param if they exist
-    $this->route = $parameters['GET']['route'] ?? null;
-    $this->action = $parameters['GET']['action'] ?? null;
+    $this->route = isset($parameters['GET']['route']) ? $parameters['GET']['route'] : null;
+    $this->action = isset($parameters['GET']['action']) ? $parameters['GET']['action'] : null;
 
-    $this->opt_param = $parameters['GET']['opt_param'] ?? null;
+    $this->opt_param = isset($parameters['GET']['opt_param']) ? $parameters['GET']['opt_param'] : null;
     $this->opt_param = urldecode($this->opt_param);
 
-    // Remove the route name, the action and the id from the parameters array
+    // Remove the route name, the action, and the id from the parameters array
     unset($parameters['GET']['route']);
     unset($parameters['GET']['action']);
     unset($parameters['GET']['opt_param']);
@@ -41,7 +41,7 @@ class RequestContext
    *
    * @return string URI of the request context
    */
-  public function getUri(): string
+  public function getUri()
   {
     return $this->uri;
   }
@@ -49,9 +49,9 @@ class RequestContext
   /**
    * Get the value of route
    *
-   * @return ?string Route name of the request context (null if not set)
+   * @return null|string Route name of the request context (null if not set)
    */
-  public function getRoute(): ?string
+  public function getRoute()
   {
     return $this->route;
   }
@@ -59,9 +59,9 @@ class RequestContext
   /**
    * Get the value of action
    *
-   * @return ?string Action name of the request context (null if not set)
+   * @return null|string Action name of the request context (null if not set)
    */
-  public function getAction(): ?string
+  public function getAction()
   {
     return $this->action;
   }
@@ -69,9 +69,9 @@ class RequestContext
   /**
    * Get the value of opt_param
    *
-   * @return ?string Optional param of the request context (null if not set)
+   * @return null|string Optional param of the request context (null if not set)
    */
-  public function getOptParam(): ?string
+  public function getOptParam()
   {
     return $this->opt_param;
   }
@@ -81,7 +81,7 @@ class RequestContext
    *
    * @return string Method of the request context
    */
-  public function getMethod(): string
+  public function getMethod()
   {
     return $this->method;
   }
@@ -91,7 +91,7 @@ class RequestContext
    *
    * @return array Parameters of the request context
    */
-  public function getParameters(): array
+  public function getParameters()
   {
     return $this->parameters;
   }
@@ -102,7 +102,7 @@ class RequestContext
    * @param string $name Parameter name
    * @return string Parameter value
    */
-  public function getParameter(string $name): string
+  public function getParameter($name)
   {
     return $this->parameters[$name];
   }
@@ -113,7 +113,7 @@ class RequestContext
    * @param string $name Parameter name
    * @return bool True if the parameter exists, false otherwise
    */
-  public function hasParameter(string $name): bool
+  public function hasParameter($name)
   {
     return isset($this->parameters[$name]);
   }

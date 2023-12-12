@@ -19,7 +19,7 @@ class FieldChecker {
    * @param string $field The field to clean
    * @return string The cleaned field
    */
-  public static function cleanString(string $field): string
+  public static function cleanString($field)
   {
     return htmlspecialchars(trim($field));
   }
@@ -30,7 +30,7 @@ class FieldChecker {
    * @param mixed $field The field to check
    * @return bool True if the field is not empty, false otherwise
    */
-  public static function isEmptyField(mixed $field): bool
+  public static function isEmptyField($field)
   {
     return !empty($field);
   }
@@ -41,9 +41,9 @@ class FieldChecker {
    * @param string $field The field to check
    * @return bool True if the field is a valid email, false otherwise
    */
-  public static function checkEmail(string $field): bool
+  public static function checkEmail($field)
   {
-    return filter_var($field, FILTER_VALIDATE_EMAIL);
+    return filter_var($field, FILTER_VALIDATE_EMAIL) !== false;
   }
 
   /**
@@ -52,9 +52,9 @@ class FieldChecker {
    * @param string $field The field to check
    * @return bool True if the field is a valid URL, false otherwise
    */
-  public static function checkUrl(string $field): bool
+  public static function checkUrl($field)
   {
-    return filter_var($field, FILTER_VALIDATE_URL);
+    return filter_var($field, FILTER_VALIDATE_URL) !== false;
   }
 
   /**
@@ -63,9 +63,9 @@ class FieldChecker {
    * @param mixed $field The field to check
    * @return bool True if the field is a valid integer, false otherwise
    */
-  public static function checkInt(mixed $field): bool
+  public static function checkInt($field)
   {
-    return filter_var($field, FILTER_VALIDATE_INT);
+    return filter_var($field, FILTER_VALIDATE_INT) !== false;
   }
 
   /**
@@ -74,7 +74,7 @@ class FieldChecker {
    * @param mixed $field The field to clean
    * @return int The cleaned field
    */
-  public static function cleanInt(mixed $field): int
+  public static function cleanInt($field)
   {
     return intval($field);
   }
@@ -85,9 +85,9 @@ class FieldChecker {
    * @param mixed $field The field to check
    * @return bool True if the field is a valid boolean, false otherwise
    */
-  public static function checkBool(mixed $field): bool
+  public static function checkBool($field)
   {
-    return filter_var($field, FILTER_VALIDATE_BOOLEAN);
+    return filter_var($field, FILTER_VALIDATE_BOOLEAN) !== false;
   }
 
   /**
@@ -96,7 +96,7 @@ class FieldChecker {
    * @param mixed $field The field to clean
    * @return bool The cleaned field
    */
-  public static function cleanBool(mixed $field): bool
+  public static function cleanBool($field)
   {
     return boolval($field);
   }
@@ -107,7 +107,7 @@ class FieldChecker {
    * @param mixed $field The field to check
    * @return bool True if the field is a valid date, false otherwise
    */
-  public static function checkDate(mixed $field): bool
+  public static function checkDate($field)
   {
     $date = explode('/', $field);
     if (count($date) !== 3) {
@@ -122,10 +122,8 @@ class FieldChecker {
    * @param mixed $field The field to clean
    * @return string The cleaned field
    */
-  public static function cleanDate(mixed $field): string
+  public static function cleanDate($field)
   {
     return date('Y-m-d', strtotime($field));
   }
-
-
 }

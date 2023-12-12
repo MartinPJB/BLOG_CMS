@@ -17,8 +17,7 @@ class AdminMediasController extends AdminController {
    *
    * @param array $params The parameters passed to the controller
    */
-  public function medias(array $params): void
-  {
+  public function medias(array $params) {
     $additional_params = $this->parseOptParam();
 
     $action = $additional_params['action'];
@@ -53,8 +52,7 @@ class AdminMediasController extends AdminController {
    *
    * @param array $params The parameters passed to the controller
    */
-  public function delete_media(array $params): void
-  {
+  public function delete_media(array $params) {
     $media_id = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {
       $is_JSON = isset($params['GET']['json']); // We might need to use this method for it to return a JSON response

@@ -10,12 +10,12 @@ use \Model\Articles;
  */
 class Blocks
 {
-  private int $id;
-  private string $name;
-  private mixed $json_content;
-  private int $article_id;
-  private string $type;
-  private int $weight;
+  private $id;
+  private $name;
+  private $json_content;
+  private $article_id;
+  private $type;
+  private $weight;
 
   /**
    * Constructor for the Blocks model
@@ -28,12 +28,12 @@ class Blocks
    * @param integer $weight Block weight
    */
   public function __construct(
-    int $id,
-    string $name,
-    mixed $json_content,
-    int $article_id,
-    string $type,
-    int $weight
+    $id,
+    $name,
+    $json_content,
+    $article_id,
+    $type,
+    $weight
   ) {
     $this->id = $id;
     $this->name = $name;
@@ -48,7 +48,7 @@ class Blocks
    *
    * @return array Array of Blocks objects
    */
-  public static function getAllBlocks(): array
+  public static function getAllBlocks()
   {
     $blocks = Manager::read('blocks');
     $result = [];
@@ -73,7 +73,7 @@ class Blocks
    * @param integer $article_id Article ID
    * @return array Array of Blocks objects
    */
-  public static function getBlocksByArticle(int $article_id): array
+  public static function getBlocksByArticle($article_id)
   {
     $blocks = Manager::read('blocks', [], ['article_id' => $article_id]);
     $result = [];
@@ -98,7 +98,7 @@ class Blocks
    * @param integer $id Block ID
    * @return Blocks Block object
    */
-  public static function getBlock(int $id): Blocks
+  public static function getBlock($id)
   {
     $block = Manager::read('blocks', [], ['id' => $id])[0];
 
@@ -122,12 +122,12 @@ class Blocks
    * @param integer $weight Block weight
    */
   public static function create(
-    string $name,
-    mixed $json_content,
-    int $article_id,
-    string $type,
-    int $weight
-  ): void {
+    $name,
+    $json_content,
+    $article_id,
+    $type,
+    $weight
+  ) {
     Manager::create('blocks', [
       'name' => $name,
       'json_content' => json_encode($json_content),
@@ -148,13 +148,13 @@ class Blocks
    * @param integer $weight Block weight
    */
   public static function update(
-    int $id,
-    string $name,
-    mixed $json_content,
-    int $article_id,
-    string $type,
-    int $weight
-  ): void {
+    $id,
+    $name,
+    $json_content,
+    $article_id,
+    $type,
+    $weight
+  ) {
     Manager::update('blocks', [
       'name' => $name,
       'json_content' => json_encode($json_content),
@@ -169,7 +169,7 @@ class Blocks
    *
    * @param integer $id Block ID
    */
-  public static function delete(int $id): void
+  public static function delete($id)
   {
     Manager::delete('blocks', ['id' => $id]);
   }
@@ -179,7 +179,7 @@ class Blocks
    *
    * @return integer Block ID
    */
-  public function getId(): int
+  public function getId()
   {
     return $this->id;
   }
@@ -189,7 +189,7 @@ class Blocks
    *
    * @return string Block name
    */
-  public function getName(): string
+  public function getName()
   {
     return $this->name;
   }
@@ -199,7 +199,7 @@ class Blocks
    *
    * @return mixed Block content (JSON decoded)
    */
-  public function getJsonContent(): mixed
+  public function getJsonContent()
   {
     return $this->json_content;
   }
@@ -209,7 +209,7 @@ class Blocks
    *
    * @return integer Article ID
    */
-  public function getArticleId(): int
+  public function getArticleId()
   {
     return $this->article_id;
   }
@@ -219,7 +219,7 @@ class Blocks
    *
    * @return Articles Article object
    */
-  public function getArticle(): Articles
+  public function getArticle()
   {
     return Articles::getArticle($this->article_id);
   }
@@ -229,7 +229,7 @@ class Blocks
    *
    * @return string Block type
    */
-  public function getType(): string
+  public function getType()
   {
     return $this->type;
   }
@@ -239,7 +239,7 @@ class Blocks
    *
    * @return integer Block weight
    */
-  public function getWeight(): int
+  public function getWeight()
   {
     return $this->weight;
   }

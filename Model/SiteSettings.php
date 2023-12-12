@@ -8,11 +8,11 @@ use \Core\Database\Manager;
  * Site manager model | Handles all actions related to the site settings
  */
 class SiteSettings {
-  private string $name;
-  private string $description;
-  private string $theme;
-  private string $site_language;
-  private string $default_route;
+  private $name;
+  private $description;
+  private $theme;
+  private $site_language;
+  private $default_route;
 
   /**
    * Constructor for the SiteSettings model
@@ -22,11 +22,11 @@ class SiteSettings {
    * @param string $theme Site theme
    */
   public function __construct(
-    string $name,
-    string $description,
-    string $theme,
-    string $site_language,
-    string $default_route
+    $name,
+    $description,
+    $theme,
+    $site_language,
+    $default_route
   ) {
     $this->name = $name;
     $this->description = $description;
@@ -40,7 +40,7 @@ class SiteSettings {
    *
    * @return SiteSettings SiteSettings object
    */
-  public static function getSiteSettings(): SiteSettings {
+  public static function getSiteSettings() {
     $site_settings = Manager::read('site_settings')[0];
 
     return new self(
@@ -63,12 +63,12 @@ class SiteSettings {
    * @return void
    */
   public static function update(
-    string $name,
-    string $description,
-    string $theme,
-    string $site_language,
-    string $default_route
-  ): void {
+    $name,
+    $description,
+    $theme,
+    $site_language,
+    $default_route
+  ) {
     Manager::update('site_settings', [
       'name' => $name,
       'description' => $description,
@@ -85,7 +85,7 @@ class SiteSettings {
    *
    * @return string Site name
    */
-  public function getName(): string {
+  public function getName() {
     return $this->name;
   }
 
@@ -94,7 +94,7 @@ class SiteSettings {
    *
    * @return string Site description
    */
-  public function getDescription(): string {
+  public function getDescription() {
     return $this->description;
   }
 
@@ -103,7 +103,7 @@ class SiteSettings {
    *
    * @return string Site theme
    */
-  public function getTheme(): string {
+  public function getTheme() {
     return $this->theme;
   }
 
@@ -112,7 +112,7 @@ class SiteSettings {
    *
    * @return string Site language
    */
-  public function getSiteLanguage(): string {
+  public function getSiteLanguage() {
     return $this->site_language;
   }
 
@@ -121,7 +121,7 @@ class SiteSettings {
    *
    * @return string Site default route
    */
-  public function getDefaultRoute(): string {
+  public function getDefaultRoute() {
     return $this->default_route;
   }
 }

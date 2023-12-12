@@ -19,8 +19,8 @@ use \Model\SiteSettings;
  */
 class PublicController extends ControllerBase implements ControllerInterface
 {
-  public string $name = 'Public';
-  public string $description = 'Handles all requests related to public files.';
+  public $name = 'Public';
+  public $description = 'Handles all requests related to public files.';
 
   /**
    * {@inheritDoc}
@@ -33,7 +33,7 @@ class PublicController extends ControllerBase implements ControllerInterface
   /**
    * {@inheritDoc}
    */
-  public function index(array $params): void
+  public function index(array $params)
   {
     $this->redirect('articles');
   }
@@ -45,7 +45,7 @@ class PublicController extends ControllerBase implements ControllerInterface
    * @param string $file_name The file name to search for
    * @return ?array File details if found, null otherwise
    */
-  private function getFileContent(string $directory, string $file_name): ?array
+  private function getFileContent($directory, $file_name)
   {
     $file_path = Files::findFile($directory, $file_name);
     if (!$file_path) {
@@ -53,7 +53,7 @@ class PublicController extends ControllerBase implements ControllerInterface
     }
 
     $file_content = Files::getFileContent($file_path);
-    $file_content['content'] = $file_content['content'] ?? '';
+    $file_content['content'] = isset($file_content['content']) ? $file_content['content'] : '';
 
     if (!isset($file_content['type'])) {
       return null;
@@ -71,7 +71,7 @@ class PublicController extends ControllerBase implements ControllerInterface
    *
    * @param string $directory The directory to search in (Front or Back)
    */
-  public function displayFileContent($directory): void
+  public function displayFileContent($directory)
   {
     $theme = SiteSettings::getSiteSettings()->getTheme();
     $parent_directory = dirname(__DIR__) . '/Themes/';
@@ -99,7 +99,7 @@ class PublicController extends ControllerBase implements ControllerInterface
   /**
    * Get a public file from the theme Front directory
    */
-  public function front(): void
+  public function front()
   {
     $this->displayFileContent('Front');
   }
@@ -107,7 +107,7 @@ class PublicController extends ControllerBase implements ControllerInterface
   /**
    * Get a public file from the theme Back directory
    */
-  public function back(): void
+  public function back()
   {
     $this->displayFileContent('Back');
   }
