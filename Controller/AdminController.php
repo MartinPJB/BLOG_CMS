@@ -15,8 +15,8 @@ use \Model\SiteSettings;
  */
 class AdminController extends ControllerBase implements ControllerInterface
 {
-  public string $name = 'Admin';
-  public string $description = 'Handles all requests related to the admin page.';
+  public $name = 'Admin';
+  public $description = 'Handles all requests related to the admin page.';
 
   /**
    * {@inheritDoc}
@@ -29,7 +29,7 @@ class AdminController extends ControllerBase implements ControllerInterface
   /**
    * {@inheritDoc}
    */
-  public function index(array $params): void
+  public function index(array $params)
   {
     $this->render('Admin/index');
   }
@@ -39,21 +39,21 @@ class AdminController extends ControllerBase implements ControllerInterface
    *
    * @return array The different actions and ID needed
    */
-  protected function parseOptParam(): array
+  protected function parseOptParam()
   {
     $opt_param = $this->requestContext->getOptParam();
     $opt_param = explode('/', $opt_param);
 
     return [
       'action' => !empty($opt_param[0]) ? $opt_param[0] : 'list',
-      'id' => $opt_param[1] ?? null,
+      'id' => isset($opt_param[1]) ? $opt_param[1] : null,
     ];
   }
 
   /**
    * The process create method, will handle the validation of all the fields in the admin panel (articles, categories, etc.)
    */
-  protected function process_fields(): array
+  protected function process_fields()
   {
     $POST = $this->requestContext->getParameters()['POST'];
 
@@ -109,7 +109,7 @@ class AdminController extends ControllerBase implements ControllerInterface
    * @param array $file The file to upload
    * @return mixed The uploaded file
    */
-  protected function upload_file(array $file, string $name = ""): mixed
+  protected function upload_file(array $file, $name = "")
   {
     if (empty($file)) return false;
     if (empty($name)) $name = uniqid() . '.' . explode('/', $file['type'])[1];

@@ -12,8 +12,8 @@ use \Model\Articles;
  */
 class ArticlesController extends ControllerBase implements ControllerInterface
 {
-  public string $name = 'Article';
-  public string $description = 'Handles all requests related to articles.';
+  public $name = 'Article';
+  public $description = 'Handles all requests related to articles.';
 
   /**
    * {@inheritDoc}
@@ -26,7 +26,7 @@ class ArticlesController extends ControllerBase implements ControllerInterface
   /**
    * {@inheritDoc}
    */
-  public function index(array $params): void
+  public function index(array $params)
   {
     $articles = Articles::getAllArticles();
     $this->render('Articles/index', [
@@ -39,7 +39,7 @@ class ArticlesController extends ControllerBase implements ControllerInterface
    *
    * @param array $params The parameters passed to the controller
    */
-  public function list(array $params): void
+  public function all(array $params)
   {
     $this->index($params);
   }
@@ -49,7 +49,7 @@ class ArticlesController extends ControllerBase implements ControllerInterface
    *
    * @param array $params The parameters passed to the controller
    */
-  public function see(array $params): void
+  public function see(array $params)
   {
     $article_id = intval($this->requestContext->getOptParam());
 
