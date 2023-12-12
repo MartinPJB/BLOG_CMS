@@ -5,6 +5,7 @@ namespace Controller\AdminSubControllers;
 use \Controller\AdminController;
 use \Core\FieldChecker;
 use \Model\Articles;
+use \Model\Medias;
 use \Model\Categories;
 use \Model\Users;
 
@@ -59,7 +60,8 @@ class AdminArticlesController extends AdminController {
     try {
       $processed = $this->process_fields();
       $author_id = Users::getAuthentificatedUser()->getId();
-      $media = $this->upload_file($_FILES['image']);
+      $new_media_id = $this->upload_file($_FILES['image']);
+      $media = Medias::getMediaById($new_media_id);
 
       Articles::create(
         $processed['title'],
@@ -76,7 +78,7 @@ class AdminArticlesController extends AdminController {
     } catch (\Exception $e) {
       $this->render('Articles/create', [
         'categories' => Categories::getAllCategories(),
-        'errors' => [$e->getMessage()],
+        'errors' => [$e->getMessage() . ' ' . $e->getFile()  . ' ' . $e->getLine()],
       ]);
     }
   }

@@ -45,7 +45,7 @@ if (!function_exists("password_verify")) {
    * @param string $hash The hash to verify the password against
    * @return bool Returns true if the password and hash match, or false otherwise
    */
-  function password_verify(string $password, string $hash) {
+  function password_verify($password, $hash) {
     return crypt($password, $hash) === $hash;
   }
 }

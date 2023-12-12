@@ -175,7 +175,6 @@ class Manager
    *
    * @param string $table The name of the table to create data in
    * @param array $data The data to create
-   * @return array Returns an array containing the data created
    */
   public static function create($table, $data)
   {
@@ -185,7 +184,7 @@ class Manager
     }, array_keys($data)));
 
     $sql = "INSERT INTO `$table` ($columns) VALUES ($values)";
-    return self::executeAndFetch($sql, $data);
+    self::execute($sql, $data);
   }
 
   /**
@@ -210,14 +209,13 @@ class Manager
    *
    * @param string $table The name of the table to delete data from
    * @param array $whereConditions The conditions for the delete
-   * @return array Returns an array containing the data deleted
    */
   public static function delete($table, $whereConditions)
   {
     $whereClause = self::buildWhereClause($table, $whereConditions);
 
     $sql = "DELETE FROM `$table` $whereClause";
-    return self::executeAndFetch($sql, $whereConditions);
+    self::execute($sql, $whereConditions);
   }
 
   /**
@@ -239,9 +237,26 @@ class Manager
    */
   public static function executeAndFetch($sql, $params = [])
   {
+    try {
+      $stmt = self::getConnection()->prepare($sql);
+      $stmt->execute($params);
+      return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+      echo "Error: " . $e->getMessage();
+      return [];
+    }
+  }
+
+  /**
+   * Executes a SQL statement and does not return the results
+   *
+   * @param string $sql The SQL statement to execute
+   * @param array $params The parameters for the SQL statement
+   */
+  public static function execute($sql, $params = [])
+  {
     $stmt = self::getConnection()->prepare($sql);
     $stmt->execute($params);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   /**

@@ -8,6 +8,7 @@ use \Core\RequestContext;
 use \Core\FieldChecker;
 use \Model\Medias;
 use \Core\Config;
+use Core\Database\Manager;
 use \Model\SiteSettings;
 
 /**
@@ -125,15 +126,15 @@ class AdminController extends ControllerBase implements ControllerInterface
 
     if ($file_error === UPLOAD_ERR_OK) {
       if ($file_size <= $file_size_limit) {
-        $directory = dirname(__DIR__, 1) . '/Themes/' . $this->siteSettings->getTheme() . '/Back/public/admin_uploads/';
+        $directory = dirname(__DIR__) . '/Themes/' . $this->siteSettings->getTheme() . '/Back/public/admin_uploads/';
 
         // Create the folder if it doesn't exist
         if (!file_exists($directory . $file_ext . '/')) mkdir($directory . $file_ext . '/', 0777, true);
 
         // $file_destination = __DIR__ . '/../../' . $this->siteSettings->getTheme() . '/Back/public/admin_upload/' . $name;
-        $file_destination = dirname(__DIR__, 1) . '/Themes/' . $this->siteSettings->getTheme() . '/Back/public/admin_uploads/' . $file_ext . '/' . $name;
+        $file_destination = dirname(__DIR__) . '/Themes/' . $this->siteSettings->getTheme() . '/Back/public/admin_uploads/' . $file_ext . '/' . $name;
         if (move_uploaded_file($file_tmp, $file_destination)) {
-          $new_media = Medias::create(
+          Medias::create(
             ucfirst(explode('.', $name)[0]),
             mime_content_type($file_destination),
             $file_size,
@@ -141,7 +142,7 @@ class AdminController extends ControllerBase implements ControllerInterface
             $name,
             date('Y-m-d H:i:s')
           );
-          return $new_media;
+          return Manager::getLastInsertedId();
         }
       }
 
