@@ -11,13 +11,15 @@ use \Model\Users;
 /**
  * AdminCategoriesController | Manage categories in the admin panel
  */
-class AdminCategoriesController extends AdminController {
+class AdminCategoriesController extends AdminController
+{
   /**
    * The articles method, will handle the creation, edition and deletion of articles
    *
    * @param array $params The parameters passed to the controller
    */
-  public function categories(array $params) {
+  public function categories(array $params)
+  {
     $additional_params = $this->parseOptParam();
 
     $action = $additional_params['action'];
@@ -52,11 +54,25 @@ class AdminCategoriesController extends AdminController {
    *
    * @param array $params The parameters passed to the controller
    */
-  public function create_category(array $params) {
+  public function create_category(array $params)
+  {
     try {
       $processed = $this->process_fields();
       $new_media_id = $this->upload_file($_FILES['image']);
       $media = Medias::getMediaById($new_media_id);
+
+      // Field verification
+      if (strlen($processed['name']) < 5) {
+        throw new \Exception('The name must be at least 5 characters long');
+      }
+
+      if (strlen($processed['description']) < 10) {
+        throw new \Exception('The description must be at least 10 characters long');
+      }
+
+      if (!isset($media) || !$media->getId()) {
+        throw new \Exception('The image is required');
+      }
 
       Categories::create(
         $processed['name'],
@@ -77,7 +93,8 @@ class AdminCategoriesController extends AdminController {
    *
    * @param array $params The parameters passed to the controller
    */
-  public function edit_category(array $params) {
+  public function edit_category(array $params)
+  {
     $category_id = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {
       $processed = $this->process_fields();
@@ -85,6 +102,19 @@ class AdminCategoriesController extends AdminController {
 
       if (isset($_FILES['image'])) {
         $media = $this->upload_file($_FILES['image']);
+      }
+
+      // Field verification
+      if (strlen($processed['name']) < 5) {
+        throw new \Exception('The name must be at least 5 characters long');
+      }
+
+      if (strlen($processed['description']) < 10) {
+        throw new \Exception('The description must be at least 10 characters long');
+      }
+
+      if (!isset($media) || !$media->getId()) {
+        throw new \Exception('The image is required');
       }
 
       Categories::update(
@@ -95,7 +125,7 @@ class AdminCategoriesController extends AdminController {
       );
 
       $this->redirect('admin/categories');
-    } catch(\Exception $e) {
+    } catch (\Exception $e) {
       $this->render('Categories/edit', [
         'article_id' => $category_id,
         'errors' => [$e->getMessage()],
@@ -108,7 +138,8 @@ class AdminCategoriesController extends AdminController {
    *
    * @param array $params The parameters passed to the controller
    */
-  public function delete_category(array $params) {
+  public function delete_category(array $params)
+  {
     $category_id = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {
       Categories::delete($category_id);

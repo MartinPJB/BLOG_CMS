@@ -37,19 +37,19 @@
           <td>{{ name }}</td>
           <td>{{ description }}</td>
           <td>
-            <a href="admin/category/edit/{{ id }}">Modifier</a>
-            <a href="admin/category/delete/{{ id }}">Supprimer</a>
+            <a href="admin/categories/edit/{{ id }}">Modifier</a>
+            <a href="admin/categories/delete/{{ id }}">Supprimer</a>
           </td>
         </tr>
       {% else %}
         <tr>
-          <td colspan="8">Aucune catégorie n'a été créée.</td>
+          <td colspan="8">Aucun chapitre n'a été créée.</td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
 
-  <a href="admin/articles/create">Créer un article</a>
+  <a href="admin/categories/create">Créer un chapitre</a>
 
 {% endblock %}
 

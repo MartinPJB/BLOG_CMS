@@ -1,0 +1,39 @@
+{#
+  Name: edit.html.twig
+  Path: default/Back/templates/pages/Categories/edit.html.twig
+#}
+{% extends "index.html.twig" %}
+
+{# Set title #}
+{% block title %}Chapitre - Modifier{% endblock %}
+
+{# Set content #}
+{% block content %}
+
+  <h1>Modifier un chapitre</h1>
+
+  <form action="admin/edit_category/{{ category.id }}" method="post" enctype="multipart/form-data">
+    <section>
+      <label for="name">Nom du chapitre</label>
+      <input type="text" name="name" id="name" placeholder="Nom du chapitre" value="{{ category.name }}" required>
+    </section>
+
+    <section>
+      <label for="description">Description du chapitre</label>
+      <textarea name="description" id="description" placeholder="Description du chapitre" required>{{ category.description }}</textarea>
+    </section>
+
+    <section>
+      {% if category.image != null %}
+        <img src="{{ category.image.path }}" alt="Image de l'article">
+        <input type="button" id="cuej__delete_media" data-id="{{ category.image.id }}" value="Remplacer l'image">
+      {% else %}
+        <label for="image">Image du chapitre</label>
+        <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg, .gif, .webp, .svg" required>
+      {% endif %}
+    </section>
+
+    <input type="submit" value="Modifier le chapitre">
+  </form>
+
+{% endblock %}
