@@ -1,0 +1,12 @@
+{#
+  Name: errors.html.twig
+  Path: default/Front/templates/misc/errors.html.twig
+#}
+
+{% if errors is defined %}
+	<ul class="errors">
+		{% for erreur in errors %}
+			<li>{{ erreur }}</li>
+		{% endfor %}
+	</ul>
+{% endif %}
