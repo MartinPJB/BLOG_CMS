@@ -120,7 +120,7 @@ class AdminCategoriesController extends AdminController
       $media = Categories::getCategoryById($categoryId)->getImage();
 
       if (isset($_FILES['image'])) {
-        $media = $this->upload_file($_FILES['image']);
+        $media = Medias::getMediaById($this->upload_file($_FILES['image']));
       }
 
       $this->validateCategoryFields($processed['name'], $processed['description'], $media);

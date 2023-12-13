@@ -5,5 +5,8 @@ RewriteBase /CUEJ_CMS/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
+# Exception for the /upload/ route (Must be read as a folder, not index.php)
+RewriteCond %{REQUEST_URI} !^/upload/ [NC]
+
 # Here: index.php?route=home&action=show&opt_param=1 => /home/show/1
 RewriteRule ^([^/]+)/?([^/]*)/?(.*)$ index.php?route=$1&action=$2&opt_param=$3 [L]

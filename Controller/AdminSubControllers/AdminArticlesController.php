@@ -139,7 +139,7 @@ class AdminArticlesController extends AdminController
       $media = Articles::getArticle($articleId)->getImage();
 
       if (isset($_FILES['image'])) {
-        $media = $this->upload_file($_FILES['image']);
+        $media = Medias::getMediaById($this->upload_file($_FILES['image']));
       }
 
       $this->validateArticleFields($processed['title'], $processed['description'], $media, $processed['category_id']);

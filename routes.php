@@ -63,7 +63,7 @@ Router::addRoute('admin', 'delete_category', '\Controller\AdminSubControllers\Ad
 
 /* -- Admin Medias -- */
 // GET
-// Router::addRoute('admin', 'medias', '\Controller\AdminSubControllers\AdminArticlesController', 2, 'GET');
+Router::addRoute('admin', 'medias', '\Controller\AdminSubControllers\AdminArticlesController', 2, 'GET');
 
 // POST
-Router::addRoute('admin', 'create_article', AdminArticlesController::class, 2, 'POST');
+Router::addRoute('admin', 'delete_media', '\Controller\AdminSubControllers\AdminArticlesController', 2, 'POST');
