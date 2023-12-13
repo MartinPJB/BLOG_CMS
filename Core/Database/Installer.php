@@ -142,13 +142,6 @@ class Installer
       'role' => 'admin',
     ]);
 
-    // Categories
-    Manager::create('categories', [
-      'name' => 'Uncategorized',
-      'description' => 'This is the default category. You can edit it or delete it.',
-      'image' => 1,
-    ]);
-
     // Media
     Manager::create('media', [
       'name' => 'Default',
@@ -157,6 +150,13 @@ class Installer
       'path' => 'https://picsum.photos/seed/' . rand() . '/400/250',
       'alt' => 'Default image',
       'uploaded_at' => date('Y-m-d H:i:s'),
+    ]);
+
+    // Categories
+    Manager::create('categories', [
+      'name' => 'Uncategorized',
+      'description' => 'This is the default category. You can edit it or delete it.',
+      'image' => 1,
     ]);
 
     // Articles
