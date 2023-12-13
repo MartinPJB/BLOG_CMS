@@ -33,7 +33,7 @@ Path: default/Front/templates/pages/Categories/see.html.twig
 {% if articles %}
 <nav>
   {# Display each articles #}
-  {% for article in articles|sort((a, b) => a.getDate() > b.getDate()) %}
+  {% for article in articles|sort((a, b) => a.getDate() < b.getDate()) %}
 
   {# Variables #}
   {% set image = article.image %}

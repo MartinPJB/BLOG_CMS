@@ -30,7 +30,6 @@ class CategoriesController extends ControllerBase implements ControllerInterface
   public function index(array $params): void
   {
     $categories = Categories::getAllCategories();
-    var_dump($categories);
     $this->render('Categories/index', [
       'categories' => $categories,
     ]);
@@ -60,7 +59,6 @@ class CategoriesController extends ControllerBase implements ControllerInterface
     }
     $category = Categories::getCategoryById($category_id);
     $articles = Articles::getAllPublishedArticles($category_id);
-    print_r($category);
     $this->render('Categories/see', [
       'category' => $category,
       'articles' => $articles,
