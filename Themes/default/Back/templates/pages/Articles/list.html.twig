@@ -43,20 +43,20 @@
       {# Display each articles #}
       {% for article in articles|sort((a, b) => a.getDate() > b.getDate()) %}
         {# Variables #}
-        {% set id = article.getId() %}
-        {% set title = article.getTitle() %}
-        {% set description = article.getDescription() %}
-        {% set date = article.getDate() %}
-        {% set author = article.getAuthor() %}
-        {% set category = article.getCategory() %}
-        {% set tags = article.getTags() %}
+        {% set id = article.id %}
+        {% set title = article.title %}
+        {% set description = article.description %}
+        {% set date = article.date %}
+        {% set author = article.author %}
+        {% set category = article.category %}
+        {% set tags = article.tags %}
 
         <tr>
           <td>{{ title }}</td>
           <td>{{ description }}</td>
           <td>{{ date|date("d/m/Y H:i", "Europe/Paris") }}</td>
-          <td>{{ author.getUsername() }}</td>
-          <td>{{ category.getName() }}</td>
+          <td>{{ author.username }}</td>
+          <td>{{ category.name }}</td>
           <td>
             {% for tag in tags %}
               {{ tag }}

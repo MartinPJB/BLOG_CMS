@@ -52,6 +52,15 @@ Router::addRoute('admin', 'create_article', '\Controller\AdminSubControllers\Adm
 Router::addRoute('admin', 'edit_article', '\Controller\AdminSubControllers\AdminArticlesController', 2, 'POST');
 Router::addRoute('admin', 'delete_article', '\Controller\AdminSubControllers\AdminArticlesController', 2, 'POST');
 
+/* -- Admin Categories -- */
+// GET
+Router::addRoute('admin', 'categories', '\Controller\AdminSubControllers\AdminCategoriesController', 2, 'GET');
+
+// POST
+Router::addRoute('admin', 'create_category', '\Controller\AdminSubControllers\AdminCategoriesController', 2, 'POST');
+Router::addRoute('admin', 'edit_category', '\Controller\AdminSubControllers\AdminCategoriesController', 2, 'POST');
+Router::addRoute('admin', 'delete_category', '\Controller\AdminSubControllers\AdminCategoriesController', 2, 'POST');
+
 /* -- Admin Medias -- */
 // GET
 // Router::addRoute('admin', 'medias', '\Controller\AdminSubControllers\AdminArticlesController', 2, 'GET');

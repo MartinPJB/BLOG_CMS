@@ -12,29 +12,36 @@ use \Model\Users;
 /**
  * AdminArticlesController | Manage articles in the admin panel
  */
-class AdminArticlesController extends AdminController {
+class AdminArticlesController extends AdminController
+{
   /**
    * The articles method, will handle the creation, edition and deletion of articles
    *
    * @param array $params The parameters passed to the controller
    */
-  public function articles(array $params) {
+  public function articles(array $params)
+  {
     $additional_params = $this->parseOptParam();
 
     $action = $additional_params['action'];
     $article_id = $additional_params['id'];
 
+    $all_categories = Categories::getAllCategories();
+    if (count($all_categories) == 0) {
+      $this->redirect('admin/categories');
+    }
+
     switch ($action) {
       case 'create':
         $this->render('Articles/create', [
-          'categories' => Categories::getAllCategories(),
+          'categories' => $all_categories,
         ]);
         break;
       case 'edit':
         $article = Articles::getArticle($article_id);
         $this->render('Articles/edit', [
           'article' => $article,
-          'categories' => Categories::getAllCategories(),
+          'categories' => $all_categories,
         ]);
         break;
       case 'delete':
@@ -56,12 +63,30 @@ class AdminArticlesController extends AdminController {
    *
    * @param array $params The parameters passed to the controller
    */
-  public function create_article(array $params) {
+  public function create_article(array $params)
+  {
     try {
       $processed = $this->process_fields();
       $author_id = Users::getAuthentificatedUser()->getId();
       $new_media_id = $this->upload_file($_FILES['image']);
       $media = Medias::getMediaById($new_media_id);
+
+      // Field verification
+      if (strlen($processed['title']) < 5) {
+        throw new \Exception('The title must be at least 5 characters long');
+      }
+
+      if (strlen($processed['description']) < 10) {
+        throw new \Exception('The description must be at least 10 characters long');
+      }
+
+      if (!isset($media) || !$media->getId()) {
+        throw new \Exception('The image is required');
+      }
+
+      if (!isset($processed['category_id']) || !Categories::getCategoryById($processed['category_id'])) {
+        throw new \Exception('The category is required');
+      }
 
       Articles::create(
         $processed['title'],
@@ -78,7 +103,7 @@ class AdminArticlesController extends AdminController {
     } catch (\Exception $e) {
       $this->render('Articles/create', [
         'categories' => Categories::getAllCategories(),
-        'errors' => [$e->getMessage() . ' ' . $e->getFile()  . ' ' . $e->getLine()],
+        'errors' => [$e->getMessage()],
       ]);
     }
   }
@@ -88,7 +113,8 @@ class AdminArticlesController extends AdminController {
    *
    * @param array $params The parameters passed to the controller
    */
-  public function edit_article(array $params) {
+  public function edit_article(array $params)
+  {
     $article_id = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {
       $processed = $this->process_fields();
@@ -97,6 +123,23 @@ class AdminArticlesController extends AdminController {
 
       if (isset($_FILES['image'])) {
         $media = $this->upload_file($_FILES['image']);
+      }
+
+      // Field verification
+      if (strlen($processed['title']) < 5) {
+        throw new \Exception('The title must be at least 5 characters long');
+      }
+
+      if (strlen($processed['description']) < 10) {
+        throw new \Exception('The description must be at least 10 characters long');
+      }
+
+      if (!isset($media) || !$media->getId()) {
+        throw new \Exception('The image is required');
+      }
+
+      if (!isset($processed['category_id']) || !Categories::getCategoryById($processed['category_id'])) {
+        throw new \Exception('The category is required');
       }
 
       Articles::update(
@@ -112,7 +155,7 @@ class AdminArticlesController extends AdminController {
       );
 
       $this->redirect('admin/articles');
-    } catch(\Exception $e) {
+    } catch (\Exception $e) {
       $this->render('Articles/edit', [
         'article_id' => $article_id,
         'errors' => [$e->getMessage()],
@@ -125,7 +168,8 @@ class AdminArticlesController extends AdminController {
    *
    * @param array $params The parameters passed to the controller
    */
-  public function delete_article(array $params) {
+  public function delete_article(array $params)
+  {
     $article_id = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {
       Articles::delete($article_id);
