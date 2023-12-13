@@ -51,6 +51,7 @@ class Installer
   {
     // Site settings table
     Manager::createTable('site_settings', [
+      'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
       'name' => 'VARCHAR(255) NOT NULL',
       'description' => 'TEXT NOT NULL',
       'theme' => 'VARCHAR(255) NOT NULL DEFAULT "default"',
@@ -128,6 +129,7 @@ class Installer
   {
     // Site settings
     Manager::create('site_settings', [
+      'id' => 1, // The ID is always 1, there can only be one row in the table 'site_settings
       'name' => Config::get('site_default_name'),
       'description' => Config::get('site_default_description'),
       'site_language' => Config::get('site_language'),
