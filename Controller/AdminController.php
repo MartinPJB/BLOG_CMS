@@ -30,7 +30,7 @@ class AdminController extends ControllerBase implements ControllerInterface
   /**
    * {@inheritDoc}
    */
-  public function index(array $params)
+  public function index($params)
   {
     $this->render('Admin/index');
   }
@@ -110,7 +110,7 @@ class AdminController extends ControllerBase implements ControllerInterface
    * @param array $file The file to upload
    * @return mixed The uploaded file
    */
-  protected function upload_file(array $file, $name = "")
+  protected function upload_file($file, $name = "")
   {
     if (empty($file)) return false;
     if (empty($name)) $name = uniqid() . '.' . explode('/', $file['type'])[1];

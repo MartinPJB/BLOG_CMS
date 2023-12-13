@@ -27,7 +27,7 @@ class UsersController extends ControllerBase implements ControllerInterface
   /**
    * {@inheritDoc}
    */
-  public function index(array $params)
+  public function index($params)
   {
     // There is no way to show all the users from there
     $this->redirect('articles');
@@ -38,7 +38,7 @@ class UsersController extends ControllerBase implements ControllerInterface
    *
    * @param array $params The parameters passed to the controller
    */
-  public function see(array $params)
+  public function see($params)
   {
     $user_id = intval($this->requestContext->getOptParam());
 
@@ -59,7 +59,7 @@ class UsersController extends ControllerBase implements ControllerInterface
    *
    * [METHOD: GET]
    */
-  public function login(array $params)
+  public function login($params)
   {
     // Check if the user is already logged in
     if (Users::isAuthentificated()) {
@@ -87,7 +87,7 @@ class UsersController extends ControllerBase implements ControllerInterface
    *
    * [METHOD: POST]
    */
-  public function process_login(array $params)
+  public function process_login($params)
   {
     // User's authentificated, redirect to the articles page
     if (Users::isAuthentificated()) {
@@ -131,7 +131,7 @@ class UsersController extends ControllerBase implements ControllerInterface
    * @param array $POST The POST parameters passed to the controller
    * @return array The errors
    */
-  private function validateLogin(array $POST)
+  private function validateLogin($POST)
   {
     $errors = [];
 

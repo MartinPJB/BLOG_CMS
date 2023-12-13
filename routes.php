@@ -16,9 +16,9 @@ use \Controller\AdminSubControllers\AdminMediasController;
 
 /* -- Categories routes -- */
 // GET
-Router::addRoute('categories', '', CategoriesController::class, 0, 'GET');
-Router::addRoute('categories', 'list', CategoriesController::class, 0, 'GET');
-Router::addRoute('categories', 'see', CategoriesController::class, 0, 'GET');
+Router::addRoute('categories', '', '\Controller\CategoriesController', 0, 'GET');
+Router::addRoute('categories', 'all', '\Controller\CategoriesController', 0, 'GET');
+Router::addRoute('categories', 'see', '\Controller\CategoriesController', 0, 'GET');
 
 /* -- Articles routes -- */
 // GET
