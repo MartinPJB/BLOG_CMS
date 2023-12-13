@@ -20,22 +20,29 @@
 {% block title %}{{ article.title }}{% endblock %}
 
 {# Variables #}
-{% set image = article.getImage() %}
-{% set title = article.getTitle() %}
-{% set description = article.getDescription() %}
-{% set date = article.getDate() %}
-{% set author = article.getAuthor() %}
-{% set category = article.getCategory() %}
-{% set tags = article.getTags() %}
+{% set image = article.image %}
+{% set title = article.title %}
+{% set description = article.description %}
+{% set date = article.date %}
+{% set author = article.author %}
+{% set category = article.category %}
+{% set tags = article.tags %}
 
 {# Affichage #}
 {% block content %}
-  <img src="{{ image.getPath() }}" alt="{{ image.getAlt() }}" loading="lazy">
+  <img src="{{ image.path }}" alt="{{ image.alt }}" loading="lazy">
   <div>
     <h1>{{ title }}</h1>
     <p>{{ description }}</p>
-    <p>Publié le {{ date|date("d/m/Y H:i", "Europe/Paris") }} par <a href="./users/see/{{ author.getId() }}">{{ author.getUsername() }}</a></p>
-    <p>Tags: {{ tags|join(', ') }}</p>
-    <p>{{ category.getName() }}</p>
+    <p>Publié le
+      <time datetime="{{ date|date("Y-d-m H:i") }}">{{ date|date("d/m/Y H:i", "Europe/Paris") }}</time>
+      par <a href="./users/see/{{ author.id }}">{{ author.username }}</a>
+    </p>
+    <ul>Tags:
+      {% for tag in tags %}
+      <li>{{ tag }}</li>
+      {% endfor %}
+    </ul>
+    <p>{{ category.name }}</p>
   </div>
 {% endblock %}

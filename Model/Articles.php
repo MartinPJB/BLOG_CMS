@@ -67,7 +67,7 @@ class Articles
    *
    * @return array Array of articles
    */
-  public static function getAllPublishedArticles()
+  public static function getAllPublishedArticles($category_id = null)
   {
     $conditions = ['published' => 1, 'draft' => 0];
     $category_id ? $conditions = array_merge($conditions, ['category_id' => $category_id]) : null;

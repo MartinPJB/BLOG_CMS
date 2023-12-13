@@ -21,9 +21,14 @@
 {# Set title #}
 {% block title %}Articles{% endblock %}
 
+{# Set meta #}
+{% block meta %}
+<meta name="author" content="{{ article.author }}">
+{% endblock %}
+
 {# Set content #}
 {% block content %}
-<h1>Articles</h1>
+<h1>Tous les articles</h1>
 {% if articles %}
 <nav>
   {# Display each articles #}
@@ -42,15 +47,21 @@
     <article>
       <a href="articles/see/{{ article.getId() }}">
         <img src="{{ image.path }}" alt="{{ image.alt }}" loading="lazy">
-        <div>
-          <h2>{{ title }}</h2>
-          <p>{{ description }}</p>
-
-          <p>Publié le {{ date|date("d/m/Y H:i", "Europe/Paris") }} par {{ author.username }}</p>
-          <p>Tags: {{ tags|join(', ') }}</p>
-          <p>{{ category.name }}</p>
-        </div>
+        <h2>{{ title }}</h2>
       </a>
+      <div>
+        <p>{{ description }}</p>
+        <p>Publié le
+          <time datetime="{{ date|date(" Y-d-m H:i") }}">{{ date|date("d/m/Y H:i", "Europe/Paris") }}</time>
+          par <a href="./users/see/{{ author.id }}">{{ author.username }}</a>
+        </p>
+        <ul>Tags:
+          {% for tag in tags %}
+          <li>{{ tag }}</li>
+          {% endfor %}
+        </ul>
+        <p>{{ category.name }}</p>
+      </div>
     </article>
   {% endfor %}
 </nav>

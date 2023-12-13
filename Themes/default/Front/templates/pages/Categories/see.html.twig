@@ -45,15 +45,17 @@ Path: default/Front/templates/pages/Categories/see.html.twig
 
   {# Affichage #}
   <article>
-    <a href="articles/see/{{ article.getId() }}">
+    <a href="articles/see/{{ article.id }}">
       <img src="{{ image.path }}" alt="{{ image.alt }}" loading="lazy">
-      <div>
-        <h2>{{ title }}</h2>
-        <p>{{ description }}</p>
-
-        <p>Publié le {{ date|date("d/m/Y H:i", "Europe/Paris") }} par {{ author.username }}</p>
-      </div>
+      <h2>{{ title }}</h2>
     </a>
+    <div>
+      <p>{{ description }}</p>
+      <p>Publié le
+        <time datetime="{{ date|date(" Y-d-m H:i") }}">{{ date|date("d/m/Y H:i", "Europe/Paris") }}</time>
+        par <a href="./users/see/{{ author.id }}">{{ author.username }}</a>
+      </p>
+    </div>
   </article>
   {% endfor %}
 </nav>
