@@ -17,6 +17,7 @@ class Medias
   private $path;
   private $alt;
   private $uploaded_at;
+  private $hash;
 
   /**
    * Constructor for the Medias model
@@ -28,6 +29,7 @@ class Medias
    * @param string $path Media path
    * @param string $alt Media alt
    * @param string $uploaded_at Media uploaded_at
+   * @param string $hash Media hash
    */
   public function __construct(
     $id,
@@ -36,7 +38,8 @@ class Medias
     $size,
     $path,
     $alt,
-    $uploaded_at
+    $uploaded_at,
+    $hash
   ) {
     $this->id = $id;
     $this->name = $name;
@@ -45,6 +48,7 @@ class Medias
     $this->path = $path;
     $this->alt = $alt;
     $this->uploaded_at = new DateTime($uploaded_at);
+    $this->hash = $hash;
   }
 
   /**
@@ -65,7 +69,8 @@ class Medias
         $media['size'],
         $media['path'],
         $media['alt'],
-        $media['uploaded_at']
+        $media['uploaded_at'],
+        $media['hash']
       );
     }
 
@@ -91,7 +96,8 @@ class Medias
       $media['size'],
       $media['path'],
       $media['alt'],
-      $media['uploaded_at']
+      $media['uploaded_at'],
+      $media['hash']
     );
   }
 
@@ -114,7 +120,8 @@ class Medias
         $media['size'],
         $media['path'],
         $media['alt'],
-        $media['uploaded_at']
+        $media['uploaded_at'],
+        $media['hash']
       );
     }
 
@@ -139,7 +146,8 @@ class Medias
     $size,
     $path,
     $alt,
-    $uploaded_at
+    $uploaded_at,
+    $hash
   ) {
     Manager::create('media', [
       'name' => $name,
@@ -147,7 +155,8 @@ class Medias
       'size' => $size,
       'path' => $path,
       'alt' => $alt,
-      'uploaded_at' => $uploaded_at
+      'uploaded_at' => $uploaded_at,
+      'hash' => $hash
     ]);
 
     return new self(
@@ -157,7 +166,8 @@ class Medias
       $size,
       $path,
       $alt,
-      $uploaded_at
+      $uploaded_at,
+      $hash
     );
   }
 
@@ -171,6 +181,7 @@ class Medias
    * @param string $path Media path
    * @param string $alt Media alt
    * @param string $uploaded_at Media uploaded_at
+   * @param string $hash Media hash
    */
   public static function update(
     $id,
@@ -179,7 +190,8 @@ class Medias
     $size,
     $path,
     $alt,
-    $uploaded_at
+    $uploaded_at,
+    $hash
   ) {
     Manager::update('media', [
       'name' => $name,
@@ -187,7 +199,8 @@ class Medias
       'size' => $size,
       'path' => $path,
       'alt' => $alt,
-      'uploaded_at' => $uploaded_at
+      'uploaded_at' => $uploaded_at,
+      'hash' => $hash
     ], ['id' => $id]);
   }
 
@@ -269,5 +282,15 @@ class Medias
   public function getUploadedAt()
   {
     return $this->uploaded_at;
+  }
+
+  /**
+   * Get the value of hash
+   *
+   * @return string Media hash
+   */
+  public function getHash()
+  {
+    return $this->hash;
   }
 }

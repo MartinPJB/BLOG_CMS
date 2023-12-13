@@ -135,13 +135,21 @@ class AdminController extends ControllerBase implements ControllerInterface
         // $file_destination = __DIR__ . '/../../' . $this->siteSettings->getTheme() . '/Back/public/admin_upload/' . $name;
         $file_destination = $directory . $name;
         if (move_uploaded_file($file_tmp, $file_destination)) {
+          // Get file's hash
+          $file_hash = hash_file('md5', $file_destination);
+
+          // Check if the file already exists
+          $file = Manager::read('media', [], ['hash' => $file_hash]);
+          if (!empty($file)) return $file[0]['id'];
+
           Medias::create(
             ucfirst(explode('.', $name)[0]),
             mime_content_type($file_destination),
             $file_size,
             "uploads/{$file_ext}/{$name}",
             $name,
-            date('Y-m-d H:i:s')
+            date('Y-m-d H:i:s'),
+            $file_hash
           );
           return Manager::getLastInsertedId();
         }

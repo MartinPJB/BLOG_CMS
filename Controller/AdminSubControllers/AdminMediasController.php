@@ -54,6 +54,7 @@ class AdminMediasController extends AdminController
    */
   public function delete_media(array $params)
   {
+
     $mediaId = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {
       $isJSON = isset($params['GET']['json']); // We might need to use this method for it to return a JSON response

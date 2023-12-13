@@ -77,6 +77,7 @@ class Installer
       'path' => 'VARCHAR(255) NOT NULL',
       'alt' => 'VARCHAR(255) NOT NULL',
       'uploaded_at' => 'DATETIME NOT NULL',
+      'hash' => 'VARCHAR(255) NOT NULL DEFAULT ""',
     ]);
 
     // Categories table
