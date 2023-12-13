@@ -9,47 +9,38 @@
 #}
 {% extends "index.html.twig" %}
 
-{# Set title #}
-{% block title %}Chapitres{% endblock %}
+{% block title %}Categories{% endblock %}
 
-{# Set content #}
 {% block content %}
-  <h1>Chapitres créés</h1>
-  <p>Voici la liste de tous les chapitres créés.</p>
+  <h1>Categories</h1>
+  <p>Here is the list of all the categories you've created.</p>
 
   <table>
     <thead>
       <tr>
-        <th>Nom</th>
+        <th>Name</th>
         <th>Description</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      {# Display each categories #}
+      {# Display each category #}
       {% for category in categories %}
-        {# Variables #}
-        {% set id = category.id %}
-        {% set name = category.name %}
-        {% set description = category.description %}
-
         <tr>
-          <td>{{ name }}</td>
-          <td>{{ description }}</td>
+          <td>{{ category.name|raw }}</td>
+          <td>{{ category.description|raw }}</td>
           <td>
-            <a href="admin/categories/edit/{{ id }}">Modifier</a>
-            <a href="admin/categories/delete/{{ id }}">Supprimer</a>
+            <a href="admin/categories/edit/{{ category.id }}">Edit</a>
+            <a href="admin/categories/delete/{{ category.id }}">Delete</a>
           </td>
         </tr>
       {% else %}
         <tr>
-          <td colspan="8">Aucun chapitre n'a été créée.</td>
+          <td colspan="3">You haven't created any category.</td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
 
-  <a href="admin/categories/create">Créer un chapitre</a>
-
+  <a href="admin/categories/create">Create a category</a>
 {% endblock %}
-

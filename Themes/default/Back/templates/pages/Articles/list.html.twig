@@ -23,24 +23,24 @@
 
 {# Set content #}
 {% block content %}
-  <h1>Articles créés</h1>
-  <p>Voici la liste de tous les articles créés.</p>
+  <h1>Articles</h1>
+  <p>Here is the list of all the created articles.</p>
 
   <table>
     <thead>
       <tr>
-        <th>Titre</th>
+        <th>Title</th>
         <th>Description</th>
         <th>Date</th>
-        <th>Auteur</th>
-        <th>Catégorie</th>
+        <th>Author</th>
+        <th>Category</th>
         <th>Tags</th>
         <th>Status</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      {# Display each articles #}
+      {# Display each article #}
       {% for article in articles|sort((a, b) => a.getDate() > b.getDate()) %}
         {# Variables #}
         {% set id = article.id %}
@@ -52,8 +52,8 @@
         {% set tags = article.tags %}
 
         <tr>
-          <td>{{ title }}</td>
-          <td>{{ description }}</td>
+          <td>{{ title|raw }}</td>
+          <td>{{ description|raw }}</td>
           <td>{{ date|date("d/m/Y H:i", "Europe/Paris") }}</td>
           <td>{{ author.username }}</td>
           <td>{{ category.name }}</td>
@@ -64,25 +64,24 @@
           </td>
           <td>
             {% if article.isPublished() and not article.isDraft() %}
-              Publié ✅
+              Published ✅
             {% else %}
-              Brouillon 📄
+              Draft 📄
             {% endif %}
           </td>
           <td>
-            <a href="admin/articles/edit/{{ id }}">Modifier</a>
-            <a href="admin/articles/delete/{{ id }}">Supprimer</a>
+            <a href="admin/articles/edit/{{ id }}">Edit</a>
+            <a href="admin/articles/delete/{{ id }}">Delete</a>
           </td>
         </tr>
       {% else %}
         <tr>
-          <td colspan="8">Aucun article n'a été publié.</td>
+          <td colspan="8">No article has been published.</td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
 
-  <a href="admin/articles/create">Créer un article</a>
+  <a href="admin/articles/create">Create an article</a>
 
 {% endblock %}
-

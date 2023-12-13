@@ -5,35 +5,35 @@
 {% extends "index.html.twig" %}
 
 {# Set title #}
-{% block title %}Chapitre - Modifier{% endblock %}
+{% block title %}Categories - Edit{% endblock %}
 
 {# Set content #}
 {% block content %}
 
-  <h1>Modifier un chapitre</h1>
+  <h1>Edit a Category</h1>
 
   <form action="admin/edit_category/{{ category.id }}" method="post" enctype="multipart/form-data">
     <section>
-      <label for="name">Nom du chapitre</label>
-      <input type="text" name="name" id="name" placeholder="Nom du chapitre" value="{{ category.name }}" required>
+      <label for="name">Category Name</label>
+      <input type="text" name="name" id="name" placeholder="Category Name" value="{{ category.name|raw }}" required>
     </section>
 
     <section>
-      <label for="description">Description du chapitre</label>
-      <textarea name="description" id="description" placeholder="Description du chapitre" required>{{ category.description }}</textarea>
+      <label for="description">Category Description</label>
+      <textarea name="description" id="description" placeholder="Category Description" required>{{ category.description|raw }}</textarea>
     </section>
 
     <section>
       {% if category.image != null %}
-        <img src="{{ category.image.path }}" alt="Image de l'article">
-        <input type="button" id="cuej__delete_media" data-id="{{ category.image.id }}" value="Remplacer l'image">
+        <img src="{{ category.image.path }}" alt="Category Image">
+        <input type="button" id="cuej__delete_media" data-id="{{ category.image.id }}" value="Replace Image">
       {% else %}
-        <label for="image">Image du chapitre</label>
+        <label for="image">Category Image</label>
         <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg, .gif, .webp, .svg" required>
       {% endif %}
     </section>
 
-    <input type="submit" value="Modifier le chapitre">
+    <input type="submit" value="Edit Category">
   </form>
 
 {% endblock %}

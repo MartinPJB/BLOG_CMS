@@ -5,14 +5,14 @@
 {% extends "index.html.twig" %}
 
 {# Set title #}
-{% block title %}Chapitres - Suppression{% endblock %}
+{% block title %}Categories - Deletion{% endblock %}
 
 {# Set content #}
 {% block content %}
-  <h1>Suppression d'un chapitre</h1>
-  <p>Êtes-vous sûr de vouloir supprimer le chapitre "{{ category.name }}" ? Cette action est irréversible.</p>
+  <h1>Delete a Category</h1>
+  <p>Are you sure you want to delete the Category "{{ category.name }}"? This action is irreversible.</p>
   <form action="admin/delete_category/{{ category.id }}" method="post">
-    <a href="admin/categories">Annuler</a>
-    <input type="submit" value="Supprimer" />
+    <a href="admin/categories">Cancel</a>
+    <input type="submit" value="Delete" />
   </form>
 {% endblock %}
