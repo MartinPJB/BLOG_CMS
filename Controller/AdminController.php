@@ -151,4 +151,39 @@ class AdminController extends ControllerBase implements ControllerInterface
 
     throw new \ErrorException("There was an error uploading your file.");
   }
+
+    /**
+   * If a subpage requires a valid ID of an element in the database, this method will check if the ID is valid
+   *
+   * @param string $table The table to check the ID in
+   * @return int|null The ID if it is valid, null otherwise
+   */
+  protected function checkId($table)
+  {
+    $id = $this->requestContext->getOptParam();
+    $id = explode('/', $id)[1];
+    $id = FieldChecker::cleanInt($id);
+
+    if (empty($id)) return null;
+
+    $result = Manager::read($table, [], ['id' => $id]);
+
+    if (empty($result)) return null;
+
+    return $id;
+  }
+
+  /**
+   *
+   */
+  protected function requiresValidID($pageName)
+  {
+    $id = $this->checkId($pageName);
+
+    if (empty($id) || $id === null) {
+      $this->redirect('admin/'.$pageName);
+    }
+
+    return $id;
+  }
 }
