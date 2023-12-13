@@ -61,7 +61,7 @@ class AdminMediasController extends AdminController
       // Delete media
       Medias::delete($mediaId);
 
-      $this->handleDeleteResponse($isJSON, 'Media deleted successfully');
+      $this->handleDeleteResponse($isJSON, ['success' => 'Media deleted successfully.']);
     } catch (\Exception $e) {
       $data = ['medias' => Medias::getAllMedias(), 'errors' => [$e->getMessage()]];
       $this->handleDeleteResponse($isJSON, $data);
@@ -94,7 +94,7 @@ class AdminMediasController extends AdminController
       $this->redirect('admin/medias');
     } else {
       header('Content-Type: application/json');
-      echo json_encode(['success' => $data]);
+      echo json_encode($data);
     }
   }
 }

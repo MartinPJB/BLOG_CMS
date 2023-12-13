@@ -7,6 +7,11 @@
 {# Set title #}
 {% block title %}Categories - Edit{% endblock %}
 
+{# Custom JS #}
+{% block javascript %}
+  <script src="public/back/js/replace_image.js" defer></script>
+{% endblock %}
+
 {# Set content #}
 {% block content %}
 
@@ -23,7 +28,7 @@
       <textarea name="description" id="description" placeholder="Category Description" required>{{ category.description|raw }}</textarea>
     </section>
 
-    <section>
+    <section id="cuej__media">
       {% if category.image != null %}
         <img src="{{ category.image.path }}" alt="Category Image">
         <input type="button" id="cuej__delete_media" data-id="{{ category.image.id }}" value="Replace Image">

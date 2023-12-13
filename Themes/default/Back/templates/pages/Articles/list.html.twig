@@ -56,7 +56,7 @@
           <td>{{ description|raw }}</td>
           <td>{{ date|date("d/m/Y H:i", "Europe/Paris") }}</td>
           <td>{{ author.username }}</td>
-          <td>{{ category.name }}</td>
+          <td><a href="admin/categories/edit/{{ category.id }}">{{ category.name }}</a></td>
           <td>
             {% for tag in tags %}
               {{ tag }}

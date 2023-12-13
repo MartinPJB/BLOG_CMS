@@ -76,11 +76,13 @@ class Medias
    * Get a media by its ID
    *
    * @param integer $id Media ID
-   * @return self Media
+   * @return self|null Media
    */
   public static function getMediaById($id)
   {
-    $media = Manager::read('media', [], ['id' => $id])[0];
+    $media = Manager::read('media', [], ['id' => $id]);
+    if (empty($media)) return null;
+    $media = $media[0];
 
     return new self(
       $media['id'],
@@ -94,24 +96,29 @@ class Medias
   }
 
   /**
-   * Get a media by its type
+   * Get all medias by type
    *
    * @param string $type Media type
-   * @return self Media
+   * @return array Media
    */
-  public static function getMediaByType($type)
+  public static function getMediasByType($type)
   {
-    $media = Manager::read('media', [], ['type' => $type])[0];
+    $medias = Manager::read('media', [], ['type' => $type])[0];
+    $result = [];
 
-    return new self(
-      $media['id'],
-      $media['name'],
-      $media['type'],
-      $media['size'],
-      $media['path'],
-      $media['alt'],
-      $media['uploaded_at']
-    );
+    foreach ($medias as $key => $media) {
+      $result[] = new self(
+        $media['id'],
+        $media['name'],
+        $media['type'],
+        $media['size'],
+        $media['path'],
+        $media['alt'],
+        $media['uploaded_at']
+      );
+    }
+
+    return $result;
   }
 
   /**
@@ -133,7 +140,7 @@ class Medias
     $path,
     $alt,
     $uploaded_at
-   ) {
+  ) {
     Manager::create('media', [
       'name' => $name,
       'type' => $type,
