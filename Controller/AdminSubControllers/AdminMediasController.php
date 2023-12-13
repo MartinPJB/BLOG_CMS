@@ -23,7 +23,7 @@ class AdminMediasController extends AdminController
     $additionalParams = $this->parseOptParam();
 
     $action = $additionalParams['action'];
-    $mediaId = $additionalParams['id'];
+    $media_id = $additionalParams['id'];
 
     switch ($action) {
       case 'upload':
@@ -32,17 +32,17 @@ class AdminMediasController extends AdminController
 
       case 'edit':
         $this->requiresValidID('medias');
-        $media = $this->getMediaById($mediaId);
+        $media = $this->getMediaById($media_id);
         $this->render('Medias/edit', ['media' => $media]);
         break;
 
       case 'delete':
         $this->requiresValidID('medias');
-        $this->render('Medias/delete', ['mediaId' => $mediaId]);
+        $this->render('Medias/delete', ['mediaId' => $media_id]);
         break;
 
       default:
-        $this->render('Medias/list', ['media' => Medias::getAllMedias()]);
+        $this->render('Medias/list', ['medias' => Medias::getAllMedias()]);
         break;
     }
   }
@@ -55,12 +55,12 @@ class AdminMediasController extends AdminController
   public function delete_media(array $params)
   {
 
-    $mediaId = FieldChecker::cleanInt($this->requestContext->getOptParam());
+    $media_id = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {
       $isJSON = isset($params['GET']['json']); // We might need to use this method for it to return a JSON response
 
       // Delete media
-      Medias::delete($mediaId);
+      Medias::delete($media_id);
 
       $this->handleDeleteResponse($isJSON, ['success' => 'Media deleted successfully.']);
     } catch (\Exception $e) {
@@ -72,15 +72,15 @@ class AdminMediasController extends AdminController
   /**
    * Gets a media by its ID.
    *
-   * @param int $mediaId
+   * @param int $media_id
    * @return Medias
    *
    * @throws \Exception
    */
-  private function getMediaById($mediaId)
+  private function getMediaById($media_id)
   {
     $this->requiresValidID('medias');
-    return Medias::getMediaById($mediaId);
+    return Medias::getMediaById($media_id);
   }
 
   /**
