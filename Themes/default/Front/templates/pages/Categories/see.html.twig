@@ -51,15 +51,15 @@ Path: default/Front/templates/pages/Categories/see.html.twig
     </a>
     <div>
       <p>{{ description }}</p>
-      <p>Publié le
-        <time datetime="{{ date|date(" Y-d-m H:i") }}">{{ date|date("d/m/Y H:i", "Europe/Paris") }}</time>
-        par <a href="./users/see/{{ author.id }}">{{ author.username }}</a>
+      <p>Published on the
+        <time datetime="{{ date|date(" Y-d-m H:i") }}">{{ date|date("Y/m/d H:i", "Europe/Paris") }}</time>
+        by <a href="./users/see/{{ author.id }}">{{ author.username }}</a>
       </p>
     </div>
   </article>
   {% endfor %}
 </nav>
 {% else %}
-<p>Aucun article n'a été publié.</p>
+<p>No article found in this category.</p>
 {% endif %}
 {% endblock %}

@@ -5,19 +5,19 @@
 {% extends 'index.html.twig' %}
 
 {% block content %}
-  <h1>Connexion</h1>
+  <h1>Log in</h1>
 
   <form action="users/process_login" method="post">
     <fieldset>
-      <legend>Adresse mail</legend>
-      <input type="email" name="email" placeholder="Adresse mail" required>
+      <legend>Email address</legend>
+      <input type="email" name="email" placeholder="Email address" required>
     </fieldset>
 
     <fieldset>
-      <legend>Mot de passe</legend>
-      <input type="password" name="password" placeholder="Mot de passe" required>
+      <legend>Password</legend>
+      <input type="password" name="password" placeholder="Password" required>
     </fieldset>
 
-    <input type="submit" name="user_login" value="Se connecter">
+    <input type="submit" name="user_login" value="Log in">
   </form>
 {% endblock %}

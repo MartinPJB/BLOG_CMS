@@ -9,11 +9,11 @@ Variables:
 {% extends "index.html.twig" %}
 
 {# Set title #}
-{% block title %}Accueil{% endblock %}
+{% block title %}Categories{% endblock %}
 
 {# Set content #}
 {% block content %}
-<h1>Liste des Chapitres</h1>
+<h1>All categories</h1>
 {% if categories %}
 <nav>
   {# Display each categories #}
@@ -24,6 +24,6 @@ Variables:
   {% endfor %}
 </nav>
 {% else %}
-<p>Aucun chapitre n'a été publiée.</p>
+<p>Create a category to display it here.</p>
 {% endif %}
 {% endblock %}
