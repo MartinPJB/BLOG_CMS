@@ -1,20 +1,20 @@
 {#
-  Name: index.html.twig
-  Path: default/Front/templates/pages/Articles/index.html.twig
+Name: index.html.twig
+Path: default/Front/templates/pages/Articles/index.html.twig
 
-  Variables:
-    - {@array} articles: Articles list to display:
-      - {@object} article: Article to display:
-        - {@object} image: Image to display:
-          - {@string} path: Image path
-          - {@string} alt: Image alt
-        - {@string} title: Article title
-        - {@string} description: Article description
-        - {@string} date: Article date
-        - {@string} author: Article author
-        - {@object} category: Article category:
-          - {@string} name: Category name
-        - {@array} tags: Article tags list
+Variables:
+  - {@array} articles: Articles list to display:
+    - {@object} article: Article to display:
+      - {@object} image: Image to display:
+        - {@string} path: Image path
+        - {@string} alt: Image alt
+      - {@string} title: Article title
+      - {@string} description: Article description
+      - {@string} date: Article date
+      - {@string} author: Article author
+      - {@object} category: Article category:
+        - {@string} name: Category name
+      - {@array} tags: Article tags list
 #}
 {% extends "index.html.twig" %}
 
@@ -28,10 +28,10 @@
 
 {# Set content #}
 {% block content %}
-<h1>Tous les articles</h1>
+<h1>All Articles</h1>
 {% if articles %}
 <nav>
-  {# Display each articles #}
+  {# Display each article #}
   {% for article in articles|sort((a, b) => a.getDate() < b.getDate()) %}
 
     {# Variables #}
@@ -40,10 +40,10 @@
     {% set description = article.description %}
     {% set date = article.date %}
     {% set author = article.author %}
-    {% set category = article.gategory %}
+    {% set category = article.category %}
     {% set tags = article.tags %}
 
-    {# Affichage #}
+    {# Display #}
     <article>
       <a href="articles/see/{{ article.getId() }}">
         <img src="{{ image.path }}" alt="{{ image.alt }}" loading="lazy">
@@ -51,13 +51,13 @@
       </a>
       <div>
         <p>{{ description }}</p>
-        <p>Publié le
+        <p>Published on
           <time datetime="{{ date|date(" Y-d-m H:i") }}">{{ date|date("d/m/Y H:i", "Europe/Paris") }}</time>
-          par <a href="./users/see/{{ author.id }}">{{ author.username }}</a>
+          by <a href="./users/see/{{ author.id }}">{{ author.username }}</a>
         </p>
         <ul>Tags:
           {% for tag in tags %}
-          <li>{{ tag }}</li>
+            <li>{{ tag }}</li>
           {% endfor %}
         </ul>
         <p>{{ category.name }}</p>
@@ -66,6 +66,6 @@
   {% endfor %}
 </nav>
 {% else %}
-<p>Aucun article n'a été publié.</p>
+<p>No articles have been published.</p>
 {% endif %}
 {% endblock %}

@@ -1,6 +1,6 @@
 {#
-  Name: menu.html.twig
-  Path: default/Front/templates/navigation/menu.html.twig
+Name: menu.html.twig
+Path: default/Front/templates/navigation/menu.html.twig
 #}
 
 <nav class="nav">
@@ -13,7 +13,7 @@
 	<ul class="nav__links">
 		{% if is_logged %}
 			<li>
-				<a href="./users/logout">Déconnexion</a>
+				<a href="./users/logout">Logout</a>
 			</li>
 
       {% if is_admin %}
@@ -25,7 +25,7 @@
       {% endif %}
 		{% else %}
       <li>
-        <a href="./users/login">Connexion</a>
+        <a href="./users/login">Login</a>
       </li>
     {% endif %}
 	</ul>
