@@ -3,15 +3,15 @@
   Path: default/Front/templates/index.html.twig
 
   Global variables:
-    - {@string} site_name: Website's name
-    - {@string} site_description: Website's description
-    - {@string} site_root: Website's root
-    - {@string} site_language: Website's language
-    - {@string} site_default_route: Website's default route
-    - {@array} session: Session's variables
-    - {@bool} is_logged: Boolean, true if user is logged
-    - {@bool} is_admin: Boolean, true if user is logged and is admin
-    - {@array} errors: Contains errors to display
+    - {@string} site_name: Name of the website
+    - {@string} site_description: Description of the website
+    - {@string} site_root: Root URL of the website
+    - {@string} site_language: Language of the website
+    - {@string} site_default_route: Default route of the website
+    - {@array} session: Session variables
+    - {@bool} is_logged: Boolean indicating whether the user is logged in
+    - {@bool} is_admin: Boolean indicating whether the logged-in user is an admin
+    - {@array} errors: Array containing errors to display
 #}
 
 {# Variable definition #}
@@ -46,7 +46,7 @@
 
     {# Display content #}
     <main>
-		  {% block content %}{% endblock %}
+      {% block content %}{% endblock %}
     </main>
 	</body>
 </html>
