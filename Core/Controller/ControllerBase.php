@@ -84,4 +84,36 @@ class ControllerBase
     header("Location: $redirection");
     exit;
   }
+
+  /**
+   * Redirect to an error page
+   *
+   * @param int $errorCode HTTP error code
+   * @param RequestContext $requestContext The request context
+   */
+  public static function renderError($errorCode, $requestContext) {
+    $variables = [
+      'errorCode' => $code,
+      'controllerType' => $requestContext->getRoute()
+    ];
+
+    switch ($errorCode) {
+      case 404:
+        header('HTTP/1.0 404 Not Found');
+        break;
+      case 403:
+        header('HTTP/1.0 403 Forbidden');
+        break;
+      case 405:
+        header('HTTP/1.0 405 Method Not Allowed');
+        break;
+      default:
+        header('HTTP/1.0 500 Internal Server Error');
+        break;
+    }
+
+    $controller = new self($requestContext);
+    $controller->render('error', $variables);
+    exit;
+  }
 }
