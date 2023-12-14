@@ -18,7 +18,7 @@ class AdminMediasController extends AdminController
    *
    * @param array $params
    */
-  public function medias(array $params)
+  public function medias($params)
   {
     $additionalParams = $this->parseOptParam();
 
@@ -52,7 +52,7 @@ class AdminMediasController extends AdminController
    *
    * @param array $params
    */
-  public function delete_media(array $params)
+  public function delete_media($params)
   {
 
     $media_id = FieldChecker::cleanInt($this->requestContext->getOptParam());

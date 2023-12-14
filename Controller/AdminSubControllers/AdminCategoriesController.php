@@ -42,7 +42,7 @@ class AdminCategoriesController extends AdminController
    *
    * @param array $params
    */
-  public function categories(array $params)
+  public function categories($params)
   {
     $additionalParams = $this->parseOptParam();
 
@@ -86,7 +86,7 @@ class AdminCategoriesController extends AdminController
    *
    * @param array $params
    */
-  public function create_category(array $params)
+  public function create_category($params)
   {
     try {
       $processed = $this->process_fields();
@@ -112,7 +112,7 @@ class AdminCategoriesController extends AdminController
    *
    * @param array $params
    */
-  public function edit_category(array $params)
+  public function edit_category($params)
   {
     $categoryId = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {
@@ -143,7 +143,7 @@ class AdminCategoriesController extends AdminController
    *
    * @param array $params
    */
-  public function delete_category(array $params)
+  public function delete_category($params)
   {
     $categoryId = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {

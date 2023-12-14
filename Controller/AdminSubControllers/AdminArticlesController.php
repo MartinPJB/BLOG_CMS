@@ -98,7 +98,7 @@ class AdminArticlesController extends AdminController
    *
    * @param array $params
    */
-  public function create_article(array $params)
+  public function create_article($params)
   {
     try {
       $processed = $this->process_fields();
@@ -130,7 +130,7 @@ class AdminArticlesController extends AdminController
    *
    * @param array $params
    */
-  public function edit_article(array $params)
+  public function edit_article($params)
   {
     $articleId = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {
@@ -167,7 +167,7 @@ class AdminArticlesController extends AdminController
    *
    * @param array $params
    */
-  public function delete_article(array $params)
+  public function delete_article($params)
   {
     $articleId = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {
