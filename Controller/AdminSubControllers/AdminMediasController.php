@@ -55,7 +55,12 @@ class AdminMediasController extends AdminController
       $isJSON = $this->checkAndGetJsonParam($params);
 
       // Delete media
+      $media = $this->getMediaById($mediaId);
+      $path = $media->getPath();
       Medias::delete($mediaId);
+
+      // Delete file
+      unlink($path);
 
       $this->handleJSONresponse($isJSON, ['success' => 'Media deleted successfully.']);
     } catch (\Exception $e) {

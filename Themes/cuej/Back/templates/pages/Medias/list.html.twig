@@ -17,7 +17,11 @@
 {% extends "index.html.twig" %}
 
 {# Set title #}
-{% block title %}Medias
+{% block title %}Medias{% endblock %}
+
+{# Set active menu #}
+{% block javascript %}
+  <script src="public/back/js/media-library/library.js" defer type="module"></script>
 {% endblock %}
 
 {# Set content #}
@@ -34,6 +38,11 @@
         <a href="{{ media.path }}">Download</a>
       {% endif %}
       <span class="media__name">{{ media.name }}.{{ media.type|split("/")|last }}</span>
+
+      <div class="context-menu media__actions">
+        <button class="media__action--edit cuej__delete_media btn">Edit</button>
+        <button class="media__actions--delete">Delete</button>
+      </div>
 		</article>
 	{% endfor %}
   </section>
