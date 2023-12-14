@@ -16,9 +16,9 @@ use \Controller\AdminSubControllers\AdminMediasController;
 
 /* -- Categories routes -- */
 // GET
-Router::addRoute('categories', '', CategoriesController::class, 0, 'GET');
-Router::addRoute('categories', 'list', CategoriesController::class, 0, 'GET');
-Router::addRoute('categories', 'see', CategoriesController::class, 0, 'GET');
+Router::addRoute('categories', '', '\Controller\CategoriesController', 0, 'GET');
+Router::addRoute('categories', 'all', '\Controller\CategoriesController', 0, 'GET');
+Router::addRoute('categories', 'see', '\Controller\CategoriesController', 0, 'GET');
 
 /* -- Articles routes -- */
 // GET
@@ -63,7 +63,7 @@ Router::addRoute('admin', 'delete_category', '\Controller\AdminSubControllers\Ad
 
 /* -- Admin Medias -- */
 // GET
-// Router::addRoute('admin', 'medias', '\Controller\AdminSubControllers\AdminArticlesController', 2, 'GET');
+Router::addRoute('admin', 'medias', '\Controller\AdminSubControllers\AdminMediasController', 2, 'GET');
 
 // POST
-Router::addRoute('admin', 'create_article', AdminArticlesController::class, 2, 'POST');
+Router::addRoute('admin', 'delete_media', '\Controller\AdminSubControllers\AdminMediasController', 2, 'POST');

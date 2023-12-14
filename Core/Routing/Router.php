@@ -4,9 +4,7 @@ namespace Core\Routing;
 
 use Core\Routing\Route;
 use Core\RequestContext;
-use Core\Controller\ControllerBase;
 use Model\Users;
-
 
 /**
  * Router class | Manages the routes of the application and dispatches them.
@@ -92,13 +90,13 @@ class Router
 
       // Check if the HTTP method is allowed
       if (self::$routes[$route][$action]->getMethod() !== $requestContext->getMethod()) {
-        self::dispatchError(405, $requestContext);
+        self::dispatchError(405);
         return;
       }
 
       // Check if the user has the required access level
       if (!self::checkAccessLevel($requestContext)) {
-        self::dispatchError(403, $requestContext);
+        self::dispatchError(403);
         return;
       }
 
@@ -113,19 +111,27 @@ class Router
       $controller = new $controller($requestContext);
       $controller->$action($params);
     } else {
-      self::dispatchError(404, $requestContext);
+      self::dispatchError(404);
     }
   }
 
   /**
-   * Dispatch an error code to the client (403, 404, 405, 500)
+   * Dispatch an error code to the client (404, 405, 500)
    *
    * @param int $code Error code
-   * @param RequestContext $requestContext The request context
-
    */
-  public static function dispatchError($code, $requestContext)
+  public static function dispatchError($code)
   {
-    ControllerBase::renderError($code, $requestContext);
+    switch ($code) {
+      case 404:
+        header('HTTP/1.0 404 Not Found');
+        break;
+      case 405:
+        header('HTTP/1.0 405 Method Not Allowed');
+        break;
+      default:
+        header('HTTP/1.0 500 Internal Server Error');
+        break;
+    }
   }
 }

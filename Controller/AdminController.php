@@ -30,7 +30,7 @@ class AdminController extends ControllerBase implements ControllerInterface
   /**
    * {@inheritDoc}
    */
-  public function index(array $params)
+  public function index($params)
   {
     $this->render('Admin/index');
   }
@@ -110,7 +110,7 @@ class AdminController extends ControllerBase implements ControllerInterface
    * @param array $file The file to upload
    * @return mixed The uploaded file
    */
-  protected function upload_file(array $file, $name = "")
+  protected function upload_file($file, $name = "")
   {
     if (empty($file)) return false;
     if (empty($name)) $name = uniqid() . '.' . explode('/', $file['type'])[1];
@@ -126,21 +126,30 @@ class AdminController extends ControllerBase implements ControllerInterface
 
     if ($file_error === UPLOAD_ERR_OK) {
       if ($file_size <= $file_size_limit) {
-        $directory = dirname(__DIR__) . '/Themes/' . $this->siteSettings->getTheme() . '/Back/public/admin_uploads/';
+        $directory = dirname(__DIR__) . '/uploads/';
+        $directory = $directory . $file_ext . '/';
 
         // Create the folder if it doesn't exist
-        if (!file_exists($directory . $file_ext . '/')) mkdir($directory . $file_ext . '/', 0777, true);
+        if (!file_exists($directory)) mkdir($directory, 0777, true);
 
         // $file_destination = __DIR__ . '/../../' . $this->siteSettings->getTheme() . '/Back/public/admin_upload/' . $name;
-        $file_destination = dirname(__DIR__) . '/Themes/' . $this->siteSettings->getTheme() . '/Back/public/admin_uploads/' . $file_ext . '/' . $name;
+        $file_destination = $directory . $name;
         if (move_uploaded_file($file_tmp, $file_destination)) {
+          // Get file's hash
+          $file_hash = hash_file('md5', $file_destination);
+
+          // Check if the file already exists
+          $file = Manager::read('media', [], ['hash' => $file_hash]);
+          if (!empty($file)) return $file[0]['id'];
+
           Medias::create(
             ucfirst(explode('.', $name)[0]),
             mime_content_type($file_destination),
             $file_size,
-            "public/back/admin_uploads/{$file_ext}/{$name}",
+            "uploads/{$file_ext}/{$name}",
             $name,
-            date('Y-m-d H:i:s')
+            date('Y-m-d H:i:s'),
+            $file_hash
           );
           return Manager::getLastInsertedId();
         }
@@ -150,5 +159,40 @@ class AdminController extends ControllerBase implements ControllerInterface
     }
 
     throw new \ErrorException("There was an error uploading your file.");
+  }
+
+    /**
+   * If a subpage requires a valid ID of an element in the database, this method will check if the ID is valid
+   *
+   * @param string $table The table to check the ID in
+   * @return int|null The ID if it is valid, null otherwise
+   */
+  protected function checkId($table)
+  {
+    $id = $this->requestContext->getOptParam();
+    $id = explode('/', $id)[1];
+    $id = FieldChecker::cleanInt($id);
+
+    if (empty($id)) return null;
+
+    $result = Manager::read($table, [], ['id' => $id]);
+
+    if (empty($result)) return null;
+
+    return $id;
+  }
+
+  /**
+   *
+   */
+  protected function requiresValidID($pageName)
+  {
+    $id = $this->checkId($pageName);
+
+    if (empty($id) || $id === null) {
+      $this->redirect('admin/'.$pageName);
+    }
+
+    return $id;
   }
 }

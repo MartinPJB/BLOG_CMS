@@ -15,11 +15,9 @@
   <h1>@{{ user.username }}</h1>
 
   <ul>
-    <li>
-      <h3>Nom d'utilisateur:</h3> {{ user.username }}
-    </li>
-    <li>
-      <h3>Role:</h3> {{ user.role }}
-    </li>
+    <li><strong>Id:</strong> {{ user.id }}</li>
+    <li><strong>Email:</strong> {{ user.email }}</li>
+    <li><strong>Username:</strong> {{ user.username }}</li>
+    <li><strong>Role:</strong> {{ user.role }}</li>
   </ul>
 {% endblock %}

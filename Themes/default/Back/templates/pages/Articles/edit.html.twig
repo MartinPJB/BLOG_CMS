@@ -5,36 +5,41 @@
 {% extends "index.html.twig" %}
 
 {# Set title #}
-{% block title %}Articles - Modification{% endblock %}
+{% block title %}Articles - Edit{% endblock %}
+
+{# Custom JS #}
+{% block javascript %}
+  <script src="public/back/js/replace_image.js" defer></script>
+{% endblock %}
 
 {# Set content #}
 {% block content %}
 
-  <h1>Modifier un article</h1>
+  <h1>Edit an Article</h1>
 
   <form action="admin/edit_article/{{ article.id }}" method="post" enctype="multipart/form-data">
     <section>
-      <label for="title">Titre de l'article</label>
-      <input type="text" name="title" id="title" placeholder="Titre de l'article" value="{{ article.title }}" required>
+      <label for="title">Article Title</label>
+      <input type="text" name="title" id="title" placeholder="Article Title" value="{{ article.title|raw }}" required>
     </section>
 
     <section>
-      <label for="description">Description de l'article</label>
-      <textarea name="description" id="description" placeholder="Description de l'article" required>{{ article.description }}</textarea>
+      <label for="description">Article Description</label>
+      <textarea name="description" id="description" placeholder="Article Description" required>{{ article.description|raw }}</textarea>
     </section>
 
-    <section>
+    <section id="cuej__media">
       {% if article.image != null %}
-        <img src="{{ article.image.path }}" alt="Image de l'article">
-        <input type="button" id="cuej__delete_media" data-id="{{ article.image.id }}" value="Remplacer l'image">
+        <img src="{{ article.image.path }}" alt="Article Image">
+        <input type="button" id="cuej__delete_media" data-id="{{ article.image.id }}" value="Replace the image">
       {% else %}
-        <label for="image">Image de l'article</label>
+        <label for="image">Article Image</label>
         <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg, .gif, .webp, .svg" required>
       {% endif %}
     </section>
 
     <section>
-      <label for="category_id">Catégorie de l'article</label>
+      <label for="category_id">Article Category</label>
       <select name="category_id" id="category_id" required>
         {% for category in categories %}
           <option
@@ -50,23 +55,23 @@
     </section>
 
     <section>
-      <label for="rags">Tags de l'article (séparés par une virgule)</label>
+      <label for="rags">Article Tags (comma-separated)</label>
       <input type="text" name="tags" id="tags" placeholder="tag1, tag2, tag3..." required value="{{ article.tags|join(",") }}">
     </section>
 
     <fieldset>
-      <legend>État de publication</legend>
+      <legend>Publication Status</legend>
 
       <section>
-        <label for="draft">Brouillon</label>
+        <label for="draft">Draft</label>
         <input type="radio" value="draft" name="status" id="draft" {% if article.isDraft() %}checked{% endif %}>
 
-        <label for="published">Publié</label>
+        <label for="published">Published</label>
         <input type="radio" value="published" name="status" id="published" {% if article.isPublished() %}checked{% endif %}>
       </section>
     </fieldset>
 
-    <input type="submit" value="Modifier l'article">
+    <input type="submit" value="Edit Article">
   </form>
 
 {% endblock %}

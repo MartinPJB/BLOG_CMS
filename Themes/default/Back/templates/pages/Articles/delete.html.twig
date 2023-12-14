@@ -5,14 +5,14 @@
 {% extends "index.html.twig" %}
 
 {# Set title #}
-{% block title %}Articles - Suppression{% endblock %}
+{% block title %}Articles - Deletion{% endblock %}
 
 {# Set content #}
 {% block content %}
-  <h1>Suppression d'un article</h1>
-  <p>Êtes-vous sûr de vouloir supprimer l'article "{{ article.title }}" ? Cette action est irréversible.</p>
+  <h1>Delete an Article</h1>
+  <p>Are you sure you want to delete the article "{{ article.title|raw }}"? This action is irreversible.</p>
   <form action="admin/delete_article/{{ article.id }}" method="post">
-    <a href="admin/articles">Annuler</a>
-    <input type="submit" value="Supprimer" />
+    <a href="admin/articles">Cancel</a>
+    <input type="submit" value="Delete" />
   </form>
 {% endblock %}

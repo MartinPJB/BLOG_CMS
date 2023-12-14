@@ -14,6 +14,7 @@ class ControllerBase
   protected $twigEngine;
   protected $requestContext;
   protected $siteSettings;
+  protected $messages;
 
   /**
    * Constructor of the ControllerBase class
@@ -25,6 +26,7 @@ class ControllerBase
     $this->siteSettings = SiteSettings::getSiteSettings();
     $this->requestContext = $requestContext;
     $this->twigEngine = $this->initializeTwig(__DIR__ . '/../..', $this->siteSettings->getTheme() . '/' . $themePart);
+    $this->messages = isset($_SESSION['messages']) ? $_SESSION['messages'] : [];
   }
 
   /**
@@ -62,6 +64,16 @@ class ControllerBase
   }
 
   /**
+   * Add a message to the messages array
+   *
+   * @param string $message
+   */
+  protected function addMessage($message)
+  {
+    $_SESSION['messages'][] = $message;
+  }
+
+  /**
    * Render a twig view
    *
    * @param string $view View (folder +) name (without the extension)
@@ -69,8 +81,12 @@ class ControllerBase
    */
   protected function render($view, $variables = [])
   {
+    $variables['messages'] = $this->messages;
     $template = $this->twigEngine->load("pages/$view.html.twig");
     echo $template->render($variables);
+
+    $this->messages = [];
+    $_SESSION['messages'] = [];
   }
 
   /**
@@ -82,38 +98,6 @@ class ControllerBase
   {
     $redirection = Config::get('site_root') . $route;
     header("Location: $redirection");
-    exit;
-  }
-
-  /**
-   * Redirect to an error page
-   *
-   * @param int $errorCode HTTP error code
-   * @param RequestContext $requestContext The request context
-   */
-  public static function renderError($errorCode, $requestContext) {
-    $variables = [
-      'errorCode' => $code,
-      'controllerType' => $requestContext->getRoute()
-    ];
-
-    switch ($errorCode) {
-      case 404:
-        header('HTTP/1.0 404 Not Found');
-        break;
-      case 403:
-        header('HTTP/1.0 403 Forbidden');
-        break;
-      case 405:
-        header('HTTP/1.0 405 Method Not Allowed');
-        break;
-      default:
-        header('HTTP/1.0 500 Internal Server Error');
-        break;
-    }
-
-    $controller = new self($requestContext);
-    $controller->render('error', $variables);
     exit;
   }
 }

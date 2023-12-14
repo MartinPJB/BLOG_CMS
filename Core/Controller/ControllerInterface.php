@@ -28,5 +28,5 @@ interface ControllerInterface
    * @param array $params Parameters of the request context (GET, POST, ...)
    * @example // GET /articles/ -> ArticleController::index()
    */
-  public function index(array $params);
+  public function index($params);
 }

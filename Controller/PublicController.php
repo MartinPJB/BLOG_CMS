@@ -33,7 +33,7 @@ class PublicController extends ControllerBase implements ControllerInterface
   /**
    * {@inheritDoc}
    */
-  public function index(array $params)
+  public function index($params)
   {
     $this->redirect('articles');
   }

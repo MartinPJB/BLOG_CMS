@@ -2,26 +2,28 @@
 
 namespace Controller\AdminSubControllers;
 
-use \Controller\AdminController;
-use \Core\FieldChecker;
-use \Model\Articles;
-use \Model\Medias;
-use \Model\Users;
+use Controller\AdminController;
+use Core\FieldChecker;
+use Model\Articles;
+use Model\Medias;
+use Model\Users;
 
 /**
  * AdminMediasController | Manage medias in the admin panel
  */
-class AdminMediasController extends AdminController {
+class AdminMediasController extends AdminController
+{
   /**
-   * The medias method, will handle the creation, edition and deletion of medias
+   * Handles various actions related to medias (upload, edit, delete, list).
    *
-   * @param array $params The parameters passed to the controller
+   * @param array $params
    */
-  public function medias(array $params) {
-    $additional_params = $this->parseOptParam();
+  public function medias($params)
+  {
+    $additionalParams = $this->parseOptParam();
 
-    $action = $additional_params['action'];
-    $media_id = $additional_params['id'];
+    $action = $additionalParams['action'];
+    $media_id = $additionalParams['id'];
 
     switch ($action) {
       case 'upload':
@@ -29,57 +31,71 @@ class AdminMediasController extends AdminController {
         break;
 
       case 'edit':
-        $media = Medias::getMediaById($media_id);
-        $this->render('Medias/edit', [
-          'media' => $media,
-        ]);
+        $this->requiresValidID('medias');
+        $media = $this->getMediaById($media_id);
+        $this->render('Medias/edit', ['media' => $media]);
         break;
+
       case 'delete':
-        $this->render('Medias/delete', [
-          'media_id' => $media_id,
-        ]);
+        $this->requiresValidID('medias');
+        $this->render('Medias/delete', ['mediaId' => $media_id]);
         break;
+
       default:
-        $this->render('Medias/list', [
-          'media' => Medias::getAllMedias(),
-        ]);
+        $this->render('Medias/list', ['medias' => Medias::getAllMedias()]);
         break;
     }
   }
 
   /**
-   * The process delete method, will handle the creation of medias
+   * Handles the deletion of medias.
    *
-   * @param array $params The parameters passed to the controller
+   * @param array $params
    */
-  public function delete_media(array $params) {
+  public function delete_media($params)
+  {
+
     $media_id = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {
-      $is_JSON = isset($params['GET']['json']); // We might need to use this method for it to return a JSON response
+      $isJSON = isset($params['GET']['json']); // We might need to use this method for it to return a JSON response
 
       // Delete media
       Medias::delete($media_id);
 
-      if (!$is_JSON) {
-        $this->redirect('admin/medias');
-      } else {
-        header('Content-Type: application/json');
-        echo json_encode([
-          'success' => 'Media deleted successfully',
-        ]);
-      }
+      $this->handleDeleteResponse($isJSON, ['success' => 'Media deleted successfully.']);
     } catch (\Exception $e) {
-      $data = [
-        'medias' => Medias::getAllMedias(),
-        'errors' => [$e->getMessage()],
-      ];
+      $data = ['medias' => Medias::getAllMedias(), 'errors' => [$e->getMessage()]];
+      $this->handleDeleteResponse($isJSON, $data);
+    }
+  }
 
-      if (!$is_JSON) {
-        $this->render('Medias/list', $data);
-      } else {
-        header('Content-Type: application/json');
-        echo json_encode($data);
-      }
+  /**
+   * Gets a media by its ID.
+   *
+   * @param int $media_id
+   * @return Medias
+   *
+   * @throws \Exception
+   */
+  private function getMediaById($media_id)
+  {
+    $this->requiresValidID('medias');
+    return Medias::getMediaById($media_id);
+  }
+
+  /**
+   * Handles the response after deleting a media.
+   *
+   * @param bool $isJSON
+   * @param mixed $data
+   */
+  private function handleDeleteResponse($isJSON, $data)
+  {
+    if (!$isJSON) {
+      $this->redirect('admin/medias');
+    } else {
+      header('Content-Type: application/json');
+      echo json_encode($data);
     }
   }
 }

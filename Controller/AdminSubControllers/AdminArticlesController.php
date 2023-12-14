@@ -2,12 +2,12 @@
 
 namespace Controller\AdminSubControllers;
 
-use \Controller\AdminController;
-use \Core\FieldChecker;
-use \Model\Articles;
-use \Model\Medias;
-use \Model\Categories;
-use \Model\Users;
+use Controller\AdminController;
+use Core\FieldChecker;
+use Model\Articles;
+use Model\Medias;
+use Model\Categories;
+use Model\Users;
 
 /**
  * AdminArticlesController | Manage articles in the admin panel
@@ -15,138 +15,140 @@ use \Model\Users;
 class AdminArticlesController extends AdminController
 {
   /**
-   * The articles method, will handle the creation, edition and deletion of articles
+   * Validates the fields of an article.
    *
-   * @param array $params The parameters passed to the controller
+   * @param string $title
+   * @param string $description
+   * @param Medias $media
+   * @param int $categoryId
+   *
+   * @throws \Exception
+   */
+  private function validateArticleFields($title, $description, $media, $categoryId)
+  {
+    if (strlen($title) < 5) {
+      throw new \Exception('The title must be at least 5 characters long');
+    }
+
+    if (strlen($description) < 10) {
+      throw new \Exception('The description must be at least 10 characters long');
+    }
+
+    if (!isset($media) || !$media->getId()) {
+      throw new \Exception('The image is required');
+    }
+
+    if (!isset($categoryId) || !Categories::getCategoryById($categoryId)) {
+      throw new \Exception('The category is required');
+    }
+  }
+
+  /**
+   * Gets an article by its ID.
+   *
+   * @param int $articleId
+   * @return Articles
+   *
+   * @throws \Exception
+   */
+  private function getArticleById($articleId)
+  {
+    $this->requiresValidID('articles');
+    return Articles::getArticle($articleId);
+  }
+
+  /**
+   * Handles various actions related to articles (create, edit, delete, list).
+   *
+   * @param array $params
    */
   public function articles(array $params)
   {
-    $additional_params = $this->parseOptParam();
+    $additionalParams = $this->parseOptParam();
 
-    $action = $additional_params['action'];
-    $article_id = $additional_params['id'];
+    $action = $additionalParams['action'];
+    $articleId = $additionalParams['id'];
 
-    $all_categories = Categories::getAllCategories();
-    if (count($all_categories) == 0) {
-      $this->redirect('admin/categories');
-    }
+    $allCategories = Categories::getAllCategories();
 
     switch ($action) {
       case 'create':
-        $this->render('Articles/create', [
-          'categories' => $all_categories,
-        ]);
+        if (count($allCategories) == 0) {
+          $this->addMessage('You need to create a category before creating an article');
+          $this->redirect('admin/categories');
+        }
+        $this->render('Articles/create', ['categories' => $allCategories]);
         break;
       case 'edit':
-        $article = Articles::getArticle($article_id);
-        $this->render('Articles/edit', [
-          'article' => $article,
-          'categories' => $all_categories,
-        ]);
+        $article = $this->getArticleById($articleId);
+        $this->render('Articles/edit', ['article' => $article, 'categories' => $allCategories]);
         break;
       case 'delete':
-        $article = Articles::getArticle($article_id);
-        $this->render('Articles/delete', [
-          'article' => $article,
-        ]);
+        $article = $this->getArticleById($articleId);
+        $this->render('Articles/delete', ['article' => $article]);
         break;
       default:
-        $this->render('Articles/list', [
-          'articles' => Articles::getAllArticles(),
-        ]);
+        $this->render('Articles/list', ['articles' => Articles::getAllArticles()]);
         break;
     }
   }
 
   /**
-   * The process create method, will handle the creation of articles
+   * Handles the creation of articles.
    *
-   * @param array $params The parameters passed to the controller
+   * @param array $params
    */
-  public function create_article(array $params)
+  public function create_article($params)
   {
     try {
       $processed = $this->process_fields();
-      $author_id = Users::getAuthentificatedUser()->getId();
-      $new_media_id = $this->upload_file($_FILES['image']);
-      $media = Medias::getMediaById($new_media_id);
+      $authorId = Users::getAuthentificatedUser()->getId();
+      $newMediaId = $this->upload_file($_FILES['image']);
+      $media = Medias::getMediaById($newMediaId);
 
-      // Field verification
-      if (strlen($processed['title']) < 5) {
-        throw new \Exception('The title must be at least 5 characters long');
-      }
-
-      if (strlen($processed['description']) < 10) {
-        throw new \Exception('The description must be at least 10 characters long');
-      }
-
-      if (!isset($media) || !$media->getId()) {
-        throw new \Exception('The image is required');
-      }
-
-      if (!isset($processed['category_id']) || !Categories::getCategoryById($processed['category_id'])) {
-        throw new \Exception('The category is required');
-      }
+      $this->validateArticleFields($processed['title'], $processed['description'], $media, $processed['category_id']);
 
       Articles::create(
         $processed['title'],
         $processed['description'],
-        $author_id,
+        $authorId,
         $media->getId(),
         $processed['category_id'],
         explode(', ', $processed['tags']),
-        TRUE,
-        FALSE
+        true,
+        false
       );
 
       $this->redirect('admin/articles');
     } catch (\Exception $e) {
-      $this->render('Articles/create', [
-        'categories' => Categories::getAllCategories(),
-        'errors' => [$e->getMessage()],
-      ]);
+      $this->render('Articles/create', ['categories' => Categories::getAllCategories(), 'errors' => [$e->getMessage()]]);
     }
   }
 
   /**
-   * The process edit method, will handle the edition of articles
+   * Handles the edition of articles.
    *
-   * @param array $params The parameters passed to the controller
+   * @param array $params
    */
-  public function edit_article(array $params)
+  public function edit_article($params)
   {
-    $article_id = FieldChecker::cleanInt($this->requestContext->getOptParam());
+    $articleId = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {
       $processed = $this->process_fields();
-      $author_id = Users::getAuthentificatedUser()->getId();
-      $media = Articles::getArticle($article_id)->getImage();
+      $authorId = Users::getAuthentificatedUser()->getId();
+      $media = Articles::getArticle($articleId)->getImage();
 
       if (isset($_FILES['image'])) {
-        $media = $this->upload_file($_FILES['image']);
+        $media = Medias::getMediaById($this->upload_file($_FILES['image']));
       }
 
-      // Field verification
-      if (strlen($processed['title']) < 5) {
-        throw new \Exception('The title must be at least 5 characters long');
-      }
-
-      if (strlen($processed['description']) < 10) {
-        throw new \Exception('The description must be at least 10 characters long');
-      }
-
-      if (!isset($media) || !$media->getId()) {
-        throw new \Exception('The image is required');
-      }
-
-      if (!isset($processed['category_id']) || !Categories::getCategoryById($processed['category_id'])) {
-        throw new \Exception('The category is required');
-      }
+      $this->validateArticleFields($processed['title'], $processed['description'], $media, $processed['category_id']);
 
       Articles::update(
-        $article_id,
+        $articleId,
         $processed['title'],
         $processed['description'],
-        $author_id,
+        $authorId,
         $media->getId(),
         $processed['category_id'],
         explode(', ', $processed['tags']),
@@ -156,29 +158,23 @@ class AdminArticlesController extends AdminController
 
       $this->redirect('admin/articles');
     } catch (\Exception $e) {
-      $this->render('Articles/edit', [
-        'article_id' => $article_id,
-        'errors' => [$e->getMessage()],
-      ]);
+      $this->render('Articles/edit', ['article_id' => $articleId, 'errors' => [$e->getMessage()]]);
     }
   }
 
   /**
-   * The process delete method, will handle the deletion of articles
+   * Handles the deletion of articles.
    *
-   * @param array $params The parameters passed to the controller
+   * @param array $params
    */
-  public function delete_article(array $params)
+  public function delete_article($params)
   {
-    $article_id = FieldChecker::cleanInt($this->requestContext->getOptParam());
+    $articleId = FieldChecker::cleanInt($this->requestContext->getOptParam());
     try {
-      Articles::delete($article_id);
+      Articles::delete($articleId);
       $this->redirect('admin/articles');
     } catch (\Exception $e) {
-      $this->render('Articles/list', [
-        'articles' => Articles::getAllArticles(),
-        'errors' => [$e->getMessage()],
-      ]);
+      $this->render('Articles/list', ['articles' => Articles::getAllArticles(), 'errors' => [$e->getMessage()]]);
     }
   }
 }

@@ -51,6 +51,7 @@ class Installer
   {
     // Site settings table
     Manager::createTable('site_settings', [
+      'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
       'name' => 'VARCHAR(255) NOT NULL',
       'description' => 'TEXT NOT NULL',
       'theme' => 'VARCHAR(255) NOT NULL DEFAULT "default"',
@@ -76,6 +77,7 @@ class Installer
       'path' => 'VARCHAR(255) NOT NULL',
       'alt' => 'VARCHAR(255) NOT NULL',
       'uploaded_at' => 'DATETIME NOT NULL',
+      'hash' => 'VARCHAR(255) NOT NULL DEFAULT ""',
     ]);
 
     // Categories table
@@ -128,6 +130,7 @@ class Installer
   {
     // Site settings
     Manager::create('site_settings', [
+      'id' => 1, // The ID is always 1, there can only be one row in the table 'site_settings
       'name' => Config::get('site_default_name'),
       'description' => Config::get('site_default_description'),
       'site_language' => Config::get('site_language'),
@@ -142,13 +145,6 @@ class Installer
       'role' => 'admin',
     ]);
 
-    // Categories
-    Manager::create('categories', [
-      'name' => 'Uncategorized',
-      'description' => 'This is the default category. You can edit it or delete it.',
-      'image' => 1,
-    ]);
-
     // Media
     Manager::create('media', [
       'name' => 'Default',
@@ -157,6 +153,13 @@ class Installer
       'path' => 'https://picsum.photos/seed/' . rand() . '/400/250',
       'alt' => 'Default image',
       'uploaded_at' => date('Y-m-d H:i:s'),
+    ]);
+
+    // Categories
+    Manager::create('categories', [
+      'name' => 'Uncategorized',
+      'description' => 'This is the default category. You can edit it or delete it.',
+      'image' => 1,
     ]);
 
     // Articles

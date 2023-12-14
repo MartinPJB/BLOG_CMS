@@ -13,8 +13,8 @@ use \Model\Articles;
  */
 class CategoriesController extends ControllerBase implements ControllerInterface
 {
-  public string $name = 'Category';
-  public string $description = 'Handles all requests related to categories.';
+  public $name = 'Category';
+  public $description = 'Handles all requests related to categories.';
 
   /**
    * {@inheritDoc}
@@ -27,9 +27,10 @@ class CategoriesController extends ControllerBase implements ControllerInterface
   /**
    * {@inheritDoc}
    */
-  public function index(array $params): void
+  public function index($params)
   {
     $categories = Categories::getAllCategories();
+    var_dump($categories);
     $this->render('Categories/index', [
       'categories' => $categories,
     ]);
@@ -40,7 +41,7 @@ class CategoriesController extends ControllerBase implements ControllerInterface
    *
    * @param array $params The parameters passed to the controller
    */
-  public function list(array $params): void
+  public function all($params)
   {
     $this->index($params);
   }
@@ -50,7 +51,7 @@ class CategoriesController extends ControllerBase implements ControllerInterface
    *
    * @param array $params The parameters passed to the controller
    */
-  public function see(array $params): void
+  public function see($params)
   {
     $category_id = intval($this->requestContext->getOptParam());
 
@@ -59,6 +60,7 @@ class CategoriesController extends ControllerBase implements ControllerInterface
     }
     $category = Categories::getCategoryById($category_id);
     $articles = Articles::getAllPublishedArticles($category_id);
+    print_r($category);
     $this->render('Categories/see', [
       'category' => $category,
       'articles' => $articles,
