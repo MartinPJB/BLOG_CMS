@@ -1,0 +1,52 @@
+{#
+  Name: index.html.twig
+  Path: default/Front/templates/index.html.twig
+
+  Global variables:
+    - {@string} site_name: Website's name
+    - {@string} site_description: Website's description
+    - {@string} site_root: Website's root
+    - {@string} site_language: Website's language
+    - {@string} site_default_route: Website's default route
+    - {@array} session: Session's variables
+    - {@bool} is_logged: Boolean, true if user is logged
+    - {@bool} is_admin: Boolean, true if user is logged and is admin
+    - {@array} errors: Contains errors to display
+#}
+
+{# Variable definition #}
+{% set is_logged = session.user is defined and session.user is not empty %}
+{% set is_admin = is_logged and session.user.getRole() == 'admin' %}
+
+{# HTML #}
+<!DOCTYPE html>
+<html lang="{{ site_language }}">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {# Meta content #}
+    {% block metas %}{% endblock %}
+		<title>{{ site_name }} - {% block title %}{% endblock %}</title>
+
+    {# Base #}
+    <base href="{{ site_root }}">
+
+    {# JS and CSS blocks #}
+    <link rel="stylesheet" href="public/front/css/index.css">
+    {% block stylesheet %}{% endblock %}
+    {% block javascript %}{% endblock %}
+	</head>
+
+	<body>
+    {# Menu #}
+    {% include "navigation/menu.html.twig" %}
+
+    {# Display errors if defined #}
+    {% include "misc/errors.html.twig" %}
+
+    {# Display content #}
+    <main>
+		  {% block content %}{% endblock %}
+    </main>
+	</body>
+</html>

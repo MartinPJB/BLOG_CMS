@@ -1,0 +1,34 @@
+{#
+  Name: create.html.twig
+  Path: default/Back/templates/pages/Categories/create.html.twig
+#}
+{% extends "index.html.twig" %}
+
+{# Set title #}
+{% block title %}Categories - Create{% endblock %}
+
+{# Set content #}
+{% block content %}
+
+  <h1>Create a Category</h1>
+
+  <form action="admin/create_category" method="post" enctype="multipart/form-data">
+    <section>
+      <label for="name">Category Name</label>
+      <input type="text" name="name" id="name" placeholder="Category Name" required>
+    </section>
+
+    <section>
+      <label for="description">Category Description</label>
+      <textarea name="description" id="description" placeholder="Category Description" required></textarea>
+    </section>
+
+    <section>
+      <label for="image">Category Image</label>
+      <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg, .gif, .webp, .svg" required>
+    </section>
+
+    <input type="submit" value="Create Category">
+  </form>
+
+{% endblock %}

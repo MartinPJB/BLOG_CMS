@@ -1,0 +1,87 @@
+{#
+  Name: list.html.twig
+  Path: default/Back/templates/pages/Articles/list.html.twig
+
+  Variables:
+    - {@array} articles: Articles list to display:
+      - {@object} article: Article to display:
+        - {@object} image: Image to display:
+          - {@string} path: Image path
+          - {@string} alt: Image alt
+        - {@string} title: Article title
+        - {@string} description: Article description
+        - {@string} date: Article date
+        - {@string} author: Article author
+        - {@object} category: Article category:
+          - {@string} name: Category name
+        - {@array} tags: Article tags list
+#}
+{% extends "index.html.twig" %}
+
+{# Set title #}
+{% block title %}Articles{% endblock %}
+
+{# Set content #}
+{% block content %}
+  <h1>Articles</h1>
+  <p>Here is the list of all the created articles.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Author</th>
+        <th>Category</th>
+        <th>Tags</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {# Display each article #}
+      {% for article in articles|sort((a, b) => a.getDate() > b.getDate()) %}
+        {# Variables #}
+        {% set id = article.id %}
+        {% set title = article.title %}
+        {% set description = article.description %}
+        {% set date = article.date %}
+        {% set author = article.author %}
+        {% set category = article.category %}
+        {% set tags = article.tags %}
+
+        <tr>
+          <td>{{ title|raw }}</td>
+          <td>{{ description|raw }}</td>
+          <td>{{ date|date("d/m/Y H:i", "Europe/Paris") }}</td>
+          <td>{{ author.username }}</td>
+          <td><a href="admin/categories/edit/{{ category.id }}">{{ category.name }}</a></td>
+          <td>
+            {% for tag in tags %}
+              {{ tag }}
+            {% endfor %}
+          </td>
+          <td>
+            {% if article.isPublished() and not article.isDraft() %}
+              Published ✅
+            {% else %}
+              Draft 📄
+            {% endif %}
+          </td>
+          <td>
+            <a href="admin/articles/edit/{{ id }}">Edit</a>
+            <a href="admin/articles/delete/{{ id }}">Delete</a>
+          </td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="8">No article has been published.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="admin/articles/create">Create an article</a>
+
+{% endblock %}

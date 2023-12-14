@@ -45,7 +45,7 @@
 
     {# Affichage #}
     <article>
-      <a href="articles/see/{{ article.getId() }}">
+      <a href="articles/see/{{ article.id }}">
         <img src="{{ image.path }}" alt="{{ image.alt }}" loading="lazy">
         <h2>{{ title }}</h2>
       </a>
@@ -60,7 +60,7 @@
           <li>{{ tag }}</li>
           {% endfor %}
         </ul>
-        <p>{{ category.name }}</p>
+        <a href="./categories/see/{{ category.id }}">{{ category.name }}</a>
       </div>
     </article>
   {% endfor %}

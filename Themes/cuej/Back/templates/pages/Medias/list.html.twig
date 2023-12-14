@@ -1,0 +1,43 @@
+{#
+  Name: list.html.twig
+  Path: default/Back/templates/pages/Medias/list.html.twig
+
+  Variables:
+    - {@array} medias: Medias list to display:
+      - {@object} media: Media to display:
+        - {@integer} id: Media id
+        - {@string} name: Media name
+        - {@string} path: Media path
+        - {@string} type: Media type
+        - {@string} alt: Media alt
+        - {@string} uploaded_at: Media uploaded date
+        - {@string} hash: Media hash
+
+#}
+{% extends "index.html.twig" %}
+
+{# Set title #}
+{% block title %}Medias
+{% endblock %}
+
+{# Set content #}
+{% block content %}
+	<h1>Medias</h1>
+	<p>All the medias uploaded on the website.</p>
+
+  <section>
+	{% for media in medias %}
+		<article data-id="{{ media.id }}" data-type="{{ media.type }}" class="media">
+      {% if media.type|split("/")|last in ["png", "jpg", "jpeg", "gif", "webp", "svg"] %}
+        <img src="{{ media.path }}" alt="{{ media.alt }}" />
+      {% else %}
+        <a href="{{ media.path }}">Download</a>
+      {% endif %}
+      <span class="media__name">{{ media.name }}.{{ media.type|split("/")|last }}</span>
+		</article>
+	{% endfor %}
+  </section>
+
+	<a href="admin/medias/upload">Upload a new file</a>
+
+{% endblock %}

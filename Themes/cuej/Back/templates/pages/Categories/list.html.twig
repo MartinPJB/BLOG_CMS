@@ -1,0 +1,46 @@
+{#
+  Name: list.html.twig
+  Path: default/Back/templates/pages/Categories/list.html.twig
+
+  Variables:
+    - {@array} categories: Categories list to display:
+      - {@object} category: Category to display:
+        - {@string} name: Article name
+#}
+{% extends "index.html.twig" %}
+
+{% block title %}Categories{% endblock %}
+
+{% block content %}
+  <h1>Categories</h1>
+  <p>Here is the list of all the categories you've created.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {# Display each category #}
+      {% for category in categories %}
+        <tr>
+          <td>{{ category.name|raw }}</td>
+          <td>{{ category.description|raw }}</td>
+          <td>
+            <a href="admin/categories/edit/{{ category.id }}">Edit</a>
+            <a href="admin/categories/delete/{{ category.id }}">Delete</a>
+          </td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="3">You haven't created any category.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="admin/categories/create">Create a category</a>
+{% endblock %}

@@ -1,0 +1,48 @@
+{#
+  Name: create.html.twig
+  Path: default/Back/templates/pages/Articles/create.html.twig
+#}
+{% extends "index.html.twig" %}
+
+{# Set title #}
+{% block title %}Articles - Create{% endblock %}
+
+{# Set content #}
+{% block content %}
+
+  <h1>Create an Article</h1>
+
+  <form action="admin/create_article" method="post" enctype="multipart/form-data">
+    <section>
+      <label for="title">Article Title</label>
+      <input type="text" name="title" id="title" placeholder="Article Title" required>
+    </section>
+
+    <section>
+      <label for="description">Article Description</label>
+      <textarea name="description" id="description" placeholder="Article Description" required></textarea>
+    </section>
+
+    <section>
+      <label for="image">Article Image</label>
+      <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg, .gif, .webp, .svg" required>
+    </section>
+
+    <section>
+      <label for="category_id">Article Category</label>
+      <select name="category_id" id="category_id" required>
+        {% for category in categories %}
+          <option value="{{ category.getId() }}">{{ category.getName() }}</option>
+        {% endfor %}
+      </select>
+    </section>
+
+    <section>
+      <label for="tags">Article Tags (separated by a comma)</label>
+      <input type="text" name="tags" id="tags" placeholder="tag1, tag2, tag3..." required>
+    </section>
+
+    <input type="submit" value="Create Article">
+  </form>
+
+{% endblock %}

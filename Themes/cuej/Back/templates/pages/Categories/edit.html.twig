@@ -1,0 +1,44 @@
+{#
+  Name: edit.html.twig
+  Path: default/Back/templates/pages/Categories/edit.html.twig
+#}
+{% extends "index.html.twig" %}
+
+{# Set title #}
+{% block title %}Categories - Edit{% endblock %}
+
+{# Custom JS #}
+{% block javascript %}
+  <script src="public/back/js/replace_image.js" defer></script>
+{% endblock %}
+
+{# Set content #}
+{% block content %}
+
+  <h1>Edit a Category</h1>
+
+  <form action="admin/edit_category/{{ category.id }}" method="post" enctype="multipart/form-data">
+    <section>
+      <label for="name">Category Name</label>
+      <input type="text" name="name" id="name" placeholder="Category Name" value="{{ category.name|raw }}" required>
+    </section>
+
+    <section>
+      <label for="description">Category Description</label>
+      <textarea name="description" id="description" placeholder="Category Description" required>{{ category.description|raw }}</textarea>
+    </section>
+
+    <section id="cuej__media">
+      {% if category.image != null %}
+        <img src="{{ category.image.path }}" alt="Category Image">
+        <input type="button" id="cuej__delete_media" data-id="{{ category.image.id }}" value="Replace Image">
+      {% else %}
+        <label for="image">Category Image</label>
+        <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg, .gif, .webp, .svg" required>
+      {% endif %}
+    </section>
+
+    <input type="submit" value="Edit Category">
+  </form>
+
+{% endblock %}
