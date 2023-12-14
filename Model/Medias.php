@@ -215,6 +215,18 @@ class Medias
   }
 
   /**
+   * Unassign a media from a table
+   *
+   * @param string $table Table name
+   * @param string $column Column name
+   * @param integer $id Media ID
+   */
+  public function unassignFrom($table, $column, $id)
+  {
+    Manager::update($table, [$column => null], ['id' => $id]);
+  }
+
+  /**
    * Get the value of id
    *
    * @return integer Media ID

@@ -67,3 +67,4 @@ Router::addRoute('admin', 'medias', '\Controller\AdminSubControllers\AdminMedias
 
 // POST
 Router::addRoute('admin', 'delete_media', '\Controller\AdminSubControllers\AdminMediasController', 2, 'POST');
+Router::addRoute('admin', 'unassign_media', '\Controller\AdminSubControllers\AdminMediasController', 2, 'POST');
