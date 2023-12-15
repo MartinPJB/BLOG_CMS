@@ -8,7 +8,7 @@
 		<a href="{{ site_default_route }}">{{ site_name }}</a>
 		{% for category, articles in site_navigation %}
 		<div>
-			<a class="fs-2" href="#">{{ category }}</a>
+			<a class="fs-2" href="articles/see/{{ articles[0][1] }}">{{ category }}</a>
 			<ul class="row">
 				{% for article in articles %}
 				<li><a href="articles/see/{{ article[1] }}">{{ article[0] }}</a></li>

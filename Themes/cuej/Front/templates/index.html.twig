@@ -38,8 +38,10 @@
 	</head>
 
 	<body>
-    {# Menu #}
+    {# Header #}
+    {% if site_default_route != 'categories' %}
     {% include "navigation/header.html.twig" %}
+    {% endif %}
 
     {# Display errors if defined #}
     {% include "misc/errors.html.twig" %}
@@ -49,6 +51,8 @@
 		  {% block content %}{% endblock %}
     </main>
 
+
+    {# Footer #}
     {% include "navigation/footer.html.twig" %}
 	</body>
 </html>
