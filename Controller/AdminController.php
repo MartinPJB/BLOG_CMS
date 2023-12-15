@@ -147,10 +147,20 @@ class AdminController extends ControllerBase implements ControllerInterface
 
       $file_destination = $directory . $name;
 
+      $startTime = time();
+      $maxWaitTime = 5; // Maximum wait time in seconds
+      $loopActive = true;
+      while ($loopActive && !file_exists($file_tmp)) {
+        // Check if maximum wait time is reached
+        if (time() - $startTime > $maxWaitTime) {
+          $loopActive = false;
+        }
+        sleep(1);
+      }
       // Get file's hash
       if (!file_exists($file_tmp)) {
         // The tmp exists but sometimes it can return an error for some reason, in that case just refresh the page
-        header("Refresh:0 method='POST'");
+        header("Refresh:0");
       }
 
       $file_hash = md5_file($file_tmp);
