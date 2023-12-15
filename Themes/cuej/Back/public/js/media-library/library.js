@@ -1,3 +1,7 @@
+// Import methods
 import library_delete from "./modules/delete.js";
+import library_unassign from "./modules/unassign.js";
 
-console.log(library_delete);
+// Initializations
+library_delete.assignButtons();
+library_unassign.assignButtons();

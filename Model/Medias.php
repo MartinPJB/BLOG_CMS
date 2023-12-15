@@ -58,7 +58,7 @@ class Medias
    */
   public static function getAllMedias()
   {
-    $medias = Manager::read('media');
+    $medias = Manager::read('medias');
     $result = [];
 
     foreach ($medias as $key => $media) {
@@ -85,7 +85,7 @@ class Medias
    */
   public static function getMediaById($id)
   {
-    $media = Manager::read('media', [], ['id' => $id]);
+    $media = Manager::read('medias', [], ['id' => $id]);
     if (empty($media)) return null;
     $media = $media[0];
 
@@ -109,7 +109,7 @@ class Medias
    */
   public static function getMediasByType($type)
   {
-    $medias = Manager::read('media', [], ['type' => $type])[0];
+    $medias = Manager::read('medias', [], ['type' => $type])[0];
     $result = [];
 
     foreach ($medias as $key => $media) {
@@ -149,7 +149,7 @@ class Medias
     $uploaded_at,
     $hash
   ) {
-    Manager::create('media', [
+    Manager::create('medias', [
       'name' => $name,
       'type' => $type,
       'size' => $size,
@@ -193,7 +193,7 @@ class Medias
     $uploaded_at,
     $hash
   ) {
-    Manager::update('media', [
+    Manager::update('medias', [
       'name' => $name,
       'type' => $type,
       'size' => $size,
@@ -211,7 +211,7 @@ class Medias
    */
   public static function delete($id)
   {
-    Manager::delete('media', ['id' => $id]);
+    Manager::delete('medias', ['id' => $id]);
   }
 
   /**
