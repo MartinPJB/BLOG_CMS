@@ -17,6 +17,10 @@
 #}
 {% extends "index.html.twig" %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="public/front/css/var_cat{{ category.id }}.css">
+{% endblock %}
+
 {% block title %}{{ article.title }}{% endblock %}
 
 {# Variables #}

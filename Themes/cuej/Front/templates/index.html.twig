@@ -32,8 +32,8 @@
     <base href="{{ site_root }}">
 
     {# JS and CSS blocks #}
+    {% block stylesheets %}{% endblock %}
     <link rel="stylesheet" href="public/front/css/index.css">
-    {% block stylesheet %}{% endblock %}
     {% block javascript %}{% endblock %}
 	</head>
 
