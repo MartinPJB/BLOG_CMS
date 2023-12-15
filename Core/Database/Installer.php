@@ -69,7 +69,7 @@ class Installer
     ]);
 
     // Media table
-    Manager::createTable('media', [
+    Manager::createTable('medias', [
       'id' => 'INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY',
       'name' => 'VARCHAR(255) NOT NULL',
       'type' => 'VARCHAR(255) NOT NULL',
@@ -87,7 +87,7 @@ class Installer
       'description' => 'TEXT NOT NULL',
       'image' => 'INT(6) UNSIGNED NULL DEFAULT NULL',
     ], [
-      'FOREIGN KEY (image) REFERENCES media (id) ON DELETE SET NULL'
+      'FOREIGN KEY (image) REFERENCES medias (id) ON DELETE SET NULL'
     ]);
 
     // Articles table
@@ -104,7 +104,7 @@ class Installer
       'published' => 'BOOLEAN NOT NULL DEFAULT FALSE',
     ], [
       'FOREIGN KEY (author_id) REFERENCES users (id) ON DELETE SET NULL',
-      'FOREIGN KEY (image) REFERENCES media (id) ON DELETE SET NULL',
+      'FOREIGN KEY (image) REFERENCES medias (id) ON DELETE SET NULL',
       'FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE SET NULL'
     ]);
 
@@ -119,7 +119,7 @@ class Installer
       'media' => 'INT(6) UNSIGNED NULL DEFAULT NULL',
     ], [
       'FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE SET NULL',
-      'FOREIGN KEY (media) REFERENCES media (id) ON DELETE SET NULL'
+      'FOREIGN KEY (media) REFERENCES medias (id) ON DELETE SET NULL'
     ]);
   }
 
@@ -146,7 +146,7 @@ class Installer
     ]);
 
     // Media
-    Manager::create('media', [
+    Manager::create('medias', [
       'name' => 'Default',
       'type' => 'image/jpeg',
       'size' => 0,

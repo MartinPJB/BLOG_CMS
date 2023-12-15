@@ -112,56 +112,84 @@ class AdminController extends ControllerBase implements ControllerInterface
    */
   protected function upload_file($file, $name = "")
   {
-    if (!isset($file) || empty($file['type'])) return false;
-    if (empty($name)) $name = uniqid() . '.' . explode('/', $file['type'])[1];
-
-    $file_tmp = $file['tmp_name'];
-    $file_size = $file['size'];
-    $file_error = $file['error'];
-
-    $file_ext = explode('.', $name);
-    $file_ext = strtolower(end($file_ext));
-
-    $file_size_limit = Config::get('site_file_size_limit');
-
-    if ($file_error === UPLOAD_ERR_OK) {
-      if ($file_size <= $file_size_limit) {
-        $directory = dirname(__DIR__) . '/uploads/';
-        $directory = $directory . $file_ext . '/';
-
-        // Create the folder if it doesn't exist
-        if (!file_exists($directory)) mkdir($directory, 0777, true);
-
-        // $file_destination = __DIR__ . '/../../' . $this->siteSettings->getTheme() . '/Back/public/admin_upload/' . $name;
-        $file_destination = $directory . $name;
-        if (move_uploaded_file($file_tmp, $file_destination)) {
-          // Get file's hash
-          $file_hash = hash_file('md5', $file_destination);
-
-          // Check if the file already exists
-          $file = Manager::read('media', [], ['hash' => $file_hash]);
-          if (!empty($file)) return $file[0]['id'];
-
-          Medias::create(
-            ucfirst(explode('.', $name)[0]),
-            mime_content_type($file_destination),
-            $file_size,
-            "uploads/{$file_ext}/{$name}",
-            $name,
-            date('Y-m-d H:i:s'),
-            $file_hash
-          );
-          return Manager::getLastInsertedId();
-        }
+    try {
+      if (!isset($file) || empty($file['type'])) {
+        throw new \Exception("Invalid file data.");
       }
 
-      throw new \ErrorException("The file is too big, over {$file_size_limit} mb.");
-    }
+      if (empty($name)) {
+        $name = uniqid() . '.' . explode('/', $file['type'])[1];
+      }
 
-    throw new \ErrorException("There was an error uploading your file.");
+      $file_tmp = $file['tmp_name'];
+      $file_size = $file['size'];
+      $file_error = $file['error'];
+
+      $file_ext = explode('.', $name);
+      $file_ext = strtolower(end($file_ext));
+
+      $file_size_limit = Config::get('site_file_size_limit');
+
+      if ($file_error !== UPLOAD_ERR_OK) {
+        throw new \ErrorException("There was an error uploading your file. Error code: {$file_error}");
+      }
+
+      if ($file_size > $file_size_limit) {
+        throw new \ErrorException("Your file is too big. The maximum size is {$file_size_limit} bytes.");
+      }
+
+      $directory = dirname(__DIR__) . '/uploads/' . $file_ext . '/';
+
+      // Create the folder if it doesn't exist
+      if (!file_exists($directory)) {
+        mkdir($directory, 0777, true);
+      }
+
+      $file_destination = $directory . $name;
+
+      // Get file's hash
+      if (!file_exists($file_tmp)) {
+        // The tmp exists but sometimes it can return an error for some reason, in that case just refresh the page
+        header("Refresh:0 method='POST'");
+      }
+
+      $file_hash = md5_file($file_tmp);
+      var_dump($file_hash);
+
+      // Check if the file already exists
+      $existingFile = Manager::read('medias', [], ['hash' => $file_hash]);
+
+      if (!empty($existingFile)) {
+        var_dump("Successfully fetched existing file (no duplication):", $existingFile[0]['id']);
+        return $existingFile[0]['id'];
+      }
+
+      if (!move_uploaded_file($file_tmp, $file_destination)) {
+        throw new \ErrorException("There was an error uploading your file. => move_uploaded_file");
+      }
+
+      Medias::create(
+        ucfirst(explode('.', $name)[0]),
+        mime_content_type($file_destination),
+        $file_size,
+        "uploads/{$file_ext}/{$name}",
+        $name,
+        date('Y-m-d H:i:s'),
+        $file_hash
+      );
+
+      var_dump("Successfully uploaded file (new file):", Manager::getLastInsertedId());
+      return Manager::getLastInsertedId();
+    } catch (\Exception $e) {
+      // Log or print detailed error information for debugging
+      error_log($e->getMessage());
+      throw new \ErrorException("There was an error uploading your file. {$e->getMessage()}");
+    }
   }
 
-    /**
+
+
+  /**
    * If a subpage requires a valid ID of an element in the database, this method will check if the ID is valid
    *
    * @param string $table The table to check the ID in
@@ -170,8 +198,8 @@ class AdminController extends ControllerBase implements ControllerInterface
   protected function checkId($table)
   {
     $id = $this->requestContext->getOptParam();
-    $id = explode('/', $id)[1];
-    $id = FieldChecker::cleanInt($id);
+    $id = explode('/', $id);
+    $id = FieldChecker::cleanInt(end($id));
 
     if (empty($id)) return null;
 
@@ -190,7 +218,7 @@ class AdminController extends ControllerBase implements ControllerInterface
     $id = $this->checkId($pageName);
 
     if (empty($id) || $id === null) {
-      $this->redirect('admin/'.$pageName);
+      $this->redirect('admin/' . $pageName);
     }
 
     return $id;

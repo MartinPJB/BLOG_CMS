@@ -50,10 +50,9 @@ class AdminMediasController extends AdminController
   public function delete_media($params)
   {
     $mediaId = FieldChecker::cleanInt($this->requestContext->getOptParam());
+    $isJSON = $this->checkAndGetJsonParam($params);
 
     try {
-      $isJSON = $this->checkAndGetJsonParam($params);
-
       // Delete media
       $media = $this->getMediaById($mediaId);
       $path = $media->getPath();
@@ -76,9 +75,9 @@ class AdminMediasController extends AdminController
   public function unassign_media($params)
   {
     $mediaId = FieldChecker::cleanInt($this->requestContext->getOptParam());
+    $isJSON = $this->checkAndGetJsonParam($params);
 
     try {
-      $isJSON = $this->checkAndGetJsonParam($params);
 
       $this->validateUnassignMediaParams($params);
 
@@ -143,17 +142,10 @@ class AdminMediasController extends AdminController
    *
    * @param array $params
    * @return bool
-   *
-   * @throws \Exception
    */
   private function checkAndGetJsonParam($params)
   {
-    $isJSON = isset($params['GET']['json']);
-    if (!$isJSON) {
-      throw new \Exception('JSON parameter is missing.');
-    }
-
-    return $isJSON;
+    return isset($params['GET']['json']);
   }
 
   /**
