@@ -164,11 +164,8 @@ class AdminArticlesController extends AdminController
   private function handleEditAction($processed, $authorId, $media, $articleId)
   {
     if (isset($_FILES['image'])) {
-      var_dump("bah mec?");
       $upload = $this->upload_file($_FILES['image']);
-      var_dump("ça marche pas????", $upload);
       $media = Medias::getMediaById($upload);
-      var_dump("Youhouuu marche stp...?????????", $media);
     }
 
     Articles::update(

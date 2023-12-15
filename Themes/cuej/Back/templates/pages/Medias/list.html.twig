@@ -1,6 +1,6 @@
 {#
   Name: list.html.twig
-  Path: default/Back/templates/pages/Medias/list.html.twig
+  Path: cuej/Back/templates/pages/Medias/list.html.twig
 
   Variables:
     - {@array} medias: Medias list to display:
@@ -31,7 +31,7 @@
 
   <section>
 	{% for media in medias %}
-		<article data-id="{{ media.id }}" data-type="{{ media.type }}" class="cuej__media">
+		<article data-type="{{ media.type }}" class="cuej__media">
       {% if media.type|split("/")|last in ["png", "jpg", "jpeg", "gif", "webp", "svg"] %}
         <img src="{{ media.path }}" alt="{{ media.alt }}" />
       {% else %}
@@ -40,7 +40,7 @@
       <span class="media__name">{{ media.name }}.{{ media.type|split("/")|last }}</span>
 
       <div class="context-menu media__actions">
-        <button class="media__action--edit">Edit</button>
+        <a href="admin/medias/edit/{{ media.id }}" class="media__action--edit">Edit</a>
         <button class="media__actions--delete cuej__delete_media btn" data-id={{ media.id }}>Delete</button>
       </div>
 		</article>
