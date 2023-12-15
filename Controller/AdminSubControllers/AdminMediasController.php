@@ -24,21 +24,102 @@ class AdminMediasController extends AdminController
     $mediaId = $additionalParams['id'];
 
     switch ($action) {
-      case 'upload':
-        $this->render('Medias/upload');
-        break;
-
       case 'edit':
         $this->handleMediaAction('edit', $mediaId);
         break;
 
-      case 'delete':
-        $this->handleMediaAction('delete', $mediaId);
+      case 'upload':
+        $this->render('Medias/upload');
         break;
 
       default:
         $this->render('Medias/list', ['medias' => Medias::getAllMedias()]);
         break;
+    }
+  }
+
+  /**
+   * Get all medias and returns them as JSON.
+   *
+   * @param array $params
+   */
+  public function get_all_medias($params)
+  {
+    $medias = Medias::getAllMedias();
+    $this->handleJSONresponse(true, ['medias' => $medias]);
+  }
+
+  /**
+   * Uploads a media in the admin panel.
+   *
+   * @param array $params
+   */
+  public function upload_media($params)
+  {
+    try {
+      // Handle the form submission
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $this->handleUploadMediaForm();
+      } else {
+        // Render the upload media form
+        $this->render('Medias/upload');
+      }
+    } catch (\Exception $e) {
+      $this->render('Medias/list', ['medias' => Medias::getAllMedias(), 'errors' => [$e->getMessage()]]);
+    }
+  }
+
+  /**
+   * Handles the form submission for uploading a media.
+   *
+   * @throws \Exception
+   */
+  private function handleUploadMediaForm()
+  {
+    try {
+      // Process and validate form fields as needed
+      $processed = $this->process_fields();
+
+      var_dump($processed['name'], $processed['alt']);
+      $file_extension = strtolower(pathinfo($_FILES['media_file']['name'], PATHINFO_EXTENSION));
+
+      // Upload file and get its ID
+      $uploadedMediaId = $this->upload_file($_FILES['media_file'], $processed['name'] . '.' . $file_extension, $processed['alt']);
+
+      // Perform additional checks on the uploaded media type
+      $this->validateMediaType($uploadedMediaId);
+
+      // Redirect to the medias list page
+      $this->redirect('admin/medias');
+    } catch (\Exception $e) {
+      // Render the upload media form with errors
+      $this->render('Medias/upload', ['errors' => [$e->getMessage()]]);
+    }
+  }
+
+  /**
+   * Validates the media type based on its ID.
+   *
+   * @param int $mediaId
+   *
+   * @throws \Exception
+   */
+  private function validateMediaType($mediaId)
+  {
+    // Fetch the media by ID
+    $media = $this->getMediaById($mediaId);
+
+    // Allowed media types
+    $allowedTypes = ['mp3', 'mp4', 'png', 'jpeg', 'jpg', 'webp', 'gif', 'svg'];
+
+    // Get the file extension
+    $fileExt = strtolower(pathinfo($media->getPath(), PATHINFO_EXTENSION));
+
+    // Check if the file type is allowed
+    if (!in_array($fileExt, $allowedTypes)) {
+      // Delete the media if it's not allowed
+      Medias::delete($mediaId);
+      throw new \Exception('Invalid media type. Only MP3, MP4, PNG, JPEG, JPG, WebP, GIF, and SVG are allowed.');
     }
   }
 
@@ -180,7 +261,7 @@ class AdminMediasController extends AdminController
       $this->redirect('admin/medias');
     } else {
       header('Content-Type: application/json');
-      echo json_encode($data);
+      echo json_encode($data, JSON_PRETTY_PRINT);
     }
   }
 

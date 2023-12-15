@@ -1,0 +1,35 @@
+{#
+  Name: upload.html.twig
+  Path: cuej/Back/templates/pages/Medias/upload.html.twig
+#}
+{% extends "index.html.twig" %}
+
+{# Set title #}
+{% block title %}Medias - Upload{% endblock %}
+
+{# Set content #}
+{% block content %}
+
+  <h1>Upload a file</h1>
+  <span>Accepts: mp3, mp4, png, jpeg, jpg, webp, gif, svg</span>
+
+  <form action="admin/upload_media" method="post" enctype="multipart/form-data">
+    <section>
+      <label for="name">File name</label>
+      <input type="text" name="name" id="name" placeholder="File Name" required>
+    </section>
+
+    <section>
+      <label for="alt">File description</label>
+      <textarea name="alt" id="alt" placeholder="File description" required></textarea>
+    </section>
+
+    <section>
+      <label for="media_file">File</label>
+      <input type="file" name="media_file" id="media_file" accept=".mp3, .mp4, .png, .jpeg, .jpg, .webp, .gif, .svg" required>
+    </section>
+
+    <input type="submit" value="Upload Media">
+  </form>
+
+{% endblock %}

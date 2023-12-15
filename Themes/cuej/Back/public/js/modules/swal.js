@@ -44,4 +44,47 @@ async function swal_error(swal_details) {
   });
 }
 
-export { swal_confirmAction, swal_success, swal_error };
+/**
+ * This function is a wrapper around Swal.fire() that adds a file input
+ *
+ * @param {object} swal_details The details to pass to Swal.fire()
+ * @returns
+ */
+async function swal_file(swal_details) {
+  const result = await Swal.fire({
+    title: swal_details.title || "Select a file",
+    input: "file",
+    inputAttributes: {
+      accept: "mp3, mp4, png, jpeg, jpg, webp, gif, svg",
+      "aria-label": "Upload a new file",
+    },
+  });
+
+  return result.value;
+}
+
+/**
+ * This function is a wrapper around Swal.fire() that adds a text input and a textarea
+ *
+ * @param {object} swal_details The details to pass to Swal.fire()
+ * @returns
+ */
+async function swal_input(swal_details) {
+  const result = await Swal.fire({
+    title: swal_details.title || "Enter a title",
+    html:
+      '<input id="swal-input1" class="swal2-input" placeholder="File\'s name">' +
+      '<textarea id="swal-input2" class="swal2-textarea" placeholder="File\'s description"></textarea>',
+    focusConfirm: false,
+    preConfirm: () => {
+      return [
+        document.getElementById("swal-input1").value,
+        document.getElementById("swal-input2").value,
+      ];
+    },
+  });
+
+  return result.value;
+}
+
+export { swal_confirmAction, swal_success, swal_file, swal_input, swal_error };

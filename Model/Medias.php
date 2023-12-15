@@ -4,11 +4,12 @@ namespace Model;
 
 use \DateTime;
 use \Core\Database\Manager;
+use \JsonSerializable;
 
 /**
  * Medias model | Handles all actions related to medias
  */
-class Medias
+class Medias implements JsonSerializable
 {
   private $id;
   private $name;
@@ -304,5 +305,25 @@ class Medias
   public function getHash()
   {
     return $this->hash;
+  }
+
+  /**
+   * JSON serialize method
+   *
+   * @return array Media
+   */
+  public function jsonSerialize()
+  {
+    // Convert private properties to an array
+    return [
+      'id' => $this->id,
+      'name' => $this->name,
+      'type' => $this->type,
+      'size' => $this->size,
+      'path' => $this->path,
+      'alt' => $this->alt,
+      'uploaded_at' => $this->uploaded_at->format('Y-m-d H:i:s'),
+      'hash' => $this->hash,
+    ];
   }
 }
