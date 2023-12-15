@@ -97,9 +97,10 @@ h2, .fs-2 {
 ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝
 */
 
-.nav {
+.header-nav {
   background-color: white;
   position: fixed;
+  z-index: 1;
 }
 
 /*
@@ -150,7 +151,7 @@ h2, .fs-2 {
 ╚═╝      ╚═════╝  ╚═════╝    ╚═╝   ╚══════╝╚═╝  ╚═╝
 */
 
-.footer__nav {
+.footer-nav {
   height: 30vh;
   background-color: cadetblue;
 }

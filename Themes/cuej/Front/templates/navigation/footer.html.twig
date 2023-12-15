@@ -4,11 +4,19 @@
 #}
 
 <footer class="footer">
-  <nav class="footer__nav row jc-sa ai-c ">
+  <nav class="footer-nav row jc-sa ai-c">
     <ul class="col">
       <a class="fs-2" href="{{ site_default_route }}">{{ site_name }}</a>
       <li><a href="#">Crédits</a></li>
       <li><a href="#">Mentions Légales</a></li>
+      {% if is_logged %}
+      <li><a href="./users/logout">Déconnexion</a></li>
+      {% if is_admin %}
+      <li><a href="./admin">Administration</a></li>
+      {% endif %}
+      {% else %}
+      <li><a href="./users/login">Connexion</a></li>
+      {% endif %}
     </ul>
     {% for category, articles in site_navigation %}
     <ul class="col"><a class="fs-2" href="#">{{ category }}</a>

@@ -4,31 +4,17 @@
 #}
 
 <header>
-	<nav class="nav center-x row">
-		<ul class="nav__links">
-			<li class="nav__brand">
-				<a href="{{ site_default_route }}">{{ site_name }}</a>
-			</li>
-		</ul>
-
-		<ul class="nav__links">
-			{% if is_logged %}
-			<li>
-				<a href="./users/logout">Déconnexion</a>
-			</li>
-
-			{% if is_admin %}
-
-			<li>
-				<a href="./admin">Administration</a>
-			</li>
-
-			{% endif %}
-			{% else %}
-			<li>
-				<a href="./users/login">Connexion</a>
-			</li>
-			{% endif %}
-		</ul>
+	<nav class="header-nav center-x row">
+		<a href="{{ site_default_route }}">{{ site_name }}</a>
+		{% for category, articles in site_navigation %}
+		<div>
+			<a class="fs-2" href="#">{{ category }}</a>
+			<ul class="row">
+				{% for article in articles %}
+				<li><a href="articles/see/{{ article[1] }}">{{ article[0] }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endfor %}
 	</nav>
 </header>
