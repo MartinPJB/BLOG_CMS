@@ -43,6 +43,66 @@ class AdminMediasController extends AdminController
   }
 
   /**
+   * Edits a media in the admin panel.
+   *
+   * @param array $params
+   */
+  public function edit_media($params)
+  {
+    $mediaId = FieldChecker::cleanInt($this->requestContext->getOptParam());
+
+    try {
+      $this->requiresValidID('medias');
+
+      // Fetch the media by ID
+      $media = $this->getMediaById($mediaId);
+
+      // Handle the form submission
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $this->handleEditMediaForm($media);
+      } else {
+        // Render the edit media form
+        $this->render('Medias/edit', ['media' => $media]);
+      }
+    } catch (\Exception $e) {
+      $this->render('Medias/list', ['medias' => Medias::getAllMedias(), 'errors' => [$e->getMessage()]]);
+    }
+  }
+
+  /**
+   * Handles the form submission for editing a media.
+   *
+   * @param Medias $media
+   *
+   * @throws \Exception
+   */
+  private function handleEditMediaForm($media)
+  {
+    try {
+      // Process and validate form fields as needed
+      $processed = $this->process_fields();
+
+      // Update media with new information
+      $media::update(
+        $media->getId(),
+        $processed['name'],
+        $media->getType(),
+        $media->getSize(),
+        $media->getPath(),
+        $processed['alt'],
+        $media->getUploadedAt()->format('Y-m-d H:i:s'),
+        $media->getHash()
+      );
+
+      // Redirect to the medias list page
+      $this->redirect('admin/medias');
+    } catch (\Exception $e) {
+      // Render the edit media form with errors
+      $this->render('Medias/edit', ['media' => $media, 'errors' => [$e->getMessage()]]);
+    }
+  }
+
+  /**
    * Handles the deletion of medias.
    *
    * @param array $params
