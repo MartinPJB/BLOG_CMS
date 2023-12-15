@@ -112,7 +112,7 @@ class AdminController extends ControllerBase implements ControllerInterface
    */
   protected function upload_file($file, $name = "")
   {
-    if (empty($file)) return false;
+    if (!isset($file) || empty($file['type'])) return false;
     if (empty($name)) $name = uniqid() . '.' . explode('/', $file['type'])[1];
 
     $file_tmp = $file['tmp_name'];

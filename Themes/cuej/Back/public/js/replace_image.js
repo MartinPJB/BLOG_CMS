@@ -3,37 +3,39 @@
  * Author: Martin B.
  * Date: 12/13/2023
  */
+
+// Constants
+const MEDIA_ENDPOINT = "admin/unassign_media";
+
 // Functions
-function deleteMedia() {
-  return new Promise(async (resolve, reject) => {
-    const mediaId = deleteImageButton.dataset.id;
+async function deleteMedia() {
+  const mediaId = deleteImageButton.dataset.id;
+  const table = deleteImageButton.dataset.table;
+  const column = deleteImageButton.dataset.column;
+  const lineId = deleteImageButton.dataset.lineid;
 
-    if (!mediaId) {
-      return reject(new Error("No ID has been defined, can't delete an unknown media."));
-    }
+  if (!mediaId || !table || !column || !lineId) {
+    return Promise.reject(new Error("Not enough data to delete the media."));
+  }
 
-    try {
-      const response = await fetch(`admin/delete_media/${mediaId}&json`, {
-        method: "POST",
-      });
+  const formData = new FormData();
+  formData.append("table", table);
+  formData.append("column", column);
+  formData.append("id", lineId);
 
-      const json = await response.json();
-      console.log(json);
-
-      if (!response.ok) {
-        return reject(new Error("An error occured while deleting the media"));
-      }
-
-      return resolve();
-    } catch(e) {
-      return reject(e);
-    }
+  const response = await fetch(`${MEDIA_ENDPOINT}/${mediaId}&json`, {
+    method: "POST",
+    body: formData,
   });
+  const json = await response.json();
+  if (!response.ok) {
+    throw new Error("An error occurred while replacing the media");
+  }
+  console.log(json);
 }
 
 function recreateForm() {
   const form = document.getElementById("cuej__media");
-
   const label = document.createElement("label");
   const input = document.createElement("input");
 
@@ -46,10 +48,10 @@ function recreateForm() {
   form.appendChild(input);
 }
 
-async function clickHandler() {
+async function confirmDelete() {
   const result = await Swal.fire({
     title: "Are you sure?",
-    text: "You won't be able to revert this!",
+    text: "This will not delete the image from the server, only from this page.",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -57,29 +59,36 @@ async function clickHandler() {
     confirmButtonText: "Yes, delete it!",
   });
 
-  if (result.isConfirmed) {
-    try {
+  return result.isConfirmed;
+}
+
+async function handleDelete() {
+  try {
+    const shouldDelete = await confirmDelete();
+
+    if (shouldDelete) {
       await deleteMedia();
       await Swal.fire({
-        title: "Deleted!",
-        text: "Your file has been deleted.",
+        title: "Done!",
+        text: "Your file has been replaced.",
         icon: "success",
       });
-
       recreateForm();
-    } catch (e) {
-      Swal.fire({
-        title: "Error",
-        text: e.message,
-        icon: "error",
-      });
     }
+  } catch (e) {
+    Swal.fire({
+      title: "Error",
+      text: e.message,
+      icon: "error",
+    });
   }
 }
 
+// Main
 const deleteImageButton = document.getElementById("cuej__delete_media");
-if (!deleteImageButton) console.warn("No delete image button found");
-else {
+if (!deleteImageButton) {
+  console.warn("No delete image button found");
+} else {
   // Event listeners
-  deleteImageButton.addEventListener("click", clickHandler);
+  deleteImageButton.addEventListener("click", handleDelete);
 }

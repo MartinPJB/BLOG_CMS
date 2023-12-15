@@ -2,6 +2,27 @@
 
 use \Core\Config;
 
+function convertToBytes($value)
+{
+  $unit = strtoupper(substr($value, -1));
+  $size = (int)$value;
+
+  switch ($unit) {
+    case 'P':
+      $size *= 1024;
+    case 'T':
+      $size *= 1024;
+    case 'G':
+      $size *= 1024;
+    case 'M':
+      $size *= 1024;
+    case 'K':
+      $size *= 1024;
+  }
+
+  return $size;
+}
+
 // Default configuration
 $config = [
   'database' => [
@@ -26,7 +47,7 @@ $config = [
 
     // ✔️ These values will be read from the Config class
     'root' => 'http://' . $_SERVER['HTTP_HOST'],
-    'file_size_limit' => 1e+7, // 10MB
+    'file_size_limit' => convertToBytes(ini_get('upload_max_filesize'))
   ],
 ];
 

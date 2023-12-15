@@ -6,7 +6,6 @@ use Controller\AdminController;
 use Core\FieldChecker;
 use Model\Medias;
 use Model\Categories;
-use Model\Users;
 
 /**
  * AdminCategoriesController | Manage categories in the admin panel
@@ -54,17 +53,28 @@ class AdminCategoriesController extends AdminController
         $this->render('Categories/create');
         break;
       case 'edit':
-        $category = $this->getCategoryById($categoryId);
-        $this->render('Categories/edit', ['category' => $category]);
+        $this->handleCategoryAction('edit', $categoryId);
         break;
       case 'delete':
-        $category = $this->getCategoryById($categoryId);
-        $this->render('Categories/delete', ['category' => $category]);
+        $this->handleCategoryAction('delete', $categoryId);
         break;
       default:
         $this->render('Categories/list', ['categories' => Categories::getAllCategories()]);
         break;
     }
+  }
+
+  /**
+   * Handles common actions for categories (edit, delete).
+   *
+   * @param string $action
+   * @param int $categoryId
+   */
+  private function handleCategoryAction($action, $categoryId)
+  {
+    $this->requiresValidID('categories');
+    $category = $this->getCategoryById($categoryId);
+    $this->render("Categories/$action", ['category' => $category]);
   }
 
   /**
@@ -82,29 +92,42 @@ class AdminCategoriesController extends AdminController
   }
 
   /**
+   * Handles the creation or edition of categories.
+   *
+   * @param array $params
+   * @param string $action
+   */
+  private function handleCreateOrEdit($params, $action)
+  {
+    $categoryId = FieldChecker::cleanInt($this->requestContext->getOptParam());
+
+    try {
+      $processed = $this->process_fields();
+      $mediaId = $this->upload_file($_FILES['image']);
+      $media = Medias::getMediaById($mediaId);
+
+      $this->validateCategoryFields($processed['name'], $processed['description'], $media);
+
+      if ($action === 'create') {
+        Categories::create($processed['name'], $processed['description'], $media->getId());
+      } elseif ($action === 'edit') {
+        Categories::update($categoryId, $processed['name'], $processed['description'], $media->getId());
+      }
+
+      $this->redirect('admin/categories');
+    } catch (\Exception $e) {
+      $this->render("Categories/$action", ['errors' => [$e->getMessage()]]);
+    }
+  }
+
+  /**
    * Handles the creation of categories.
    *
    * @param array $params
    */
   public function create_category($params)
   {
-    try {
-      $processed = $this->process_fields();
-      $newMediaId = $this->upload_file($_FILES['image']);
-      $media = Medias::getMediaById($newMediaId);
-
-      $this->validateCategoryFields($processed['name'], $processed['description'], $media);
-
-      Categories::create(
-        $processed['name'],
-        $processed['description'],
-        $media->getId()
-      );
-
-      $this->redirect('admin/categories');
-    } catch (\Exception $e) {
-      $this->render('Categories/create', ['errors' => [$e->getMessage()]]);
-    }
+    $this->handleCreateOrEdit($params, 'create');
   }
 
   /**
@@ -114,28 +137,7 @@ class AdminCategoriesController extends AdminController
    */
   public function edit_category($params)
   {
-    $categoryId = FieldChecker::cleanInt($this->requestContext->getOptParam());
-    try {
-      $processed = $this->process_fields();
-      $media = Categories::getCategoryById($categoryId)->getImage();
-
-      if (isset($_FILES['image'])) {
-        $media = Medias::getMediaById($this->upload_file($_FILES['image']));
-      }
-
-      $this->validateCategoryFields($processed['name'], $processed['description'], $media);
-
-      Categories::update(
-        $categoryId,
-        $processed['name'],
-        $processed['description'],
-        $media->getId()
-      );
-
-      $this->redirect('admin/categories');
-    } catch (\Exception $e) {
-      $this->render('Categories/edit', ['article_id' => $categoryId, 'errors' => [$e->getMessage()]]);
-    }
+    $this->handleCreateOrEdit($params, 'edit');
   }
 
   /**
@@ -146,6 +148,7 @@ class AdminCategoriesController extends AdminController
   public function delete_category($params)
   {
     $categoryId = FieldChecker::cleanInt($this->requestContext->getOptParam());
+
     try {
       Categories::delete($categoryId);
       $this->redirect('admin/categories');

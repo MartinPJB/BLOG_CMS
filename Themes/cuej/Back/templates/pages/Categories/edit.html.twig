@@ -31,7 +31,7 @@
     <section id="cuej__media">
       {% if category.image != null %}
         <img src="{{ category.image.path }}" alt="Category Image">
-        <input type="button" id="cuej__delete_media" data-id="{{ category.image.id }}" value="Replace Image">
+        <input type="button" id="cuej__delete_media" data-id="{{ category.image.id }}" data-table="categories" data-column="image" data-lineid="{{ category.id }}" value="Replace Image">
       {% else %}
         <label for="image">Category Image</label>
         <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg, .gif, .webp, .svg" required>
