@@ -30,19 +30,12 @@
 
 {# Affichage #}
 {% block content %}
-  <img src="{{ image.path }}" alt="{{ image.alt }}" loading="lazy">
-  <div>
-    <h1>{{ title }}</h1>
-    <p>{{ description }}</p>
-    <p>Publié le
-      <time datetime="{{ date|date(" Y-d-m H:i") }}">{{ date|date("d/m/Y H:i", "Europe/Paris") }}</time>
-      par <a href="./users/see/{{ author.id }}">{{ author.username }}</a>
-    </p>
-    <ul>Tags:
-      {% for tag in tags %}
-      <li>{{ tag }}</li>
-      {% endfor %}
-    </ul>
-    <a href="./categories/see/{{ category.id }}">{{ category.name }}</a>
-  </div>
+<section class="intro container gap-1" id="intro">
+  <img class="intro__image center-x full-width" src="{{ image.path }}" alt="{{ image.alt }}" loading="lazy">
+  <h1 class="intro__title">{{ title }}</h1>
+  <p class="intro__description">{{ description|raw }}</p>
+</section>
+<article class="container testing-content">
+
+</article>
 {% endblock %}

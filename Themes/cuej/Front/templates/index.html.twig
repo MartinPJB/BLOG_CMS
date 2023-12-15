@@ -39,7 +39,7 @@
 
 	<body>
     {# Menu #}
-    {% include "navigation/menu.html.twig" %}
+    {% include "navigation/header.html.twig" %}
 
     {# Display errors if defined #}
     {% include "misc/errors.html.twig" %}
@@ -48,5 +48,7 @@
     <main>
 		  {% block content %}{% endblock %}
     </main>
+
+    {% include "navigation/footer.html.twig" %}
 	</body>
 </html>
