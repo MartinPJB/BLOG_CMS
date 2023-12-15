@@ -50,6 +50,7 @@ class ControllerBase
     $site_description = $this->siteSettings->getDescription();
     $site_language = $this->siteSettings->getSiteLanguage();
     $site_default_route = $this->siteSettings->getDefaultRoute();
+    $site_navigation = $this->siteSettings->getNavigation();
 
     // Add global variables
     $twig->addGlobal('site_root', Config::get('site_root'));
@@ -58,6 +59,7 @@ class ControllerBase
     $twig->addGlobal('site_description', $site_description);
     $twig->addGlobal('site_language', $site_language);
     $twig->addGlobal('session', isset($_SESSION) ? $_SESSION : []);
+    $twig->addGlobal('site_navigation', $site_navigation);
 
     return $twig;
   }

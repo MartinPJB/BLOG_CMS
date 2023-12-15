@@ -1,0 +1,34 @@
+{#
+  Name: menu.html.twig
+  Path: cuej/Front/templates/header/menu.html.twig
+#}
+
+<header>
+	<nav class="nav center-x row">
+		<ul class="nav__links">
+			<li class="nav__brand">
+				<a href="{{ site_default_route }}">{{ site_name }}</a>
+			</li>
+		</ul>
+
+		<ul class="nav__links">
+			{% if is_logged %}
+			<li>
+				<a href="./users/logout">Déconnexion</a>
+			</li>
+
+			{% if is_admin %}
+
+			<li>
+				<a href="./admin">Administration</a>
+			</li>
+
+			{% endif %}
+			{% else %}
+			<li>
+				<a href="./users/login">Connexion</a>
+			</li>
+			{% endif %}
+		</ul>
+	</nav>
+</header>

@@ -1,0 +1,21 @@
+{#
+  Name: footer.html.twig
+  Path: cuej/Front/templates/navigation/footer.html.twig
+#}
+
+<footer class="footer">
+  <nav class="footer__nav row jc-sa ai-c ">
+    <ul class="col">
+      <a class="fs-2" href="{{ site_default_route }}">{{ site_name }}</a>
+      <li><a href="#">Crédits</a></li>
+      <li><a href="#">Mentions Légales</a></li>
+    </ul>
+    {% for category, articles in site_navigation %}
+    <ul class="col"><a class="fs-2" href="#">{{ category }}</a>
+      {% for article in articles %}
+      <li><a href="articles/see/{{ article[1] }}">{{ article[0] }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+  </nav>
+</footer>

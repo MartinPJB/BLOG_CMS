@@ -124,4 +124,24 @@ class SiteSettings {
   public function getDefaultRoute() {
     return $this->default_route;
   }
+
+  public function getNavigation() {
+    $tmp = Manager::readWithJoin('articles',
+      ['articles.title', 'articles.id', 'categories.name'], [],
+      ['categories'],
+      ['articles.category_id = categories.id']
+    );
+    $res = [];
+    foreach ($tmp as $row) {
+      $categoryName = $row['name'];
+
+      if (!isset($res[$categoryName])) {
+        $res[$categoryName] = [];
+      }
+
+      $res[$categoryName][] = [$row['title'], $row['id']];
+    }
+
+    return $res;
+  }
 }
