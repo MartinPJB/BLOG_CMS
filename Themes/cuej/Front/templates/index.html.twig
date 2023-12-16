@@ -9,14 +9,16 @@
     - {@string} site_language: Website's language
     - {@string} site_default_route: Website's default route
     - {@array} session: Session's variables
-    - {@bool} is_logged: Boolean, true if user is logged
-    - {@bool} is_admin: Boolean, true if user is logged and is admin
+      - {@bool} is_logged: Boolean, true if user is logged
+      - {@bool} is_admin: Boolean, true if user is logged and is admin
+      - {@object} user: TBW
     - {@array} errors: Contains errors to display
 #}
 
 {# Variable definition #}
 {% set is_logged = session.user is defined and session.user is not empty %}
 {% set is_admin = is_logged and session.user.getRole() == 'admin' %}
+{% if block('title') is defined %}{% set title = block('title') %}{% endif %}
 
 {# HTML #}
 <!DOCTYPE html>
@@ -26,7 +28,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
     {# Meta content #}
     {% block metas %}{% endblock %}
-		<title>{{ site_name }} - {% block title %}{% endblock %}</title>
+		<title>{{ site_name }}{{ title ? ' - ' ~ title }}</title>
 
     {# Base #}
     <base href="{{ site_root }}">
@@ -39,7 +41,7 @@
 
 	<body>
     {# Header #}
-    {% if site_default_route != 'categories' %}
+    {% if title != 'Categories' %}
     {% include "navigation/header.html.twig" %}
     {% endif %}
 

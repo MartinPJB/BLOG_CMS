@@ -19,7 +19,8 @@
       {% endif %}
     </ul>
     {% for category, articles in site_navigation %}
-    <ul class="col"><a class="fs-2" href="#">{{ category }}</a>
+    <ul class="col">
+      <a class="fs-2" href="articles/see/{{ articles[0][1] }}">{{ category }}</a>
       {% for article in articles %}
       <li><a href="articles/see/{{ article[1] }}">{{ article[0] }}</a></li>
       {% endfor %}

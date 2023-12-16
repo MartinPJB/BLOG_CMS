@@ -125,21 +125,27 @@ class SiteSettings {
     return $this->default_route;
   }
 
+  /**
+   * Get the site navigation
+   *
+   * @return array Nested list of published articles by categories
+   */
   public function getNavigation() {
     $tmp = Manager::readWithJoin('articles',
-      ['articles.title', 'articles.id', 'categories.name'], [],
+      ['articles.title', 'articles.id', 'articles.published', 'categories.name'], [],
       ['categories'],
       ['articles.category_id = categories.id']
     );
     $res = [];
+
     foreach ($tmp as $row) {
-      $categoryName = $row['name'];
-
-      if (!isset($res[$categoryName])) {
-        $res[$categoryName] = [];
+      if ($row['published']) {
+        $categoryName = $row['name'];
+        if (!isset($res[$categoryName])) {
+          $res[$categoryName] = [];
+        }
+        $res[$categoryName][] = [$row['title'], $row['id']];
       }
-
-      $res[$categoryName][] = [$row['title'], $row['id']];
     }
 
     return $res;

@@ -6,6 +6,7 @@ use \Core\Controller\ControllerInterface;
 use \Core\Controller\ControllerBase;
 use \Core\RequestContext;
 use \Model\Articles;
+use \Model\Categories;
 
 /**
  * Article controller | Handles all requests related to articles
@@ -52,14 +53,25 @@ class ArticlesController extends ControllerBase implements ControllerInterface
   public function see(array $params)
   {
     $article_id = intval($this->requestContext->getOptParam());
-
-    if (!isset($article_id) || $article_id === 0) {
-      $this->redirect('articles');
+    $article = $article_id ? Articles::getArticle($article_id) : null;
+    if (!$article) {
+      ControllerBase::renderError(404, $this->requestContext);
     }
-
-    $article = Articles::getArticle($article_id);
+    $categoryArticles = $this->siteSettings->getNavigation()[
+      $article->getCategory()->getName()
+    ];
+    foreach ($categoryArticles as $i => $art) {
+      if ($art[1] === $article_id) {
+        $previous = $categoryArticles[$i - 1] ?? null;
+        $next = $categoryArticles[$i + 1] ?? null;
+      }
+    }
     $this->render('Articles/see', [
       'article' => $article,
+      'sibbling' => [
+        'previous' => $previous,
+        'next' => $next
+      ]
     ]);
   }
 }

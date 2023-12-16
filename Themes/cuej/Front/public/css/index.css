@@ -32,6 +32,7 @@ a {
 
 body {
   font-size: 20px;
+  overflow-x: hidden;
 }
 
 h1, .fs-1 {

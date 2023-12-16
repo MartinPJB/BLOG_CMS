@@ -122,24 +122,27 @@ class Articles
    * Get an article from the database by its ID
    *
    * @param integer $id Article ID
+   * @param boolean $fromAdmin If the method is called by an admin page
    * @return self Articles
    */
-  public static function getArticle($id)
+  public static function getArticle($id, $fromAdmin = false)
   {
-    $article = Manager::read('articles', [], ['id' => $id])[0];
-
-    return new self(
-      $article['id'],
-      $article['title'],
-      $article['description'],
-      $article['author_id'],
-      $article['date'],
-      $article['image'],
-      $article['category_id'],
-      explode(",", $article['tags']),
-      $article['draft'],
-      $article['published']
-    );
+    $article = Manager::read('articles', [], ['id' => $id]);
+    if ($fromAdmin || $article && $article[0]['published']) {
+      $article = $article[0];
+      return new self(
+        $article['id'],
+        $article['title'],
+        $article['description'],
+        $article['author_id'],
+        $article['date'],
+        $article['image'],
+        $article['category_id'],
+        explode(",", $article['tags']),
+        $article['draft'],
+        $article['published']
+      );
+    }
   }
 
   /**

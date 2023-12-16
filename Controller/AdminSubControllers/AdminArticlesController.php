@@ -54,7 +54,7 @@ class AdminArticlesController extends AdminController
   private function getArticleById($articleId)
   {
     $this->requiresValidID('articles');
-    return Articles::getArticle($articleId);
+    return Articles::getArticle($articleId, true);
   }
 
   /**

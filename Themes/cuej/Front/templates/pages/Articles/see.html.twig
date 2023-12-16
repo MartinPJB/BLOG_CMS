@@ -14,6 +14,13 @@
       - {@object} category: Article category:
         - {@string} name: Category name
       - {@array} tags: Article tags list
+    - {@array} sibbling: Sibbling articles in same category
+      - {@array} previous: Previous article in category
+        - {@string} title: Article title
+        - {@string} id: Article id
+      - {@array} next: Next article in category
+        - {@string} 0: Article title
+        - {@string} 1: Article id
 #}
 {% extends "index.html.twig" %}
 
@@ -42,4 +49,12 @@
 <article class="container testing-content">
 
 </article>
+<nav>
+{% if sibbling.previous %}
+  <a href="articles/see/{{ sibbling.previous.1 }}">{{ sibbling.previous.0 }}</a>
+{% endif %}
+{% if sibbling.next %}
+  <a href="articles/see/{{ sibbling.next.1 }}">{{ sibbling.next.0 }}</a>
+{% endif %}
+</nav>
 {% endblock %}
