@@ -127,7 +127,11 @@ class AdminArticlesController extends AdminController
     try {
       $processed = $this->process_fields();
       $authorId = Users::getAuthentificatedUser()->getId();
-      $newMediaId = $this->upload_file($_FILES['image']);
+      $newMediaId = Articles::getArticle($articleId)->getImageId();
+
+      if (isset($_FILES['image'])) {
+        $newMediaId = $this->upload_file($_FILES['image']);
+      }
       $media = Medias::getMediaById($newMediaId);
 
       $this->validateArticleFields($processed['title'], $processed['description'], $media, $processed['category_id']);

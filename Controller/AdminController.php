@@ -110,7 +110,7 @@ class AdminController extends ControllerBase implements ControllerInterface
    * @param array $file The file to upload
    * @return mixed The uploaded file
    */
-  protected function upload_file($file, $name = "")
+  protected function upload_file($file, $name = "", $alt = "")
   {
     try {
       if (!isset($file) || empty($file['type'])) {
@@ -119,6 +119,10 @@ class AdminController extends ControllerBase implements ControllerInterface
 
       if (empty($name)) {
         $name = uniqid() . '.' . explode('/', $file['type'])[1];
+      }
+
+      if (empty($alt)) {
+        $alt = $name;
       }
 
       $file_tmp = $file['tmp_name'];
@@ -183,7 +187,7 @@ class AdminController extends ControllerBase implements ControllerInterface
         mime_content_type($file_destination),
         $file_size,
         "uploads/{$file_ext}/{$name}",
-        $name,
+        $alt,
         date('Y-m-d H:i:s'),
         $file_hash
       );
