@@ -16,15 +16,29 @@ Variables:
 <link rel="stylesheet" href="public/front/css/categories.css">
 {% endblock %}
 
+{# Set javascript #}
+{% block javascript %}
+<script src="public/front/js/index.js"></script>
+{% endblock %}
+
 {# Set content #}
 {% block content %}
 <section class="land">
   <h1>Titre du site</h1>
-  <video class="land__video" controls>
+  <video id="introvid" class="land__video">
     <source src="public/front/introvid.mp4" type="video/mp4" />
     Votre navigateur ne peut pas lire la vidéo mais vous pouvez toujours la
     <a href="public/front/introvid.mp4"> télécharger</a>
   </video>
+  <div class="video-controls">
+    <button id="play-pause-btn">
+      <img src="play-icon.pff" alt="Play">{# TBM #}
+    </button>
+    <input type="range" id="progress-bar" value="0" max="100">
+    <button id="fullscreen-btn">
+      <img src="fullscreen-icon.pff" alt="Fullscreen">{# TBM #}
+    </button>
+  </div>
   <a href="#chapitres">🢃</a>
 </section>
 <section id="chapitres">
