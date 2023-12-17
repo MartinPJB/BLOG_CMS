@@ -7,6 +7,11 @@
 {# Set title #}
 {% block title %}Articles - Create{% endblock %}
 
+{# Custom JS #}
+{% block javascript %}
+  <script src="public/back/js/media-library/library.js" defer type="module"></script>
+{% endblock %}
+
 {# Set content #}
 {% block content %}
 
@@ -23,7 +28,7 @@
       <textarea name="description" id="description" placeholder="Article Description" required></textarea>
     </section>
 
-    <section>
+    <section id="cuej__media" data-type="png, jpg, jpeg, gif, webp, svg">
       <label for="image">Article Image</label>
       <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg, .gif, .webp, .svg" required>
     </section>
@@ -39,7 +44,7 @@
 
     <section>
       <label for="tags">Article Tags (separated by a comma)</label>
-      <input type="text" name="tags" id="tags" placeholder="tag1, tag2, tag3..." required>
+      <input type="text" name="tags" id="tags" placeholder="tag1, tag2, tag3...">
     </section>
 
     <input type="submit" value="Create Article">

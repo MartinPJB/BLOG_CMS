@@ -103,8 +103,19 @@ class AdminCategoriesController extends AdminController
 
     try {
       $processed = $this->process_fields();
-      $mediaId = $this->upload_file($_FILES['image']);
-      $media = Medias::getMediaById($mediaId);
+
+      if ((isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
+        var_dump("uploading file");
+        $newMediaId = $this->upload_file($_FILES['image']);
+      }
+
+      else if (isset($processed['media_id'])) {
+        var_dump("using existing file", $_FILES);
+        $newMediaId = $processed['media_id'];
+      }
+
+      $media = Medias::getMediaById($newMediaId);
+      var_dump($media);
 
       $this->validateCategoryFields($processed['name'], $processed['description'], $media);
 
@@ -116,7 +127,7 @@ class AdminCategoriesController extends AdminController
 
       $this->redirect('admin/categories');
     } catch (\Exception $e) {
-      $this->render("Categories/$action", ['errors' => [$e->getMessage()]]);
+      $this->render("Categories/$action", ['errors' => [$e->getMessage()], 'category' => $categoryId != NULL ? Categories::getCategoryById($categoryId) : NULL]);
     }
   }
 

@@ -129,10 +129,18 @@ class AdminArticlesController extends AdminController
       $authorId = Users::getAuthentificatedUser()->getId();
       $newMediaId = Articles::getArticle($articleId)->getImageId();
 
-      if (isset($_FILES['image'])) {
+      if ((isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
+        var_dump("uploading file");
         $newMediaId = $this->upload_file($_FILES['image']);
       }
+
+      else if (isset($processed['media_id'])) {
+        var_dump("using existing file", $_FILES);
+        $newMediaId = $processed['media_id'];
+      }
+
       $media = Medias::getMediaById($newMediaId);
+      var_dump($media);
 
       $this->validateArticleFields($processed['title'], $processed['description'], $media, $processed['category_id']);
 
@@ -148,43 +156,24 @@ class AdminArticlesController extends AdminController
           false
         );
       } elseif ($action === 'edit') {
-        $this->handleEditAction($processed, $authorId, $media, $articleId);
+        Articles::update(
+          $articleId,
+          $processed['title'],
+          $processed['description'],
+          $authorId,
+          $media->getId(),
+          $processed['category_id'],
+          explode(', ', $processed['tags']),
+          $processed['status'] == 'draft',
+          $processed['status'] == 'published'
+        );
       }
 
       $this->redirect('admin/articles');
     } catch (\Exception $e) {
-      $this->render("Articles/$action", ['categories' => Categories::getAllCategories(), 'errors' => [$e->getMessage()]]);
+      $this->render("Articles/$action", ['categories' => Categories::getAllCategories(), 'errors' => [$e->getMessage()], 'article' => $articleId != NULL ? Articles::getArticle($articleId) : NULL]);
     }
   }
-
-  /**
-   * Handles the edition of articles.
-   *
-   * @param array $processed
-   * @param int $authorId
-   * @param Medias $media
-   * @param int $articleId
-   */
-  private function handleEditAction($processed, $authorId, $media, $articleId)
-  {
-    if (isset($_FILES['image'])) {
-      $upload = $this->upload_file($_FILES['image']);
-      $media = Medias::getMediaById($upload);
-    }
-
-    Articles::update(
-      $articleId,
-      $processed['title'],
-      $processed['description'],
-      $authorId,
-      $media->getId(),
-      $processed['category_id'],
-      explode(', ', $processed['tags']),
-      $processed['status'] == 'draft',
-      $processed['status'] == 'published'
-    );
-  }
-
   /**
    * Handles the creation of articles.
    *

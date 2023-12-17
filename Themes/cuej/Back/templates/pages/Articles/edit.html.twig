@@ -28,13 +28,13 @@
       <textarea name="description" id="description" placeholder="Article Description" required>{{ article.description|raw }}</textarea>
     </section>
 
-    <section id="cuej__media">
+    <section id="cuej__media" data-type="png, jpg, jpeg, gif, webp, svg">
       {% if article.image != null %}
         <img src="{{ article.image.path }}" alt="Article Image">
         <input type="button" class="cuej__unassign_media btn" data-id="{{ article.image.id }}" data-table="articles" data-column="image" data-lineid="{{ article.id }}" value="Replace the image">
       {% else %}
         <label for="image">Article Image</label>
-        <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg, .gif, .webp, .svg" required>
+        <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg, .gif, .webp, .svg">
       {% endif %}
     </section>
 

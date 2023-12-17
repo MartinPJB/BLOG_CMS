@@ -1,0 +1,14 @@
+.cuej__media__choose_existing__preview {
+    width: 200px;
+    height: 200px;
+    background-color: #3b3b3b;
+    margin-bottom: 20px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    overflow: hidden;
+    background-image: var(--image);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
