@@ -3,11 +3,11 @@ document.addEventListener("DOMContentLoaded", function() {
   const articleProgress = document.getElementById("article-progress");
 
   window.addEventListener("scroll", function() {
-    const scrollPosition = window.scrollY - 450;
-    const articleHeight = article.clientHeight;
-    const windowHeight = window.innerHeight;
+    let scrollPosition = window.scrollY - 450;
+    let articleHeight = article.clientHeight;
+    let windowHeight = window.innerHeight;
 
-    const progress = (scrollPosition / (articleHeight - windowHeight)) * 100;
+    let progress = (scrollPosition / (articleHeight - windowHeight)) * 100;
 
     articleProgress.style.width = progress + "%";
   });

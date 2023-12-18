@@ -103,6 +103,20 @@ h2, .fs-2 {
   position: fixed;
   z-index: 1;
 }
+.header-nav--small {
+  background-color: red;
+}
+.header-nav__list {
+  display: none;
+}
+.header-nav__category:hover,
+.header-nav__category[aria-current="step"] {
+  background-color: aqua;
+}
+#active-category + .header-nav__list{
+  position: absolute;
+  display: flex;
+}
 
 /*
 ███╗   ███╗ █████╗ ██╗███╗   ██╗
@@ -182,7 +196,12 @@ h2, .fs-2 {
   height: 30vh;
   background-color: cadetblue;
 }
-
+.footer-nav__category[aria-current="step"],
+.footer-nav__article[aria-current="page"],
+.footer-nav__article:hover,
+.footer-nav__category:hover {
+  text-decoration: underline;
+}
 /* test */
 .testing-content {
   height: 350vh;

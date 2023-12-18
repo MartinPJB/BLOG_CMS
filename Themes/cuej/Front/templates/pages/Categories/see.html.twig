@@ -27,7 +27,7 @@ Path: cuej/Front/templates/pages/Categories/see.html.twig
 {% block content %}
 <h1>{{ category.name }}</h1>
 {% if articles %}
-<nav>
+<nav aria-label="Choix de l'article">
   {# Display each articles #}
   {% for article in articles|sort((a, b) => a.getDate() < b.getDate()) %}
 

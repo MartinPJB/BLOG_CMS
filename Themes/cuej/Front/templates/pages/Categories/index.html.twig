@@ -43,7 +43,7 @@ Variables:
 </section>
 <section id="chapitres">
   {% if categories %}
-  <nav>
+  <nav aria-label="Choix du chapitre">
     {# Display each categories #}
     {% for category in categories %}
     <a href="categories/see/{{ category.id }}">
