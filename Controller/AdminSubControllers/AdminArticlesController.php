@@ -128,20 +128,31 @@ class AdminArticlesController extends AdminController
       $processed = $this->process_fields();
       $authorId = Users::getAuthentificatedUser()->getId();
       $newMediaId = NULL;
+
+      var_dump($processed);
+
       if (!empty($articleId)) {
-        $newMediaId = Articles::getArticle($articleId, true)->getImageId();
+        var_dump("getting article");
+        $article = Articles::getArticle($articleId, true);
+        if (!is_null($article)) {
+          var_dump("getting image id");
+          $newMediaId = $article->getImageId();
+          var_dump($newMediaId);
+        }
       }
 
-      else if (is_null($newMediaId) && (isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
-        var_dump("uploading file");
-        $newMediaId = $this->upload_file($_FILES['image']);
-      }
-
-      else if (isset($processed['media_id'])) {
+      if (is_null($newMediaId) && isset($processed['media_id'])) {
         var_dump("using existing file", $_FILES);
         $newMediaId = $processed['media_id'];
       }
 
+      if (is_null($newMediaId) && (isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
+        var_dump("uploading file");
+        $newMediaId = $this->upload_file($_FILES['image']);
+      }
+
+      var_dump(is_null($newMediaId) && isset($processed['media_id']));
+      var_dump($newMediaId);
       $media = Medias::getMediaById($newMediaId);
       var_dump($media);
 

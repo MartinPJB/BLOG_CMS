@@ -1,6 +1,6 @@
 {#
   Name: index.html.twig
-  Path: default/Front/templates/index.html.twig
+  Path: cuej/Front/templates/index.html.twig
 
   Global variables:
     - {@string} site_name: Website's name
@@ -32,15 +32,15 @@
 	</head>
 
 	<body>
-    {# Menu
-    {% include "navigation/menu.html.twig" %} #}
-
-    {# Display errors / messages if defined #}
-    {% include "misc/errors.html.twig" %}
-    {% include "misc/messages.html.twig" %}
+    {# Menu #}
+    {% include "navigation/menu.html.twig" %}
 
     {# Display content #}
     <main>
+      {# Display errors / messages if defined #}
+      {% include "misc/errors.html.twig" %}
+      {% include "misc/messages.html.twig" %}
+
 		  {% block content %}{% endblock %}
     </main>
 	</body>

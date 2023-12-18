@@ -193,7 +193,7 @@ class Manager
    * @param string $table The name of the table to update data in
    * @param array $data The data to update
    * @param array $whereConditions The conditions for the update
-   * @return array Returns an array containing the data updated
+   //* @return array Returns an array containing the data updated
    */
   public static function update($table, $data, $whereConditions)
   {
@@ -201,7 +201,7 @@ class Manager
     $whereClause = self::buildWhereClause($table, $whereConditions);
 
     $sql = "UPDATE `$table` $setClause $whereClause";
-    return self::executeAndFetch($sql, array_merge($data, $whereConditions));
+    self::execute($sql, array_merge($data, $whereConditions));
   }
 
   /**
