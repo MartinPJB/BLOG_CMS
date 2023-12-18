@@ -98,7 +98,7 @@ class Blocks
    *
    * @return array Array of blocks name
    */
-  public static function getAvailableBlocks($twigEngine)
+  public static function getAvailableBlocks()
   {
     $siteSettings = SiteSettings::getSiteSettings();
     $location = dirname(__DIR__) . '/Themes/' . $siteSettings->getTheme() . '/Front/templates/blocks/';
