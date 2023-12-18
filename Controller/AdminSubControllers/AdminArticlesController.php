@@ -127,9 +127,12 @@ class AdminArticlesController extends AdminController
     try {
       $processed = $this->process_fields();
       $authorId = Users::getAuthentificatedUser()->getId();
-      $newMediaId = Articles::getArticle($articleId)->getImageId();
+      $newMediaId = NULL;
+      if (!empty($articleId)) {
+        $newMediaId = Articles::getArticle($articleId, true)->getImageId();
+      }
 
-      if ((isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
+      else if (is_null($newMediaId) && (isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
         var_dump("uploading file");
         $newMediaId = $this->upload_file($_FILES['image']);
       }
