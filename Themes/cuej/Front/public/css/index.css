@@ -15,7 +15,7 @@ a {
   text-decoration: none;
 }
 
-/* :root {
+:root {
   --color-primary: #000000;
   --color-primary-dark: #000000;
   --color-primary-light: #000000;
@@ -28,7 +28,7 @@ a {
 
   --color-text: #000000;
   --color-text-alt: #000000;
-} */
+}
 
 body {
   font-size: 20px;
@@ -157,6 +157,18 @@ h2, .fs-2 {
   margin-bottom: 3em;
 }
 
+.progress-bar-container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 8px;
+}
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background-color: var(--color-background-dark);
+}
+
 /*
 ███████╗ ██████╗  ██████╗ ████████╗███████╗██████╗
 ██╔════╝██╔═══██╗██╔═══██╗╚══██╔══╝██╔════╝██╔══██╗
@@ -173,6 +185,6 @@ h2, .fs-2 {
 
 /* test */
 .testing-content {
-  height: 150vh;
+  height: 350vh;
   background-color: antiquewhite;
 }
