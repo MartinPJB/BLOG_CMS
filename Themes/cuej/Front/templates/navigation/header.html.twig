@@ -4,17 +4,20 @@
 #}
 
 <header>
-	<nav class="header-nav center-x row">
-		<a href="{{ site_default_route }}">{{ site_name }}</a>
-		{% for category, articles in site_navigation %}
-		<div>
-			<a class="fs-2" href="articles/see/{{ articles[0][1] }}">{{ category }}</a>
-			<ul class="row">
-				{% for article in articles %}
-				<li><a href="articles/see/{{ article[1] }}">{{ article[0] }}</a></li>
-				{% endfor %}
-			</ul>
-		</div>
+	<nav id="header-nav" class="header-nav center-x row" aria-label="Navigation du site">
+		<a href="{{ site_default_route }}"><img src="{# TBM #}" alt="{{ site_name }}"></a>
+		{% for cat, articles in site_navigation %}
+		<a class="header-nav__category fs-2" href="articles/see/{{ articles[0][1] }}" {{ cat == category.name ? 'aria-current="step" id="active-category"' }}>
+			<img src="{# TBM #}" alt="{{ cat }}">
+		</a>
+
+		<ul class="header-nav__list row center-x">
+			{% for art in articles %}
+			<li>
+				<a href="articles/see/{{ art[1] }}" {{ art[1] == article.id ? 'aria-current="page"' }}>{{ art[0] }}</a>
+			</li>
+			{% endfor %}
+		</ul>
 		{% endfor %}
 	</nav>
 </header>

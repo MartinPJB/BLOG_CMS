@@ -4,25 +4,25 @@
 #}
 
 <footer class="footer">
-  <nav class="footer-nav row jc-sa ai-c">
-    <ul class="col">
+  <nav class="footer-nav row jc-sa ai-c" aria-label="Plan du site">
+    <ul class="col ">
       <a class="fs-2" href="{{ site_default_route }}">{{ site_name }}</a>
-      <li><a href="#">Crédits</a></li>
-      <li><a href="#">Mentions Légales</a></li>
+      <li><a class="footer-nav__article" href="#">Crédits</a></li>
+      <li><a class="footer-nav__article" href="#">Mentions Légales</a></li>
       {% if is_logged %}
-      <li><a href="./users/logout">Déconnexion</a></li>
+      <li><a class="footer-nav__article" href="./users/logout">Déconnexion</a></li>
       {% if is_admin %}
-      <li><a href="./admin">Administration</a></li>
+      <li><a class="footer-nav__article" href="./admin">Administration</a></li>
       {% endif %}
       {% else %}
-      <li><a href="./users/login">Connexion</a></li>
+      <li><a class="footer-nav__article" href="./users/login">Connexion</a></li>
       {% endif %}
     </ul>
-    {% for category, articles in site_navigation %}
+    {% for cat, articles in site_navigation %}
     <ul class="col">
-      <a class="fs-2" href="articles/see/{{ articles[0][1] }}">{{ category }}</a>
-      {% for article in articles %}
-      <li><a href="articles/see/{{ article[1] }}">{{ article[0] }}</a></li>
+      <a class="footer-nav__category" class="fs-2" href="articles/see/{{ articles[0][1] }}" {{ cat==category.name ? 'aria-current="step"' }}>{{ cat }}</a>
+      {% for art in articles %}
+      <li><a class="footer-nav__article" href="articles/see/{{ art[1] }}" {{ art[1]==article.id ? 'aria-current="page"' }}>{{ art[0] }}</a></li>
       {% endfor %}
     </ul>
     {% endfor %}

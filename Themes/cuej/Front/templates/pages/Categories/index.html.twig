@@ -18,7 +18,7 @@ Variables:
 
 {# Set javascript #}
 {% block javascript %}
-<script src="public/front/js/index.js"></script>
+<script src="public/front/js/home.js" type="module" defer></script>
 {% endblock %}
 
 {# Set content #}
@@ -43,7 +43,7 @@ Variables:
 </section>
 <section id="chapitres">
   {% if categories %}
-  <nav>
+  <nav aria-label="Choix du chapitre">
     {# Display each categories #}
     {% for category in categories %}
     <a href="categories/see/{{ category.id }}">
