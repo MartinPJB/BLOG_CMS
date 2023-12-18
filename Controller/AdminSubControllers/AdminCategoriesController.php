@@ -12,6 +12,9 @@ use Model\Categories;
  */
 class AdminCategoriesController extends AdminController
 {
+  public $name = 'Admin - Categories';
+  public $description = 'Handles all requests related to categories in the admin panel.';
+
   /**
    * Validates the fields of a category.
    *

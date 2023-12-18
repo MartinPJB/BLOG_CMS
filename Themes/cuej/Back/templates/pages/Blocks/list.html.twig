@@ -1,0 +1,75 @@
+{#
+  Name: list.html.twig
+  Path: cuej/Back/templates/pages/Blocks/list.html.twig
+
+  Variables:
+    - {@object} article: Article to display:
+      - {@object} image: Image to display:
+        - {@string} path: Image path
+        - {@string} alt: Image alt
+      - {@string} title: Article title
+      - {@string} description: Article description
+      - {@string} date: Article date
+      - {@string} author: Article author
+      - {@object} category: Article category:
+        - {@string} name: Category name
+      - {@array} tags: Article tags list
+
+    - {@array} blocks: Array containing all blocks to display
+      - {@object} block: Block to display:
+        - {@string} name: Block name
+        - {@json} json_content: Block content
+        - {@integer} article_id: Article id
+        - {@type} type: Block type
+        - {@integer} weight: Block weight
+#}
+{% extends "index.html.twig" %}
+
+{# Set title #}
+{% block title %}Articles - Blocks{% endblock %}
+
+{# Set content #}
+{% block content %}
+
+<h1> {{ article.title }} </h1>
+<span>You can edit the content of your article by creating blocks.</span>
+
+{# Display blocks #}
+{% for block in blocks %}
+  <p> {{ block.name }} </p>
+{% else %}
+  <p> No blocks </p>
+{% endfor %}
+
+{# Aside for block's creation #}
+<aside>
+  {# Select a new block / See creator blocks #}
+  <section id="step__1">
+    <section id="block_selection">
+      <h2> Create a block </h2>
+      {% for available in available_blocks %}
+        <button class="block_creation" data-type="{{ available|split('.')|first }}">{{ available|split('.')|first }}</button>
+      {% else %}
+        <p> No blocks available </p>
+      {% endfor %}
+    </section>
+
+    <section>
+      <h2> Created blocks </h2>
+      <ul>
+        {% for block in blocks %}
+          <li>{{ block.name }}</li>
+        {% else %}
+          <li> No blocks created </li>
+        {% endfor %}
+      </ul>
+    </section>
+  </section>
+
+  {# New block creation form #}
+  <section id="step__2">
+
+  </section>
+</aside>
+
+{% endblock %}

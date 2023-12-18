@@ -8,12 +8,16 @@ use Model\Medias;
 use Model\Categories;
 use Model\Users;
 use Model\Articles;
+use Model\Blocks;
 
 /**
  * AdminArticlesController | Manage articles in the admin panel
  */
 class AdminArticlesController extends AdminController
 {
+  public $name = 'Admin - Articles';
+  public $description = 'Handles all requests related to articles in the admin panel.';
+
   /**
    * Validates the fields of an article.
    *
@@ -92,6 +96,13 @@ class AdminArticlesController extends AdminController
         break;
       case 'delete':
         $this->handleArticleAction('delete', $articleId);
+        break;
+      case 'blocks':
+        $this->requiresValidID('articles');
+        $articlesBlock = Blocks::getBlocksByArticle($articleId);
+        $article = Articles::getArticle($articleId);
+        $availableBlocks = Blocks::getAvailableBlocks();
+        $this->render('Blocks/list', ['blocks' => $articlesBlock, 'article' => $article, 'available_blocks' => $availableBlocks]);
         break;
       default:
         $this->render('Articles/list', ['articles' => Articles::getAllArticles()]);
