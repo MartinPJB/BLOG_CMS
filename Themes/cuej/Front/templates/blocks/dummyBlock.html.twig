@@ -1,0 +1,8 @@
+{% if see_block %}
+  <label for="block_title">Title:</label>
+  <input type="text" name="block_title" id="block_title">
+{% else %}
+  <section class="block">
+    <h1>{{ json.block_title }}</h1>
+  </section>
+{% endif %}

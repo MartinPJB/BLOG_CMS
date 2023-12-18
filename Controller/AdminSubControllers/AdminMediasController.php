@@ -11,6 +11,9 @@ use Model\Medias;
  */
 class AdminMediasController extends AdminController
 {
+  public $name = 'Admin - Medias';
+  public $description = 'Handles all requests related to medias in the admin panel.';
+
   /**
    * Handles various actions related to medias (upload, edit, delete, list).
    *

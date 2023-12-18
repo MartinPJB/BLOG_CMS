@@ -4,6 +4,7 @@ namespace Model;
 
 use \Core\Database\Manager;
 use \Model\Articles;
+use \Model\SiteSettings;
 
 /**
  * Blocks model | Handles all actions related to blocks
@@ -87,6 +88,27 @@ class Blocks
         $block['type'],
         $block['weight']
       );
+    }
+
+    return $result;
+  }
+
+  /**
+   * Get all available blocks by reading the templates folder
+   *
+   * @return array Array of blocks name
+   */
+  public static function getAvailableBlocks()
+  {
+    $siteSettings = SiteSettings::getSiteSettings();
+    $location = dirname(__DIR__) . '/Themes/' . $siteSettings->getTheme() . '/Front/templates/blocks/';
+    $blocks = scandir($location);
+    $result = [];
+
+    foreach ($blocks as $block) {
+      if ($block !== '.' && $block !== '..') {
+        $result[] = $block;
+      }
     }
 
     return $result;

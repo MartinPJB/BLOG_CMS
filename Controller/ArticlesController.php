@@ -62,8 +62,8 @@ class ArticlesController extends ControllerBase implements ControllerInterface
     ];
     foreach ($categoryArticles as $i => $art) {
       if ($art[1] === $article_id) {
-        $previous = $categoryArticles[$i - 1] ?? null;
-        $next = $categoryArticles[$i + 1] ?? null;
+        $previous = isset($categoryArticles[$i - 1]) ? $categoryArticles[$i - 1] : null;
+        $next = isset($categoryArticles[$i + 1]) ? $categoryArticles[$i + 1] : null;
       }
     }
     $this->render('Articles/see', [

@@ -8,12 +8,16 @@ use Model\Medias;
 use Model\Categories;
 use Model\Users;
 use Model\Articles;
+use Model\Blocks;
 
 /**
  * AdminArticlesController | Manage articles in the admin panel
  */
 class AdminArticlesController extends AdminController
 {
+  public $name = 'Admin - Articles';
+  public $description = 'Handles all requests related to articles in the admin panel.';
+
   /**
    * Validates the fields of an article.
    *
@@ -93,6 +97,13 @@ class AdminArticlesController extends AdminController
       case 'delete':
         $this->handleArticleAction('delete', $articleId);
         break;
+      case 'blocks':
+        $this->requiresValidID('articles');
+        $articlesBlock = Blocks::getBlocksByArticle($articleId);
+        $article = Articles::getArticle($articleId);
+        $availableBlocks = Blocks::getAvailableBlocks();
+        $this->render('Blocks/list', ['blocks' => $articlesBlock, 'article' => $article, 'available_blocks' => $availableBlocks]);
+        break;
       default:
         $this->render('Articles/list', ['articles' => Articles::getAllArticles()]);
         break;
@@ -127,20 +138,24 @@ class AdminArticlesController extends AdminController
     try {
       $processed = $this->process_fields();
       $authorId = Users::getAuthentificatedUser()->getId();
-      $newMediaId = Articles::getArticle($articleId)->getImageId();
+      $newMediaId = NULL;
 
-      if ((isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
-        var_dump("uploading file");
-        $newMediaId = $this->upload_file($_FILES['image']);
+      if (!empty($articleId)) {
+        $article = Articles::getArticle($articleId, true);
+        if (!is_null($article)) {
+          $newMediaId = $article->getImageId();
+        }
       }
 
-      else if (isset($processed['media_id'])) {
-        var_dump("using existing file", $_FILES);
+      if (is_null($newMediaId) && isset($processed['media_id'])) {
         $newMediaId = $processed['media_id'];
       }
 
+      if (is_null($newMediaId) && (isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
+        $newMediaId = $this->upload_file($_FILES['image']);
+      }
+
       $media = Medias::getMediaById($newMediaId);
-      var_dump($media);
 
       $this->validateArticleFields($processed['title'], $processed['description'], $media, $processed['category_id']);
 
