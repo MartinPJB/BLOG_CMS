@@ -1,3 +1,14 @@
 /* Import components */
 @import "components/tables.css";
 @import "components/existing_files.css";
+
+/* Utils */
+.visible {
+    display: block;
+}
+.visible-flex {
+    display: flex;
+}
+.hidden {
+    display: none;
+}

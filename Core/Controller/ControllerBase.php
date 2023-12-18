@@ -11,7 +11,7 @@ use \Model\SiteSettings;
  */
 class ControllerBase
 {
-  protected $twigEngine;
+  public $twigEngine;
   protected $requestContext;
   protected $siteSettings;
   protected $messages;

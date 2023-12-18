@@ -28,48 +28,66 @@
 {# Set title #}
 {% block title %}Articles - Blocks{% endblock %}
 
+{# Custom JS #}
+{% block javascript %}
+  <script src="public/back/js/blocks/blocks.js" defer type="module"></script>
+{% endblock %}
+
 {# Set content #}
 {% block content %}
+  <h1>{{ article.title }}</h1>
+  <span>You can edit the content of your article by creating blocks.</span>
 
-<h1> {{ article.title }} </h1>
-<span>You can edit the content of your article by creating blocks.</span>
+  <script>
+    window.fields = {};
+  </script>
 
-{# Display blocks #}
-{% for block in blocks %}
-  <p> {{ block.name }} </p>
-{% else %}
-  <p> No blocks </p>
-{% endfor %}
+  {# Display blocks #}
+  {% if blocks|length > 0 %}
+    {% for block in blocks %}
+      <p>{{ block.name }}</p>
+    {% endfor %}
+  {% else %}
+    <p>No blocks</p>
+  {% endif %}
 
-{# Aside for block's creation #}
-<aside>
-  {# Select a new block / See creator blocks #}
-  <section id="step__1">
-    <section id="block_selection">
-      <h2> Create a block </h2>
-      {% for available in available_blocks %}
-        <button class="block_creation" data-type="{{ available|split('.')|first }}">{{ available|split('.')|first }}</button>
-      {% else %}
-        <p> No blocks available </p>
-      {% endfor %}
-    </section>
-
-    <section>
-      <h2> Created blocks </h2>
-      <ul>
-        {% for block in blocks %}
-          <li>{{ block.name }}</li>
+  {# Aside for block's creation #}
+  <aside>
+    {# Select a new block / See creator blocks #}
+    <section id="step__1">
+      <section id="block_selection">
+        <h2>Create a block</h2>
+        {% if available_blocks|length > 0 %}
+          {% for available in available_blocks %}
+            <script>
+              window.fields['{{ available.name|split('.')|first }}'] = {{ available.fields|json_encode|raw }};
+            </script>
+            <button class="cuej__block-creation" data-type="{{ available.name|split('.')|first }}">{{ available.name|split('.')|first }}</button>
+          {% endfor %}
         {% else %}
-          <li> No blocks created </li>
-        {% endfor %}
-      </ul>
+          <p>No blocks available</p>
+        {% endif %}
+      </section>
+
+      <section>
+        <h2>Created blocks</h2>
+        <ul>
+          {% if blocks|length > 0 %}
+            {% for block in blocks %}
+              <li>{{ block.name }}</li>
+            {% endfor %}
+          {% else %}
+            <li>No blocks created</li>
+          {% endif %}
+        </ul>
+      </section>
     </section>
-  </section>
 
-  {# New block creation form #}
-  <section id="step__2">
-
-  </section>
-</aside>
+    {# New block creation form #}
+    <section id="step__2" class="hidden">
+      <button id="cuej__block-creation-back">Back</button>
+      <div id="cuej__block-creation-form"></div>
+    </section>
+  </aside>
 
 {% endblock %}

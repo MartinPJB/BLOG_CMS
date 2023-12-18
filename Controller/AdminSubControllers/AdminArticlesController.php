@@ -101,7 +101,7 @@ class AdminArticlesController extends AdminController
         $this->requiresValidID('articles');
         $articlesBlock = Blocks::getBlocksByArticle($articleId);
         $article = Articles::getArticle($articleId);
-        $availableBlocks = Blocks::getAvailableBlocks();
+        $availableBlocks = Blocks::getAvailableBlocks($this->twigEngine);
         $this->render('Blocks/list', ['blocks' => $articlesBlock, 'article' => $article, 'available_blocks' => $availableBlocks]);
         break;
       default:

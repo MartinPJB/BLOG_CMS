@@ -98,7 +98,7 @@ class Blocks
    *
    * @return array Array of blocks name
    */
-  public static function getAvailableBlocks()
+  public static function getAvailableBlocks($twigEngine)
   {
     $siteSettings = SiteSettings::getSiteSettings();
     $location = dirname(__DIR__) . '/Themes/' . $siteSettings->getTheme() . '/Front/templates/blocks/';
@@ -107,11 +107,57 @@ class Blocks
 
     foreach ($blocks as $block) {
       if ($block !== '.' && $block !== '..') {
-        $result[] = $block;
+        $withoutExtension = explode('.', $block)[0];
+        $content = file_get_contents($location . $block);
+        $result[] = [
+          'name' => $withoutExtension,
+          'fields' => self::extractFieldsFromTwig($content)
+        ];
       }
     }
 
     return $result;
+  }
+
+  private static function extractFieldsFromTwig($content)
+  {
+    $matches = [];
+    preg_match_all('/\{\#(.+?)\#\}/s', $content, $matches);
+
+    $fields = [];
+
+    if (!empty($matches[1])) {
+      foreach ($matches[1] as $match) {
+        $fieldLines = explode("\n", $match);
+
+        foreach ($fieldLines as $line) {
+          $line = trim($line);
+
+          // Check if the line contains a field definition
+          if (strpos($line, 'Fields:') !== false) {
+            continue; // Skip the "Fields:" line
+          }
+
+          // Extract field name, type, label, min, and max lengths
+          if (preg_match('/- (\w+) \((\w+)\): \{ label: \'([^\']+)\', min: (\d+), max: (\d+) \}/', $line, $fieldMatch)) {
+            $fieldName = $fieldMatch[1];
+            $fieldType = $fieldMatch[2];
+            $fieldLabel = $fieldMatch[3];
+            $minLength = (int)$fieldMatch[4];
+            $maxLength = (int)$fieldMatch[5];
+
+            $fields[$fieldName] = [
+              'type' => $fieldType,
+              'label' => $fieldLabel,
+              'min_length' => $minLength,
+              'max_length' => $maxLength,
+            ];
+          }
+        }
+      }
+    }
+
+    return $fields;
   }
 
   /**
