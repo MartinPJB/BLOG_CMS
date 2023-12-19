@@ -89,7 +89,7 @@ class AdminBlocksController extends AdminController {
         break;
       case 'blocks':
         $this->requiresValidID('blocks');
-        $blocksBlock = Blocks::getBlocksByBlock($blockId);
+        $blocksBlock = Blocks::getBlocksByArticle($articleId);
         $block = Blocks::getBlock($blockId);
         $availableBlocks = Blocks::getAvailableBlocks();
         $this->render('Blocks/list', ['block' => $block, 'available_blocks' => $availableBlocks]);
