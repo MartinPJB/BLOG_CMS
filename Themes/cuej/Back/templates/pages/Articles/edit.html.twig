@@ -31,6 +31,7 @@
 
     <section id="cuej__media" data-type="png, jpg, jpeg, gif, webp, svg">
       {% if article.image != null %}
+        <label for="null">Article Image</label>
         <img src="{{ article.image.path }}" alt="Article Image">
         <input type="button" class="cuej__unassign_media btn" data-id="{{ article.image.id }}" data-table="articles" data-column="image" data-lineid="{{ article.id }}" value="Replace the image">
       {% else %}

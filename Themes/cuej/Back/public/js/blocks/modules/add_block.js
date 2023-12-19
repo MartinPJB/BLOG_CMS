@@ -84,6 +84,9 @@ const block_create = {
   createInputLabelAndInput(labelText, inputID, inputType, inputPlaceholder, min, max) {
     const fragment = document.createDocumentFragment();
 
+    // Create section
+    const section = document.createElement("section");
+
     // Create label
     const label = document.createElement("label");
     label.htmlFor = inputID;
@@ -111,8 +114,9 @@ const block_create = {
     }
 
     // Append label and input to fragment
-    fragment.appendChild(label);
-    fragment.appendChild(input);
+    section.appendChild(label);
+    section.appendChild(input);
+    fragment.appendChild(section);
 
     return fragment;
   },
