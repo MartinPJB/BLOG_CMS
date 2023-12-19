@@ -76,8 +76,8 @@ const library_choose_existing = {
       const label = document.createElement("label");
 
       // Get extension from mime type
-      const extension = media.type.split("/")[1];
-      label.innerText = `${media.name}.${extension}`;
+      // const extension = media.type.split("/")[1];
+      // label.innerText = `${media.name}.${extension}`;
       label.htmlFor = media.id;
 
       // Create a div with the media preview
@@ -95,6 +95,7 @@ const library_choose_existing = {
     }
 
     mediaArea.appendChild(chooseExisting);
+    chooseExisting.open = true;
   },
 };
 

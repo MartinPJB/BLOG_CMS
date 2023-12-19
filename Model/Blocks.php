@@ -272,7 +272,7 @@ class Blocks
    */
   public function getJsonContent()
   {
-    return $this->json_content;
+    return json_decode($this->json_content);
   }
 
   /**

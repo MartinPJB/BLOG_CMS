@@ -16,6 +16,18 @@
   transition: outline .2s ease;
 }
 
+.cuej__media__choose_existing {
+  padding: 10px 0;
+}
+
+.cuej__media__choose_existing summary {
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid #dddddd;
+  margin-bottom: 1rem;
+}
+
 .cuej__media__choose_existing input[type="radio"] {
   display: none;
 }

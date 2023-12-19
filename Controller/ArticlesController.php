@@ -7,6 +7,7 @@ use \Core\Controller\ControllerBase;
 use \Core\RequestContext;
 use \Model\Articles;
 use \Model\Categories;
+use \Model\Blocks;
 
 /**
  * Article controller | Handles all requests related to articles
@@ -66,8 +67,12 @@ class ArticlesController extends ControllerBase implements ControllerInterface
         $next = isset($categoryArticles[$i + 1]) ? $categoryArticles[$i + 1] : null;
       }
     }
+
+    $blocks = Blocks::getBlocksByArticle($article_id);
+
     $this->render('Articles/see', [
       'article' => $article,
+      'blocks' => $blocks,
       'sibbling' => [
         'previous' => $previous,
         'next' => $next

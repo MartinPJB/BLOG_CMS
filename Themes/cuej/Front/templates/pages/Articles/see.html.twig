@@ -52,7 +52,13 @@ Path: cuej/Front/templates/pages/Articles/see.html.twig
     <p class="intro__description">{{ description|raw }}</p>
   </section>
   <section id="article" class="container">
-    <div class="testing-content"></div>
+    <div class="testing-content">
+
+      {% for blockTemplate in blocks %}
+          {% include 'blocks/' ~ blockTemplate.type ~ '.html.twig' with { 'json': blockTemplate.getJsonContent() } %}
+      {% endfor %}
+
+    </div>
   </section>
 </article>
 <nav class="container" aria-label="Navigation d'articles voisins">
