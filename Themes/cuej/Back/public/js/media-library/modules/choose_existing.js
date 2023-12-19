@@ -49,6 +49,10 @@ const library_choose_existing = {
     chooseExistingSummary.innerText = "Choose an existing media";
     chooseExisting.appendChild(chooseExistingSummary);
 
+    const flexDiv = document.createElement("div");
+    flexDiv.classList.add("flex", "flex-wrap", "flex-gap");
+    chooseExisting.appendChild(flexDiv);
+
     // Gets all the medias in the library and filter them by type if needed
     // The type looks like this in the HTML: <element data-type="jpg, jpeg, png, gif"></element>
     const allMedias = await this.getAllMedias();
@@ -85,8 +89,8 @@ const library_choose_existing = {
       preview.style.setProperty("--image", `url("${imagePath}")`);
 
       // Append all elements
-      chooseExisting.appendChild(radio);
-      chooseExisting.appendChild(label);
+      flexDiv.appendChild(radio);
+      flexDiv.appendChild(label);
       label.appendChild(preview);
     }
 

@@ -29,7 +29,7 @@
 	<h1>Medias</h1>
 	<p>All the medias uploaded on the website.</p>
 
-  <section class="grid">
+  <section class="flex flex-wrap">
 	{% for media in medias %}
 		<article data-type="{{ media.type }}" class="cuej__media">
       {% if media.type|split("/")|last in ["png", "jpg", "jpeg", "gif", "webp", "svg"] %}
@@ -47,6 +47,6 @@
 	{% endfor %}
   </section>
 
-	<a href="admin/medias/upload">Upload a new file</a>
+	<a href="admin/medias/upload" class="btn btn--primary">Upload a new file</a>
 
 {% endblock %}

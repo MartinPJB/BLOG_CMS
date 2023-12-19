@@ -13,6 +13,16 @@
   background-repeat: no-repeat;
   position: relative;
   z-index: -1;
+  transition: outline .2s ease;
+}
+
+.cuej__media__choose_existing input[type="radio"] {
+  display: none;
+}
+
+/* Add an outline to the label when its linked input is checked */
+.cuej__media__choose_existing input[type="radio"]:checked + label .cuej__media__choose_existing__preview {
+  outline: 5px solid var(--primary);
 }
 
 .cuej__media img {

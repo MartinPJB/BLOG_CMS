@@ -30,8 +30,8 @@
           <td>{{ category.name|raw }}</td>
           <td>{{ category.description|raw }}</td>
           <td>
-            <a href="admin/categories/edit/{{ category.id }}">Edit</a>
-            <a href="admin/categories/delete/{{ category.id }}">Delete</a>
+            <a href="admin/categories/edit/{{ category.id }}" title="Edit"><i class="bi bi-pencil-square"></i></a>
+            <a href="admin/categories/delete/{{ category.id }}" title="Delete"><i class="bi bi-trash3-fill"></i></a>
           </td>
         </tr>
       {% else %}
@@ -42,5 +42,5 @@
     </tbody>
   </table>
 
-  <a href="admin/categories/create">Create a category</a>
+  <a href="admin/categories/create" class="btn btn--primary">Create a category</a>
 {% endblock %}

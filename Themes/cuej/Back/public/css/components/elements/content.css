@@ -1,5 +1,6 @@
 .cuej-content {
   padding: 0 20px;
+  overflow: auto;
 }
 
 .cuej-content > h1 {

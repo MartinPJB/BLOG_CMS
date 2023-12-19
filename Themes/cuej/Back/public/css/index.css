@@ -9,6 +9,7 @@
 @import "components/existing_files.css";
 @import "components/elements/content.css";
 @import "components/elements/tables.css";
+@import "components/elements/buttons.css";
 
 * {
     box-sizing: border-box;
@@ -37,4 +38,17 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
+  overflow: hidden;
+}
+
+/* Links */
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:visited {
+  color: var(--primary-dark);
 }
