@@ -1,0 +1,62 @@
+/* Grid class util */
+.grid {
+  display: grid;
+}
+.grid-column {
+  grid-template-columns: repeat(12, 1fr);
+}
+.grid-column-1 {
+  grid-template-columns: repeat(1, 1fr);
+}
+.grid-column-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.grid-column-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.grid-column-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+.grid-column-5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+.grid-column-6 {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+/* Grid row */
+.grid-row {
+  grid-template-rows: repeat(12, 1fr);
+}
+.grid-row-1 {
+  grid-template-rows: repeat(1, 1fr);
+}
+.grid-row-2 {
+  grid-template-rows: repeat(2, 1fr);
+}
+.grid-row-3 {
+  grid-template-rows: repeat(3, 1fr);
+}
+.grid-row-4 {
+  grid-template-rows: repeat(4, 1fr);
+}
+.grid-row-5 {
+  grid-template-rows: repeat(5, 1fr);
+}
+.grid-row-6 {
+  grid-template-rows: repeat(6, 1fr);
+}
+
+/* Grid gap */
+.grid-gap {
+  grid-gap: 1rem;
+}
+.grid-gap-2 {
+  grid-gap: 2rem;
+}
+.grid-gap-3 {
+  grid-gap: 3rem;
+}
+.grid-gap-4 {
+  grid-gap: 4rem;
+}

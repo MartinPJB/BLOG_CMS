@@ -29,7 +29,7 @@
 	<h1>Medias</h1>
 	<p>All the medias uploaded on the website.</p>
 
-  <section>
+  <section class="grid">
 	{% for media in medias %}
 		<article data-type="{{ media.type }}" class="cuej__media">
       {% if media.type|split("/")|last in ["png", "jpg", "jpeg", "gif", "webp", "svg"] %}

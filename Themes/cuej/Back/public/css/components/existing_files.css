@@ -1,14 +1,22 @@
-.cuej__media__choose_existing__preview {
-    width: 200px;
-    height: 200px;
-    background-color: #3b3b3b;
-    margin-bottom: 20px;
-    border: 1px solid #dddddd;
-    border-radius: 5px;
-    overflow: hidden;
-    background-image: var(--image);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
+.cuej__media__choose_existing__preview,
+.cuej__media {
+  width: 200px;
+  height: 200px;
+  background-color: #3b3b3b;
+  margin-bottom: 20px;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  overflow: hidden;
+  background-image: var(--image);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  z-index: -1;
+}
+
+.cuej__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
