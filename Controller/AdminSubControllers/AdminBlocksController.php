@@ -57,12 +57,16 @@ class AdminBlocksController extends AdminController {
    * Handles common actions for blocks (edit, delete).
    *
    * @param string $action
-   * @param int $blocId
+   * @param int $blockId
    */
   private function handleBlockAction($action, $blockId)
   {
     $this->requiresValidID('blocks');
     $block = $this->getBlockById($blockId);
+    if ($action === 'delete') {
+      $this->delete_block($blockId);
+    }
+
 /*     $this->render("Blocks/$action", ['block' => $block, 'categories' => $allCategories]);
  */  }
 
@@ -88,8 +92,6 @@ class AdminBlocksController extends AdminController {
         $this->handleBlockAction('delete', $blockId);
         break;
       case 'blocks':
-        $this->requiresValidID('blocks');
-        $blocksBlock = Blocks::getBlocksByArticle($articleId);
         $block = Blocks::getBlock($blockId);
         $availableBlocks = Blocks::getAvailableBlocks();
         $this->render('Blocks/list', ['block' => $block, 'available_blocks' => $availableBlocks]);
@@ -123,11 +125,11 @@ class AdminBlocksController extends AdminController {
    * @param array $params
    */
   public function delete_block($params) {
-    $blockId = FieldChecker::cleanInt($this->requestContext->getOptParam());
-
+    $blockId = FieldChecker::cleanInt(explode('/', $this->requestContext->getOptParam())[1]);
     try {
+      $idarticle = $this->getBlockById($blockId)->getArticleId();
       Blocks::delete($blockId);
-      $this->redirect('admin/blocks');
+      $this->redirect("admin/articles/blocks/$idarticle");
     } catch (\Exception $e) {
       $this->render('Blocks/list', ['blocks' => Blocks::getAllBlocks(), 'errors' => [$e->getMessage()]]);
     }
@@ -154,7 +156,6 @@ class AdminBlocksController extends AdminController {
       if (is_null($newMediaId) && (isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
         $newMediaId = $this->upload_file($_FILES['image']);
       }
-      var_dump($articleId);
       if ($action === 'create') {
         Blocks::create(
           $processed['name'],

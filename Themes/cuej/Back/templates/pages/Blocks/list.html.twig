@@ -74,7 +74,7 @@
         <ul>
           {% if blocks|length > 0 %}
             {% for block in blocks %}
-              <li>{{ block.name }}</li>
+              <li>{{ block.name }}<a href="admin/blocks/delete/{{ block.id }}">Delete</a></li>
             {% endfor %}
           {% else %}
             <li>No blocks created</li>
