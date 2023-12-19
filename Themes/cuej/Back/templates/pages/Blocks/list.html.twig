@@ -62,7 +62,7 @@
             <script>
               window.fields['{{ available.name|split('.')|first }}'] = {{ available.fields|json_encode|raw }};
             </script>
-            <button class="cuej__block-creation" data-type="{{ available.name|split('.')|first }}">{{ available.name|split('.')|first }}</button>
+            <button class="cuej__block-creation" data-articleID="{{ article.id }}" data-type="{{ available.name|split('.')|first }}">{{ available.name|split('.')|first }}</button>
           {% endfor %}
         {% else %}
           <p>No blocks available</p>
