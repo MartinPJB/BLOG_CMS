@@ -74,7 +74,12 @@
         <ul>
           {% if blocks|length > 0 %}
             {% for block in blocks %}
-              <li>{{ block.name }}<a href="admin/blocks/delete/{{ block.id }}">Delete</a></li>
+              <li>{{ block.name }}
+                <a href="admin/blocks/delete/{{ block.id }}">Delete</a>
+                <button class="cuej__block-update" data-blockId="{{ block.id }}" data-json="{{ block.json_content }}" data-weight="{{ block.weight }}" data-name="{{ block.name }}">
+                  Update
+                </button>
+              </li>
             {% endfor %}
           {% else %}
             <li>No blocks created</li>
