@@ -194,14 +194,16 @@ class Blocks
     $json_content,
     $article_id,
     $type,
-    $weight
+    $weight,
+    $media
   ) {
     Manager::create('blocks', [
       'name' => $name,
       'json_content' => json_encode($json_content),
       'article_id' => $article_id,
       'type' => $type,
-      'weight' => $weight
+      'weight' => $weight,
+      'media' => $media
     ]);
   }
 
@@ -221,7 +223,8 @@ class Blocks
     $json_content,
     $article_id,
     $type,
-    $weight
+    $weight,
+    $media
   ) {
     Manager::update('blocks', [
       'name' => $name,

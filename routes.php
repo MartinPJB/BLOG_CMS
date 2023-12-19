@@ -7,6 +7,7 @@ use \Controller\UsersController;
 use \Controller\PublicController;
 use \Controller\AdminController;
 use \Controller\AdminSubControllers\AdminArticlesController;
+use \Controller\AdminSubControllers\AdminBlocksController;
 use \Controller\AdminSubControllers\AdminMediasController;
 
 /*
@@ -51,6 +52,15 @@ Router::addRoute('admin', 'articles', '\Controller\AdminSubControllers\AdminArti
 Router::addRoute('admin', 'create_article', '\Controller\AdminSubControllers\AdminArticlesController', 2, 'POST');
 Router::addRoute('admin', 'edit_article', '\Controller\AdminSubControllers\AdminArticlesController', 2, 'POST');
 Router::addRoute('admin', 'delete_article', '\Controller\AdminSubControllers\AdminArticlesController', 2, 'POST');
+
+/* -- Admin Blocks -- */
+// GET
+Router::addRoute('admin', 'blocks', '\Controller\AdminSubControllers\AdminBlocksController', 2, 'GET');
+
+// POST
+Router::addRoute('admin', 'create_block', '\Controller\AdminSubControllers\AdminBlocksController', 2, 'POST');
+Router::addRoute('admin', 'edit_block', '\Controller\AdminSubControllers\AdminBlocksController', 2, 'POST');
+Router::addRoute('admin', 'delete_block', '\Controller\AdminSubControllers\AdminBlocksController', 2, 'POST');
 
 /* -- Admin Categories -- */
 // GET

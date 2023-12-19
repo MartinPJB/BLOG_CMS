@@ -1,1 +1,1 @@
-import './_video_controls';
+import './_video_controls.js';
