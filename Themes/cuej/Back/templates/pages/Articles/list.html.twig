@@ -71,8 +71,8 @@
           </td>
           <td>
             <a href="admin/articles/blocks/{{ id }}">Edit content</a>
-            <a href="admin/articles/edit/{{ id }}">Edit</a>
-            <a href="admin/articles/delete/{{ id }}">Delete</a>
+            <a href="admin/articles/edit/{{ id }}" title="Edit"><i class="bi bi-pencil-square"></i></a>
+            <a href="admin/articles/delete/{{ id }}" title="Delete"><i class="bi bi-trash3-fill"></i></a>
           </td>
         </tr>
       {% else %}
@@ -83,6 +83,6 @@
     </tbody>
   </table>
 
-  <a href="admin/articles/create">Create an article</a>
+  <a href="admin/articles/create" class="btn btn--primary">Create an article</a>
 
 {% endblock %}

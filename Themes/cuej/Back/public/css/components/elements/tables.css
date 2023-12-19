@@ -1,16 +1,23 @@
 /* Table */
 table {
-  font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
+}
+
+th {
+  padding: 15px 20px;
+  background-color: #e6e6e6;
+}
+
+td {
+  padding: 10px 20px;
 }
 
 td, th {
   border: 1px solid #cfcfcf;
   text-align: left;
-  padding: 8px;
 }
 
 tr:nth-child(even) {
-  background-color: #f0f0f0;
+  background-color: #f9f9f9;
 }

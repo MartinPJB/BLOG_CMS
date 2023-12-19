@@ -68,3 +68,15 @@
 .flex-4 {
   flex: 4;
 }
+.flex-gap {
+  gap: 1rem;
+}
+.flex-gap-2 {
+  gap: 2rem;
+}
+.flex-gap-3 {
+  gap: 3rem;
+}
+.flex-gap-4 {
+  gap: 4rem;
+}

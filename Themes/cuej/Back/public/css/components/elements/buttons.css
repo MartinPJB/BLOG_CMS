@@ -1,0 +1,20 @@
+.btn {
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  transition: color .2s ease-in-out, background-color .2s ease-in-out;
+  text-decoration: none !important;
+  display: inline-block;
+  text-align: center;
+  width: fit-content;
+  margin-top: 1rem;
+}
+
+.btn--primary {
+  color: var(--white) !important;
+  background-color: var(--primary);
+}
+.btn--primary:hover {
+  color: var(--white) !important;
+  background-color: var(--primary-dark);
+}
