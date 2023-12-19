@@ -1,0 +1,23 @@
+.cuej-content {
+  padding: 0 20px;
+}
+
+.cuej-content > h1 {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 70px;
+  margin: 0;
+  padding: 0 20px;
+  margin-left: -20px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid #e6e6e6;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  backdrop-filter: blur(10px);
+}
+
+.cuej-content:first-of-type:not(h1) {
+  margin-top: 70px;
+}

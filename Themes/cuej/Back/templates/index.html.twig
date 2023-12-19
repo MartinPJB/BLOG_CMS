@@ -31,12 +31,12 @@
     {% block javascript %}{% endblock %}
 	</head>
 
-	<body>
+	<body class="flex">
     {# Menu #}
     {% include "navigation/menu.html.twig" %}
 
     {# Display content #}
-    <main>
+    <main class="cuej-content flex flex-column flex-1">
       {# Display errors / messages if defined #}
       {% include "misc/errors.html.twig" %}
       {% include "misc/messages.html.twig" %}

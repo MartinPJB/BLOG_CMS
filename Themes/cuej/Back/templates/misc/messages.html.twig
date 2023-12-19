@@ -3,7 +3,7 @@
   Path: cuej/Front/templates/misc/messages.html.twig
 #}
 
-{% if messages is defined %}
+{% if messages is defined and messages is not empty %}
 	<ul class="messages">
 		{% for message in messages %}
 			<li>{{ message }}</li>

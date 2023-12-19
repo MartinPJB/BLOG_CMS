@@ -1,3 +1,4 @@
+/* Table */
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -5,11 +6,11 @@ table {
 }
 
 td, th {
-  border: 1px solid #dddddd;
+  border: 1px solid #cfcfcf;
   text-align: left;
   padding: 8px;
 }
 
 tr:nth-child(even) {
-  background-color: #e8e8e8;
+  background-color: #f0f0f0;
 }
