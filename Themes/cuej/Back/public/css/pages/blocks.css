@@ -1,0 +1,43 @@
+/* Styles for the block creation section */
+.block-creation {
+  border-left: 1px solid #dddddd;
+  padding: 0 30px;
+  overflow: auto;
+}
+
+/* Styles for the first step section in the block creation */
+.block-creation #step__1 > section {
+  margin-bottom: 3rem;
+}
+
+/* Styles for headings within the first step section */
+.block-creation #step__1 > section h2 {
+  margin-bottom: 0;
+}
+
+/* Styles for the list of created blocks */
+.block-creation .created-blocks {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+/* Styles for each created block item */
+.block-creation .created-blocks .created-blocks__block {
+  padding: 10px 0;
+  border-bottom: 1px solid #dddddd;
+}
+
+/* Styles for actions within each created block item */
+.block-creation .created-blocks .created-blocks__block .actions {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+/* Styles for individual action items within each created block item */
+.block-creation .created-blocks .created-blocks__block .actions * {
+  margin: 0;
+}

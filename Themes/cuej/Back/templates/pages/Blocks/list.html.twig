@@ -33,71 +33,83 @@
   <script src="public/back/js/blocks/blocks.js" defer type="module"></script>
 {% endblock %}
 
+{# Custom CSS #}
+{% block stylesheet %}
+  <link rel="stylesheet" href="public/back/css/pages/blocks.css">
+{% endblock %}
+
 {# Set content #}
 {% block content %}
-  <h1>{{ article.title }}</h1>
+  <h1>{{ article.title }} | Blocks</h1>
   <p>You can edit the content of your article by creating blocks.</p>
 
   <script>
+    // Global objects for handling fields
     window.fields = {};
-    window.existingFields = {};
   </script>
 
-  {# Display blocks #}
-  {% if blocks|length > 0 %}
-    {% for block in blocks %}
-      <p>{{ block.name }}</p>
-    {% endfor %}
-  {% else %}
-    <p>No blocks</p>
-  {% endif %}
+  <section class="flex flex-gap">
 
-  {# Aside for block's creation #}
-  <aside>
-    {# Select a new block / See creator blocks #}
-    <section id="step__1">
-      <section id="block_selection">
-        <h2>Create a block</h2>
-        {% if available_blocks|length > 0 %}
-          {% for available in available_blocks %}
-            <script>
-              window.fields['{{ available.name|split('.')|first }}'] = {{ available.fields|json_encode|raw }};
-            </script>
-            <button class="cuej__block-creation" data-articleID="{{ article.id }}" data-type="{{ available.name|split('.')|first }}">{{ available.name|split('.')|first }}</button>
+    <div class="content flex flex-column flex-1">
+      <h2>Blocks created</h2>
+
+      {# Display blocks #}
+      <ul>
+        {% if blocks|length > 0 %}
+          {% for block in blocks %}
+            <li>{{ block.name }}</li>
           {% endfor %}
         {% else %}
-          <p>No blocks available</p>
+          <li>No blocks</li>
         {% endif %}
-      </section>
+      </ul>
+    </div>
 
-      <section>
-        <h2>Created blocks</h2>
-        <ul>
-          {% if blocks|length > 0 %}
-            {% for block in blocks %}
-              <li>{{ block.name }}
-                <a href="admin/blocks/delete/{{ block.id }}">Delete</a>
-                <button class="cuej__block-update" data-articleID="{{ article.id }}" data-type="{{ block.type }}" data-blockid="{{ block.id }}" data-weight="{{ block.weight }}" data-name="{{ block.name }}" data-json='{{ block.getJsonContentString() }}'>
-                  Update
-                </button>
-              </li>
+    {# Aside for block's creation #}
+    <aside class="block-creation flex flex-column flex-1">
+      {# Select a new block / See creator blocks #}
+      <section id="step__1">
+        <section id="block_selection">
+          <h2>Create a block</h2>
+          {% if available_blocks|length > 0 %}
+            {% for available in available_blocks %}
+              {# Store field information for the selected block type #}
+              <script>
+                window.fields['{{ available.name|split('.')|first }}'] = {{ available.fields|json_encode|raw }};
+              </script>
+              <button class="cuej__block-creation" data-articleID="{{ article.id }}" data-type="{{ available.name|split('.')|first }}">{{ available.name|split('.')|first|replace('_', ' ')|title }}</button>
             {% endfor %}
           {% else %}
-            <li>No blocks created</li>
+            <p>No blocks available</p>
           {% endif %}
-        </ul>
+        </section>
+
+        <section>
+          <h2>Created blocks</h2>
+          <ul class="created-blocks">
+            {% if blocks|length > 0 %}
+              {% for block in blocks %}
+                <li class="created-blocks__block flex flex-between">
+                  {{ block.name }}
+
+                  <div class="actions flex">
+                    <button class="cuej__block-update" data-articleID="{{ article.id }}" data-type="{{ block.type }}" data-blockid="{{ block.id }}" data-weight="{{ block.weight }}" data-name="{{ block.name }}" data-json='{{ block.getJsonContentString() }}'>Update</button>
+                    <a href="admin/blocks/delete/{{ block.id }}" class="btn btn--danger">Delete</a>
+                  </div>
+                </li>
+              {% endfor %}
+            {% else %}
+              <li>No blocks created</li>
+            {% endif %}
+          </ul>
+        </section>
       </section>
-    </section>
 
-    <script>
-      console.log(window.existingFields);
-    </script>
-
-    {# New block creation form #}
-    <section id="step__2" class="hidden">
-      <button id="cuej__block-creation-back">Back</button>
-      <div id="cuej__block-creation-form"></div>
-    </section>
-  </aside>
-
+      {# New block creation form #}
+      <section id="step__2" class="hidden">
+        <button id="cuej__block-creation-back">Back</button>
+        <div id="cuej__block-creation-form"></div>
+      </section>
+    </aside>
+  </section>
 {% endblock %}
