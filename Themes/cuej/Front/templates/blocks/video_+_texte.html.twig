@@ -1,0 +1,18 @@
+{#
+Fields:
+- block_src (file): { label: 'Vidéo', accept: '.mp4'}
+- block_ref (text): { label: 'Légende', min: 3, max: 64 }
+- block_posiion (select): { label: 'Position de la vidéo', options: 'Gauche, Droite' }
+#}
+<section class="block">
+  <div class="imgandtxt media--{{ json.block_position }}">
+    <figure class="imgandtxt-block">
+      <video class="imgandtxt-block__video">
+        <source src="{{ json.block_src }}" type="video/mp4">
+        Votre navigateur n'arrive pas à lire le MP4, cependant vous pouvez toujours le
+        <a href="{{ json.block_src }}">Télécharger</a>
+      </video>
+      <figcaption class="imgandtxt-block__legend">{{ json.block_ref }}</figcaption>
+    </figure>
+  </div>
+</section>

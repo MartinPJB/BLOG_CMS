@@ -1,0 +1,9 @@
+{#
+Fields:
+- block_content (text): { label: 'Content', min: 5, max: 64 }
+#}
+<section class="block">
+  <h2 class="subtitle">
+    {{ json.block_content|raw }}
+  </h2>
+</section>

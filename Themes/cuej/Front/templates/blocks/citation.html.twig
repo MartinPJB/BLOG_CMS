@@ -1,0 +1,15 @@
+{#
+Fields:
+- block_content (textarea): { label: 'Texte cité', min: 10, max: 10000 }
+- block_ref (text): { label: 'Origine', min: 3, max: 128 }
+#}
+<section class="block">
+  <figure class="quote">
+    <blockquote class="quote__content">
+      {{ json.block_content|raw }}
+    </blockquote>
+    <figcaption class="quote__ref">
+      {{ json.block_ref|raw }}
+    </figcaption>
+  </figure>
+</section>
