@@ -111,7 +111,6 @@ class UsersController extends ControllerBase implements ControllerInterface
     // If there's no errors, try to log the user in
     if (empty($errors)) {
       $user = Users::authentificateUser($email, $password);
-      var_dump($user);
 
       if ($user) {
         $this->redirect('articles');

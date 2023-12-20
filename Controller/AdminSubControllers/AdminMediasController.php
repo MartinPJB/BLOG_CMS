@@ -82,8 +82,6 @@ class AdminMediasController extends AdminController
     try {
       // Process and validate form fields as needed
       $processed = $this->process_fields();
-
-      var_dump($processed['name'], $processed['alt']);
       $file_extension = strtolower(pathinfo($_FILES['media_file']['name'], PATHINFO_EXTENSION));
 
       // Upload file and get its ID

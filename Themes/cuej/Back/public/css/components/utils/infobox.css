@@ -1,0 +1,15 @@
+.infobox {
+  color: var(--white);
+  padding: 15px 20px;
+  border-radius: 5px;
+  margin: 1rem 0;
+  list-style-type: none;
+}
+
+.infobox.errors {
+  background-color: var(--danger);
+}
+
+.infobox.messages {
+  background-color: var(--primary);
+}

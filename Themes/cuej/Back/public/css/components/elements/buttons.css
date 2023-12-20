@@ -9,7 +9,7 @@
   width: fit-content;
   margin-top: 1rem;
   background-color: var(--secondary);
-  color: var(--white);
+  color: var(--white) !important;
 }
 .btn:hover, input[type="submit"]:hover, input[type="button"]:hover, button:hover {
   background-color: var(--secondary-dark);
@@ -22,4 +22,13 @@
 .btn--primary:hover {
   color: var(--white) !important;
   background-color: var(--primary-dark);
+}
+
+.btn--danger {
+  color: var(--white) !important;
+  background-color: var(--danger);
+}
+.btn--danger:hover {
+  color: var(--white) !important;
+  background-color: var(--danger-dark);
 }

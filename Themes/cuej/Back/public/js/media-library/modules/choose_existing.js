@@ -85,7 +85,7 @@ const library_choose_existing = {
       preview.classList.add("cuej__media__choose_existing__preview");
 
       // Handles media path (checks if it's local or not)
-      const imagePath = media.path.includes("http") ? media.path : `../../../../${media.path}`;
+      const imagePath = media.path.includes("http") ? media.path : `../../../../../${media.path}`;
       preview.style.setProperty("--image", `url("${imagePath}")`);
 
       // Append all elements

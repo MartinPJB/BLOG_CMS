@@ -44,8 +44,6 @@ input[type="file"]::-webkit-file-upload-button {
   transition: color .2s ease-in-out, background-color .2s ease-in-out;
 }
 
-
-
 textarea {
   min-height: 200px;
   resize: none;
