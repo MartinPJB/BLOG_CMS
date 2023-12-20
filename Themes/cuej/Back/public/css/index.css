@@ -10,6 +10,7 @@
 @import "components/elements/content.css";
 @import "components/elements/tables.css";
 @import "components/elements/buttons.css";
+@import "components/elements/forms.css";
 
 * {
     box-sizing: border-box;
