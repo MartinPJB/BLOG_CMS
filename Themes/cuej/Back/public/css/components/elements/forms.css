@@ -1,15 +1,12 @@
-/* Forms */
+/* General form styles */
 form {
   padding: 15px 0;
-}
-
-form, form > section {
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
 }
 
-/* Inputs */
+/* Input styles */
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -21,41 +18,44 @@ input[type="search"],
 textarea,
 select {
   padding: 15px 20px;
-  border: none;
-  border-radius: 5px;
   border: 1px solid #dddddd;
+  border-radius: 5px;
   color: var(--black);
   transition: color .2s ease-in-out, background-color .2s ease-in-out;
 }
 
+/* File input styles */
 input[type="file"] {
   border: 1px solid #dddddd;
   border-radius: 5px;
   padding: 20px;
 }
+
+/* File input button styles */
 input[type="file"]::file-selector-button,
 input[type="file"]::-webkit-file-upload-button {
   cursor: pointer;
   padding: 15px 20px;
-  border: none;
-  border-radius: 5px;
   border: 1px solid #dddddd;
+  border-radius: 5px;
   color: var(--black);
   transition: color .2s ease-in-out, background-color .2s ease-in-out;
 }
 
+/* Textarea styles */
 textarea {
   min-height: 200px;
   resize: none;
 }
 
+/* Label styles */
 label {
   font-size: 1rem;
   margin-bottom: .5rem;
   color: #777777;
 }
 
-/* Img */
+/* Image styles within a form */
 form img {
   width: 50%;
   padding: 1rem;

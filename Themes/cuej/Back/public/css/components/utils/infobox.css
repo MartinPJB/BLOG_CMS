@@ -1,3 +1,4 @@
+/* Infobox styles */
 .infobox {
   color: var(--white);
   padding: 15px 20px;
@@ -6,10 +7,12 @@
   list-style-type: none;
 }
 
+/* Infobox for displaying errors */
 .infobox.errors {
   background-color: var(--danger);
 }
 
+/* Infobox for displaying general messages */
 .infobox.messages {
   background-color: var(--primary);
 }

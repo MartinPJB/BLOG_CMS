@@ -1,10 +1,17 @@
 :root {
-  --primary: #7b60d4;
-  --primary-dark: #5f4bb6;
-  --secondary: #9b9ece;
-  --secondary-dark: #7b7fa4;
-  --white: #fdf7fa;
-  --black: #191516;
-  --danger: #e62020;
-  --danger-dark: #b31a1a;
+  /* Primary colors */
+  --primary: #7b60d4;         /* Primary color */
+  --primary-dark: #5f4bb6;    /* Darker shade of primary color */
+
+  /* Secondary colors */
+  --secondary: #9b9ece;       /* Secondary color */
+  --secondary-dark: #7b7fa4;  /* Darker shade of secondary color */
+
+  /* Neutral colors */
+  --white: #fdf7fa;           /* White color */
+  --black: #191516;           /* Black color */
+
+  /* Danger colors */
+  --danger: #e62020;          /* Danger color */
+  --danger-dark: #b31a1a;     /* Darker shade of danger color */
 }
