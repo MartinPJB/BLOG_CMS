@@ -28,6 +28,24 @@ select {
   transition: color .2s ease-in-out, background-color .2s ease-in-out;
 }
 
+input[type="file"] {
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  padding: 20px;
+}
+input[type="file"]::file-selector-button,
+input[type="file"]::-webkit-file-upload-button {
+  cursor: pointer;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 5px;
+  border: 1px solid #dddddd;
+  color: var(--black);
+  transition: color .2s ease-in-out, background-color .2s ease-in-out;
+}
+
+
+
 textarea {
   min-height: 200px;
   resize: none;
@@ -39,6 +57,7 @@ label {
   color: #777777;
 }
 
+/* Img */
 form img {
   width: 50%;
   padding: 1rem;
