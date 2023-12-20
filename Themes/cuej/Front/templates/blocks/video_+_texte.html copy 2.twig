@@ -1,0 +1,15 @@
+{#
+Fields:
+- block_src (file): { label: 'Vidéo', accept: '.png, .jpg, .jpeg, .gif, .webp, .svg', max: '20MO'}
+- block_alt (text): { label: 'Légende', min: 3, max: 128 }
+- block_ref (text): { label: 'Texte alternatif', min: 3, max: 64 }
+- block_posiion (select): { label: 'Position de l'image', options: 'Gauche, Droite' }
+#}
+<section class="block">
+  <div class="vidandtxt media--{{ json.block_position }}">
+    <figure class="vidandtxt-block">
+      <img src="{{ json.block_src }}" alt="{{ json.block_alt }}">
+      <figcaption class="vidandtxt-block__legend">{{ json.block_ref }}</figcaption>
+    </figure>
+  </div>
+</section>

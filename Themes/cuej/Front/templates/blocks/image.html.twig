@@ -1,0 +1,14 @@
+{#
+Fields:
+- block_src (file): { label: 'Image', accept: '.png, .jpg, .jpeg, .gif, .webp, .svg', max: '20MO'}
+- block_alt (text): { label: 'Texte alternatif', min: 3, max: 256 }
+- block_ref (text): { label: 'Légende', min: 3, max: 64 }
+#}
+<section class="block">
+  <figure class="image-block">
+    <img class="image-block__image" src="{{ json.block_src }}" alt="{{ json.block_alt|raw }}">
+    <figcaption class="image-block__legend">
+      {{ json.block_ref|raw }}
+    </figcaption>
+  </figure>
+</section>
