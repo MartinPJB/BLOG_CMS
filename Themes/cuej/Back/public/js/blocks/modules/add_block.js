@@ -16,7 +16,7 @@ const block_create = {
       return;
     }
 
-    const formContainer = document.querySelector("#cuej__block-creation-form");
+    const formContainer = document.querySelector("#cuej__block-creation-container");
     formContainer.innerHTML = ""; // Clear previous content
     formContainer.appendChild(this.createFormElement(articleID, targetForm, form, e.target.dataset.blockid));
 
@@ -168,7 +168,7 @@ const block_create = {
   hideForm(e) {
     document.querySelector("#step__1").classList.toggle("hidden");
     document.querySelector("#step__2").classList.toggle("hidden");
-    document.querySelector("#cuej__block-creation-form").innerHTML = "";
+    document.querySelector("#cuej__block-creation-container").innerHTML = "";
   },
 
   /**
