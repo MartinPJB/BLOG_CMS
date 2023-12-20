@@ -37,11 +37,12 @@
       {% else %}
         <a href="{{ media.path }}">Download</a>
       {% endif %}
-      <span class="media__name">{{ media.name }}.{{ media.type|split("/")|last }}</span>
-
-      <div class="context-menu media__actions">
-        <a href="admin/medias/edit/{{ media.id }}" class="media__action--edit">Edit</a>
-        <button class="media__actions--delete cuej__delete_media btn" data-id={{ media.id }}>Delete</button>
+      <div class="media-actions flex flex-column flex-center">
+        <span class="media-name">{{ media.name }}.{{ media.type|split("/")|last }}</span>
+        <div class="flex flex-gap flex-wrap">
+          <a href="admin/medias/edit/{{ media.id }}" class="btn">Edit</a>
+          <button class="action-delete cuej__delete_media btn btn--danger" data-id={{ media.id }}>Delete</button>
+        </div>
       </div>
 		</article>
 	{% endfor %}

@@ -108,17 +108,14 @@ class AdminCategoriesController extends AdminController
       $processed = $this->process_fields();
 
       if ((isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
-        var_dump("uploading file");
         $newMediaId = $this->upload_file($_FILES['image']);
       }
 
       else if (isset($processed['media_id'])) {
-        var_dump("using existing file", $_FILES);
         $newMediaId = $processed['media_id'];
       }
 
       $media = Medias::getMediaById($newMediaId);
-      var_dump($media);
 
       $this->validateCategoryFields($processed['name'], $processed['description'], $media);
 

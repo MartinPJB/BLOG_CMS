@@ -5,8 +5,8 @@
 @import "components/utils/variables.css";
 @import "components/navigation/aside.css";
 @import "components/utils/flex.css";
-@import "components/utils/grid.css";
-@import "components/existing_files.css";
+@import "components/utils/infobox.css";
+@import "components/elements/medias.css";
 @import "components/elements/content.css";
 @import "components/elements/tables.css";
 @import "components/elements/buttons.css";

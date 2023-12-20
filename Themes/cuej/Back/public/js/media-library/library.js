@@ -29,7 +29,6 @@ function wait(ms) {
   if (mediaArea) {
     const radioLabels = mediaArea.querySelectorAll("label");
     const inputFile = cuej__media.querySelector("input[type=file]");
-    console.log(inputFile);
 
     for (const label of radioLabels) {
       const input = document.getElementById(label.htmlFor);

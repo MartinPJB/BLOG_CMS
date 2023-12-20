@@ -168,13 +168,11 @@ class AdminController extends ControllerBase implements ControllerInterface
       }
 
       $file_hash = md5_file($file_tmp);
-      var_dump($file_hash);
 
       // Check if the file already exists
       $existingFile = Manager::read('medias', [], ['hash' => $file_hash]);
 
       if (!empty($existingFile)) {
-        var_dump("Successfully fetched existing file (no duplication):", $existingFile[0]['id']);
         return $existingFile[0]['id'];
       }
 
@@ -192,7 +190,6 @@ class AdminController extends ControllerBase implements ControllerInterface
         $file_hash
       );
 
-      var_dump("Successfully uploaded file (new file):", Manager::getLastInsertedId());
       return Manager::getLastInsertedId();
     } catch (\Exception $e) {
       // Log or print detailed error information for debugging
