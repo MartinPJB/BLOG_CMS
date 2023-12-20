@@ -1,23 +1,27 @@
-/* Table */
+/* Collapse table borders and set full width */
 table {
   border-collapse: collapse;
   width: 100%;
 }
 
+/* Header cell styles */
 th {
   padding: 15px 20px;
   background-color: #e6e6e6;
 }
 
+/* Data cell styles */
 td {
   padding: 10px 20px;
 }
 
+/* Shared styles for both header and data cells */
 td, th {
   border: 1px solid #cfcfcf;
   text-align: left;
 }
 
+/* Alternate row background color for better readability */
 tr:nth-child(even) {
   background-color: #f9f9f9;
 }

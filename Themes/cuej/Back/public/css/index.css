@@ -12,49 +12,54 @@
 @import "components/elements/buttons.css";
 @import "components/elements/forms.css";
 
+/* Global styles */
 * {
     box-sizing: border-box;
 }
 
 *:disabled {
-  cursor: not-allowed;
-  opacity: .5;
+    cursor: not-allowed;
+    opacity: .5;
 }
 
 /* Utils */
 .visible {
     display: block;
 }
+
 .visible-flex {
     display: flex;
 }
+
 .hidden {
     display: none;
 }
 
 /* Layout */
 html {
-  font-size: 15px;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 400;
-
-  min-height: 100vh;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
 }
+
 body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  overflow: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
 }
 
 /* Links */
 a {
-  color: var(--primary);
-  text-decoration: none;
+    color: var(--primary);
+    text-decoration: none;
 }
+
 a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
+
 a:visited {
-  color: var(--primary-dark);
+    color: var(--primary-dark);
 }

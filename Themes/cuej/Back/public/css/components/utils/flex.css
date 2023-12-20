@@ -1,13 +1,17 @@
-/* FLex class util */
+/* Display flex container */
 .flex {
   display: flex;
 }
+
+/* Flex direction classes */
 .flex-column {
   flex-direction: column;
 }
 .flex-row {
   flex-direction: row;
 }
+
+/* Justify content and align items classes */
 .flex-center {
   justify-content: center;
   align-items: center;
@@ -32,6 +36,8 @@
   justify-content: space-evenly;
   align-items: center;
 }
+
+/* Flex wrap classes */
 .flex-wrap {
   flex-wrap: wrap;
 }
@@ -41,6 +47,8 @@
 .flex-nowrap {
   flex-wrap: nowrap;
 }
+
+/* Flex grow, shrink, and basis classes */
 .flex-grow {
   flex-grow: 1;
 }
@@ -50,6 +58,8 @@
 .flex-basis {
   flex-basis: 1;
 }
+
+/* Flex auto, none, and numeric classes */
 .flex-auto {
   flex: auto;
 }
@@ -68,6 +78,8 @@
 .flex-4 {
   flex: 4;
 }
+
+/* Flex gap classes */
 .flex-gap {
   gap: 1rem;
 }

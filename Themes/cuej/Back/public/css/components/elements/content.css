@@ -1,8 +1,10 @@
+/* Main content container */
 .cuej-content {
   padding: 0 20px;
   overflow: auto;
 }
 
+/* Sticky header styles */
 .cuej-content > h1 {
   display: flex;
   align-items: center;
@@ -19,6 +21,7 @@
   backdrop-filter: blur(10px);
 }
 
+/* Margin adjustment for content below the header */
 .cuej-content:first-of-type:not(h1) {
   margin-top: 70px;
 }

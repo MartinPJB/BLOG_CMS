@@ -1,25 +1,31 @@
-/* Sidebar */
+/* Sidebar styles */
+
+/* Sidebar container */
 .cuej-sidebar {
-    width: 250px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-    border: 1px solid #e6e6e6;
+  width: 250px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  border: 1px solid #e6e6e6;
 }
 
+/* Sidebar title */
 .cuej-sidebar__title {
-    padding: 20px;
-    border-bottom: 1px solid #e6e6e6;
-    text-align: center;
-    margin: 0;
-    user-select: none;
+  padding: 20px;
+  border-bottom: 1px solid #e6e6e6;
+  text-align: center;
+  margin: 0;
+  user-select: none;
 }
 
+/* Sidebar links list */
 .cuej-sidebar__links {
   list-style-type: none;
   padding: 10px;
   margin: 0;
   width: 100%;
 }
+
+/* Sidebar link items */
 .cuej-sidebar__links li a {
   width: 100%;
   text-decoration: none;
@@ -30,6 +36,8 @@
   display: block;
   transition: color .2s ease-in-out, background-color .2s ease-in-out;
 }
+
+/* Hover effect on sidebar links */
 .cuej-sidebar__links li a:hover {
   color: #fff;
   background-color: var(--primary);

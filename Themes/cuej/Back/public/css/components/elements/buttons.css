@@ -1,4 +1,8 @@
-.btn, input[type="submit"], input[type="button"], button {
+/* Shared styles for buttons, input[type="submit"], input[type="button"], and button */
+.btn,
+input[type="submit"],
+input[type="button"],
+button {
   padding: 15px 20px;
   border: none;
   cursor: pointer;
@@ -11,23 +15,34 @@
   background-color: var(--secondary);
   color: var(--white) !important;
 }
-.btn:hover, input[type="submit"]:hover, input[type="button"]:hover, button:hover {
+
+/* Hover effect on buttons */
+.btn:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+button:hover {
   background-color: var(--secondary-dark);
 }
 
+/* Primary button style */
 .btn--primary {
   color: var(--white) !important;
   background-color: var(--primary);
 }
+
+/* Hover effect on primary button */
 .btn--primary:hover {
   color: var(--white) !important;
   background-color: var(--primary-dark);
 }
 
+/* Danger button style */
 .btn--danger {
   color: var(--white) !important;
   background-color: var(--danger);
 }
+
+/* Hover effect on danger button */
 .btn--danger:hover {
   color: var(--white) !important;
   background-color: var(--danger-dark);
