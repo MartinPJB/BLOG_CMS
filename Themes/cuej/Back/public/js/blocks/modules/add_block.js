@@ -1,24 +1,28 @@
 /**
  * Library for handling block creation.
  * @namespace
- */
+*/
 const block_create = {
   /**
    * Handles the show form function.
    * @function
    * @param {Event} e - The event triggering the displayForm function.
-   */
-  displayForm(e) {
-    const { articleid: articleID, type: targetForm } = e.target.dataset;
-    const form = window.fields[targetForm];
+  */
+ displayForm(e) {
+   const { articleid: articleID, type: targetForm } = e.target.dataset;
+   const form = window.fields[targetForm];
 
-    if (!form || !articleID) {
-      return;
+   if (!form || !articleID) {
+     return;
     }
 
     const formContainer = document.querySelector("#cuej__block-creation-form");
     formContainer.innerHTML = ""; // Clear previous content
-    formContainer.appendChild(this.createFormElement(articleID, targetForm, form));
+    formContainer.appendChild(this.createFormElement(articleID, targetForm, form, e.target.dataset.blockid));
+
+    if (e.target.dataset.json) {
+      this.fillForm(formContainer, JSON.parse(e.target.dataset.json), e.target.dataset.name);
+    };
 
     document.querySelector("#step__1").classList.toggle("hidden");
     document.querySelector("#step__2").classList.toggle("hidden");
@@ -30,18 +34,20 @@ const block_create = {
    * @param {string} articleID - The ID of the article.
    * @param {string} targetForm - The target form.
    * @param {Object} form - The form data.
+   * @param {int} blockId - The block id
    * @returns {HTMLFormElement} - The created form element.
-   */
-  createFormElement(articleID, targetForm, form) {
-    const formHTML = document.createElement("form");
-    formHTML.id = "cuej__block-creation-form";
-    formHTML.action = `admin/create_block/${articleID}`;
-    formHTML.method = "POST";
+  */
+ createFormElement(articleID, targetForm, form, blockId) {
+   const formHTML = document.createElement("form");
+   const mode = blockId ? "edit" : "create";
+   formHTML.id = "cuej__block-creation-form";
+   formHTML.action = `admin/${mode}_block/${articleID}`;
+   formHTML.method = "POST";
 
-    // Add hidden input for type
-    formHTML.appendChild(this.createHiddenInput("type", targetForm));
+   // Add hidden input for type
+   formHTML.appendChild(this.createHiddenInput("type", targetForm));
 
-    // Add name input
+   // Add name input
     formHTML.appendChild(this.createInputLabelAndInput("Block name", "name", "text", "Block name"));
 
     // Add other form inputs
@@ -50,7 +56,12 @@ const block_create = {
     }
 
     // Add submit button
-    formHTML.appendChild(this.createSubmitButton());
+    formHTML.appendChild(this.createSubmitButton(blockId));
+
+    if (blockId) {
+      console.log(blockId);
+       formHTML.appendChild(this.createHiddenInput('blockId', blockId));
+     }
 
     return formHTML;
   },
@@ -61,13 +72,13 @@ const block_create = {
    * @param {string} name - The name attribute of the input.
    * @param {string} value - The value attribute of the input.
    * @returns {HTMLInputElement} - The created hidden input element.
-   */
-  createHiddenInput(name, value) {
-    const hiddenInput = document.createElement("input");
-    hiddenInput.type = "hidden";
-    hiddenInput.name = name;
-    hiddenInput.value = value;
-    return hiddenInput;
+  */
+ createHiddenInput(name, value) {
+   const hiddenInput = document.createElement("input");
+   hiddenInput.type = "hidden";
+   hiddenInput.name = name;
+   hiddenInput.value = value;
+   return hiddenInput;
   },
 
   /**
@@ -80,19 +91,19 @@ const block_create = {
    * @param {number} [min] - The min attribute of the input (optional).
    * @param {number} [max] - The max attribute of the input (optional).
    * @returns {DocumentFragment} - The created label and input elements.
-   */
-  createInputLabelAndInput(labelText, inputID, inputType, inputPlaceholder, min, max) {
-    const fragment = document.createDocumentFragment();
+  */
+ createInputLabelAndInput(labelText, inputID, inputType, inputPlaceholder, min, max) {
+   const fragment = document.createDocumentFragment();
 
-    // Create label
-    const label = document.createElement("label");
-    label.htmlFor = inputID;
-    label.innerHTML = labelText;
+   // Create label
+   const label = document.createElement("label");
+   label.htmlFor = inputID;
+   label.innerHTML = labelText;
 
-    // Create input
-    const input = inputType === "textarea" ? document.createElement("textarea") : document.createElement("input");
+   // Create input
+   const input = inputType === "textarea" ? document.createElement("textarea") : document.createElement("input");
 
-    // Set input type for non-textarea elements
+   // Set input type for non-textarea elements
     if (inputType !== "textarea") {
       input.type = inputType;
     }
@@ -121,20 +132,36 @@ const block_create = {
    * Creates and returns a submit button element.
    * @function
    * @returns {HTMLButtonElement} - The created submit button element.
-   */
-  createSubmitButton() {
-    const submitButton = document.createElement("button");
-    submitButton.type = "submit";
-    submitButton.innerHTML = "Create block";
-    return submitButton;
+   * @param {int} blockId - The block id
+  */
+ createSubmitButton(blockId) {
+   const submitButton = document.createElement("button");
+   submitButton.type = "submit";
+   submitButton.innerHTML = (blockId ? "Update" : "Create")  + " block";
+   return submitButton;
+  },
+
+  /**
+   * Fills the form with existing values.
+   * @function
+   * @param {form} - The form container.
+   * @param {values} - The values to update.
+   * @param {name} - The block name.
+  */
+  fillForm(form, values, name){
+    form.querySelector('[name=name]').value = name;
+    for (const fieldName in values) {
+      form.querySelector(`[name="${fieldName}"]`).value = values[fieldName];
+    }
+
   },
 
   /**
    * Handles the hide form function.
    * @function
    * @param {Event} e - The event triggering the hideForm function.
-   */
-  hideForm(e) {
+  */
+ hideForm(e) {
     document.querySelector("#step__1").classList.toggle("hidden");
     document.querySelector("#step__2").classList.toggle("hidden");
     document.querySelector("#cuej__block-creation-form").innerHTML = "";
@@ -143,12 +170,18 @@ const block_create = {
   /**
    * Assigns the create block function to the create button.
    * @function
-   */
-  assignButtons() {
-    const blockButtons = document.querySelectorAll(".cuej__block-creation");
-    for (const button of blockButtons) {
+  */
+ assignButtons() {
+   const blockButtons = document.querySelectorAll(".cuej__block-creation");
+   for (const button of blockButtons) {
+     button.addEventListener("click", this.displayForm.bind(this));
+    }
+
+    const updateButtons = document.querySelectorAll(".cuej__block-update");
+    for (const button of updateButtons) {
       button.addEventListener("click", this.displayForm.bind(this));
     }
+
 
     const backbutton = document.querySelector("#cuej__block-creation-back");
     backbutton.addEventListener("click", this.hideForm.bind(this));

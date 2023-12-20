@@ -100,7 +100,6 @@ class AdminArticlesController extends AdminController
       case 'blocks':
         $this->requiresValidID('articles');
         $articlesBlock = Blocks::getBlocksByArticle($articleId);
-        var_dump($articlesBlock[0]->getJsonContent());
         $article = Articles::getArticle($articleId);
         $availableBlocks = Blocks::getAvailableBlocks();
         $this->render('Blocks/list', ['blocks' => $articlesBlock, 'article' => $article, 'available_blocks' => $availableBlocks]);

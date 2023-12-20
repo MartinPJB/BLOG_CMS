@@ -167,7 +167,7 @@ class AdminBlocksController extends AdminController {
         );
       } elseif ($action === 'edit') {
         Blocks::update(
-          $blockId,
+          $processed['blockId'],
           $processed['name'],
           $jsonDatas,
           $articleId,

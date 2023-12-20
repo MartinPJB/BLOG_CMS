@@ -276,6 +276,16 @@ class Blocks
   }
 
   /**
+   * Get the value of json_content as a string
+   *
+   * @return mixed Block content (JSON encoded)
+   */
+  public function getJsonContentString()
+  {
+    return (string)$this->json_content;
+  }
+
+  /**
    * Get the value of article_id
    *
    * @return integer Article ID
