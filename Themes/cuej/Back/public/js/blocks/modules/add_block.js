@@ -125,8 +125,9 @@ const block_create = {
     }
 
     // Append label and input to fragment
-    fragment.appendChild(label);
-    fragment.appendChild(input);
+    section.appendChild(label);
+    section.appendChild(input);
+    fragment.appendChild(section);
 
     return fragment;
   },
