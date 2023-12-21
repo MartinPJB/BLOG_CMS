@@ -13,7 +13,6 @@ a {
 }
 
 body {
-  font-size: 20px;
   overflow-x: hidden;
   color: var(--color-darker);
   font-family: 'Merriweather Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;

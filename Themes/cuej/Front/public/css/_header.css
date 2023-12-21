@@ -2,6 +2,7 @@
   background-color: var(--color-white);
   position: fixed;
   z-index: 1;
+  top: 4vh;
 }
 
 .header-nav--small {

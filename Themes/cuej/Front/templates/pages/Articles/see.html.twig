@@ -50,16 +50,12 @@ Path: cuej/Front/templates/pages/Articles/see.html.twig
   <section class="intro container gap-1" id="intro">
     <img class="intro__image center-x full-width" src="{{ image.path }}" alt="{{ image.alt }}" loading="lazy">
     <h1 class="intro__title">{{ title }}</h1>
-    <p class="intro__description">{{ description|raw }}</p>
+    <p class="intro__description chapo">{{ description|raw }}</p>
   </section>
-  <section id="article" class="container">
-    <div class="testing-content">
-
-      {% for blockTemplate in blocks %}
-          {% include 'blocks/' ~ blockTemplate.type ~ '.html.twig' with { 'json': blockTemplate.getJsonContent() } %}
-      {% endfor %}
-
-    </div>
+  <section id="article" class="article-content container col gap-2">
+    {% for blockTemplate in blocks %}
+      {% include 'blocks/' ~ blockTemplate.type ~ '.html.twig' with { 'json': blockTemplate.getJsonContent() } %}
+    {% endfor %}
   </section>
 </article>
 <nav class="container" aria-label="Navigation d'articles voisins">

@@ -9,14 +9,18 @@
 @import '_header.css';
 @import '_footer.css';
 
+
+article {
+  margin: 0 2em;
+}
+
 .intro {
   color: var(--color-white);
   position: relative;
   display: grid;
-  align-content: end;
-  height: 85vh;
+  align-content: center;
+  height: 80vh;
 }
-
 .intro__image {
   height: 100%;
   object-fit: cover;
@@ -24,13 +28,15 @@
   top: 0;
   z-index: -1;
 }
-
+.intro__title {
+  margin-top: 3.5em;
+}
 .intro__description {
-  margin-bottom: 3em;
-  font-size: 1.2em;
   max-width: 1170px;
-  font-style: italic;
-  line-height: 125%;
+}
+
+.article-content {
+  margin-top: 2em;
 }
 
 .progress-bar-container {
@@ -39,7 +45,6 @@
   width: 100%;
   height: 8px;
 }
-
 .progress-bar {
   height: 100%;
   width: 0;

@@ -1,13 +1,29 @@
+body {
+  font-size: 20px;
+}
+
+@media screen and (max-width: 1280px) {
+  body {
+    font-size: 16px;
+  }
+}
+
 h1,
 .fs-1 {
   font-family: 'Catamaran', 'Palanquin', sans-serif;
-  font-size: 4rem;
+  font-size: 4em;
   font-weight: 800;
 }
 
 h2,
 .fs-2 {
   font-family: 'Catamaran', 'Palanquin', sans-serif;
-  font-size: 2rem;
+  font-size: 2em;
   font-weight: 800;
+}
+
+.chapo {
+  font-size: 1.2em;
+  font-style: italic;
+  line-height: 125%;
 }
