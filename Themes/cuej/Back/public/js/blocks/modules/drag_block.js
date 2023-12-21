@@ -86,9 +86,6 @@ const drag_block = {
         // Clone the original element
         const newListItem = draggingElement.cloneNode(true);
         newListItem.classList.remove("dragging", "over-dragged", "after-dragged");
-        // const newListItem = document.createElement("li");
-        // newListItem.draggable = true;
-        // newListItem.innerHTML = droppedHTML;
 
         if (isAfter) {
           targetElement.parentNode.insertBefore(
@@ -105,6 +102,7 @@ const drag_block = {
       // Clean up drag-related styles
       targetElement.classList.remove("over-dragged", "after-dragged");
       draggingElement = null;
+      document.getElementById("blocksOrderSave").disabled = false;
     };
 
     // Function to handle drag end

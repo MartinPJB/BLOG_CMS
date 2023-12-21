@@ -97,6 +97,11 @@ class Blocks
       );
     }
 
+    // Order result by weight
+    usort($result, function ($a, $b) {
+      return $a->getWeight() - $b->getWeight();
+    });
+
     return $result;
   }
 
@@ -360,5 +365,15 @@ class Blocks
   public function getMedia()
   {
     return Medias::getMediaById($this->media);
+  }
+
+  /**
+   * Get the value of media_id
+   *
+   * @return integer Media ID
+   */
+  public function getMediaId()
+  {
+    return $this->media;
   }
 }

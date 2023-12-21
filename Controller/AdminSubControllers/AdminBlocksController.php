@@ -3,6 +3,7 @@
 namespace Controller\AdminSubControllers;
 
 use Controller\AdminController;
+use Core\Database\Manager;
 use Core\FieldChecker;
 use Model\Blocks;
 use Model\Medias;
@@ -107,6 +108,43 @@ class AdminBlocksController extends AdminController
         $this->render('Blocks/list', ['blocks' => Blocks::getAllBlocks()]);
         break;
     }
+  }
+
+  /**
+   * Saves the order of blocks.
+   *
+   * @param int $articleId
+   */
+  public function change_block_order()
+  {
+    header('Content-Type: application/json');
+    try {
+      $blocks = json_decode($_POST['blocksOrder']);
+      $updatedBlocks = 0;
+
+      foreach ($blocks as $key => $value) {
+        if (!is_numeric($value)) continue;
+        $block = Blocks::getBlock(intval($value));
+
+        if (is_null($block)) continue;
+
+        Manager::update('blocks', ['weight' => $key + 1], ['id' => $block->getId()]);
+        $updatedBlocks++;
+      }
+
+      echo json_encode([
+        'success' => true,
+        'message' => $updatedBlocks .' blocks have been successfully reordered!'
+      ]);
+    } catch (\Throwable $th) {
+      echo json_encode($th);
+    }
+    // $blocks = Blocks::getAllBlocks($articleId);
+    // $order = explode(',', $_POST['order']);
+    // foreach ($order as $key => $value) {
+    //   $blocks[$value]->setWeight($key + 1);
+    //   Blocks::update($blocks[$value]->getId(), $blocks[$value]->getName(), $blocks[$value]->getContent(), $blocks[$value]->getArticleId(), $blocks[$value]->getType(), $blocks[$value]->getWeight(), $blocks[$value]->getMediaId());
+    // }
   }
 
   /**

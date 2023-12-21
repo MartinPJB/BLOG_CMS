@@ -64,12 +64,14 @@
       <ul class="blocks-draggable" id="blockDraggingUl">
         {% if blocks|length > 0 %}
           {% for block in blocks %}
-            <li class="blocks-draggable__item" draggable="true">{{ block.name }}</li>
+            <li class="blocks-draggable__item" draggable="true" data-block="{{ block.id }}">{{ block.name }}</li>
           {% endfor %}
         {% else %}
           <li>No blocks</li>
         {% endif %}
       </ul>
+
+      <button class="btn btn--primary" disabled id="blocksOrderSave">Save the order</button>
     </div>
 
     {# Aside for block's creation #}
@@ -84,7 +86,7 @@
               <script>
                 window.fields['{{ available.name|split('.')|first }}'] = {{ available.fields|json_encode|raw }};
               </script>
-              <button class="cuej-block__creation" data-articleID="{{ article.id }}" data-type="{{ available.name }}">{{ available.name }}</button>
+              <button class="cuej-block__creation" data-articleID="{{ article.id }}" data-type="{{ available.name }}">{{ available.name|replace("_", " ")|title }}</button>
             {% endfor %}
           {% else %}
             <p>No blocks available</p>

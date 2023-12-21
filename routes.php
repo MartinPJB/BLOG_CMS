@@ -61,6 +61,7 @@ Router::addRoute('admin', 'blocks', '\Controller\AdminSubControllers\AdminBlocks
 Router::addRoute('admin', 'create_block', '\Controller\AdminSubControllers\AdminBlocksController', 2, 'POST');
 Router::addRoute('admin', 'edit_block', '\Controller\AdminSubControllers\AdminBlocksController', 2, 'POST');
 Router::addRoute('admin', 'delete_block', '\Controller\AdminSubControllers\AdminBlocksController', 2, 'POST');
+Router::addRoute('admin', 'change_block_order', '\Controller\AdminSubControllers\AdminBlocksController', 2, 'POST');
 
 /* -- Admin Categories -- */
 // GET
