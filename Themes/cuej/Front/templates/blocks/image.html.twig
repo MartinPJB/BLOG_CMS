@@ -1,13 +1,13 @@
 {#
 Fields:
-  - block_src (file): { label: 'Image', accept: '.png, .jpg, .jpeg, .gif, .webp, .svg', max: '20MO'}
-- block_posiion (select): { label: 'Taille de l'image', options: 'Dans les marges, Pleine largeur' }
-- block_alt (text): { label: 'Texte alternatif', min: 3, max: 256 }
-- block_ref (text): { label: 'Légende', min: 3, max: 64 }
+- block_src (file): { label: 'Image', accept: '.png, .jpg, .jpeg, .gif, .webp, .svg', max: '20MO'}
+- block_size (select): { label: 'Taille de l'image', options: 'Dans les marges, Pleine largeur' }
+- block_alt (text): { label: 'Texte alternatif', min: 3, max: 256, required: true }
+- block_ref (text): { label: 'Légende', min: 3, max: 64, required: true }
 #}
 <section class="block">
   <figure class="image-block">
-    <img class="image-block__image" src="{{ json.block_src }}" alt="{{ json.block_alt|raw }}">
+    <img class="image-block__image" src="{{ media.path }}" alt="{{ json.block_alt|raw }}">
     <figcaption class="image-block__legend">
       {{ json.block_ref|raw }}
     </figcaption>

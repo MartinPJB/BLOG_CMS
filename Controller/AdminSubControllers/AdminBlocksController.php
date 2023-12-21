@@ -10,20 +10,21 @@ use Model\Medias;
 /**
  * AdminBlocksController | Manage blocks in the admin panel
  */
-class AdminBlocksController extends AdminController {
+class AdminBlocksController extends AdminController
+{
   public $name = 'Admin - Blocks';
   public $description = 'Handles all requests related to blocks in the admin panel.';
 
   /**
    * Validates the fields of a block.
    *
-   * @param array $block_fields: Should contain arrays like : ['name' => $field_name, 'content' => $field_content,'min" => $min_length, 'max" => $max_length]
-   * @param string $description
+   * @param array $block_fields Should contain arrays like: ['name' => $field_name, 'content' => $field_content,'min" => $min_length, 'max" => $max_length]
    * @param Medias $media
    *
    * @throws \Exception
    */
-  private function validateBlockFields($block_fields = [], $media) {
+  private function validateBlockFields($block_fields = [], $media)
+  {
     foreach ($block_fields as $field) {
       $len = strlen($field['content']);
       if ($len < $field['min']) {
@@ -40,7 +41,7 @@ class AdminBlocksController extends AdminController {
   }
 
   /**
-   * Gets an block by its ID.
+   * Gets a block by its ID.
    *
    * @param int $blockId
    * @return Blocks
@@ -62,33 +63,39 @@ class AdminBlocksController extends AdminController {
   private function handleBlockAction($action, $blockId)
   {
     $this->requiresValidID('blocks');
-    $block = $this->getBlockById($blockId);
     if ($action === 'delete') {
-      $this->delete_block($blockId);
+      $this->delete_block([
+        'id' => $blockId
+      ]);
     }
 
-/*     $this->render("Blocks/$action", ['block' => $block, 'categories' => $allCategories]);
- */  }
+    // Uncomment this part if rendering with block information is needed.
+    /*
+        $block = $this->getBlockById($blockId);
+        $allCategories = Categories::getAllCategories();
+        $this->render("Blocks/$action", ['block' => $block, 'categories' => $allCategories]);
+        */
+  }
 
   /**
    * Handles various actions related to blocks (create, edit, delete, list).
    *
    * @param array $params
    */
-  public function blocks($params) {
+  public function blocks($params)
+  {
     $additionalParams = $this->parseOptParam();
 
     $action = $additionalParams['action'];
     $blockId = $additionalParams['id'];
 
     switch ($action) {
-      case 'create':
-        $this->handleCreateAction();
-        break;
       case 'edit':
+        $this->requiresValidID('blocks');
         $this->handleBlockAction('edit', $blockId);
         break;
       case 'delete':
+        $this->requiresValidID('blocks');
         $this->handleBlockAction('delete', $blockId);
         break;
       case 'blocks':
@@ -101,12 +108,14 @@ class AdminBlocksController extends AdminController {
         break;
     }
   }
+
   /**
    * Handles the creation of blocks.
    *
    * @param array $params
    */
-  public function create_block($params) {
+  public function create_block($params)
+  {
     $this->handleCreateOrEdit($params, 'create');
   }
 
@@ -115,7 +124,8 @@ class AdminBlocksController extends AdminController {
    *
    * @param array $params
    */
-  public function edit_block($params) {
+  public function edit_block($params)
+  {
     $this->handleCreateOrEdit($params, 'edit');
   }
 
@@ -124,11 +134,13 @@ class AdminBlocksController extends AdminController {
    *
    * @param array $params
    */
-  public function delete_block($params) {
+  public function delete_block($params)
+  {
     $blockId = FieldChecker::cleanInt(explode('/', $this->requestContext->getOptParam())[1]);
     try {
       $idarticle = $this->getBlockById($blockId)->getArticleId();
       Blocks::delete($blockId);
+      $this->addMessage('The block has been successfully deleted!');
       $this->redirect("admin/articles/blocks/$idarticle");
     } catch (\Exception $e) {
       $this->render('Blocks/list', ['blocks' => Blocks::getAllBlocks(), 'errors' => [$e->getMessage()]]);
@@ -141,21 +153,38 @@ class AdminBlocksController extends AdminController {
    * @param array $params
    * @param string $action
    */
-  private function handleCreateOrEdit($params, $action) {
-    $articleId = FieldChecker::cleanInt($this->requestContext->getOptParam());
+  private function handleCreateOrEdit($params, $action)
+  {
+    $blockId = FieldChecker::cleanInt($this->requestContext->getOptParam());
+    $articleId = $blockId;
+
+    $block = NULL;
+    if ($action === 'edit') {
+      $block = $this->getBlockById($blockId);
+      $articleId = $block->getArticleId();
+    }
 
     try {
-      $processed =  $this->process_fields();
+      $processed = $this->process_fields();
       $jsonDatas = json_encode(array_diff_key($processed, array_flip(['type', 'name'])));
       $newMediaId = NULL;
 
-      if (is_null($newMediaId) && isset($processed['media_id'])) {
+      if (!empty($blockId) && !is_null($block)) {
+        $block = Blocks::getBlock($blockId);
+        if (!is_null($block) && !is_null($block->getMedia())) {
+          $newMediaId = $block->getMedia()->getId();
+        }
+      }
+
+      if (isset($processed['media_id'])) {
+        var_dump($processed['media_id'], "media_id is set du truc");
         $newMediaId = $processed['media_id'];
       }
 
-      if (is_null($newMediaId) && (isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
-        $newMediaId = $this->upload_file($_FILES['image']);
+      if ((isset($_FILES['block_src']) && !empty($_FILES['block_src']['tmp_name'])) && !isset($processed['media_id'])) {
+        $newMediaId = $this->upload_file($_FILES['block_src']);
       }
+
       if ($action === 'create') {
         Blocks::create(
           $processed['name'],
@@ -167,7 +196,7 @@ class AdminBlocksController extends AdminController {
         );
       } elseif ($action === 'edit') {
         Blocks::update(
-          $processed['blockId'],
+          $blockId,
           $processed['name'],
           $jsonDatas,
           $articleId,
@@ -177,7 +206,8 @@ class AdminBlocksController extends AdminController {
         );
       }
 
-      $this->redirect("admin/articles/blocks/$articleId");
+      $this->addMessage("The block has been successfully $action-ed!");
+      $this->redirect("admin/articles/blocks/{$articleId}");
     } catch (\Exception $e) {
       $this->render("Blocks/$action", ['errors' => [$e->getMessage()]]);
     }

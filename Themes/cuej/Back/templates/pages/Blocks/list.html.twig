@@ -30,6 +30,7 @@
 
 {# Custom JS #}
 {% block javascript %}
+  <script src="public/back/js/media-library/library.js" defer type="module"></script>
   <script src="public/back/js/blocks/blocks.js" defer type="module"></script>
 {% endblock %}
 
@@ -41,6 +42,11 @@
 {# Set content #}
 {% block content %}
   <h1>{{ article.title }} | Blocks</h1>
+  <div class="flex flex-gap-2">
+    <p><a href="admin/articles">Back to Articles</a></p>
+    <p><a href="articles/see/{{ article.id }}" target="_blank">See article in a new tab</a></p>
+  </div>
+
   <p>You can edit the content of your article by creating blocks.</p>
 
   <script>
@@ -68,7 +74,7 @@
     {# Aside for block's creation #}
     <aside class="block-creation flex flex-column flex-1">
       {# Select a new block / See creator blocks #}
-      <section id="step__1">
+      <section id="step-1">
         <section id="block_selection">
           <h2>Create a block</h2>
           {% if available_blocks|length > 0 %}
@@ -77,7 +83,7 @@
               <script>
                 window.fields['{{ available.name|split('.')|first }}'] = {{ available.fields|json_encode|raw }};
               </script>
-              <button class="cuej__block-creation" data-articleID="{{ article.id }}" data-type="{{ available.name|split('.')|first }}">{{ available.name|replace({'_' : ' '})|title }}</button>
+              <button class="cuej-block__creation" data-articleID="{{ article.id }}" data-type="{{ available.name|split('.')|first }}">{{ available.name|split('.')|first|replace('_', ' ')|title }}</button>
             {% endfor %}
           {% else %}
             <p>No blocks available</p>
@@ -93,7 +99,7 @@
                   {{ block.name }}
 
                   <div class="actions flex">
-                    <button class="cuej__block-update" data-articleID="{{ article.id }}" data-type="{{ block.type }}" data-blockid="{{ block.id }}" data-weight="{{ block.weight }}" data-name="{{ block.name }}" data-json='{{ block.getJsonContentString() }}'>Update</button>
+                    <button class="cuej-block__update" data-articleID="{{ article.id }}" data-type="{{ block.type }}" data-blockID="{{ block.id }}" data-weight="{{ block.weight }}" data-name="{{ block.name }}" data-json='{{ block.getJsonContentString() }}'>Update</button>
                     <a href="admin/blocks/delete/{{ block.id }}" class="btn btn--danger">Delete</a>
                   </div>
                 </li>
@@ -106,9 +112,9 @@
       </section>
 
     {# New block creation form #}
-    <section id="step__2" class="hidden">
-      <button id="cuej__block-creation-back">Back</button>
-      <div id="cuej__block-creation-container"></div>
+    <section id="step-2" class="hidden">
+      <button id="cuej-block__creation-back">Back</button>
+      <div id="cuej-block__creation-container"></div>
     </section>
   </aside>
 

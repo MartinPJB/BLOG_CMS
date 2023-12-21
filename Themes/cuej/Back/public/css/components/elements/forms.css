@@ -6,6 +6,12 @@ form {
   margin-bottom: 1rem;
 }
 
+form > section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
 /* Input styles */
 input[type="text"],
 input[type="email"],
@@ -56,7 +62,9 @@ label {
 }
 
 /* Image styles within a form */
-form img {
+form img,
+form video,
+form audio {
   width: 50%;
   padding: 1rem;
   border: 1px solid #dddddd;

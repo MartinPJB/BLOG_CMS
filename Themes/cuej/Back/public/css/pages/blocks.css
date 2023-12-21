@@ -6,12 +6,12 @@
 }
 
 /* Styles for the first step section in the block creation */
-.block-creation #step__1 > section {
+.block-creation #step-1 > section {
   margin-bottom: 3rem;
 }
 
 /* Styles for headings within the first step section */
-.block-creation #step__1 > section h2 {
+.block-creation #step-1 > section h2 {
   margin-bottom: 0;
 }
 
@@ -33,11 +33,12 @@
   margin: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex: 1;
 }
 
 /* Styles for individual action items within each created block item */
 .block-creation .created-blocks .created-blocks__block .actions * {
   margin: 0;
+  display: flex;
+  flex: 1;
+  height: 50px;
 }

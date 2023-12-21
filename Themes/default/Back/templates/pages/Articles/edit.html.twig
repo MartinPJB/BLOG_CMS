@@ -28,7 +28,7 @@
       <textarea name="description" id="description" placeholder="Article Description" required>{{ article.description|raw }}</textarea>
     </section>
 
-    <section id="cuej__media">
+    <section id="cuej-media">
       {% if article.image != null %}
         <img src="{{ article.image.path }}" alt="Article Image">
         <input type="button" id="cuej__delete_media" data-id="{{ article.image.id }}" value="Replace the image">

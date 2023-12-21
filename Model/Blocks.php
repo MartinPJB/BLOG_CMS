@@ -5,6 +5,7 @@ namespace Model;
 use \Core\Database\Manager;
 use \Model\Articles;
 use \Model\SiteSettings;
+use \Model\Medias;
 
 /**
  * Blocks model | Handles all actions related to blocks
@@ -17,6 +18,7 @@ class Blocks
   private $article_id;
   private $type;
   private $weight;
+  private $media;
 
   /**
    * Constructor for the Blocks model
@@ -27,6 +29,7 @@ class Blocks
    * @param integer $article_id Article ID
    * @param string $type Block type
    * @param integer $weight Block weight
+   * @param integer $media Media ID
    */
   public function __construct(
     $id,
@@ -34,7 +37,8 @@ class Blocks
     $json_content,
     $article_id,
     $type,
-    $weight
+    $weight,
+    $media
   ) {
     $this->id = $id;
     $this->name = $name;
@@ -42,6 +46,7 @@ class Blocks
     $this->article_id = $article_id;
     $this->type = $type;
     $this->weight = $weight;
+    $this->media = $media;
   }
 
   /**
@@ -61,7 +66,8 @@ class Blocks
         $block['json_content'],
         $block['article_id'],
         $block['type'],
-        $block['weight']
+        $block['weight'],
+        $block['media']
       );
     }
 
@@ -86,7 +92,8 @@ class Blocks
         $block['json_content'],
         $block['article_id'],
         $block['type'],
-        $block['weight']
+        $block['weight'],
+        $block['media']
       );
     }
 
@@ -138,20 +145,37 @@ class Blocks
             continue; // Skip the "Fields:" line
           }
 
-          // Extract field name, type, label, min, and max lengths
-          if (preg_match('/- (\w+) \((\w+)\): \{ label: \'([^\']+)\', min: (\d+), max: (\d+) \}/', $line, $fieldMatch)) {
-            $fieldName = $fieldMatch[1];
-            $fieldType = $fieldMatch[2];
-            $fieldLabel = $fieldMatch[3];
-            $minLength = (int)$fieldMatch[4];
-            $maxLength = (int)$fieldMatch[5];
+          // Extract field name, type, and attributes
+          if (preg_match('/- (\w+) \((\w+)\): \{(.+?)\}/', $line, $fieldMatch)) {
+            $name = $fieldMatch[1];
+            $type = $fieldMatch[2];
+            $attributes = $fieldMatch[3];
 
-            $fields[$fieldName] = [
-              'type' => $fieldType,
-              'label' => $fieldLabel,
-              'min_length' => $minLength,
-              'max_length' => $maxLength,
-            ];
+            // Parse attributes (and remove spaces at the beginning and end)
+            $attributeParts = preg_split('/,\s*(?=(?:(?:[^\'"]*[\'"]){2})*[^\'"]*$)/', $attributes);
+            foreach ($attributeParts as &$part) {
+              $part = trim($part, " \t\n\r\0\x0B'\"");
+            }
+
+            $fieldOptions = [];
+            foreach ($attributeParts as $attribute) {
+              // Split attribute into key and value
+              list($key, $value) = explode(':', $attribute, 2);
+
+              // Remove spaces at the beginning and end of key and value
+              $key = trim($key);
+              $value = trim($value, " \t\n\r\0\x0B'\"");
+
+              // Handles if the value is a number
+              if (is_numeric($value)) {
+                $value = (int)$value;
+              }
+
+              // Add to fieldOptions array
+              $fieldOptions[$key] = $value;
+            }
+
+            $fields[$name] = array_merge(['type' => $type], $fieldOptions);
           }
         }
       }
@@ -159,6 +183,7 @@ class Blocks
 
     return $fields;
   }
+
 
   /**
    * Get a block by its ID
@@ -176,7 +201,8 @@ class Blocks
       $block['json_content'],
       $block['article_id'],
       $block['type'],
-      $block['weight']
+      $block['weight'],
+      $block['media']
     );
   }
 
@@ -231,7 +257,8 @@ class Blocks
       'json_content' => json_encode($json_content),
       'article_id' => $article_id,
       'type' => $type,
-      'weight' => $weight
+      'weight' => $weight,
+      'media' => $media
     ], ['id' => $id]);
   }
 
@@ -323,5 +350,15 @@ class Blocks
   public function getWeight()
   {
     return $this->weight;
+  }
+
+  /**
+   * Get the value of media
+   *
+   * @return Medias Media object
+   */
+  public function getMedia()
+  {
+    return Medias::getMediaById($this->media);
   }
 }

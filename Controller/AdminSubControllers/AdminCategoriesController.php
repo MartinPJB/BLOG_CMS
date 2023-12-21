@@ -106,13 +106,21 @@ class AdminCategoriesController extends AdminController
 
     try {
       $processed = $this->process_fields();
+      $newMediaId = NULL;
 
-      if ((isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
-        $newMediaId = $this->upload_file($_FILES['image']);
+      if (!empty($categoryId)) {
+        $category = Categories::getCategoryById($categoryId);
+        if (!is_null($category)) {
+          $newMediaId = $category->getImageId();
+        }
       }
 
-      else if (isset($processed['media_id'])) {
+      if (is_null($newMediaId) && isset($processed['media_id'])) {
         $newMediaId = $processed['media_id'];
+      }
+
+      if (is_null($newMediaId) && (isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
+        $newMediaId = $this->upload_file($_FILES['image']);
       }
 
       $media = Medias::getMediaById($newMediaId);

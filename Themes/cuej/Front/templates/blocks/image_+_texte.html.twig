@@ -1,16 +1,16 @@
 {#
 Fields:
 - block_src (file): { label: 'Image', accept: '.png, .jpg, .jpeg, .gif, .webp, .svg', max: '20MO'}
-- block_posiion (select): { label: 'Position de l'image', options: 'Gauche, Droite' }
-- block_posiion (select): { label: 'Taille de l'image', options: 'Dans les marges, Pleine largeur' }
-- block_alt (text): { label: 'Texte alternatif', min: 3, max: 128 }
-- block_ref (text): { label: 'Légende', min: 3, max: 64 }
-- block_txt (textarea): { label: 'Contenu du texte', min: 10, max: 10000 }
+- block_position (select): { label: 'Position de l'image', options: 'Gauche, Droite' }
+- block_size (select): { label: 'Taille de l'image', options: 'Dans les marges, Pleine largeur' }
+- block_alt (text): { label: 'Texte alternatif', min: 3, max: 128, required: true }
+- block_ref (text): { label: 'Légende', min: 3, max: 64, required: true }
+- block_txt (textarea): { label: 'Contenu du texte', min: 10, max: 10000, required: true }
 #}
 <section class="block">
   <div class="vidandtxt media--{{ json.block_position }}">
     <figure class="vidandtxt-block">
-      <img src="{{ json.block_src }}" alt="{{ json.block_alt }}">
+      <img src="{{ media.path }}" alt="{{ json.block_alt }}">
       <figcaption class="vidandtxt-block__legend">{{ json.block_ref }}</figcaption>
     </figure>
     <p class="vidandtxt-block__text">{{ json.block_txt }}</p>
