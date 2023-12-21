@@ -20,7 +20,7 @@
     </ul>
     {% for cat, articles in site_navigation %}
     <ul class="col">
-      <a class="footer-nav__category" class="fs-2" href="articles/see/{{ articles[0][1] }}" {{ cat==category.name ? 'aria-current="step"' }}>{{ cat }}</a>
+      <a class="footer-nav__category fs-2" href="articles/see/{{ articles[0][1] }}" {{ cat==category.name ? 'aria-current="step"' }}>{{ cat }}</a>
       {% for art in articles %}
       <li><a class="footer-nav__article" href="articles/see/{{ art[1] }}" {{ art[1]==article.id ? 'aria-current="page"' }}>{{ art[0] }}</a></li>
       {% endfor %}

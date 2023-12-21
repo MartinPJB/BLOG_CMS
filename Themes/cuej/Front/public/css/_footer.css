@@ -1,11 +1,13 @@
 .footer-nav {
   height: 30vh;
-  background-color: cadetblue;
+  color: var(--color-white);
+  background-color: var(--color-primary--dark);
 }
 
 .footer-nav__category[aria-current="step"],
 .footer-nav__article[aria-current="page"],
 .footer-nav__article:hover,
 .footer-nav__category:hover {
-  text-decoration: underline;
+  color: var(--color-primary);
+  transition: color .3s;
 }

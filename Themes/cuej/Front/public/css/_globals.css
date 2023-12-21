@@ -1,3 +1,12 @@
+:root {
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+
+  --color-primary: #BBBBBB;
+  --color-primary--dark: #777777;
+  --color-primary--darker: #333333;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -6,14 +15,6 @@ a {
 body {
   font-size: 20px;
   overflow-x: hidden;
-}
-
-h1,
-.fs-1 {
-  font-size: 4rem;
-}
-
-h2,
-.fs-2 {
-  font-size: 2rem;
+  color: var(--color-darker);
+  font-family: 'Merriweather Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }

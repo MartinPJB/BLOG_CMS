@@ -10,7 +10,7 @@
 @import '_footer.css';
 
 .intro {
-  color: white;
+  color: var(--color-white);
   position: relative;
   display: grid;
   align-content: end;
@@ -27,6 +27,10 @@
 
 .intro__description {
   margin-bottom: 3em;
+  font-size: 1.2em;
+  max-width: 1170px;
+  font-style: italic;
+  line-height: 125%;
 }
 
 .progress-bar-container {
@@ -39,11 +43,10 @@
 .progress-bar {
   height: 100%;
   width: 0;
-  background-color: var(--color-background-dark);
+  background-color: var(--color-primary);
 }
 
 /* test */
 .testing-content {
   height: 350vh;
-  background-color: antiquewhite;
 }

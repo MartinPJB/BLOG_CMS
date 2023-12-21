@@ -1,0 +1,13 @@
+h1,
+.fs-1 {
+  font-family: 'Catamaran', 'Palanquin', sans-serif;
+  font-size: 4rem;
+  font-weight: 800;
+}
+
+h2,
+.fs-2 {
+  font-family: 'Catamaran', 'Palanquin', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+}
