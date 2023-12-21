@@ -80,7 +80,7 @@ const library_unassign = {
         });
 
         // Reset the form with a new file input
-        const form = document.getElementById("cuej__media");
+        const form = document.getElementById("cuej-media");
         const label = document.createElement("label");
         const input = document.createElement("input");
 

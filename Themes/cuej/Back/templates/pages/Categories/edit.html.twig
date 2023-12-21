@@ -29,7 +29,7 @@
       <textarea name="description" id="description" placeholder="Category Description" required>{{ category.description|raw }}</textarea>
     </section>
 
-    <section id="cuej__media" data-type="png, jpg, jpeg, gif, webp, svg">
+    <section id="cuej-media" data-type="png, jpg, jpeg, gif, webp, svg">
       {% if category.image != null %}
         <label for="null">Category Image</label>
         <img src="{{ category.image.path }}" alt="Category Image">

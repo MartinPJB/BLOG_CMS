@@ -1,6 +1,6 @@
 /* Shared styles for media preview and container */
-.cuej__media__choose_existing__preview,
-.cuej__media {
+.cuej-media__choose-existing-preview,
+.cuej-media {
   width: 200px;
   height: 200px;
   background-color: #3b3b3b;
@@ -17,22 +17,30 @@
 }
 
 /* Container for media selection */
-.cuej__media__choose_existing {
+.cuej-media__choose-existing {
   padding: 10px 0;
 }
-.cuej__media__choose_existing > div:empty::after {
+.cuej-media__choose-existing > div:empty::after {
   content: "No media found";
   display: block;
 }
 
 /* Label styles for media selection */
-.cuej__media__choose_existing label {
-  display: block;
+.cuej-media__choose-existing-label {
   cursor: pointer;
+  text-align: center;
+}
+.cuej-media__choose-existing-label .cuej-media__choose-existing-label-name {
+  font-size: .9rem;
+  margin-bottom: .5rem;
+  display: block;
+  background-color: #dddddd;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 /* Summary styles for media selection */
-.cuej__media__choose_existing summary {
+.cuej-media__choose-existing summary {
   cursor: pointer;
   padding: 10px 20px;
   border-radius: 5px;
@@ -41,24 +49,24 @@
 }
 
 /* Hide the radio input */
-.cuej__media__choose_existing input[type="radio"] {
+.cuej-media__choose-existing input[type="radio"] {
   display: none;
 }
 
 /* Add an outline to the label when its linked input is checked */
-.cuej__media__choose_existing input[type="radio"]:checked + label .cuej__media__choose_existing__preview {
+.cuej-media__choose-existing input[type="radio"]:checked + .cuej-media__choose-existing-label .cuej-media__choose-existing-preview {
   outline: 5px solid var(--primary);
 }
 
 /* Media image styles */
-.cuej__media img {
+.cuej-media img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
 /* Media actions on hover */
-.cuej__media .media-actions {
+.cuej-media .media-actions {
   transform: translateY(100%);
   position: absolute;
   top: 0;
@@ -71,6 +79,6 @@
 }
 
 /* Show media actions on hover */
-.cuej__media:hover .media-actions {
+.cuej-media:hover .media-actions {
   transform: translateY(0);
 }

@@ -31,7 +31,7 @@
 
   <section class="flex flex-wrap">
 	{% for media in medias %}
-		<article data-type="{{ media.type }}" class="cuej__media">
+		<article data-type="{{ media.type }}" class="cuej-media">
       {% if media.type|split("/")|last in ["png", "jpg", "jpeg", "gif", "webp", "svg"] %}
         <img src="{{ media.path }}" alt="{{ media.alt }}" />
       {% else %}

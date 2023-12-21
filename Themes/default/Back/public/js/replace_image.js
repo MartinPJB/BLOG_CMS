@@ -32,7 +32,7 @@ function deleteMedia() {
 }
 
 function recreateForm() {
-  const form = document.getElementById("cuej__media");
+  const form = document.getElementById("cuej-media");
 
   const label = document.createElement("label");
   const input = document.createElement("input");

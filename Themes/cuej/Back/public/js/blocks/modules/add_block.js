@@ -134,7 +134,7 @@ const block_create = {
 
         if (inputType === "file") {
           input.accept = inputField.accept;
-          section.id = "cuej__media";
+          section.id = "cuej-media";
 
           const acceptWithoutDot = inputField.accept.replaceAll(".", "");
           section.dataset.type = acceptWithoutDot;

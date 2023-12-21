@@ -10,11 +10,11 @@ function wait(ms) {
 
 async function detectMediaLibrary() {
   let mediaArea;
-  const cuej__media = document.querySelector("#cuej__media");
+  const cuej__media = document.querySelector("#cuej-media");
   let tries = 5;
 
   while ((!mediaArea && cuej__media) && tries > 0) {
-    mediaArea = document.querySelector(".cuej__media__choose_existing");
+    mediaArea = document.querySelector(".cuej-media__choose-existing");
     await wait(500);
     tries--;
   }

@@ -32,7 +32,7 @@ const library_choose_existing = {
    * @returns {Promise<void>} - A promise that resolves when the library is initialized.
    */
   async init() {
-    const mediaArea = document.getElementById("cuej__media");
+    const mediaArea = document.getElementById("cuej-media");
     if (!mediaArea) return;
 
     let type = mediaArea.dataset.type || "all";
@@ -43,7 +43,7 @@ const library_choose_existing = {
 
     // Create and append the "Choose an existing media" details element
     const chooseExisting = document.createElement("details");
-    chooseExisting.classList.add("cuej__media__choose_existing");
+    chooseExisting.classList.add("cuej-media__choose-existing");
 
     const chooseExistingSummary = document.createElement("summary");
     chooseExistingSummary.innerText = "Choose an existing media";
@@ -74,14 +74,16 @@ const library_choose_existing = {
 
       // Create a label with the media name
       const label = document.createElement("label");
+      label.classList.add("cuej-media__choose-existing-label");
 
       // Get extension from mime type
       const extension = media.type.split("/")[1];
+      label.innerHTML = "<span class='cuej-media__choose-existing-label-name'>" + media.name + "." + extension + "</span>";
       label.htmlFor = media.id;
 
       // Create a div with the media preview
       const preview = document.createElement("div");
-      preview.classList.add("cuej__media__choose_existing__preview");
+      preview.classList.add("cuej-media__choose-existing-preview");
 
       // Handles media path (checks if it's local or not)
       const imagePath = media.path.includes("http") ? media.path : `../../../../../${media.path}`;
