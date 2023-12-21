@@ -1,0 +1,30 @@
+@import '_reset.css';
+
+@import '_globals.css';
+@import '_utils.css';
+
+@import '_fonts.css';
+@import '_typography.css';
+
+@import '_header.css';
+@import '_footer.css';
+
+.land {
+  height: 100vh;
+  width: 100vw;
+}
+
+.land__video {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+
+/* test */
+.testing-content {
+  height: 350vh;
+  background-color: antiquewhite;
+}

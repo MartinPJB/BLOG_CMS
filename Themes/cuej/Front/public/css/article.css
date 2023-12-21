@@ -1,0 +1,49 @@
+@import '_reset.css';
+
+@import '_globals.css';
+@import '_utils.css';
+
+@import '_fonts.css';
+@import '_typography.css';
+
+@import '_header.css';
+@import '_footer.css';
+
+.intro {
+  color: white;
+  position: relative;
+  display: grid;
+  align-content: end;
+  height: 85vh;
+}
+
+.intro__image {
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+
+.intro__description {
+  margin-bottom: 3em;
+}
+
+.progress-bar-container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 8px;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background-color: var(--color-background-dark);
+}
+
+/* test */
+.testing-content {
+  height: 350vh;
+  background-color: antiquewhite;
+}

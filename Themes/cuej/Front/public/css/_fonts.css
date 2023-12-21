@@ -1,0 +1,58 @@
+/* CATAMARAN */
+@font-face {
+  font-family: 'Catamaran';
+  src: local('Catamaran Extrabold'), local('Catamaran-ExtraBold'), url('../fonts/catamaran/Catamaran-ExtraBold.ttf') format('truetype');
+  font-weight: extrabold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Catamaran';
+  src: local('Catamaran Medium'), local('Catamaran-Medium'), url('../fonts/catamaran/Catamaran-Medium.ttf') format('truetype');
+  font-weight: medium;
+  font-style: normal;
+}
+
+/* MERRIWEATHER SANS */
+@font-face {
+  font-family: 'Merriweather Sans';
+  src: local('Merriweather Sans Light'), local('MerriweatherSans-Light'), url('../fonts/merriweather_sans/MerriweatherSans-Light.ttf') format('truetype');
+  font-weight: light;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather Sans';
+  src: local('Merriweather Sans Light Italic'), local('MerriweatherSans-LightItalic'), url('../fonts/merriweather_sans/MerriweatherSans-LightItalic.ttf') format('truetype');
+  font-weight: light;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather Sans';
+  src: local('Merriweather Sans Italic'), local('MerriweatherSans-Italic'), url('../fonts/merriweather_sans/MerriweatherSans-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather Sans';
+  src: local('Merriweather Sans Bold'), local('MerriweatherSans-Bold'), url('../fonts/merriweather_sans/MerriweatherSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather Sans';
+  src: local('Merriweather Sans Bold Italic'), local('MerriweatherSans-BoldItalic'), url('../fonts/merriweather_sans/MerriweatherSans-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* MONTSERRAT */
+@font-face {
+  font-family: 'Montserrat';
+  src: local('Montserrat Extrabold'), local('Montserrat-Extrabold'), url('../fonts/montserrat/Montserrat-ExtraBold.ttf') format('truetype');
+  font-weight: extrabold;
+  font-style: normal;
+}

@@ -1,0 +1,23 @@
+.header-nav {
+  background-color: white;
+  position: fixed;
+  z-index: 1;
+}
+
+.header-nav--small {
+  background-color: red;
+}
+
+.header-nav__list {
+  display: none;
+}
+
+.header-nav__category:hover,
+.header-nav__category[aria-current="step"] {
+  background-color: aqua;
+}
+
+#active-category+.header-nav__list {
+  position: absolute;
+  display: flex;
+}

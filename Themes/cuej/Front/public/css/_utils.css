@@ -1,0 +1,43 @@
+.container {
+  margin: auto;
+  max-width: 1200px;
+}
+
+.full-width {
+  width: 100vw;
+}
+
+.row {
+  display: flex;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.jc-sa {
+  justify-content: space-around;
+}
+
+.ai-c {
+  align-items: center;
+}
+
+.gap-1 {
+  gap: 1em;
+}
+
+.center-x {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.center-y {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hidden {
+  display: none;
+}

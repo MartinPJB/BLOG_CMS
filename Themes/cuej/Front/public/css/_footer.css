@@ -1,0 +1,11 @@
+.footer-nav {
+  height: 30vh;
+  background-color: cadetblue;
+}
+
+.footer-nav__category[aria-current="step"],
+.footer-nav__article[aria-current="page"],
+.footer-nav__article:hover,
+.footer-nav__category:hover {
+  text-decoration: underline;
+}
