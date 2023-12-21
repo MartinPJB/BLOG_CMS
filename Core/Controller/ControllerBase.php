@@ -26,6 +26,7 @@ class ControllerBase
     $this->siteSettings = SiteSettings::getSiteSettings();
     $this->requestContext = $requestContext;
     $this->twigEngine = $this->initializeTwig(__DIR__ . '/../..', $this->siteSettings->getTheme() . '/' . $themePart);
+    $this->messages = $_SESSION['messages'];
   }
 
   /**

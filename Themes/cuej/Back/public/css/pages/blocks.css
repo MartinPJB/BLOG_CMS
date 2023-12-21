@@ -44,3 +44,35 @@
   align-items: center;
   justify-content: center;
 }
+
+/* Styles for draggable items within ul */
+.blocks-draggable {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Styles for each draggable item */
+.blocks-draggable__item {
+  background-color: #f0f0f0;
+  padding: 15px;
+  margin: 5px 0;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  cursor: move;
+  border: 1px solid #dddddd;
+}
+
+.blocks-draggable__item.dragging {
+  opacity: 0.5; /* Reduce opacity while dragging */
+  border: none;
+}
+
+.blocks-draggable__item.over-dragged {
+  border-top: 1px dashed var(--primary);
+  border-bottom: none;
+}
+
+.blocks-draggable__item.after-dragged {
+  border-bottom: 1px dashed var(--primary);
+  border-top: none;
+}

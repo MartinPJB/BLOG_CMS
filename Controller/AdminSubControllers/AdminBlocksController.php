@@ -191,7 +191,7 @@ class AdminBlocksController extends AdminController
           $jsonDatas,
           $articleId,
           $processed['type'],
-          1, /* TBM */
+          !is_null($block) ? $block->getWeight() : 1,
           $newMediaId
         );
       } elseif ($action === 'edit') {
@@ -201,7 +201,7 @@ class AdminBlocksController extends AdminController
           $jsonDatas,
           $articleId,
           $processed['type'],
-          1, /* TBM */
+          !is_null($block) ? $block->getWeight() : 1,
           $newMediaId
         );
       }
