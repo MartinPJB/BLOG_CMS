@@ -62,7 +62,9 @@ label {
 }
 
 /* Image styles within a form */
-form img {
+form img,
+form video,
+form audio {
   width: 50%;
   padding: 1rem;
   border: 1px solid #dddddd;
