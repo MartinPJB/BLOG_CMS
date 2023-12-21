@@ -98,9 +98,9 @@
                 <li class="created-blocks__block flex flex-between">
                   {{ block.name }}
 
-                  <div class="actions flex">
-                    <button class="cuej-block__update" data-articleID="{{ article.id }}" data-type="{{ block.type }}" data-blockID="{{ block.id }}" data-weight="{{ block.weight }}" data-name="{{ block.name }}" data-json='{{ block.getJsonContentString() }}'>Update</button>
-                    <a href="admin/blocks/delete/{{ block.id }}" class="btn btn--danger">Delete</a>
+                  <div class="actions flex flex-gap">
+                    <button class="cuej-block__update" data-articleID="{{ article.id }}" data-type="{{ block.type }}" data-blockID="{{ block.id }}" data-weight="{{ block.weight }}" data-name="{{ block.name }}" data-json='{{ block.getJsonContentString() }}' title="Edit content"><i class="bi bi-pencil-square"></i></button>
+                    <a href="admin/blocks/delete/{{ block.id }}" title="Delete" class="btn btn--danger"><i class="bi bi-trash3-fill"></i></a>
                   </div>
                 </li>
               {% endfor %}
