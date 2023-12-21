@@ -2,8 +2,8 @@
 Fields:
 - block_src (file): { label: 'Vidéo', accept: '.mp4'}
 - block_posiion (select): { label: 'Position de la vidéo', options: 'Gauche, Droite' }
-- block_ref (text): { label: 'Légende', min: 3, max: 64 }
-- block_txt (textarea): { label: 'Contenu du texte', min: 10, max: 10000 }
+- block_ref (text): { label: 'Légende', min: 3, max: 64, required: true }
+- block_txt (textarea): { label: 'Contenu du texte', min: 10, max: 10000, required: true }
 #}
 <section class="block">
   <div class="imgandtxt media--{{ json.block_position }}">
