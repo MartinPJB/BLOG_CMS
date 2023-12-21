@@ -2,8 +2,6 @@
 Fields:
 - block_content (textarea): { label: 'Contenu', min: 10, max: 10000, required: true }
 #}
-<section class="block">
-  <p class="paragraph">
-    {{ json.block_content|raw }}
-  </p>
-</section>
+<p class="paragraph contained--small">
+  {{ json.block_content|raw }}
+</p>

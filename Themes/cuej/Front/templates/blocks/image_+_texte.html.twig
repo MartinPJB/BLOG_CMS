@@ -7,12 +7,10 @@ Fields:
 - block_ref (text): { label: 'Légende', min: 3, max: 64, required: true }
 - block_txt (textarea): { label: 'Contenu du texte', min: 10, max: 10000, required: true }
 #}
-<section class="block">
-  <div class="vidandtxt media--{{ json.block_position }}">
-    <figure class="vidandtxt-block">
-      <img src="{{ media.path }}" alt="{{ json.block_alt }}">
-      <figcaption class="vidandtxt-block__legend">{{ json.block_ref }}</figcaption>
-    </figure>
-    <p class="vidandtxt-block__text">{{ json.block_txt }}</p>
-  </div>
-</section>
+<div class="imgandtxt media--{{ json.block_position }}">
+  <figure class="imgandtxt-block">
+    <img src="{{ media.path }}" alt="{{ json.block_alt }}">
+    <figcaption class="imgandtxt-block__legend">{{ json.block_ref }}</figcaption>
+  </figure>
+  <p class="imgandtxt-block__text">{{ json.block_txt }}</p>
+</div>

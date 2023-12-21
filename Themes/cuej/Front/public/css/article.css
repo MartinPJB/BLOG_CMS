@@ -36,9 +36,17 @@ article {
 }
 
 .article-content {
-  margin-top: 2em;
+  padding-top: 2.4em;
 }
 
+/* blocks */
+
+.image-block--p {
+  width: 100vw;
+  position: relative;
+}
+
+/* progres bar */
 .progress-bar-container {
   position: fixed;
   bottom: 0;
@@ -49,9 +57,4 @@ article {
   height: 100%;
   width: 0;
   background-color: var(--color-primary);
-}
-
-/* test */
-.testing-content {
-  height: 350vh;
 }

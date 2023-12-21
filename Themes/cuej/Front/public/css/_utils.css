@@ -2,8 +2,8 @@
   margin: auto;
   max-width: 1450px;
 }
-.container--small {
-  padding: 0 6.5em;
+.contained--small {
+  padding: 0 8rem;
 }
 
 .full-width {
@@ -13,7 +13,6 @@
 .row {
   display: flex;
 }
-
 .col {
   display: flex;
   flex-direction: column;
@@ -41,7 +40,6 @@
   left: 50%;
   transform: translateX(-50%);
 }
-
 .center-y {
   top: 50%;
   transform: translateY(-50%);
