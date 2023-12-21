@@ -2,12 +2,9 @@
 import library_delete from "./modules/delete.js";
 import library_unassign from "./modules/unassign.js";
 import library_choose_existing from "./modules/choose_existing.js";
+import { wait } from "../modules/functions.js";
 
 // Allows to uncheck radio buttons in the media library div
-function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 async function detectMediaLibrary() {
   let mediaArea;
   const cuej__media = document.querySelector("#cuej-media");

@@ -61,7 +61,7 @@ const library_delete = {
           icon: "success",
         });
         // Remove the media container from the DOM
-        e.target.closest(".cuej__media").remove();
+        e.target.closest(".cuej-media").remove();
       }
     } catch (error) {
       console.error(error.message);

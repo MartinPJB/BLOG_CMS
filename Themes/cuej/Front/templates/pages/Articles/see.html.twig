@@ -56,7 +56,7 @@ Path: cuej/Front/templates/pages/Articles/see.html.twig
     <div class="testing-content">
 
       {% for blockTemplate in blocks %}
-          {% include 'blocks/' ~ blockTemplate.type ~ '.html.twig' with { 'json': blockTemplate.getJsonContent() } %}
+          {% include 'blocks/' ~ blockTemplate.type ~ '.html.twig' with { 'json': blockTemplate.getJsonContent(), 'media': blockTemplate.getMedia() } %}
       {% endfor %}
 
     </div>

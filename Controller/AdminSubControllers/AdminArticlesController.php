@@ -100,7 +100,7 @@ class AdminArticlesController extends AdminController
       case 'blocks':
         $this->requiresValidID('articles');
         $articlesBlock = Blocks::getBlocksByArticle($articleId);
-        $article = Articles::getArticle($articleId);
+        $article = Articles::getArticle($articleId, true);
         $availableBlocks = Blocks::getAvailableBlocks();
         $this->render('Blocks/list', ['blocks' => $articlesBlock, 'article' => $article, 'available_blocks' => $availableBlocks]);
         break;

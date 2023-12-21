@@ -70,7 +70,7 @@ const library_choose_existing = {
       radio.type = "radio";
       radio.name = "media_id";
       radio.value = media.id;
-      radio.id = media.id;
+      radio.id = `existing_media_${media.id}`;
 
       // Create a label with the media name
       const label = document.createElement("label");
@@ -79,7 +79,7 @@ const library_choose_existing = {
       // Get extension from mime type
       const extension = media.type.split("/")[1];
       label.innerHTML = "<span class='cuej-media__choose-existing-label-name'>" + media.name + "." + extension + "</span>";
-      label.htmlFor = media.id;
+      label.htmlFor = `existing_media_${media.id}`;
 
       // Create a div with the media preview
       const preview = document.createElement("div");

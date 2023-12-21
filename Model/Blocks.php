@@ -5,6 +5,7 @@ namespace Model;
 use \Core\Database\Manager;
 use \Model\Articles;
 use \Model\SiteSettings;
+use \Model\Medias;
 
 /**
  * Blocks model | Handles all actions related to blocks
@@ -17,6 +18,7 @@ class Blocks
   private $article_id;
   private $type;
   private $weight;
+  private $media;
 
   /**
    * Constructor for the Blocks model
@@ -27,6 +29,7 @@ class Blocks
    * @param integer $article_id Article ID
    * @param string $type Block type
    * @param integer $weight Block weight
+   * @param integer $media Media ID
    */
   public function __construct(
     $id,
@@ -34,7 +37,8 @@ class Blocks
     $json_content,
     $article_id,
     $type,
-    $weight
+    $weight,
+    $media
   ) {
     $this->id = $id;
     $this->name = $name;
@@ -42,6 +46,7 @@ class Blocks
     $this->article_id = $article_id;
     $this->type = $type;
     $this->weight = $weight;
+    $this->media = $media;
   }
 
   /**
@@ -61,7 +66,8 @@ class Blocks
         $block['json_content'],
         $block['article_id'],
         $block['type'],
-        $block['weight']
+        $block['weight'],
+        $block['media']
       );
     }
 
@@ -86,7 +92,8 @@ class Blocks
         $block['json_content'],
         $block['article_id'],
         $block['type'],
-        $block['weight']
+        $block['weight'],
+        $block['media']
       );
     }
 
@@ -194,7 +201,8 @@ class Blocks
       $block['json_content'],
       $block['article_id'],
       $block['type'],
-      $block['weight']
+      $block['weight'],
+      $block['media']
     );
   }
 
@@ -249,7 +257,8 @@ class Blocks
       'json_content' => json_encode($json_content),
       'article_id' => $article_id,
       'type' => $type,
-      'weight' => $weight
+      'weight' => $weight,
+      'media' => $media
     ], ['id' => $id]);
   }
 
@@ -341,5 +350,15 @@ class Blocks
   public function getWeight()
   {
     return $this->weight;
+  }
+
+  /**
+   * Get the value of media
+   *
+   * @return Medias Media object
+   */
+  public function getMedia()
+  {
+    return Medias::getMediaById($this->media);
   }
 }

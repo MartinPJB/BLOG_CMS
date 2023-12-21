@@ -1,3 +1,5 @@
+import { waitForElm } from "../../modules/functions.js";
+
 /**
  * Library for handling block creation.
  * @namespace
@@ -8,7 +10,7 @@ const block_create = {
    * @function
    * @param {Event} e - The event triggering the displayForm function.
   */
-  displayForm(e) {
+  async displayForm(e) {
     const { articleid: articleID, type: targetForm } = e.target.dataset;
     const form = window.fields[targetForm];
 
@@ -16,19 +18,24 @@ const block_create = {
       return;
     }
 
-    const formContainer = document.querySelector("#cuej__block-creation-container");
+    const formContainer = document.querySelector("#cuej-block__creation-container");
     formContainer.innerHTML = ""; // Clear previous content
     formContainer.appendChild(this.createFormElement(articleID, targetForm, form, e.target.dataset.blockid));
-
-    if (e.target.dataset.json) {
-      this.fillForm(formContainer, JSON.parse(e.target.dataset.json), e.target.dataset.name);
-    };
 
     const event = new Event("show_choices");
     document.dispatchEvent(event);
 
-    document.querySelector("#step__1").classList.toggle("hidden");
-    document.querySelector("#step__2").classList.toggle("hidden");
+    if (e.target.dataset.json) {
+      const inputJSON = JSON.parse(e.target.dataset.json);
+      if (inputJSON.media_id) {
+        await waitForElm(".cuej-media__choose-existing");
+      }
+
+      this.fillForm(formContainer, inputJSON, e.target.dataset.name);
+    };
+
+    document.querySelector("#step-1").classList.toggle("hidden");
+    document.querySelector("#step-2").classList.toggle("hidden");
   },
 
   /**
@@ -43,8 +50,9 @@ const block_create = {
   createFormElement(articleID, targetForm, form, blockId) {
     const formHTML = document.createElement("form");
     const mode = blockId ? "edit" : "create";
-    formHTML.id = "cuej__block-creation-form";
-    formHTML.action = `admin/${mode}_block/${articleID}`;
+    const mode_id = blockId ? blockId : articleID;
+    formHTML.id = "cuej-block__creation-form";
+    formHTML.action = `admin/${mode}_block/${mode_id}`;
     formHTML.method = "POST";
     formHTML.enctype = "multipart/form-data";
 
@@ -70,7 +78,6 @@ const block_create = {
     formHTML.appendChild(this.createSubmitButton(blockId));
 
     if (blockId) {
-      console.log(blockId);
       formHTML.appendChild(this.createHiddenInput('blockId', blockId));
     }
 
@@ -108,8 +115,6 @@ const block_create = {
     const label = document.createElement("label");
     label.htmlFor = inputField.inputID;
     label.innerHTML = inputField.label;
-
-    console.log(inputField);
 
     // Create input
     let input
@@ -188,9 +193,20 @@ const block_create = {
   fillForm(form, values, name) {
     form.querySelector('[name=name]').value = name;
     for (const fieldName in values) {
+      let input = form.querySelector(`[name="${fieldName}"]`);
+      const value = values[fieldName];
+      console.log(value);
+
+      if (fieldName == "media_id") {
+        input = document.querySelector(`#existing_media_${value}`);
+        if (!input) continue;
+        input.checked = true;
+        continue;
+      }
+      if (!input) continue;
+
       form.querySelector(`[name="${fieldName}"]`).value = values[fieldName];
     }
-
   },
 
   /**
@@ -199,9 +215,9 @@ const block_create = {
    * @param {Event} e - The event triggering the hideForm function.
   */
   hideForm(e) {
-    document.querySelector("#step__1").classList.toggle("hidden");
-    document.querySelector("#step__2").classList.toggle("hidden");
-    document.querySelector("#cuej__block-creation-container").innerHTML = "";
+    document.querySelector("#step-1").classList.toggle("hidden");
+    document.querySelector("#step-2").classList.toggle("hidden");
+    document.querySelector("#cuej-block__creation-container").innerHTML = "";
   },
 
   /**
@@ -209,18 +225,18 @@ const block_create = {
    * @function
   */
   assignButtons() {
-    const blockButtons = document.querySelectorAll(".cuej__block-creation");
+    const blockButtons = document.querySelectorAll(".cuej-block__creation");
     for (const button of blockButtons) {
       button.addEventListener("click", this.displayForm.bind(this));
     }
 
-    const updateButtons = document.querySelectorAll(".cuej__block-update");
+    const updateButtons = document.querySelectorAll(".cuej-block__update");
     for (const button of updateButtons) {
       button.addEventListener("click", this.displayForm.bind(this));
     }
 
 
-    const backbutton = document.querySelector("#cuej__block-creation-back");
+    const backbutton = document.querySelector("#cuej-block__creation-back");
     backbutton.addEventListener("click", this.hideForm.bind(this));
   }
 };

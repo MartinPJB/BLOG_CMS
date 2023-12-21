@@ -6,12 +6,12 @@
 }
 
 /* Styles for the first step section in the block creation */
-.block-creation #step__1 > section {
+.block-creation #step-1 > section {
   margin-bottom: 3rem;
 }
 
 /* Styles for headings within the first step section */
-.block-creation #step__1 > section h2 {
+.block-creation #step-1 > section h2 {
   margin-bottom: 0;
 }
 
