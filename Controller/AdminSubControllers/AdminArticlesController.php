@@ -140,6 +140,10 @@ class AdminArticlesController extends AdminController
       $authorId = Users::getAuthentificatedUser()->getId();
       $newMediaId = NULL;
 
+      if (!isset($processed['tags']) || empty($processed['tags'])) {
+        $processed['tags'] = '';
+      }
+
       if (!empty($articleId)) {
         $article = Articles::getArticle($articleId, true);
         if (!is_null($article)) {
