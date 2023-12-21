@@ -3,13 +3,11 @@ Fields:
 - block_content (textarea): { label: 'Texte cité', min: 10, max: 10000, required: true }
 - block_ref (text): { label: 'Légende', min: 3, max: 128, required: true }
 #}
-<section class="block">
-  <figure class="quote">
-    <blockquote class="quote__content">
-      {{ json.block_content|raw }}
-    </blockquote>
-    <figcaption class="quote__ref">
-      {{ json.block_ref|raw }}
-    </figcaption>
-  </figure>
-</section>
+<figure class="quote">
+  <blockquote class="quote__content">
+    {{ json.block_content|raw }}
+  </blockquote>
+  <figcaption class="quote__ref">
+    {{ json.block_ref|raw }}
+  </figcaption>
+</figure>
