@@ -24,6 +24,9 @@ const block_create = {
       this.fillForm(formContainer, JSON.parse(e.target.dataset.json), e.target.dataset.name);
     };
 
+    const event = new Event("show_choices");
+    document.dispatchEvent(event);
+
     document.querySelector("#step__1").classList.toggle("hidden");
     document.querySelector("#step__2").classList.toggle("hidden");
   },
@@ -43,16 +46,24 @@ const block_create = {
     formHTML.id = "cuej__block-creation-form";
     formHTML.action = `admin/${mode}_block/${articleID}`;
     formHTML.method = "POST";
+    formHTML.enctype = "multipart/form-data";
 
     // Add hidden input for type
     formHTML.appendChild(this.createHiddenInput("type", targetForm));
 
     // Add name input
-    formHTML.appendChild(this.createInputLabelAndInput("Block name", "name", "text", "Block name"));
+    formHTML.appendChild(this.createInputLabelAndInput({
+      label: "Block Name",
+      inputID: "name",
+      type: "text",
+      inputPlaceholder: "Block Name",
+      required: true
+    }));
 
     // Add other form inputs
     for (const input in form) {
-      formHTML.appendChild(this.createInputLabelAndInput(form[input].label, input, form[input].type, form[input].label, form[input].min, form[input].max));
+      form[input].inputID = input;
+      formHTML.appendChild(this.createInputLabelAndInput(form[input]));
     }
 
     // Add submit button
@@ -84,15 +95,10 @@ const block_create = {
   /**
    * Creates and returns a label and input element.
    * @function
-   * @param {string} labelText - The text content of the label.
-   * @param {string} inputID - The ID attribute of the input.
-   * @param {string} inputType - The type attribute of the input.
-   * @param {string} inputPlaceholder - The placeholder attribute of the input.
-   * @param {number} [min] - The min attribute of the input (optional).
-   * @param {number} [max] - The max attribute of the input (optional).
+   * @param {object} inputField - The input data.
    * @returns {DocumentFragment} - The created label and input elements.
   */
-  createInputLabelAndInput(labelText, inputID, inputType, inputPlaceholder, min, max) {
+  createInputLabelAndInput(inputField) {
     const fragment = document.createDocumentFragment();
 
     // Create section
@@ -100,28 +106,55 @@ const block_create = {
 
     // Create label
     const label = document.createElement("label");
-    label.htmlFor = inputID;
-    label.innerHTML = labelText;
+    label.htmlFor = inputField.inputID;
+    label.innerHTML = inputField.label;
+
+    console.log(inputField);
 
     // Create input
-    const input = inputType === "textarea" ? document.createElement("textarea") : document.createElement("input");
+    let input
+    const inputType = inputField.type;
+    switch (inputType) {
+      case "textarea":
+        input = document.createElement("textarea");
+        break;
+      case "select":
+        input = document.createElement("select");
+        const options = inputField.options.split(", ");
+        for (const option of options) {
+          const optionElement = document.createElement("option");
+          optionElement.value = option;
+          optionElement.innerHTML = option;
+          input.appendChild(optionElement);
+        }
+        break;
+      default:
+        input = document.createElement("input");
+        input.type = inputType;
 
-    // Set input type for non-textarea elements
-    if (inputType !== "textarea") {
-      input.type = inputType;
+        if (inputType === "file") {
+          input.accept = inputField.accept;
+          section.id = "cuej__media";
+
+          const acceptWithoutDot = inputField.accept.replaceAll(".", "");
+          section.dataset.type = acceptWithoutDot;
+        }
+
+        input.placeholder = inputField.label;
+        break;
     }
 
-    input.name = inputID;
-    input.id = inputID;
-    input.placeholder = inputPlaceholder;
+    input.name = inputField.inputID;
+    input.id = inputField.inputID;
+    input.required = inputField.required ?? false;
 
     // Add min and max attributes if present
-    if (min !== undefined) {
-      input.min = min;
+    if (inputField.min !== undefined) {
+      input.min = inputField.min;
     }
 
-    if (max !== undefined) {
-      input.max = max;
+    if (inputField.max !== undefined) {
+      input.max = inputField.max;
     }
 
     // Append label and input to fragment

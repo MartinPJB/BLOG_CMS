@@ -138,20 +138,37 @@ class Blocks
             continue; // Skip the "Fields:" line
           }
 
-          // Extract field name, type, label, min, and max lengths
-          if (preg_match('/- (\w+) \((\w+)\): \{ label: \'([^\']+)\', min: (\d+), max: (\d+) \}/', $line, $fieldMatch)) {
-            $fieldName = $fieldMatch[1];
-            $fieldType = $fieldMatch[2];
-            $fieldLabel = $fieldMatch[3];
-            $minLength = (int)$fieldMatch[4];
-            $maxLength = (int)$fieldMatch[5];
+          // Extract field name, type, and attributes
+          if (preg_match('/- (\w+) \((\w+)\): \{(.+?)\}/', $line, $fieldMatch)) {
+            $name = $fieldMatch[1];
+            $type = $fieldMatch[2];
+            $attributes = $fieldMatch[3];
 
-            $fields[$fieldName] = [
-              'type' => $fieldType,
-              'label' => $fieldLabel,
-              'min_length' => $minLength,
-              'max_length' => $maxLength,
-            ];
+            // Parse attributes (and remove spaces at the beginning and end)
+            $attributeParts = preg_split('/,\s*(?=(?:(?:[^\'"]*[\'"]){2})*[^\'"]*$)/', $attributes);
+            foreach ($attributeParts as &$part) {
+              $part = trim($part, " \t\n\r\0\x0B'\"");
+            }
+
+            $fieldOptions = [];
+            foreach ($attributeParts as $attribute) {
+              // Split attribute into key and value
+              list($key, $value) = explode(':', $attribute, 2);
+
+              // Remove spaces at the beginning and end of key and value
+              $key = trim($key);
+              $value = trim($value, " \t\n\r\0\x0B'\"");
+
+              // Handles if the value is a number
+              if (is_numeric($value)) {
+                $value = (int)$value;
+              }
+
+              // Add to fieldOptions array
+              $fieldOptions[$key] = $value;
+            }
+
+            $fields[$name] = array_merge(['type' => $type], $fieldOptions);
           }
         }
       }
@@ -159,6 +176,7 @@ class Blocks
 
     return $fields;
   }
+
 
   /**
    * Get a block by its ID

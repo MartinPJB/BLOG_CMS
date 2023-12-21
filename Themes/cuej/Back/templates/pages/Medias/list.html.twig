@@ -35,7 +35,7 @@
       {% if media.type|split("/")|last in ["png", "jpg", "jpeg", "gif", "webp", "svg"] %}
         <img src="{{ media.path }}" alt="{{ media.alt }}" />
       {% else %}
-        <a href="{{ media.path }}">Download</a>
+        <img src="public/back/img/{{ media.type|split("/")|last }}.png" alt="{{ media.alt }}" />
       {% endif %}
       <div class="media-actions flex flex-column flex-center">
         <span class="media-name">{{ media.name }}.{{ media.type|split("/")|last }}</span>

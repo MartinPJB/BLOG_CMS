@@ -123,7 +123,7 @@ const library_unassign = {
    * @returns {Event}
    */
   unassignEvent() {
-    return new Event("media_unassigned");
+    return new Event("show_choices");
   },
 };
 

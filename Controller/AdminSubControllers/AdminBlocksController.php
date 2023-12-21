@@ -153,9 +153,10 @@ class AdminBlocksController extends AdminController {
         $newMediaId = $processed['media_id'];
       }
 
-      if (is_null($newMediaId) && (isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
-        $newMediaId = $this->upload_file($_FILES['image']);
+      if (is_null($newMediaId) && (isset($_FILES['block_src']) && !empty($_FILES['block_src']['tmp_name'])) && !isset($processed['media_id'])) {
+        $newMediaId = $this->upload_file($_FILES['block_src']);
       }
+
       if ($action === 'create') {
         Blocks::create(
           $processed['name'],

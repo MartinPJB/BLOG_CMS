@@ -76,8 +76,7 @@ const library_choose_existing = {
       const label = document.createElement("label");
 
       // Get extension from mime type
-      // const extension = media.type.split("/")[1];
-      // label.innerText = `${media.name}.${extension}`;
+      const extension = media.type.split("/")[1];
       label.htmlFor = media.id;
 
       // Create a div with the media preview
@@ -86,7 +85,13 @@ const library_choose_existing = {
 
       // Handles media path (checks if it's local or not)
       const imagePath = media.path.includes("http") ? media.path : `../../../../../${media.path}`;
-      preview.style.setProperty("--image", `url("${imagePath}")`);
+
+      // Set the background image of the preview div if its extension is an image.
+      if (media.type.includes("image")) {
+        preview.style.setProperty("--image", `url("${imagePath}")`);
+      } else {
+        preview.style.setProperty("--image", `url("../../../../../public/back/img/${extension}.png")`);
+      }
 
       // Append all elements
       flexDiv.appendChild(radio);

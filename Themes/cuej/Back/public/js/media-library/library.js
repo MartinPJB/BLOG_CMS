@@ -3,27 +3,20 @@ import library_delete from "./modules/delete.js";
 import library_unassign from "./modules/unassign.js";
 import library_choose_existing from "./modules/choose_existing.js";
 
-// Initializations
-library_delete.assignButtons();
-library_unassign.assignButtons();
-
-document.addEventListener("media_unassigned", () => {
-  library_choose_existing.init();
-});
-library_choose_existing.init();
-
 // Allows to uncheck radio buttons in the media library div
 function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-(async () => {
+async function detectMediaLibrary() {
   let mediaArea;
   const cuej__media = document.querySelector("#cuej__media");
+  let tries = 5;
 
-  while (!mediaArea && cuej__media) {
+  while ((!mediaArea && cuej__media) && tries > 0) {
     mediaArea = document.querySelector(".cuej__media__choose_existing");
     await wait(500);
+    tries--;
   }
 
   if (mediaArea) {
@@ -46,4 +39,15 @@ function wait(ms) {
       });
     }
   }
-})();
+}
+
+// Initializations
+library_delete.assignButtons();
+library_unassign.assignButtons();
+
+document.addEventListener("show_choices", () => {
+  library_choose_existing.init();
+  detectMediaLibrary();
+});
+library_choose_existing.init();
+detectMediaLibrary();
