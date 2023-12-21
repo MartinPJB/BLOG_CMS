@@ -1,6 +1,9 @@
 .container {
   margin: auto;
-  max-width: 1200px;
+  max-width: 1450px;
+}
+.container--small {
+  padding: 0 6.5em;
 }
 
 .full-width {
@@ -19,6 +22,9 @@
 .jc-sa {
   justify-content: space-around;
 }
+.jc-sb {
+  justify-content: space-between;
+}
 
 .ai-c {
   align-items: center;
@@ -26,6 +32,9 @@
 
 .gap-1 {
   gap: 1em;
+}
+.gap-2 {
+  gap: 2.4em;
 }
 
 .center-x {

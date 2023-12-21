@@ -4,8 +4,8 @@
 #}
 
 <footer class="footer">
-  <nav class="footer-nav row jc-sa ai-c" aria-label="Plan du site">
-    <ul class="col ">
+  <nav class="footer-nav row jc-sb" aria-label="Plan du site">
+    <ul class="col gap-1">
       <a class="fs-2" href="{{ site_default_route }}">{{ site_name }}</a>
       <li><a class="footer-nav__article" href="#">Crédits</a></li>
       <li><a class="footer-nav__article" href="#">Mentions Légales</a></li>
@@ -19,8 +19,8 @@
       {% endif %}
     </ul>
     {% for cat, articles in site_navigation %}
-    <ul class="col">
-      <a class="footer-nav__category" class="fs-2" href="articles/see/{{ articles[0][1] }}" {{ cat==category.name ? 'aria-current="step"' }}>{{ cat }}</a>
+    <ul class="col gap-1">
+      <a class="footer-nav__category fs-2" href="articles/see/{{ articles[0][1] }}" {{ cat==category.name ? 'aria-current="step"' }}>{{ cat }}</a>
       {% for art in articles %}
       <li><a class="footer-nav__article" href="articles/see/{{ art[1] }}" {{ art[1]==article.id ? 'aria-current="page"' }}>{{ art[0] }}</a></li>
       {% endfor %}
