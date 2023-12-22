@@ -326,10 +326,10 @@ class Blocks
     $field = str_replace('&quot;', '"', $field);
 
     // Replaces <i></i> by underscores
-    $field = str_replace('<i>', '_', $field);
-    $field = str_replace('</i>', '_', $field);
-    $field = str_replace('&lt;i&gt;', '_', $field);
-    $field = str_replace('&lt;/i&gt;', '_', $field);
+    $field = str_replace('<i>', '__', $field);
+    $field = str_replace('</i>', '__', $field);
+    $field = str_replace('&lt;i&gt;', '__', $field);
+    $field = str_replace('&lt;/i&gt;', '__', $field);
 
     // Replaces quotes html entities by quotes
     $field = str_replace('&amp;#039;', "'", $field);
