@@ -59,13 +59,33 @@ Path: cuej/Front/templates/pages/Articles/see.html.twig
     {% endfor %}
   </section>
 </article>
-<nav class="container" aria-label="Navigation d'articles voisins">
+<nav class="ai-c bottom-nav container row jc-sb" aria-label="Navigation d'articles voisins">
+  <a class="row changer-art ai-c" href="articles/see/{{ sibbling.previous.1 }}">
   {% if sibbling.previous %}
-  <a href="articles/see/{{ sibbling.previous.1 }}">{{ sibbling.previous.0 }}</a>
-  {% endif %}
+      <svg class="svg-navigation" width="10" height="17" viewBox="0 0 10 17" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 16.625L9.60135e-07 8.5L10 0.375" fill="#000000" />
+      </svg>
+      <p>Revenir à l'article<br>"{{ sibbling.previous.0 }}"</p>
+      {% endif %}
+    </a>
+    <a class="col jc-c ai-c gap-1" href="categories">
+      <svg width="30" height="32" viewBox="0 0 30 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M16.7158 0.672252C15.753 -0.224084 14.247 -0.224084 13.2843 0.672252L1.1881 11.9342C0.439683 12.631 0.015625 13.6005 0.015625 14.6147V28.3111C0.015625 30.3483 1.6928 32 3.76172 32H7.50782C9.57674 32 11.2539 30.3483 11.2539 28.3111V22.1629C11.2539 21.4838 11.813 20.9333 12.5026 20.9333H17.4974C18.187 20.9333 18.7461 21.4838 18.7461 22.1629V28.3111C18.7461 30.3483 20.4234 32 22.4922 32H26.2383C28.3072 32 29.9844 30.3483 29.9844 28.3111V14.6147C29.9844 13.6005 29.5604 12.631 28.8119 11.9342L16.7158 0.672252Z"
+          fill="#000000" />
+      </svg>
+      <p>Revenir à la page d'accueil</p>
+    </a>
+    <a class="row changer-art ai-c" href="articles/see/{{ sibbling.next.1 }}">
   {% if sibbling.next %}
-  <a href="articles/see/{{ sibbling.next.1 }}">{{ sibbling.next.0 }}</a>
-  {% endif %}
+      <p>Aller à l'article suivant<br>"{{ sibbling.next.0 }}"</p>
+      <svg class="svg-navigation" width="10" height="17" viewBox="0 0 10 17" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 0.375L10 8.5L-4.9965e-07 16.625" fill="#000000" />
+      </svg>
+      {% endif %}
+    </a>
 </nav>
 <div class="progress-bar-container">
   <div class="progress-bar" id="article-progress">

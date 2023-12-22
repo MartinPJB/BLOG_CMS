@@ -1,16 +1,32 @@
 .header-nav {
-  background-color: var(--color-white);
   position: fixed;
   z-index: 1;
-  top: 4vh;
+  top: 2vh;
+  align-items: center;
+  transform: translateX(calc(-50% - 3em));
 }
 
-.header-nav--small {
-
+.header-nav__home-btn {
+  background-color: var(--color-white);
+  margin-right: 4em;
 }
+
+.header-nav--small {}
 
 .header-nav__list {
   display: none;
+}
+
+.header-nav__category {
+  padding: .25em .5em;
+}
+
+.header-nav__home {
+  height: 2.5rem;
+}
+
+.header-nav__category>img {
+  height: 2.5rem;
 }
 
 .header-nav__category:hover,

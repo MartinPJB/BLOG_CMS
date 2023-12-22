@@ -13,7 +13,7 @@
 
 
 article {
-  margin: 0 2em;
+  margin: 0 12vw;
 }
 
 .intro {
@@ -67,6 +67,14 @@ article {
 .image-block--p {
   width: 100vw;
   position: relative;
+}
+.image-block--m {
+  width: 50vw;
+  margin: auto;
+}
+.image-block--t {
+  width: 33vw;
+  margin: auto;
 }
 
 .media--d {
@@ -215,6 +223,20 @@ article {
   text-align: right;
 }
 
+/* bottom nav */
+.bottom-nav {
+  margin: 2em 12vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  filter: var(--fill-filter--primary);
+}
+.changer-art {
+  justify-content: center;
+  gap: 1.5em;
+}
+.svg-navigation {
+  font-size: 0.5em;
+}
 
 /* progres bar */
 .progress-bar-container {
