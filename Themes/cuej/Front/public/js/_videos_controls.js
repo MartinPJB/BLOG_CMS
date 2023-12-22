@@ -9,25 +9,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const volumeBar = controls.querySelector('.volume-bar');
     const fullscreenBtn = controls.querySelector('.fullscreen-btn');
 
-    for (const playPauseBtn of playPauseBtns) {
-      playPauseBtn.addEventListener('click', function() {
-        if (video.paused || video.ended) {
-          video.play();
-          for (const btn of playPauseBtns) {
-            btn.firstElementChild.alt = "Pause";
-            btn.firstElementChild.src = "public/front/img/svg/icon-pause.svg";
-          }
-        } else {
-          video.pause();
-          for (const btn of playPauseBtns) {
-            btn.firstElementChild.alt = "Jouer";
-            btn.firstElementChild.src = "public/front/img/svg/icon-play.svg";
-          }
+    const handlePlayPause = function() {
+      if (video.paused || video.ended) {
+        video.play();
+        playPauseBtns[0].style.display = " none";
+        for (const btn of playPauseBtns) {
+          btn.firstElementChild.alt = "Pause";
+          btn.firstElementChild.src = "public/front/img/svg/icon-pause.svg";
         }
-      });
+      } else {
+        video.pause();
+        playPauseBtns[0].style.display = "block";
+        for (const btn of playPauseBtns) {
+          btn.firstElementChild.alt = "Jouer";
+          btn.firstElementChild.src = "public/front/img/svg/icon-play.svg";
+        }
+      }
+    };
+
+    for (const playPauseBtn of playPauseBtns) {
+      playPauseBtn.addEventListener('click', handlePlayPause)
     }
+    video.addEventListener('click', handlePlayPause)
 
     video.addEventListener('ended', function() {
+      playPauseBtns[0].style.display = "block";
       for (const btn of playPauseBtns) {
         btn.firstElementChild.alt = "Jouer";
         btn.firstElementChild.src = "public/front/img/svg/icon-play.svg";

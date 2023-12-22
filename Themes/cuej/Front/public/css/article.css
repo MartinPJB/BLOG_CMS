@@ -200,6 +200,10 @@ article {
   right: 2em;
 }
 
+.signature {
+  text-align: right;
+}
+
 
 /* progres bar */
 .progress-bar-container {
