@@ -1,8 +1,8 @@
 .footer-nav {
-  height: 23vh;
-  padding: 3em 11em 0 6em;
+  padding: 3em 11em 3rem 6em;
   color: var(--color-white);
   background-color: var(--color-primary--dark);
+  font-size: 1.05rem;
 }
 
 .footer-nav__category[aria-current="step"],

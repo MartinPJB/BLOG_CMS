@@ -118,6 +118,9 @@ class Blocks
     $result = [];
 
     foreach ($blocks as $block) {
+      if (substr($block, 0, strlen($block)) == '_') continue; // Skip
+
+
       if ($block !== '.' && $block !== '..') {
         $withoutExtension = explode('.', $block)[0];
         $content = file_get_contents($location . $block);
