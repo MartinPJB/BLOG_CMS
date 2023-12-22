@@ -7,6 +7,7 @@ use \Core\Routing\Router;
 
 use \Core\Database\Manager;
 use \Core\Database\Installer;
+use \Model\SiteSettings;
 use \Core\Config;
 
 // Requires autoloads
@@ -38,4 +39,13 @@ $parameters = [
 ];
 
 $requestContext = new RequestContext($url, $method, $parameters);
+
+if (is_null($requestContext->getRoute())) {
+  $siteSettings = SiteSettings::getSiteSettings();
+  $newRoute = Config::get('site_root') . $siteSettings->getDefaultRoute();
+  var_dump("Location: $newRoute");
+  header("Location: $newRoute");
+  exit;
+}
+
 Router::dispatch($requestContext);

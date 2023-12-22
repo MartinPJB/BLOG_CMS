@@ -26,6 +26,7 @@ class AdminCategoriesController extends AdminController
    */
   private function validateCategoryFields($name, $description, $media)
   {
+    var_dump($name, $description, strlen($name), strlen($description));
     if (strlen($name) < 5) {
       throw new \Exception('The name must be at least 5 characters long');
     }
