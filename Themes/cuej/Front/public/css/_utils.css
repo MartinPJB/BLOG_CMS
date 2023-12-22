@@ -35,7 +35,18 @@
 .gap-2 {
   gap: 2.4em;
 }
+.gap-3 {
+  gap: 3em;
+}
 
+.rad-15 {
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.center-text {
+  text-align: center;
+}
 .center-x {
   left: 50%;
   transform: translateX(-50%);

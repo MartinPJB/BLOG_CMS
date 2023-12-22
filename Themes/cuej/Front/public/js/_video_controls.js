@@ -7,14 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
   playPauseBtn.addEventListener('click', function() {
     if (video.paused || video.ended) {
       video.play();
-      playPauseBtn.innerHTML = '<img src="pause-icon.pff" alt="Pause">';/* TBM */
+      playPauseBtn.innerHTML = '<img src="public/front/img/svg/icon-pause.svg" alt="Pause">';
     } else {
       video.pause();
-      playPauseBtn.innerHTML = '<img src="play-icon.pff" alt="Play">';/* TBM */
+      playPauseBtn.innerHTML = '<img src="public/front/img/svg/icon-play.svg" alt="Jouer">';
     }
   });
   video.addEventListener('ended', function() {
-    playPauseBtn.innerHTML = '<img src="play-icon.pff" alt="Play">';/* TBM */
+    playPauseBtn.innerHTML = '<img src="public/front/img/svg/icon-play.svg" alt="Jouer">';
   });
 
   video.addEventListener('timeupdate', function() {

@@ -4,10 +4,31 @@ Fields:
 - block_ref (text): { label: 'Légende', min: 3, max: 64, required: true }
 #}
 <figure class="video-block">
-  <video class="video-block__video">
-    <source src="{{ media.path }}" type="video/mp4">
+  <video class="video-block__video rad-15">
+    <source src="public/front/vid/introvid.mp4" type="video/mp4">
     Votre navigateur n'arrive pas à lire le MP4, cependant vous pouvez toujours le
-    <a href="{{ media.path }}">Télécharger</a>
+    <a href="public/front/vid/introvid.mp4">Télécharger</a>
   </video>
   <figcaption class="video-block__legend">{{ json.block_ref }}</figcaption>
+  <div class="video-controls">
+    <button class="play-pause-btn play-pause-btn--middle">
+      <img src="public/front/img/svg/icon-play.svg" alt="Jouer">
+    </button>
+    <input class="vidprogress-bar" type="range" value="0" max="100" orient="horizontal">
+    <div class="bottom-controls row">
+      <button class="play-pause-btn">
+        <img class="controls-icon" src="public/front/img/svg/icon-play.svg" alt="Jouer">
+      </button>
+      <div class="volume-container col">
+        <button class="mute-btn">
+          <img class="controls-icon" src="public/front/img/svg/icon-audio.svg" alt="Volume">
+        </button>
+        <input class="volume-bar" type="range" value="100" max="100" orient="vertical">
+      </div>
+      <span class="timecode">00:00 / 00:00</span>
+      <button class="fullscreen-btn">
+        <img class="controls-icon" src="public/front/img/svg/icon-fullscreen.svg" alt="Plein écran">
+      </button>
+    </div>
+  </div>
 </figure>

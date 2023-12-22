@@ -2,4 +2,5 @@
   --color-primary: #F39609;
   --color-primary--dark: #5D3413;
   --color-primary--darker: #3F2D1C;
+  --fill-filter--primary: invert(82%) sepia(38%) saturate(6822%) hue-rotate(357deg) brightness(97%) contrast(96%);
 }
