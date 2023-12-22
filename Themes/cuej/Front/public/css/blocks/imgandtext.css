@@ -1,0 +1,19 @@
+
+.imgandtxt-block {
+  flex-basis: 100%;
+  line-height: 125%;
+}
+.imgandtxt-block--p {
+  flex-basis: 330%;
+  margin-left: -33%;
+}
+.imgandtxt-block--p > figcaption {
+  text-align: center;
+}
+.imgandtxt-block__text {
+  flex-basis: 185%;
+}
+.imgandtxt-block__image {
+  width: 100%;
+  overflow: hidden;
+}

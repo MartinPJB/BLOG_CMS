@@ -1,0 +1,12 @@
+.image-block--p {
+  width: 100vw;
+  position: relative;
+}
+.image-block--m {
+  width: 50vw;
+  margin: auto;
+}
+.image-block--t {
+  width: 33vw;
+  margin: auto;
+}
