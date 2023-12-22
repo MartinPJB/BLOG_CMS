@@ -41,6 +41,7 @@ class ControllerBase
     $loader = new \Twig\Loader\FilesystemLoader("$directory/Themes/$themePart/templates/");
     $twig = new \Twig\Environment($loader, [
       'debug' => true,
+      'cache' => false,
     ]);
 
     $twig->addExtension(new \Twig\Extension\DebugExtension());
@@ -49,12 +50,6 @@ class ControllerBase
     $htmlEntityDecode = new \Twig\TwigFilter('clean_content_for_html', function ($string) {
       $string = str_replace('%%', '&nbsp;', $string);
       $string = str_replace('~~', '\n', $string);
-
-      // Double underscore to italic (Regex: /__(.*?)__/)
-      $string = preg_replace('/__(.*?)__/', '<i>$1</i>', $string);
-
-      // Double asterisk to bold (Regex: /\*\*(.*?)\*\*/)
-      $string = preg_replace('/\*\*(.*?)\*\*/', '<b>$1</b>', $string);
 
       // And double quotes are turned into french quotes, no matter how many spaces there is between the two (RegEx)
       $string = preg_replace('/"(.*?)"/', '« $1 »', $string);
