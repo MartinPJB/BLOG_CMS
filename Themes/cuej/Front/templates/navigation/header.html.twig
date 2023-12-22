@@ -10,7 +10,7 @@
 		</a>
 		{% for cat, articles in site_navigation %}
 		<a class="header-nav__category fs-2" href="articles/see/{{ articles[0][1] }}" {{ cat == category.name ? 'aria-current="step" id="active-category"' }}>
-			<img src="public/front/img/svg/{{ cat|replace({' ' : '_'})|lower }}.svg" alt="{{ cat }}">
+			<img src="public/front/img/svg/{{ cat|replace({' ' : '_'})|lower|replace({'é':'e'}) }}.svg" alt="{{ cat }}">
 		</a>
 
 		<ul class="header-nav__list row center-x">

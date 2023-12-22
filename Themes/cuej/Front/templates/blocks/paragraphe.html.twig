@@ -3,5 +3,5 @@ Fields:
 - block_content (textarea): { label: 'Contenu', min: 10, max: 10000, required: true }
 #}
 <p class="paragraph contained--small">
-  {{ json.block_content|raw }}
+  {{ json.block_content|clean_content_for_html|nl2br|raw }}
 </p>

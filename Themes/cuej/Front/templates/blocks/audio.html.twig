@@ -22,5 +22,5 @@ Fields:
 			Pause
 		</span>
 	</button>
-	<figcaption class="audio-block__legend">{{ json.block_ref|raw }}</figcaption>
+	<figcaption class="audio-block__legend">{{ json.block_ref|clean_content_for_html|nl2br|raw }}</figcaption>
 </figure>

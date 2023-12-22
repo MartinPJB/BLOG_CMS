@@ -52,29 +52,6 @@ class AdminController extends ControllerBase implements ControllerInterface
   }
 
   /**
-   * Parses the string to publish it correctly on the website
-   *
-   * @param string $field The field to parse
-   * @return string The parsed field
-   */
-  protected function parseStringPublish($field) {
-    // Replaces double percent signs by a non breaking space
-    $field = str_replace('%%', '&nbsp;', $field);
-
-    // Replaces english quotes (" ") by french quotes (« ») (First quote is opening, second is closing) RegEx
-    $field = preg_replace('/"([^"]+)"/', '«$1»', $field);
-    $field = preg_replace('/&quot;([^&quot;]+)&quot;/', '«$1»', $field);
-
-    // Adds an italic style to the text between 2 underscores (2 on each side)
-    $field = preg_replace('/__([^_]+)__(?!_)/', '<i>$1</i>', $field);
-
-    // Double ~ to add a line break
-    $field = str_replace('~~', '<br>', $field);
-
-    return $field;
-  }
-
-  /**
    * The process create method, will handle the validation of all the fields in the admin panel (articles, categories, etc.)
    */
   protected function process_fields()

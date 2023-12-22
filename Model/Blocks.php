@@ -307,41 +307,6 @@ class Blocks
     return json_decode($this->json_content);
   }
 
-    /**
-   * Parses the string to reverse the parseStringPublish method
-   *
-   * @param string $field The field to parse
-   * @return string The parsed field
-   */
-  protected function reverseParseString($field) {
-    // Replaces html codes by their corresponding characters
-    $field = html_entity_decode($field);
-
-    // Replaces non breaking spaces by double percent signs
-    $field = str_replace('&amp;nbsp;', '%%', $field);
-    $field = str_replace('&nbsp;', '%%', $field);
-
-    // Replaces french quotes (« ») by english quotes (" ") (First quote is opening, second is closing) RegEx
-    $field = str_replace('&amp;quot;', '"', $field);
-    $field = str_replace('&quot;', '"', $field);
-
-    // Replaces <i></i> by underscores
-    $field = str_replace('<i>', '__', $field);
-    $field = str_replace('</i>', '__', $field);
-    $field = str_replace('&lt;i&gt;', '__', $field);
-    $field = str_replace('&lt;/i&gt;', '__', $field);
-
-    // Replaces quotes html entities by quotes
-    $field = str_replace('&amp;#039;', "'", $field);
-    $field = str_replace('&#039;', "'", $field);
-
-    // Replaces <br> by double ~
-    $field = str_replace('<br>', '~~', $field);
-    $field = str_replace('&lt;br&gt;', '~~', $field);
-
-    return $field;
-  }
-
   /**
    * Get the value of json_content as a string
    *
@@ -349,18 +314,7 @@ class Blocks
    */
   public function getJsonContentString()
   {
-    $fieldUnparse = json_decode($this->json_content);
-    $fieldUnparse = (array)$fieldUnparse;
-
-    foreach ($fieldUnparse as $key => $value) {
-      if (is_string($value)) {
-        $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-        $fieldUnparse[$key] = $this->reverseParseString($value);
-      }
-    }
-
-    $fieldUnparse = json_encode($fieldUnparse);
-    return (string)$fieldUnparse;
+    return (string)$this->json_content;
   }
 
   /**

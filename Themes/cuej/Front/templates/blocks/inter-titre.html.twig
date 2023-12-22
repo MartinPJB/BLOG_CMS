@@ -3,5 +3,5 @@ Fields:
 - block_content (text): { label: 'Content', min: 5, max: 64, required: true }
 #}
 <h3 class="intettl contained--small">
-  {{ json.block_content|raw }}
+  {{ json.block_content|clean_content_for_html|nl2br|raw }}
 </h3>

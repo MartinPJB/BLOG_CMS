@@ -27,6 +27,7 @@ const block_create = {
 
     if (e.target.dataset.json) {
       const inputJSON = JSON.parse(e.target.dataset.json);
+      console.log(inputJSON);
       if (inputJSON.media_id) {
         await waitForElm(".cuej-media__choose-existing");
       }
