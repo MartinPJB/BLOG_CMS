@@ -62,10 +62,13 @@ class ArticlesController extends ControllerBase implements ControllerInterface
     $categoryArticles = $this->siteSettings->getNavigation()[
       $article->getCategory()->getName()
     ];
-    foreach ($categoryArticles as $i => $art) {
-      if ($art[1] === $article_id) {
-        $previous = isset($categoryArticles[$i - 1]) ? $categoryArticles[$i - 1] : null;
-        $next = isset($categoryArticles[$i + 1]) ? $categoryArticles[$i + 1] : null;
+
+    if (is_array($categoryArticles)) {
+      foreach ($categoryArticles as $i => $art) {
+        if ($art[1] === $article_id) {
+          $previous = isset($categoryArticles[$i - 1]) ? $categoryArticles[$i - 1] : null;
+          $next = isset($categoryArticles[$i + 1]) ? $categoryArticles[$i + 1] : null;
+        }
       }
     }
 

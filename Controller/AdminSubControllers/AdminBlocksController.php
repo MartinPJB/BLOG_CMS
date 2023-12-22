@@ -204,6 +204,14 @@ class AdminBlocksController extends AdminController
 
     try {
       $processed = $this->process_fields();
+
+      // Parse the string to publish it correctly on the website
+      foreach ($processed as $key => $value) {
+        if (is_string($value)) {
+          $processed[$key] = $this->parseStringPublish($value);
+        }
+      }
+
       $jsonDatas = json_encode(array_diff_key($processed, array_flip(['type', 'name'])));
       $newMediaId = NULL;
 

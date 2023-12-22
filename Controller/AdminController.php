@@ -63,9 +63,7 @@ class AdminController extends ControllerBase implements ControllerInterface
 
     // Replaces english quotes (" ") by french quotes (« ») (First quote is opening, second is closing) RegEx
     $field = preg_replace('/"([^"]+)"/', '«$1»', $field);
-
-    // Does the same thing but quotes that have spaces before or after
-    $field = preg_replace('/\s"([^"]+)"\s/', ' «$1» ', $field);
+    $field = preg_replace('/&quot;([^&quot;]+)&quot;/', '«$1»', $field);
 
     // Adds an italic style to the text between underscores
     $field = preg_replace('/_([^_]+)_/', '<i>$1</i>', $field);
@@ -118,8 +116,6 @@ class AdminController extends ControllerBase implements ControllerInterface
       // Then we just clean the string
       else {
         $fields[$field] = FieldChecker::cleanString($value);
-        $fields[$field] = $this->parseStringPublish($fields[$field]);
-
         continue;
       }
     }
