@@ -335,6 +335,10 @@ class Blocks
     $field = str_replace('&amp;#039;', "'", $field);
     $field = str_replace('&#039;', "'", $field);
 
+    // Replaces <br> by double ~
+    $field = str_replace('<br>', '~~', $field);
+    $field = str_replace('&lt;br&gt;', '~~', $field);
+
     return $field;
   }
 
