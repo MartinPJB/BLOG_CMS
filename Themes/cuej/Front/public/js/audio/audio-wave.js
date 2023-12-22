@@ -1,22 +1,18 @@
 import WaveSurfer from "./wavesurfer.esm.js";
 
-let audiowave;
-
 const audios = document.querySelectorAll("audio");
 const computedStyle = getComputedStyle(document.documentElement);
 
 for (const audio of audios) {
   const audioPath = audio.src;
   const closestFigure = audio.closest(".audio-block__content");
+  const button = closestFigure.parentElement.querySelector(".audio-block__control");
 
-  let audiowave = {
+  const wavesurfer = WaveSurfer.create({
     container: closestFigure,
     waveColor: computedStyle.getPropertyValue("--color-primary"),
     progressColor: computedStyle.getPropertyValue("--color-primary--dark"),
     url: audioPath,
-    barRadius: 2,
-    normalize: true,
-    splitChannels: false,
     cursorColor: computedStyle.getPropertyValue("--color-primary--darker"),
     cursorWidth: 2,
     barWidth: 7,
@@ -25,7 +21,6 @@ for (const audio of audios) {
     barHeight: 1,
     minPxPerSec: 1,
     fillParent: true,
-    mediaControls: true,
     autoplay: false,
     interact: true,
     dragToSeek: true,
@@ -34,10 +29,13 @@ for (const audio of audios) {
     autoScroll: true,
     autoCenter: true,
     sampleRate: 8000,
-  };
+  });
 
-  const wavesurfer = WaveSurfer.create(audiowave);
-  wavesurfer.on("click", function () {
-    wavesurfer.play();
+  wavesurfer.on("click", () => wavesurfer.play());
+
+  button.addEventListener("click", () => {
+    button.classList.toggle("audio-block__control--play");
+    button.classList.toggle("audio-block__control--pause");
+    wavesurfer.playPause();
   });
 }
