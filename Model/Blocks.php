@@ -314,6 +314,9 @@ class Blocks
    * @return string The parsed field
    */
   protected function reverseParseString($field) {
+    // Replaces html codes by their corresponding characters
+    $field = html_entity_decode($field);
+
     // Replaces non breaking spaces by double percent signs
     $field = str_replace('&amp;nbsp;', '%%', $field);
     $field = str_replace('&nbsp;', '%%', $field);
@@ -328,6 +331,9 @@ class Blocks
     $field = str_replace('&lt;i&gt;', '_', $field);
     $field = str_replace('&lt;/i&gt;', '_', $field);
 
+    // Replaces quotes html entities by quotes
+    $field = str_replace('&amp;#039;', "'", $field);
+    $field = str_replace('&#039;', "'", $field);
 
     return $field;
   }
