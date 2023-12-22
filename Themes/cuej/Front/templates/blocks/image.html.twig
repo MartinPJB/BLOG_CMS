@@ -8,6 +8,6 @@ Fields:
 <figure class="image-block col gap-1 center-text">
   <img class="image-block--{{ json.block_size|first|lower == 'p' ? 'p center-x' }}" src="{{ media.path }}" alt="{{ json.block_alt|raw }}">
   <figcaption class="legend fs-i">
-    {{ json.block_ref|raw }}
+    {{ json.block_ref|clean_content_for_html|raw }}
   </figcaption>
 </figure>

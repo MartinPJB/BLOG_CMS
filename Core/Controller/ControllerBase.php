@@ -45,6 +45,23 @@ class ControllerBase
 
     $twig->addExtension(new \Twig\Extension\DebugExtension());
 
+    // Add filter for html entity decode
+    $htmlEntityDecode = new \Twig\TwigFilter('clean_content_for_html', function ($string) {
+      $string = str_replace('%%', '&nbsp;', $string);
+      $string = str_replace('~~', '\n', $string);
+
+      // Double underscore to italic (Regex: /__(.*?)__/)
+      $string = preg_replace('/__(.*?)__/', '<i>$1</i>', $string);
+
+      // Double asterisk to bold (Regex: /\*\*(.*?)\*\*/)
+      $string = preg_replace('/\*\*(.*?)\*\*/', '<b>$1</b>', $string);
+
+      // And double quotes are turned into french quotes, no matter how many spaces there is between the two (RegEx)
+      $string = preg_replace('/"(.*?)"/', '« $1 »', $string);
+      $string = html_entity_decode($string);
+      return $string;
+    });
+    $twig->addFilter($htmlEntityDecode);
 
     // Grabs the site settings from the database
     $site_name = $this->siteSettings->getName();

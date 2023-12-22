@@ -23,6 +23,11 @@ Path: cuej/Front/templates/pages/Categories/see.html.twig
 
 {% block title %}{{ category.name }}{% endblock %}
 
+{# Set stylesheets #}
+{% block stylesheets %}
+  <link rel="stylesheet" href="public/front/css/categories.css">
+{% endblock %}
+
 {# Set content #}
 {% block content %}
 <h1>{{ category.name }}</h1>

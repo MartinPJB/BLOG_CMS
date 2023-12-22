@@ -12,7 +12,7 @@ Fields:
       Votre navigateur n'arrive pas à lire le MP4, cependant vous pouvez toujours le
       <a href="{{ media.path }}">Télécharger</a>
     </video>
-    <figcaption class="vidandtxt-block__legend">{{ json.block_ref|raw }}</figcaption>
+    <figcaption class="vidandtxt-block__legend">{{ json.block_ref|clean_content_for_html|nl2br|raw }}</figcaption>
   </figure>
-  <p class="vidandtxt-block__text">{{ json.block_txt|raw }}</p>
+  <p class="vidandtxt-block__text">{{ json.block_txt|clean_content_for_html|nl2br|raw }}</p>
 </div>

@@ -7,10 +7,10 @@ Fields:
   <img class="quoted__icon quoted__icon--left" src="public/front/img/svg/icon-quotes.svg" alt="">
   <figure class="fs-i">
     <blockquote class="quote__content">
-      {{ json.block_content|raw }}
+      {{ json.block_content|clean_content_for_html|nl2br|raw }}
     </blockquote>
     <figcaption class="quoted__ref chapo fs-i">
-      {{ json.block_ref|raw }}
+      {{ json.block_ref|clean_content_for_html|nl2br|raw }}
     </figcaption>
   </figure>
   <img class="quoted__icon quoted__icon--right" src="public/front/img/svg/icon-quotes.svg" alt="">

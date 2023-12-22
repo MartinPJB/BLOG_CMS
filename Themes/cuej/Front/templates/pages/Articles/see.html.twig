@@ -55,7 +55,9 @@ Path: cuej/Front/templates/pages/Articles/see.html.twig
   </section>
   <section id="article" class="container article-content col gap-2">
     {% for blockTemplate in blocks %}
+      {% autoescape false %}
         {% include 'blocks/' ~ blockTemplate.type ~ '.html.twig' with { 'json': blockTemplate.getJsonContent(), 'media': blockTemplate.getMedia() } %}
+      {% endautoescape %}
     {% endfor %}
   </section>
 </article>
