@@ -112,6 +112,7 @@ class AdminController extends ControllerBase implements ControllerInterface
    */
   protected function upload_file($file, $name = "", $alt = "")
   {
+
     try {
       if (!isset($file) || empty($file['type'])) {
         throw new \Exception("Invalid file data.");
@@ -144,6 +145,7 @@ class AdminController extends ControllerBase implements ControllerInterface
         throw new \ErrorException("Your file is too big. The maximum size is {$file_size_limit} bytes.");
       }
 
+
       $directory = dirname(__DIR__) . '/uploads/' . $file_ext . '/';
 
       // Create the folder if it doesn't exist
@@ -152,7 +154,6 @@ class AdminController extends ControllerBase implements ControllerInterface
       }
 
       $file_destination = $directory . $server_name_file;
-
       $startTime = time();
       $maxWaitTime = 5; // Maximum wait time in seconds
       $loopActive = true;
@@ -163,6 +164,7 @@ class AdminController extends ControllerBase implements ControllerInterface
         }
         sleep(1);
       }
+
       // Get file's hash
       if (!file_exists($file_tmp)) {
         // The tmp exists but sometimes it can return an error for some reason, in that case just refresh the page
@@ -170,6 +172,7 @@ class AdminController extends ControllerBase implements ControllerInterface
       }
 
       $file_hash = md5_file($file_tmp);
+
 
       // Check if the file already exists
       $existingFile = Manager::read('medias', [], ['hash' => $file_hash]);
@@ -195,7 +198,11 @@ class AdminController extends ControllerBase implements ControllerInterface
       return Manager::getLastInsertedId();
     } catch (\Exception $e) {
       // Log or print detailed error information for debugging
-      error_log($e->getMessage());
+      //error_log($e->getMessage());
+
+      var_dump($e->getMessage());
+      die;
+
       throw new \ErrorException("There was an error uploading your file. {$e->getMessage()}");
     }
   }

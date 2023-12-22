@@ -35,7 +35,7 @@ Path: cuej/Front/templates/pages/Articles/see.html.twig
 
 {% block stylesheets %}
   <link rel="stylesheet" href="public/front/css/article.css">
-  <link rel="stylesheet" href="public/front/css/variants/cat{{ category.id }}.css">
+  <link rel="stylesheet" href="public/front/css/variants/cat{{ category.id - 1 }}.css">
 {% endblock %}
 
 {% block javascript %}
