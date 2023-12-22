@@ -8,7 +8,7 @@ Custom block : Caroussel1
   overflow: hidden;
 }
 
-.items {
+.items1 {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -16,7 +16,7 @@ Custom block : Caroussel1
   user-select: none;
 }
 
-.items .item {
+.items1 .item1 {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -30,31 +30,31 @@ Custom block : Caroussel1
   opacity: 0;
 }
 
-.item img {
+.item1 img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.item.active {
+.item1.active1 {
   opacity: 1;
   z-index: 99;
   box-shadow: 0px 0px 105px -35px rgba(0, 0, 0, 0.75);
 }
 
-.item.prev {
+.item1.prev1 {
   z-index: 2;
   opacity: 0.25;
   transform: translate(-125%, -50%);
 }
 
-.item.next {
+.item1.next1 {
   z-index: 2;
   opacity: 0.25;
   transform: translate(25%, -50%);
 }
 
-.items .button-container {
+.items1 .button-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -63,7 +63,7 @@ Custom block : Caroussel1
   z-index: 100;
 }
 
-.button-container .button {
+.button-container .button1 {
   color: #fff;
   font-size: 32px;
   cursor: pointer;
@@ -72,11 +72,11 @@ Custom block : Caroussel1
   transition: all 300ms ease-in-out;
 }
 
-.button-container .button:hover {
+.button-container .button1:hover {
   opacity: 1;
 }
 
-.button-container .button:before {
+.button-container .button1:before {
   content: "";
   position: absolute;
   top: 50%;
@@ -89,73 +89,70 @@ Custom block : Caroussel1
   z-index: -99;
 }
 
-.button-container .button:nth-child(1) {
+.button-container .button1:nth-child(1) {
   float: left;
 }
 
-.button-container .button:nth-child(2) {
+.button-container .button1:nth-child(2) {
   float: right;
 }
 </style>
-<div class="items">
-  <div class="item active">
-    <img src="http://via.placeholder.com/500x500">
+<div class="items1">
+  <div class="item1 active1">
+    <img src="public/img/caroussel1/Mariam horizontale.JPG" alt="">
   </div>
-  <div class=" item next">
-    <img src="http://via.placeholder.com/500x500">
+  <div class=" item1 next1">
+    <img src="public/img/caroussel1/Cuisine Mariam.JPG" alt="">
   </div>
-  <div class="item">
-    <img src="http://via.placeholder.com/500x500">
+  <div class="item1">
+    <img src="public/img/caroussel1/Neriné.JPG" alt="">
   </div>
-  <div class="item">
-    <img src="http://via.placeholder.com/500x500">
-  </div>
-  <div class="item prev">
-    <img src="http://via.placeholder.com/500x500">
+  <div class="item1">
+    <img src="public/img/caroussel1/Coin religion Nariné.JPG" alt="">
   </div>
   <div class="button-container">
-    <div class="button"><i class="fas fa-angle-left"></i></div>
-    <div class="button"><i class="fas fa-angle-right"></i></div>
+    <div class="button1"><i class="fas fa-angle-left"></i></div>
+    <div class="button1"><i class="fas fa-angle-right"></i></div>
   </div>
 </div>
 <script>
-  const slider = document.querySelector(".items");
-    const slides = document.querySelectorAll(".item");
-    const button = document.querySelectorAll(".button");
+    const slider1 = document.querySelector(".items1");
+    const slides1 = document.querySelectorAll(".item1");
+    const button1 = document.querySelectorAll(".button1");
 
-    let current = 0;
-    let prev = 4;
-    let next = 1;
+    let current1 = 0;
+    let prev1 = 3;
+    let next1 = 1;
 
-    for (let i = 0; i < button.length; i++) {
-      button[i].addEventListener("click", () => i == 0 ? gotoPrev() : gotoNext());
+    for (let i = 0; i < button1.length; i++) {
+      button1[i].addEventListener("click", () => i == 0 ? gotoPrev1() : gotoNext1());
     }
 
-    const gotoPrev = () => current > 0 ? gotoNum(current - 1) : gotoNum(slides.length - 1);
+    const gotoPrev1 = () => current1 > 0 ? gotoNum1(current1 - 1) : gotoNum1(slides1.length - 1);
 
-    const gotoNext = () => current < 4 ? gotoNum(current + 1) : gotoNum(0);
+    const gotoNext1 = () => current1 < 3 ? gotoNum1(current1 + 1) : gotoNum1(0);
 
-    const gotoNum = number => {
-      current = number;
-      prev = current - 1;
-      next = current + 1;
+    const gotoNum1 = number1 => {
+      current1 = number1;
+      prev1 = current1 - 1;
+      next1 = current1 + 1;
 
-      for (let i = 0; i < slides.length; i++) {
-        slides[i].classList.remove("active");
-        slides[i].classList.remove("prev");
-        slides[i].classList.remove("next");
+      for (let i = 0; i < slides1.length; i++) {
+        slides1[i].classList.remove("active1");
+        slides1[i].classList.remove("prev1");
+        slides1[i].classList.remove("next1");
       }
 
-      if (next == 5) {
-        next = 0;
+      if (next1 == 4) {
+        next1 = 0;
       }
 
-      if (prev == -1) {
-        prev = 4;
+      if (prev1 == -1) {
+        prev1 = 3;
       }
 
-      slides[current].classList.add("active");
-      slides[prev].classList.add("prev");
-      slides[next].classList.add("next");
+      slides1[current1].classList.add("active1");
+      slides1[prev1].classList.add("prev1");
+      slides1[next1].classList.add("next1");
     }
 </script>
