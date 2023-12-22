@@ -10,7 +10,7 @@ Fields:
 <div class="contained--small row gap-3 imgandtxt media--{{ json.block_position|first|lower }}">
   <figure class="imgandtxt-block col gap-1 imgandtxt-block--{{ json.block_size|first|lower }}">
     <img class="imgandtxt-block__image rad-15" src="{{ media.path }}" alt="{{ json.block_alt }}">
-    <figcaption class="imgandtxt-block__legend fs-i">{{ json.block_ref }}</figcaption>
+    <figcaption class="imgandtxt-block__legend fs-i">{{ json.block_ref|raw }}</figcaption>
   </figure>
   <p class="imgandtxt-block__text">{{ json.block_txt }}</p>
 </div>

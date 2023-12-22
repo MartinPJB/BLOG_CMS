@@ -24,17 +24,6 @@ Path: cuej/Front/templates/pages/Articles/see.html.twig
 #}
 {% extends "index.html.twig" %}
 
-{% block stylesheets %}
-<link rel="stylesheet" href="public/front/css/article.css">
-<link rel="stylesheet" href="public/front/css/variants/cat{{ category.id }}.css">
-{% endblock %}
-
-{% block javascript %}
-<script src="public/front/js/article.js" type="module" defer></script>
-{% endblock %}
-
-{% block title %}{{ article.title }}{% endblock %}
-
 {# Variables #}
 {% set image = article.image %}
 {% set title = article.title %}
@@ -43,6 +32,17 @@ Path: cuej/Front/templates/pages/Articles/see.html.twig
 {% set author = article.author %}
 {% set category = article.category %}
 {% set tags = article.tags %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="public/front/css/article.css">
+  <link rel="stylesheet" href="public/front/css/variants/cat{{ category.id }}.css">
+{% endblock %}
+
+{% block javascript %}
+<script src="public/front/js/article.js" type="module" defer></script>
+{% endblock %}
+
+{% block title %}{{ article.title }}{% endblock %}
 
 {# Affichage #}
 {% block content %}

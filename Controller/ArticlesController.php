@@ -7,6 +7,7 @@ use \Core\Controller\ControllerBase;
 use \Core\RequestContext;
 use \Model\Articles;
 use \Model\Categories;
+use \Model\Users;
 use \Model\Blocks;
 
 /**
@@ -54,7 +55,7 @@ class ArticlesController extends ControllerBase implements ControllerInterface
   public function see(array $params)
   {
     $article_id = intval($this->requestContext->getOptParam());
-    $article = $article_id ? Articles::getArticle($article_id) : null;
+    $article = $article_id ? Articles::getArticle($article_id, Users::isAdmin()) : null;
     if (!$article) {
       ControllerBase::renderError(404, $this->requestContext);
     }

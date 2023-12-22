@@ -52,6 +52,28 @@ class AdminController extends ControllerBase implements ControllerInterface
   }
 
   /**
+   * Parses the string to publish it correctly on the website
+   *
+   * @param string $field The field to parse
+   * @return string The parsed field
+   */
+  protected function parseStringPublish($field) {
+    // Replaces double percent signs by a non breaking space
+    $field = str_replace('%%', '&nbsp;', $field);
+
+    // Replaces english quotes (" ") by french quotes (« ») (First quote is opening, second is closing) RegEx
+    $field = preg_replace('/"([^"]+)"/', '«$1»', $field);
+
+    // Does the same thing but quotes that have spaces before or after
+    $field = preg_replace('/\s"([^"]+)"\s/', ' «$1» ', $field);
+
+    // Adds an italic style to the text between underscores
+    $field = preg_replace('/_([^_]+)_/', '<i>$1</i>', $field);
+
+    return $field;
+  }
+
+  /**
    * The process create method, will handle the validation of all the fields in the admin panel (articles, categories, etc.)
    */
   protected function process_fields()
@@ -96,6 +118,8 @@ class AdminController extends ControllerBase implements ControllerInterface
       // Then we just clean the string
       else {
         $fields[$field] = FieldChecker::cleanString($value);
+        $fields[$field] = $this->parseStringPublish($fields[$field]);
+
         continue;
       }
     }
@@ -118,7 +142,7 @@ class AdminController extends ControllerBase implements ControllerInterface
       }
 
       if (empty($name)) {
-        $name = uniqid() . '.' . explode('/', $file['type'])[1];
+        $name = uniqid() . '.' . explode('/', $name)[1];
       }
 
       if (empty($alt)) {
