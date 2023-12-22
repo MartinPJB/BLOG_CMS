@@ -1,0 +1,13 @@
+.paragraph-em {
+  line-height: 125%;
+  position: relative;
+}
+.paragraph-em::before {
+  content: '';
+  display: block;
+  background-color: var(--color-primary);
+  height: 100%;
+  width: .5em;
+  position: absolute;
+  left: 5em;
+}

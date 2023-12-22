@@ -1,0 +1,7 @@
+.media--d {
+  flex-direction: row-reverse;
+}
+.media--d > .imgandtxt-block--p {
+  margin-right: -33%;
+  margin-left: 0;
+}
