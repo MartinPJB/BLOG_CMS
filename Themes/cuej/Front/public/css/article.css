@@ -29,6 +29,7 @@ article {
   position: absolute;
   top: 0;
   z-index: -1;
+  filter: brightness(.8);
 }
 .intro__title {
   margin-top: 3.5em;
