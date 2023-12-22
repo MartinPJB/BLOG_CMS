@@ -14,6 +14,7 @@ h1,
   font-family: 'Catamaran', 'Palanquin', sans-serif;
   font-size: 4em;
   font-weight: 800;
+  text-shadow: black 0 0 1.1em;
 }
 h2,
 .fs-2 {
