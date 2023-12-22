@@ -2,6 +2,6 @@
 Fields:
 - block_content (textarea): { label: 'Contenu', min: 10, max: 10000, required: true }
 #}
-<p class="chapo2 contained--small">
+<p class="chapo contained--small">
   {{ json.block_content|clean_content_for_html|raw }}
 </p>
