@@ -232,6 +232,7 @@ const block_create = {
 
     const updateButtons = document.querySelectorAll(".cuej-block__update");
     for (const button of updateButtons) {
+      console.log(button);
       button.addEventListener("click", this.displayForm.bind(this));
     }
 

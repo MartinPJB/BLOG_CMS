@@ -151,11 +151,11 @@ class AdminArticlesController extends AdminController
         }
       }
 
-      if (is_null($newMediaId) && isset($processed['media_id'])) {
+      if (isset($processed['media_id'])) {
         $newMediaId = $processed['media_id'];
       }
 
-      if (is_null($newMediaId) && (isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
+      if ((isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
         $newMediaId = $this->upload_file($_FILES['image']);
       }
 
