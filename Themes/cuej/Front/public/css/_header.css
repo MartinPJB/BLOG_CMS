@@ -34,6 +34,11 @@
   background-color: var(--color-primary);
 }
 
+.header-nav__category:hover>img,
+.header-nav__category[aria-current="step"]>img {
+  filter: invert();
+}
+
 #active-category+.header-nav__list {
   position: absolute;
   display: flex;
