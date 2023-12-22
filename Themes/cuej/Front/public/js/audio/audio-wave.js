@@ -31,7 +31,11 @@ for (const audio of audios) {
     sampleRate: 8000,
   });
 
-  wavesurfer.on("click", () => wavesurfer.play());
+  wavesurfer.on("click", () => {
+    button.classList.remove("audio-block__control--play");
+    button.classList.add("audio-block__control--pause");
+    wavesurfer.play()
+  });
 
   button.addEventListener("click", () => {
     button.classList.toggle("audio-block__control--play");
