@@ -3,11 +3,15 @@ Fields:
 - block_content (textarea): { label: 'Texte cité', min: 10, max: 10000, required: true }
 - block_ref (text): { label: 'Légende', min: 3, max: 128, required: true }
 #}
-<figure class="quote">
-  <blockquote class="quote__content">
-    {{ json.block_content|raw }}
-  </blockquote>
-  <figcaption class="quote__ref">
-    {{ json.block_ref|raw }}
-  </figcaption>
-</figure>
+<div class="quoted row">
+  <img class="quoted__icon quoted__icon--left" src="public/front/img/svg/icon-quotes.svg" alt="">
+  <figure class="fs-i">
+    <blockquote class="quote__content">
+      {{ json.block_content|raw }}
+    </blockquote>
+    <figcaption class="quoted__ref chapo fs-i">
+      {{ json.block_ref|raw }}
+    </figcaption>
+  </figure>
+  <img class="quoted__icon quoted__icon--right" src="public/front/img/svg/icon-quotes.svg" alt="">
+</div>

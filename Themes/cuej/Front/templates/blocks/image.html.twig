@@ -5,9 +5,9 @@ Fields:
 - block_alt (text): { label: 'Texte alternatif', min: 3, max: 256, required: true }
 - block_ref (text): { label: 'Légende', min: 3, max: 64, required: true }
 #}
-<figure class="image-block">
-  <img class="image-block__image image-block--{{ json.block_size|first|lower }} center-x" src="{{ media.path }}" alt="{{ json.block_alt|raw }}">
-  <figcaption class="image-block__legend">
+<figure class="image-block col gap-1 center-text">
+  <img class="image-block--{{ json.block_size|first|lower == 'p' ? 'p center-x' }}" src="{{ media.path }}" alt="{{ json.block_alt|raw }}">
+  <figcaption class="legend fs-i">
     {{ json.block_ref|raw }}
   </figcaption>
 </figure>

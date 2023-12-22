@@ -1,6 +1,6 @@
 .footer-nav {
   height: 23vh;
-  padding: 3em 11em 3em 6em;
+  padding: 3em 11em 0 6em;
   color: var(--color-white);
   background-color: var(--color-primary--dark);
 }
@@ -18,5 +18,5 @@
 }
 
 .footer-nav__article {
-  font-size: bold;
+  font-weight: 700;
 }
