@@ -67,6 +67,10 @@ class Files
         case 'json':
           $file_type = 'application/json';
           break;
+
+        case 'svg':
+          $file_type = 'image/svg+xml';
+          break;
       }
     }
 

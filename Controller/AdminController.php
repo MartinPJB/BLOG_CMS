@@ -65,8 +65,11 @@ class AdminController extends ControllerBase implements ControllerInterface
     $field = preg_replace('/"([^"]+)"/', '«$1»', $field);
     $field = preg_replace('/&quot;([^&quot;]+)&quot;/', '«$1»', $field);
 
-    // Adds an italic style to the text between underscores
-    $field = preg_replace('/_([^_]+)_/', '<i>$1</i>', $field);
+    // Adds an italic style to the text between 2 underscores (2 on each side)
+    $field = preg_replace('/__([^_]+)__(?!_)/', '<i>$1</i>', $field);
+
+    // Double ~ to add a line break
+    $field = str_replace('~~', '<br>', $field);
 
     return $field;
   }

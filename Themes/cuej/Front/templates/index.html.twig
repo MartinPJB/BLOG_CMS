@@ -26,6 +26,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     {# Meta content #}
     {% block metas %}{% endblock %}
 		<title>{{ site_name }}{{ title ? ' - ' ~ title }}</title>
@@ -34,6 +35,7 @@
     <base href="{{ site_root }}">
 
     {# JS and CSS blocks #}
+    <link rel="stylesheet" href="public/back/bootstrap-icons-1.11.2/font/bootstrap-icons.min.css">
     {% block stylesheets %}{% endblock %}
     {% block javascript %}{% endblock %}
 	</head>

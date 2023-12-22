@@ -1,0 +1,16 @@
+.audio-block {
+  padding: 0 8rem;
+}
+
+.audio-block .audio-block__control {
+  color: var(--color-primary);
+  font-size: 1.25rem;
+  margin: 1rem 0;
+}
+
+.audio-block .audio-block__control.audio-block__control--play .pause {
+  display: none;
+}
+.audio-block .audio-block__control.audio-block__control--pause .play {
+  display: none;
+}
