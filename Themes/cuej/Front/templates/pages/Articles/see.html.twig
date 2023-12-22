@@ -51,7 +51,7 @@ Path: cuej/Front/templates/pages/Articles/see.html.twig
   <section class="intro container gap-1" id="intro">
     <img class="intro__image center-x full-width" src="{{ image.path }}" alt="{{ image.alt }}" loading="lazy">
     <h1 class="intro__title">{{ title }}</h1>
-    <p class="intro__description chapo fs-i">{{ description|raw }}</p>
+    <p class="intro__description shadowed chapo fs-i">{{ description|raw }}</p>
   </section>
   <section id="article" class="container article-content col gap-2">
     {% for blockTemplate in blocks %}
