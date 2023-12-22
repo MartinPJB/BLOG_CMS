@@ -5,28 +5,28 @@ Fields:
 #}
 <figure class="video-block">
   <video class="video-block__video rad-15">
-    <source src="public/front/vid/introvid.mp4" type="video/mp4">
+    <source src="public/front/vid/{{ media.path }}" type="video/mp4">
     Votre navigateur n'arrive pas à lire le MP4, cependant vous pouvez toujours le
-    <a href="public/front/vid/introvid.mp4">Télécharger</a>
+    <a href="public/front/vid/{{ media.path }}">Télécharger</a>
   </video>
   <figcaption class="video-block__legend">{{ json.block_ref|raw }}</figcaption>
   <div class="video-controls">
-    <button class="play-pause-btn play-pause-btn--middle">
+    <button class="play-pause-btn play-pause-btn--middle control">
       <img src="public/front/img/svg/icon-play.svg" alt="Jouer">
     </button>
-    <input class="vidprogress-bar" type="range" value="0" max="100" orient="horizontal">
+    <input class="vidprogress-bar control" type="range" value="0" max="100" orient="horizontal">
     <div class="bottom-controls row">
-      <button class="play-pause-btn">
+      <button class="play-pause-btn control">
         <img class="controls-icon" src="public/front/img/svg/icon-play.svg" alt="Jouer">
       </button>
       <div class="volume-container col">
-        <button class="mute-btn">
+        <button class="mute-btn control">
           <img class="controls-icon" src="public/front/img/svg/icon-audio.svg" alt="Volume">
         </button>
-        <input class="volume-bar" type="range" value="100" max="100" orient="vertical">
+        <input class="volume-bar control" type="range" value="100" max="100" orient="vertical">
       </div>
       <span class="timecode">00:00 / 00:00</span>
-      <button class="fullscreen-btn">
+      <button class="fullscreen-btn control">
         <img class="controls-icon" src="public/front/img/svg/icon-fullscreen.svg" alt="Plein écran">
       </button>
     </div>

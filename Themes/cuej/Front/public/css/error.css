@@ -8,3 +8,19 @@
 
 @import '_header.css';
 @import '_footer.css';
+
+main {
+  background-color: black;
+  text-align: center;
+  color: white;
+  margin: auto;
+  padding: 8em 0 4em;
+}
+
+.error_img {
+  filter: invert();
+}
+
+.error_msg {
+  margin: 1em 0;
+}

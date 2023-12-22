@@ -1,7 +1,9 @@
 {#
 Fields:
+- block_title (text): { label: 'Titre', min: 4, max: 64 }
 - block_content (textarea): { label: 'Contenu', min: 10, max: 10000, required: true }
 #}
+<h3>{{ json.block_title|raw }}</h3>
 <p class="paragraph-em contained--small fs-i">
   {{ json.block_content|raw }}
 </p>

@@ -21,6 +21,12 @@ h2,
   font-size: 2em;
   font-weight: 800;
 }
+h3,
+.fs-3 {
+  font-family: 'Catamaran', 'Palanquin', sans-serif;
+  font-size: 1.5em;
+  font-weight: 800;
+}
 p {
   line-height: 140%;
   font-weight: 300;
@@ -30,7 +36,6 @@ blockquote {
   font-weight: 700;
   line-height: 125%;
 }
-
 
 .fs-i {
   font-style: italic;
