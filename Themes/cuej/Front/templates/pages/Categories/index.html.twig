@@ -44,11 +44,18 @@ Variables:
 <section id="chapitres">
   {% if categories %}
   <nav class="selector" aria-label="Choix du chapitre">
+    <img src="public/front/img/svg/lechemin.svg" alt="">
     {# Display each categories #}
     {% for category in categories %}
-    <a href="categories/see/{{ category.id }}">
+    <div class="selector__chapter-name">
       <h2>{{ category.name }}</h2>
-    </a>
+    </div>
+    <div class="selector__path">
+      <img src="public/front/img/svg/" alt="">
+      <a class="selector__icon" href="categories/see/{{ category.id }}">
+        <img class="selector__icon-img" src="public/front/img/gif/gif{{ category.id }}.gif" alt="{{ category.name }}">
+      </a>
+    </div>
     {% endfor %}
   </nav>
   {% else %}
