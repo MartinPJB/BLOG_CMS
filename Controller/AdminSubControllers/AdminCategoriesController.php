@@ -26,7 +26,7 @@ class AdminCategoriesController extends AdminController
    */
   private function validateCategoryFields($name, $description, $media)
   {
-    var_dump($name, $description, strlen($name), strlen($description));
+    var_dump($name, $description, strlen($name), strlen($description), $media);
     if (strlen($name) < 5) {
       throw new \Exception('The name must be at least 5 characters long');
     }
@@ -116,11 +116,13 @@ class AdminCategoriesController extends AdminController
         }
       }
 
-      if (is_null($newMediaId) && isset($processed['media_id'])) {
+      if (isset($processed['media_id'])) {
+        var_dump($processed['media_id'], "media_id");
         $newMediaId = $processed['media_id'];
       }
 
-      if (is_null($newMediaId) && (isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
+      if ((isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) && !isset($processed['media_id'])) {
+        var_dump($_FILES['image'], "image");
         $newMediaId = $this->upload_file($_FILES['image']);
       }
 

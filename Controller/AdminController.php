@@ -140,8 +140,13 @@ class AdminController extends ControllerBase implements ControllerInterface
         throw new \Exception("Invalid file data.");
       }
 
+      $file_name = $file['name'];
+      $file_extension = explode('.', $file_name);
+
+      $file_ext = strtolower($file_extension[1]);
+      $server_name_file = uniqid() . '.' . $file_ext;
       if (empty($name)) {
-        $name = uniqid() . '.' . explode('/', $name)[1];
+        $name = $server_name_file;
       }
 
       if (empty($alt)) {
@@ -151,9 +156,6 @@ class AdminController extends ControllerBase implements ControllerInterface
       $file_tmp = $file['tmp_name'];
       $file_size = $file['size'];
       $file_error = $file['error'];
-
-      $file_ext = explode('.', $name);
-      $file_ext = strtolower(end($file_ext));
 
       $file_size_limit = Config::get('site_file_size_limit');
 
@@ -172,7 +174,7 @@ class AdminController extends ControllerBase implements ControllerInterface
         mkdir($directory, 0777, true);
       }
 
-      $file_destination = $directory . $name;
+      $file_destination = $directory . $server_name_file;
 
       $startTime = time();
       $maxWaitTime = 5; // Maximum wait time in seconds
@@ -207,7 +209,7 @@ class AdminController extends ControllerBase implements ControllerInterface
         ucfirst(explode('.', $name)[0]),
         mime_content_type($file_destination),
         $file_size,
-        "uploads/{$file_ext}/{$name}",
+        "uploads/{$file_ext}/{$server_name_file}",
         $alt,
         date('Y-m-d H:i:s'),
         $file_hash
