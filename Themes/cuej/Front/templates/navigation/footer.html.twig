@@ -9,14 +9,6 @@
       <a class="fs-2" href="{{ site_default_route }}">{{ site_name }}</a>
       <li><a class="footer-nav__article" href="#">Crédits</a></li>
       <li><a class="footer-nav__article" href="#">Mentions Légales</a></li>
-      {% if is_logged %}
-      <li><a class="footer-nav__article" href="./users/logout">Déconnexion</a></li>
-      {% if is_admin %}
-      <li><a class="footer-nav__article" href="./admin">Administration</a></li>
-      {% endif %}
-      {% else %}
-      <li><a class="footer-nav__article" href="./users/login">Connexion</a></li>
-      {% endif %}
     </ul>
     {% for cat, articles in site_navigation %}
     <ul class="footer-nav__list col gap-1">
