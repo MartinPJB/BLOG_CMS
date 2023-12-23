@@ -117,7 +117,7 @@
   display: flex;
   flex: 1;
   width: calc(100% / 4);
-  height: 35rem;
+  height: 42rem;
 }
 .selector .selector__chapter a {
   display: flex;
@@ -130,10 +130,10 @@
   justify-content: flex-end;
   align-items: center;
   background-blend-mode: multiply;
-
+  filter: grayscale(0.6);
   background-image: var(--background);
   background-color: #cdcdcd;
-  background-size: 300%;
+  background-size: 330%;
   background-position: center;
   background-repeat: no-repeat;
 
@@ -144,7 +144,7 @@
 }
 .selector .selector__chapter a:hover {
   background-color: #4a4a4a;
-  background-size: 320%;
+  background-size: 360%;
 }
 
 
