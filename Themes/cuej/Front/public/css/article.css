@@ -38,12 +38,11 @@ article {
 }
 .intro__image {
   height: 100%;
-  filter: brightness(0.65);
   object-fit: cover;
   position: absolute;
   top: 0;
   z-index: -1;
-  filter: brightness(.8);
+  filter: brightness(.75);
 }
 
 .intro__title {

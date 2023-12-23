@@ -62,3 +62,7 @@
 .hidden {
   display: none;
 }
+
+.on-top {
+  z-index: 666;
+}

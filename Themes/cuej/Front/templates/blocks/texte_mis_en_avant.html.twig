@@ -3,7 +3,7 @@ Fields:
 - block_title (text): { label: 'Titre', min: 4, max: 64 }
 - block_content (textarea): { label: 'Contenu', min: 10, max: 10000, required: true }
 #}
-<div class="contained--small paragraph-em ">
+<div class="contained--small paragraph-em col gap-1">
   <h3>{{ json.block_title|raw }}</h3>
   <p>
     {{ json.block_content|clean_content_for_html|nl2br|raw }}

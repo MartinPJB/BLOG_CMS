@@ -2,11 +2,15 @@
   width: 100vw;
   position: relative;
 }
-.image-block--m {
+
+.image-block--m,
+.image-block--m+.legend {
   width: 50vw;
   margin: auto;
 }
-.image-block--t {
+
+.image-block--t,
+.image-block--t+.legend {
   width: 33vw;
   margin: auto;
 }
