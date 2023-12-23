@@ -12,7 +12,33 @@
 .land {
   height: 100vh;
   width: 100vw;
+  position: relative;
 }
+
+.land__foreground {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.land__foreground .site-title {
+  width: 20rem;
+  margin-left: -7rem;
+}
+
+.land__foreground .site-scroll-indicator {
+  position: absolute;
+  color: white;
+  bottom: 4rem;
+  font-size: 2rem;
+}
+
 
 .land__video {
   height: 100%;
@@ -21,4 +47,18 @@
   position: absolute;
   top: 0;
   z-index: -1;
+}
+
+.video-controls {
+  width: fit-content;
+}
+.video-controls #play-pause-btn {
+  width: 6rem;
+}
+.video-controls #play-pause-btn img {
+  width: 100%;
+}
+
+.video-controls #fullscreen-btn {
+  display: none;
 }
