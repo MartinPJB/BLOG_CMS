@@ -1,1 +1,1 @@
-import './_order_footer';
+import './_order_footer.js';

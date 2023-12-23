@@ -29,8 +29,9 @@ Variables:
 
     <a href="#chapitres" class="site-scroll-indicator"><i class="bi bi-chevron-compact-down"></i></a>
     <div class="video-controls">
-      <button id="play-pause-btn">
-        <img src="public/front/img/svg/icon-play.svg" alt="Jouer">
+      <button id="play-pause-btn" class="paused">
+        <img src="public/front/img/svg/icon-play.svg" class="play" alt="Jouer">
+        <img src="public/front/img/svg/icon-pause.svg" class="pause" alt="Pause">
       </button>
       {# <input type="range" id="progress-bar" value="0" max="100"> #}
       <button id="fullscreen-btn">
@@ -54,20 +55,10 @@ Variables:
       {% for category in categories %}
         <li class="selector__chapter">
           <a href="categories/see/{{ category.id }}" style="--background: url(../../../{{ category.image.path }});">
-            {# <img src="public/front/img/gif/gif{{ category.id }}.gif" alt="{{ category.name }}" class="selector__icon-img"> #}
-            <h2 class="selector__chapter-name">{{ category.name }}</h2>
-            <p class="selector__chapter-description">{{ category.description }}</p>
+            <h2 class="selector__chapter-name">{{ category.name|raw }}</h2>
+            <p class="selector__chapter-description">{{ category.description|raw }}</p>
           </a>
         </li>
-        {# <div class="selector__chapter-name">
-          <h2>{{ category.name }}</h2>
-        </div>
-        <div class="selector__path">
-          <img src="public/front/img/svg/" alt="">
-          <a class="selector__icon" href="">
-            <img class="selector__icon-img" src="public/front/img/gif/gif{{ category.id }}.gif" alt="{{ category.name }}">
-          </a>
-        </div> #}
       {% endfor %}
     </ul>
   </nav>

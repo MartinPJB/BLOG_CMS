@@ -12,14 +12,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (video.paused || video.ended) {
       video.play();
-      playPauseBtn.innerHTML = '<img src="public/front/img/svg/icon-pause.svg" alt="Pause">';
     } else {
       video.pause();
-      playPauseBtn.innerHTML = '<img src="public/front/img/svg/icon-play.svg" alt="Jouer">';
     }
+    playPauseBtn.classList.toggle("played");
+    playPauseBtn.classList.toggle("paused");
   });
   video.addEventListener('ended', function() {
-    playPauseBtn.innerHTML = '<img src="public/front/img/svg/icon-play.svg" alt="Jouer">';
+    landfg.classList.remove("land__foreground--videoplay");
+    playPauseBtn.classList.remove("played");
+    playPauseBtn.classList.add("paused");
   });
 
 

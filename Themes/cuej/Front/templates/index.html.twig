@@ -14,18 +14,17 @@
       - {@object} user: TBW
     - {@array} errors: Contains errors to display
 #}
-
-{# Variable definition #}
-{% set is_logged = session.user is defined and session.user is not empty %}
-{% set is_admin = is_logged and session.user.getRole() == 'admin' %}
-{% if block('title') is defined %}{% set title = block('title') %}{% endif %}
-
 {# HTML #}
 <!DOCTYPE html>
 <html lang="{{ site_language }}">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {# Variable definition #}
+    {% set is_logged = session.user is defined and session.user is not empty %}
+    {% set is_admin = is_logged and session.user.getRole() == 'admin' %}
+    {% if block('title') is defined %}{% set title = block('title') %}{% endif %}
 
     {# Meta content #}
     {% block metas %}{% endblock %}
@@ -37,6 +36,7 @@
     {# JS and CSS blocks #}
     <link rel="stylesheet" href="public/back/bootstrap-icons-1.11.2/font/bootstrap-icons.min.css">
     {% block stylesheets %}{% endblock %}
+
     <script src="public/front/js/main.js" type="module" defer></script>
     {% block javascript %}{% endblock %}
 	</head>
@@ -54,7 +54,6 @@
     <main>
 		  {% block content %}{% endblock %}
     </main>
-
 
     {# Footer #}
     {% include "navigation/footer.html.twig" %}

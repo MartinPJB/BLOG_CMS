@@ -33,12 +33,10 @@
 .land__foreground--videoplay .site-title {
   transform: translateX(-5rem);
   opacity: 0;
-  transition: transform 1s ease, opacity .5s ease;
 }
 .land__foreground--videoplay .site-scroll-indicator {
   opacity: 0;
   transform: translateY(5rem);
-  transition: opacity .5s ease, transform 1s ease;
 }
 .land__foreground--videoplay .video-controls #play-pause-btn {
   position: absolute;
@@ -57,6 +55,7 @@
 .land__foreground .site-title {
   width: 20rem;
   margin-left: -7rem;
+  transition: transform 1s ease, opacity .5s ease;
 }
 
 .land__foreground .site-scroll-indicator {
@@ -64,6 +63,7 @@
   color: white;
   bottom: 4rem;
   font-size: 2rem;
+  transition: opacity .5s ease, transform 1s ease;
 }
 
 
@@ -82,6 +82,20 @@
 .video-controls #play-pause-btn {
   width: 6rem;
 }
+.video-controls #play-pause-btn.paused .play {
+  display: block;
+}
+.video-controls #play-pause-btn.paused .pause {
+  display: none;
+}
+
+.video-controls #play-pause-btn.played .play {
+  display: none;
+}
+.video-controls #play-pause-btn.played .pause {
+  display: block;
+}
+
 .video-controls #play-pause-btn img,
 .video-controls #fullscreen-btn img {
   width: 100%;
