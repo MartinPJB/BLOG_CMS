@@ -116,8 +116,8 @@
   background-blend-mode: multiply;
 
   background-image: var(--background);
-  background-color: white;
-  background-size: 180%;
+  background-color: #cdcdcd;
+  background-size: 300%;
   background-position: center;
   background-repeat: no-repeat;
 
@@ -128,7 +128,7 @@
 }
 .selector .selector__chapter a:hover {
   background-color: #4a4a4a;
-  background-size: 200%;
+  background-size: 320%;
 }
 
 
@@ -141,6 +141,7 @@
   text-align: center;
   transform: translateY(5rem);
   transition: transform .5s ease;
+  text-shadow: black 0 0 0.8em;
 }
 
 .selector__chapter-description {
@@ -148,7 +149,7 @@
   word-wrap: break-word;
   text-align: center;
   margin: 2rem 0 0.5rem;
-  min-height: 5rem;
+  min-height: 7rem;
   transform: translateY(10rem);
   transition: transform .5s ease;
 }
