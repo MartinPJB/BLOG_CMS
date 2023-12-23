@@ -11,7 +11,7 @@
 
 .land {
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   position: relative;
 }
 
@@ -25,6 +25,33 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
+}
+.land__foreground--videoplay {
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 1s ease;
+}
+.land__foreground--videoplay .site-title {
+  transform: translateX(-5rem);
+  opacity: 0;
+  transition: transform 1s ease, opacity .5s ease;
+}
+.land__foreground--videoplay .site-scroll-indicator {
+  opacity: 0;
+  transform: translateY(5rem);
+  transition: opacity .5s ease, transform 1s ease;
+}
+.land__foreground--videoplay .video-controls #play-pause-btn {
+  position: absolute;
+  bottom: 2rem;
+  left: 3rem;
+  width: 3.5rem;
+}
+.land__foreground--videoplay .video-controls #fullscreen-btn {
+  position: absolute;
+  bottom: 2rem;
+  right: 3rem;
+  width: 3.5rem;
+  display: block;
 }
 
 .land__foreground .site-title {
@@ -55,10 +82,78 @@
 .video-controls #play-pause-btn {
   width: 6rem;
 }
-.video-controls #play-pause-btn img {
+.video-controls #play-pause-btn img,
+.video-controls #fullscreen-btn img {
   width: 100%;
 }
 
 .video-controls #fullscreen-btn {
   display: none;
+}
+
+/* Chapter Selector */
+.selector {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+.selector .selector__chapter {
+  display: flex;
+  flex: 1;
+  width: calc(100% / 4);
+  height: 35rem;
+}
+.selector .selector__chapter a {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  background-blend-mode: multiply;
+
+  background-image: var(--background);
+  background-color: white;
+  background-size: 180%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  text-decoration: none;
+  color: white;
+  transition: background-size .5s ease, background .5s ease;
+  padding: 1rem;
+}
+.selector .selector__chapter a:hover {
+  background-color: #4a4a4a;
+  background-size: 200%;
+}
+
+
+.selector__icon-img {
+  width: 50%;
+}
+.selector__chapter-name {
+  width: 100%;
+  word-wrap: break-word;
+  text-align: center;
+  transform: translateY(5rem);
+  transition: transform .5s ease;
+}
+
+.selector__chapter-description {
+  width: 100%;
+  word-wrap: break-word;
+  text-align: center;
+  margin: 2rem 0 0.5rem;
+  min-height: 5rem;
+  transform: translateY(10rem);
+  transition: transform .5s ease;
+}
+
+.selector .selector__chapter a:hover .selector__chapter-description,
+.selector .selector__chapter a:hover .selector__chapter-name {
+  transform: translateY(0);
 }

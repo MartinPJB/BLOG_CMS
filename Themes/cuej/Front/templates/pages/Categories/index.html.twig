@@ -48,20 +48,28 @@ Variables:
 
 <section id="chapitres">
   {% if categories %}
-  <nav class="selector" aria-label="Choix du chapitre">
-    <img src="public/front/img/svg/lechemin.svg" alt="">
-    {# Display each categories #}
-    {% for category in categories %}
-    <div class="selector__chapter-name">
-      <h2>{{ category.name }}</h2>
-    </div>
-    <div class="selector__path">
-      <img src="public/front/img/svg/" alt="">
-      <a class="selector__icon" href="categories/see/{{ category.id }}">
-        <img class="selector__icon-img" src="public/front/img/gif/gif{{ category.id }}.gif" alt="{{ category.name }}">
-      </a>
-    </div>
-    {% endfor %}
+  <nav aria-label="Choix du chapitre">
+    <ul class="selector">
+      {# Display each categories #}
+      {% for category in categories %}
+        <li class="selector__chapter">
+          <a href="categories/see/{{ category.id }}" style="--background: url(../../../{{ category.image.path }});">
+            {# <img src="public/front/img/gif/gif{{ category.id }}.gif" alt="{{ category.name }}" class="selector__icon-img"> #}
+            <h2 class="selector__chapter-name">{{ category.name }}</h2>
+            <p class="selector__chapter-description">{{ category.description }}</p>
+          </a>
+        </li>
+        {# <div class="selector__chapter-name">
+          <h2>{{ category.name }}</h2>
+        </div>
+        <div class="selector__path">
+          <img src="public/front/img/svg/" alt="">
+          <a class="selector__icon" href="">
+            <img class="selector__icon-img" src="public/front/img/gif/gif{{ category.id }}.gif" alt="{{ category.name }}">
+          </a>
+        </div> #}
+      {% endfor %}
+    </ul>
   </nav>
   {% else %}
   <p>Créez une catégorie pour l'afficher ici.</p>
