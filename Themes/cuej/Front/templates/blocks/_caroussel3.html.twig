@@ -1,143 +1,15 @@
 {#
-Custom block : Caroussel1
+Custom block : Caroussel3
 #}
-<style>
-
-.items3 {
-  user-select: none;
-}
-
-.items3 .item3 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  overflow: hidden;
-  transition: all 300ms ease-in-out;
-  z-index: -1;
-  opacity: 0;
-}
-
-.item3 img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.item3.active3 {
-  opacity: 1;
-  z-index: 99;
-  box-shadow: 0px 0px 105px -35px rgba(0, 0, 0, 0.75);
-}
-
-.item3.prev3 {
-  z-index: 2;
-  opacity: 0.25;
-  transform: translate(-125%, -50%);
-}
-
-.item3.next3 {
-  z-index: 2;
-  opacity: 0.25;
-  transform: translate(25%, -50%);
-}
-
-.items3 .button-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 275px;
-  z-index: 100;
-}
-
-.button-container .button3 {
-  color: #fff;
-  font-size: 32px;
-  cursor: pointer;
-  position: relative;
-  opacity: 0.75;
-  transition: all 300ms ease-in-out;
-}
-
-.button-container .button3:hover {
-  opacity: 1;
-}
-
-.button-container .button3:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50px;
-  height: 50px;
-  background-color: rgba(0, 0, 0, 1);
-  border-radius: 50%;
-  z-index: -99;
-}
-
-.button-container .button3:nth-child(1) {
-  float: left;
-}
-
-.button-container .button3:nth-child(2) {
-  float: right;
-}
-</style>
-<div class="items3">
-  <div class="item3 active3">
-    <img src="public/img/caroussel3/Extérieur vue montagne.JPG" alt="">
+<div class="carousel" id="carousel3">
+  <div class="item active">
+    <img src="public/front/img/caroussel3/Extérieur vue montagne.JPG" alt="">
   </div>
-  <div class=" item3 next3">
-    <img src="public/img/caroussel3/Appart type 2.JPG" alt="">
+  <div class="item next">
+    <img src="public/front/img/caroussel3/Appart type 2.JPG" alt="">
   </div>
   <div class="button-container">
-    <div class="button3"><i class="fas fa-angle-left"></i></div>
-    <div class="button3"><i class="fas fa-angle-right"></i></div>
+    <div class="button"><i class="fas fa-angle-left"></i></div>
+    <div class="button"><i class="fas fa-angle-right"></i></div>
   </div>
 </div>
-<script>
-    const slider3 = document.querySelector(".items3");
-    const slides3 = document.querySelectorAll(".item3");
-    const button3 = document.querySelectorAll(".button3");
-
-    let current3 = 0;
-    let prev3 = 1;
-    let next3 = 1;
-
-    for (let i = 0; i < button3.length; i++) {
-      button3[i].addEventListener("click", () => i == 0 ? gotoPrev3() : gotoNext3());
-    }
-
-    const gotoPrev3 = () => current3 > 0 ? gotoNum3(current3 - 1) : gotoNum3(slides3.length - 1);
-
-    const gotoNext3 = () => current3 < 1 ? gotoNum3(current3 + 1) : gotoNum3(0);
-
-    const gotoNum3 = number3 => {
-      current3 = number3;
-      prev3 = current3 - 1;
-      next3 = current3 + 1;
-
-      for (let i = 0; i < slides3.length; i++) {
-        slides3[i].classList.remove("active3");
-        slides3[i].classList.remove("prev3");
-        slides3[i].classList.remove("next3");
-      }
-
-      if (next3 == 2) {
-        next3 = 0;
-      }
-
-      if (prev3 == -1) {
-        prev3 = 1;
-      }
-
-      slides3[current3].classList.add("active3");
-      slides3[prev3].classList.add("prev3");
-      slides3[next3].classList.add("next3");
-    }
-</script>
