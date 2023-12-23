@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@500;800&family=Merriweather+Sans:ital,wght@0,300;0,700;1,300;1,400;1,700&family=Montserrat:wght@800&display=swap');
+
 @import '_reset.css';
 
 @import '_globals.css';
 @import '_utils.css';
 
-@import '_fonts.css';
+/* @import '_fonts.css'; */
 @import '_typography.css';
 
 @import '_header.css';
