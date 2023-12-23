@@ -45,3 +45,6 @@ blockquote {
 .shadowed {
   text-shadow: black 0 0 .2em;
 }
+.bold {
+  font-weight: 700;
+}
