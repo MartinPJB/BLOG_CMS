@@ -78,8 +78,6 @@
 
 .header-nav img {
   width: 55px;
-  margin-top: 5px;
-  margin-left: 20px;
 }
 
 .header-nav__home-btn img {
@@ -91,7 +89,9 @@
 .header-nav__category {
   width: 100px;
   position: relative;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header-nav--small {
