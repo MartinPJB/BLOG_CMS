@@ -62,7 +62,7 @@ article {
 .bottom-nav {
   filter: var(--fill-filter--primary);
   max-width: 1660px;
-  padding: 5rem;
+  padding: 3.5em 0;
 }
 
 .bottom-nav>a {

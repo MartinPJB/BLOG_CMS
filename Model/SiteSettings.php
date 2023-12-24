@@ -148,6 +148,12 @@ class SiteSettings {
       }
     }
 
+    foreach ($res as &$categoryArticles) {
+      usort($categoryArticles, function ($a, $b) {
+        return $a[1] - $b[1];
+      });
+    }
+
     return $res;
   }
 }

@@ -62,13 +62,13 @@ Path: cuej/Front/templates/pages/Articles/see.html.twig
   </section>
 </article>
 <nav class="ai-c bottom-nav container row jc-sb" aria-label="Navigation d'articles voisins">
-  <a class="row changer-art" href="articles/see/{{ sibbling.previous.1 }}">
+  <a class="row changer-art" href="articles/see/{{ sibbling.previous.id }}">
   {% if sibbling.previous %}
       <svg class="svg-navigation" width="10" height="17" viewBox="0 0 10 17" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path d="M10 16.625L9.60135e-07 8.5L10 0.375" fill="#000000" />
       </svg>
-      <p class="bold">Revenir à l'article<br>"{{ sibbling.previous.0 }}"</p>
+      <p class="bold">Revenir {{ sibbling.previous.type }}<br>"{{ sibbling.previous.name }}"</p>
       {% endif %}
     </a>
     <a class="back-home col jc-c ai-c" href="categories">
@@ -79,9 +79,9 @@ Path: cuej/Front/templates/pages/Articles/see.html.twig
       </svg>
       <p class="bold">Revenir à la page d'accueil</p>
     </a>
-    <a class="row changer-art" href="articles/see/{{ sibbling.next.1 }}">
+    <a class="row changer-art" href="articles/see/{{ sibbling.next.id }}">
   {% if sibbling.next %}
-      <p class="bold">Aller à l'article suivant<br>"{{ sibbling.next.0 }}"</p>
+      <p class="bold">Aller {{ sibbling.next.type }} suivant<br>"{{ sibbling.next.name }}"</p>
       <svg class="svg-navigation" width="10" height="17" viewBox="0 0 10 17" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path d="M0 0.375L10 8.5L-4.9965e-07 16.625" fill="#000000" />

@@ -59,21 +59,36 @@ class ArticlesController extends ControllerBase implements ControllerInterface
     if (!$article) {
       ControllerBase::renderError(404, $this->requestContext);
     }
-    $categoryArticles = $this->siteSettings->getNavigation()[
-      $article->getCategory()->getName()
-    ];
 
-    if (is_array($categoryArticles)) {
-      foreach ($categoryArticles as $i => $art) {
-        if ($art[1] === $article_id) {
-          $previous = isset($categoryArticles[$i - 1]) ? $categoryArticles[$i - 1] : null;
-          $next = isset($categoryArticles[$i + 1]) ? $categoryArticles[$i + 1] : null;
+    $tree = $this->siteSettings->getNavigation();
+    $previous = $next = null;
+    $keys = array_keys($tree);
+    $nb_cats = count($tree);
+
+
+    for ($i = 0; $i < $nb_cats; $i++) {
+      $nb_arts = count($tree[$keys[$i]]);
+      for ($j = 0; $j < $nb_arts; $j++) {
+        if ($tree[$keys[$i]][$j][1] === $article_id) {
+          if (isset($tree[$keys[$i]][$j - 1][1])) {
+            $previous = $tree[$keys[$i]][$j - 1];
+          } elseif (isset($keys[$i - 1]) && isset($tree[$keys[$i - 1]])) {
+            $previous = [$keys[$i - 1] => $tree[$keys[$i - 1]]];
+          }
+          if (isset($tree[$keys[$i]][$j + 1][1])) {
+            $next = $tree[$keys[$i]][$j + 1];
+          } elseif (isset($keys[$i + 1]) && isset($tree[$keys[$i + 1]])) {
+            $next = [$keys[$i + 1] => $tree[$keys[$i + 1]]];
+          }
+          break 2;
         }
       }
     }
 
-    $blocks = Blocks::getBlocksByArticle($article_id);
+    $previous = $this->formatSibblings($previous);
+    $next = $this->formatSibblings($next);
 
+    $blocks = Blocks::getBlocksByArticle($article_id);
     $this->render('Articles/see', [
       'article' => $article,
       'blocks' => $blocks,
@@ -82,5 +97,22 @@ class ArticlesController extends ControllerBase implements ControllerInterface
         'next' => $next
       ]
     ]);
+  }
+
+  /**
+   * Format a sibbling
+   *
+   * @param array $sibbling The sibbling that need to be formatted
+   */
+  private function formatSibblings($sibbling) {
+    if(!$sibbling) return false;
+    $len = count($sibbling);
+    if ($len) {
+      if ($len > 1) {
+        return ['type' => 'à l\'article', 'name' => $sibbling[0], 'id' => $sibbling[1]];
+      }
+      $cat_name = key($sibbling);
+      return ['type' => 'au chapitre', 'name' => $cat_name, 'id' => $sibbling[$cat_name][0][1]];
+    }
   }
 }
