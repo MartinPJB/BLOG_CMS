@@ -5,7 +5,7 @@ Custom block : Caroussel1
   .carousel {
     position: relative;
     user-select: none;
-    height: 16rem;
+    height: 33vw;
   }
 
   .carousel .item {
@@ -13,9 +13,9 @@ Custom block : Caroussel1
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
+    width: 50vw;
+    height: auto;
+    border-radius: 15px;
     overflow: hidden;
     transition: all 300ms ease-in-out;
     z-index: -1;
@@ -36,13 +36,13 @@ Custom block : Caroussel1
 
   .item.prev {
     z-index: 2;
-    opacity: 0.25;
+    opacity: 0;
     transform: translate(-125%, -50%);
   }
 
   .item.next {
     z-index: 2;
-    opacity: 0.25;
+    opacity: 0;
     transform: translate(25%, -50%);
   }
 
@@ -51,7 +51,7 @@ Custom block : Caroussel1
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 275px;
+    width: 49.5vw;
     z-index: 100;
   }
 
@@ -70,23 +70,26 @@ Custom block : Caroussel1
 
   .button-container .button:before {
     content: "";
+    background: url(public/front/img/svg/icon-back-top.svg) center / cover;
     position: absolute;
+    filter: var(--fill-filter--primary);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 50px;
     height: 50px;
-    background-color: rgba(0, 0, 0, 1);
     border-radius: 50%;
     z-index: -99;
   }
 
   .button-container .button:nth-child(1) {
     float: left;
+    transform: rotate(-90deg);
   }
 
   .button-container .button:nth-child(2) {
     float: right;
+    transform: rotate(90deg);
   }
 </style>
 <div class="carousel" id="carousel1">

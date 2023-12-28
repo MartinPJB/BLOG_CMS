@@ -59,7 +59,7 @@ Path: cuej/Front/templates/pages/Articles/see.html.twig
         {% include 'blocks/' ~ blockTemplate.type ~ '.html.twig' with { 'json': blockTemplate.getJsonContent(), 'media': blockTemplate.getMedia() } %}
       {% endautoescape %}
     {% endfor %}
-    <button class="back-top" id="back-to-top" title="Retourner en haut de la page">
+    <button class="back-top on-top" id="back-to-top" title="Retourner en haut de la page">
       <img class="back-top__icon" src="public/front/img/svg/icon-back-top.svg" alt="Retourner en haut de la page">
     </button>
   </section>
@@ -92,7 +92,7 @@ Path: cuej/Front/templates/pages/Articles/see.html.twig
       {% endif %}
     </a>
 </nav>
-<div class="progress-bar-container ont-top">
+<div class="progress-bar-container on-top">
   <div class="progress-bar" id="article-progress">
   </div>
 </div>
