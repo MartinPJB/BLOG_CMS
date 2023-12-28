@@ -118,7 +118,7 @@ class Blocks
     $result = [];
 
     foreach ($blocks as $block) {
-      if (substr($block, 0, strlen($block)) == '_') continue; // Skip
+      if ($block[0] === '_') continue; // Skip
 
 
       if ($block !== '.' && $block !== '..') {
