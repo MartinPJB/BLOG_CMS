@@ -43,7 +43,7 @@ Path: cuej/Front/templates/pages/Articles/see.html.twig
   <script src="public/front/js/audio/audio-wave.js" type="module" defer></script>
 {% endblock %}
 
-{% block title %}{{ article.title }}{% endblock %}
+{% block title %}{{ article.title|raw }}{% endblock %}
 
 {# Affichage #}
 {% block content %}
@@ -59,6 +59,9 @@ Path: cuej/Front/templates/pages/Articles/see.html.twig
         {% include 'blocks/' ~ blockTemplate.type ~ '.html.twig' with { 'json': blockTemplate.getJsonContent(), 'media': blockTemplate.getMedia() } %}
       {% endautoescape %}
     {% endfor %}
+    <button class="back-top" id="back-to-top" title="Retourner en haut de la page">
+      <img class="back-top__icon" src="public/front/img/svg/icon-back-top.svg" alt="Retourner en haut de la page">
+    </button>
   </section>
 </article>
 <nav class="ai-c bottom-nav container row jc-sb" aria-label="Navigation d'articles voisins">

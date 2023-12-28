@@ -83,6 +83,20 @@ article {
   font-size: 0.5em;
 }
 
+/* back to top button */
+.back-top {
+  position: sticky;
+  bottom: 1vw;
+  outline: none;
+  width: fit-content;
+  margin-right: -9vw;
+  margin-left: auto;
+}
+.back-top__icon {
+  height: 4vw;
+  filter: var(--fill-filter--primary);
+}
+
 /* progres bar */
 .progress-bar-container {
   position: fixed;
