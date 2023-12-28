@@ -69,7 +69,7 @@ class ArticlesController extends ControllerBase implements ControllerInterface
     for ($i = 0; $i < $nb_cats; $i++) {
       $nb_arts = count($tree[$keys[$i]]);
       for ($j = 0; $j < $nb_arts; $j++) {
-        if ($tree[$keys[$i]][$j][1] === $article_id) {
+        if ($tree[$keys[$i]][$j][1] == $article_id) {
           if (isset($tree[$keys[$i]][$j - 1][1])) {
             $previous = $tree[$keys[$i]][$j - 1];
           } elseif (isset($keys[$i - 1]) && isset($tree[$keys[$i - 1]])) {
