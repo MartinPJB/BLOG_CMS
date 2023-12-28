@@ -9,7 +9,7 @@ Variables:
 {% extends "index.html.twig" %}
 
 {# Set title #}
-{% block title %}Categories{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {# Set stylesheets #}
 {% block stylesheets %}
@@ -54,7 +54,7 @@ Variables:
       {# Display each categories #}
       {% for category in categories %}
         <li class="selector__chapter">
-          <a href="categories/see/{{ category.id }}" style="--background: url(../../../{{ category.image.path }});">
+          <a href="articles/see/{{ site_navigation[category.name][0][1] }}" style="--background: url(../../../{{ category.image.path }});">
             <h2 class="selector__chapter-name">{{ category.name|raw }}</h2>
             <p class="selector__chapter-description">{{ category.description|raw }}</p>
           </a>

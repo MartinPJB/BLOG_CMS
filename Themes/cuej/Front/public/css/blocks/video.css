@@ -20,6 +20,11 @@
   top: 0;
   display: grid;
   pointer-events: none;
+  opacity: 1;
+  transition: opacity .3s ease-in-out;
+}
+.video-controls--hidden {
+  opacity: 0;
 }
 .control {
   pointer-events: all;
