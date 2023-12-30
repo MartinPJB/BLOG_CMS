@@ -1,241 +1,130 @@
 .header-nav {
   position: fixed;
-  z-index: 1;
-  top: 4vh;
-  height: 4em;
-  width: 450px;
-  border-radius: 13px;
+  top: 1.2em;
+  height: 4.5rem;
   transition: top .3s ease-in-out;
+  margin-left: -3.5em;
+}
+.header-nav--small {
+  top: -5rem;
 }
 
 .header-nav__category {
-  background-color: var(--color-white);
-}
-
-
-.header-nav>a:first-child {
-  background-color: #fff;
-  margin-right: 2em;
-  position: relative;
-  left: 25px;
-  border-radius: 13px;
-}
-
-.header-nav>a:nth-child(2) {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  position: relative;
-}
-
-.header-nav>a:nth-child(4) {
-  position: relative;
-}
-
-.header-nav>a:nth-child(4)::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 20px;
-  bottom: 0;
-  left: 99%;
-  height: 30px;
-  width: 2px;
-  background-color: #000;
-  z-index: 1
-}
-
-.header-nav__category:last-of-type {
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  position: relative;
-}
-
-.header-nav>a:nth-child(2)::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 20px;
-  bottom: 0;
-  left: 99%;
-  height: 30px;
-  width: 2px;
-  background-color: #000;
-  z-index: 1
-}
-
-.header-nav>a:last-of-type::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 20px;
-  bottom: 0;
-  right: 99%;
-  height: 30px;
-  width: 2px;
-  background-color: #000;
-  z-index: 1
-}
-
-.header-nav img {
-  width: 55px;
-}
-
-.header-nav__home-btn img {
-  position: relative;
-  right: 9px;
-  filter: invert();
-}
-
-.header-nav__category {
-  width: 100px;
+  width: 2.4em;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: .2em;
+  background-color: var(--color-white);
 }
-
-.header-nav--small {
-  top: -5em;
+.header-nav__category>img {
+  width: 3rem;
+  transition: all .2s;
 }
-
-.header-nav__list {
+.header-nav__home-btn {
+  position: relative;
+  margin-right: 1em;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  background-color: var(--color-white);
+  padding: .8em;
+  aspect-ratio: 1/1;
+}
+.header-nav__home-btn>.header-nav__home {
+  width: 2.5rem;
+}
+.header-nav__category:nth-child(2) {
+  border-radius: 15px 0 0 15px;
+}
+.header-nav__category:nth-child(8) {
+  border-radius: 0 15px 15px 0;
+}
+.header-nav__category::before {
+  content: "";
+  position: absolute;
+  top: 25%;
+  right: -.08rem;
+  z-index: 1;
+  height: 50%;
+  width: .16rem;
+  background-color: var(--color-black);
+}
+.header-nav__category:nth-child(8)::before {
   display: none;
-
 }
-
-.header-nav__category:hover,
+.header-nav__category:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), var(--color-primary);
+}
+.header-nav__category:hover>img,
+.header-nav__category[aria-current="step"]:hover>img {
+  filter: invert() brightness(.6);
+}
 .header-nav__category[aria-current="step"] {
   background-color: var(--color-primary);
 }
-
-/* Personnalisation ????? Optimisation pas sure à 100% haha */
-.header-nav>a:last-of-type:hover:after {
-  content: "Chapitre 4 : Nouveaux départs";
+.header-nav__category[aria-current="step"]>img {
+  filter: invert();
+}
+.header-nav__category::after {
+  text-align: center;
   display: block;
   position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: var(--color-primary);
-  padding: 5px;
-  border-radius: 5px;
-  white-space: nowrap;
-  font-size: 10pt;
+  top: 25%;
   color: var(--color-white);
+  font-size: 45%;
 }
-
-.header-nav>a:nth-child(2):hover:after {
-  content: "Chapitre 1 : Se frayer un chemin";
-  display: block;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: var(--color-primary);
-  padding: 5px;
-  border-radius: 5px;
-  white-space: nowrap;
-  font-size: 10pt;
-  color: var(--color-white);
-  z-index: 1;
+.header-nav__category:nth-child(2):hover:after {
+  content: "Se frayer un chemin";
 }
-
-.header-nav>a:nth-child(4):hover:after {
-  content: "Chapitre 2 : Premiers contacts";
-  display: block;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: var(--color-primary);
-  padding: 5px;
-  border-radius: 5px;
-  white-space: nowrap;
-  font-size: 10pt;
-  color: var(--color-white);
+.header-nav__category:nth-child(4):hover:after {
+  content: "Premiers contacts";
 }
-
-.header-nav>a:nth-child(6):hover:after {
-  content: "Chapitre 3 : Vies en suspens";
-  display: block;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: var(--color-primary);
-  padding: 5px;
-  border-radius: 5px;
-  white-space: nowrap;
-  font-size: 10pt;
-  color: var(--color-white);
+.header-nav__category:nth-child(6):hover:after {
+  content: "Vies en suspens";
 }
-
-/* Fin du remus-ménage */
-
-
-.header-nav__category:hover:after {
-  content: "Lorem Ipsum Dolor";
-  display: block;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: var(--color-primary);
-  padding: 5px;
-  border-radius: 5px;
-  white-space: nowrap;
-  font-size: 10pt;
-  color: var(--color-white);
-
-}
-
-#active-category+.header-nav__list {
-  position: absolute;
-  display: flex;
-
+.header-nav__category:last-of-type:hover:after {
+  content: "Nouveaux départs";
 }
 
 .header-nav__list {
-  top: 5.5em;
-  color: #fff;
+  display: none;
+}
+.header-nav__category[aria-current="step"]+.header-nav__list {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 3.5em;
+  top: 120%;
+  height: 2.5rem;
+  color: var(--color-white);
   background-color: var(--color-primary);
   white-space: nowrap;
   border-radius: 20px;
-  padding-right: 0.8em;
-  padding-left: 0.8em;
+  padding: .5em 1.5em;
+  font-weight: 700;
 }
-
-
-
-.header-nav__list li {
+.header-nav__list>li {
   display: flex;
-  align-items: center;
-}
-
-.header-nav__list li::after {
-  content: "•";
-  display: block;
-  bottom: 100px;
-  z-index: 1;
-  margin: 0 .5em;
-}
-
-.header-nav__list a {
-  font-size: 10pt;
-}
-
-.header-nav__list li:last-child::after {
-  display: none;
-}
-
-.header-nav__list li {
-  text-align: center;
   position: relative;
+  transition: color .2s;
 }
-
-.header-nav__list li:last-child:hover {
+.header-nav__list>li::after {
+  content: "";
+  top: 25%;
+  position: absolute;
+  border-radius: 100%;
+  right: -2em;
+  display: block;
+  background-color: var(--color-white);
+  height: .75rem;
+  aspect-ratio: 1/1;
+}
+.header-nav__list>li:hover,
+.header-nav__list>li>a[aria-current="page"] {
   color: var(--color-primary--darker);
 }
-
-.header-nav__list li:nth-child(2):hover {
-  color: var(--color-primary--darker);
-}
-
-.header-nav__list li:first-child:hover {
-  color: var(--color-primary--darker);
+.header-nav__list>li:last-child::after {
+  display: none;
 }

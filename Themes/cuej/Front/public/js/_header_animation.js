@@ -11,8 +11,4 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   window.addEventListener('wheel', toggleHeaderMode);
   header.addEventListener('mouseover', biggerHeader);
-
-  const activeCat = document.getElementById('active-category');
-  header.addEventListener('mouseenter', () => {activeCat.ariaCurrent = ""});
-  header.addEventListener('mouseleave', () => {activeCat.ariaCurrent = "step"});
 });
