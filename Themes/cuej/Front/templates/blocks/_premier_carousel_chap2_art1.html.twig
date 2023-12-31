@@ -5,10 +5,10 @@ Custom block : Caroussel1
   .carousel {
     position: relative;
     user-select: none;
-    height: 33vw;
+    height: 39vw;
   }
 
-  .carousel .item {
+  .carousel__item {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -21,32 +21,32 @@ Custom block : Caroussel1
     z-index: -1;
     opacity: 0;
   }
-
-  .item img {
+  .carousel__item>img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-
-  .item.active {
+  .carousel__item.active {
     opacity: 1;
     z-index: 99;
     box-shadow: 0px 0px 105px -35px rgba(0, 0, 0, 0.75);
   }
-
-  .item.prev {
+  .carousel__item.prev {
     z-index: 2;
     opacity: 0;
     transform: translate(-125%, -50%);
   }
-
-  .item.next {
+  .carousel__item.next {
     z-index: 2;
     opacity: 0;
     transform: translate(25%, -50%);
   }
+  .carousel__legend {
+    padding: .5em;
+    line-height: 120%;
+  }
 
-  .carousel .button-container {
+  .carousel__button-container {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -54,8 +54,7 @@ Custom block : Caroussel1
     width: 49.5vw;
     z-index: 100;
   }
-
-  .button-container .button {
+  .carousel__button {
     color: #fff;
     font-size: 32px;
     cursor: pointer;
@@ -63,12 +62,10 @@ Custom block : Caroussel1
     opacity: 0.75;
     transition: all 300ms ease-in-out;
   }
-
-  .button-container .button:hover {
+  .carousel__button:hover {
     opacity: 1;
   }
-
-  .button-container .button:before {
+  .carousel__button:before {
     content: "";
     background: url(public/front/img/svg/icon-back-top.svg) center / cover;
     position: absolute;
@@ -81,33 +78,49 @@ Custom block : Caroussel1
     border-radius: 50%;
     z-index: -99;
   }
-
-  .button-container .button:nth-child(1) {
+  .carousel__button-container>.carousel__button:nth-child(1) {
     float: left;
     transform: rotate(-90deg);
   }
-
-  .button-container .button:nth-child(2) {
+  .carousel__button-container>.carousel__button:nth-child(2) {
     float: right;
     transform: rotate(90deg);
   }
 </style>
 <div class="carousel" id="carousel1">
-  <div class="item active">
+  <figure class="carousel__item active">
     <img src="public/front/img/caroussel1/Mariam horizontale.JPG" alt="">
-  </div>
-  <div class=" item next">
+    <figcaption class="carousel__legend">
+      Chaque jour, Mariam regrette d&rsquo;avoir laissé ses
+      deux enfants en Côte d&rsquo;Ivoire. Si elle obtient le statut de réfugiée,
+      elle espère pouvoir faire un regroupement familial.
+    </figcaption>
+  </figure>
+  <figure class=" carousel__item next">
     <img src="public/front/img/caroussel1/Cuisine Mariam.JPG" alt="">
-  </div>
-  <div class="item">
+    <figcaption class="carousel__legend">
+      A la recherche des ingrédients pour cuisiner ses spécialités,
+      Mariam prend plaisir à parcourir les supermarchés de Clermont-Ferrand.
+    </figcaption>
+  </figure>
+  <figure class="carousel__item">
     <img src="public/front/img/caroussel1/Neriné.JPG" alt="">
-  </div>
-  <div class="item">
+    <figcaption class="carousel__legend">
+      Adriné est arménienne, son mari syrien. Il y a un an, tous les deux prennent
+      l&rsquo;avion pour fuir la guerre en Syrie.
+    </figcaption>
+  </figure>
+  <figure class="carousel__item">
     <img src="public/front/img/caroussel1/Coin religion Nariné.JPG" alt="">
-  </div>
-  <div class="button-container">
-    <div class="button"><i class="fas fa-angle-left"></i></div>
-    <div class="button"><i class="fas fa-angle-right"></i></div>
+    <figcaption class="carousel__legend">
+      La religion, c&rsquo;est l&rsquo;un des rares repères d&rsquo;Adriné en France.
+      Dans son petit 20m2, elle a aménagé un coin prière.
+      Elle se rend à la messe tous les dimanches.
+    </figcaption>
+  </figure>
+  <div class="carousel__button-container">
+    <div class="carousel__button"></div>
+    <div class="carousel__button"></div>
   </div>
 </div>
 
@@ -115,8 +128,8 @@ Custom block : Caroussel1
   class Carousel {
     constructor(carouselId) {
       this.carousel = document.getElementById(carouselId);
-      this.items = this.carousel.querySelectorAll('.item');
-      this.buttons = this.carousel.querySelectorAll('.button');
+      this.items = this.carousel.querySelectorAll('.carousel__item');
+      this.buttons = this.carousel.querySelectorAll('.carousel__button');
 
       this.current = 0;
       this.prev = this.items.length - 1;
