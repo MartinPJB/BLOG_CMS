@@ -148,9 +148,12 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleControls();
       }, 2000);
     });
-    video.addEventListener('mouseout', () => {
-      isMouseMoving = false;
-      toggleControls();
+    video.addEventListener('mouseout', (event) => {
+      const toElement = event.toElement || event.relatedTarget;
+      if (!toElement || !videoControls.contains(toElement)) {
+        isMouseMoving = false;
+        toggleControls();
+      }
     });
     video.addEventListener('click', () => {
       toggleControls();
