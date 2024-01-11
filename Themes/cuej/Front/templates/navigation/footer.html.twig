@@ -10,11 +10,13 @@
       <li><a class="footer-nav__article" href="#">Crédits</a></li>
       <li><a class="footer-nav__article" href="#">Mentions Légales</a></li>
     </ul>
-    {% for cat, articles in site_navigation %}
+    {% for cat, details in site_navigation %}
     <ul class="footer-nav__list col gap-1">
-      <a class="footer-nav__category fs-2" href="articles/see/{{ articles[0][1] }}" {{ cat==category.name ? 'aria-current="step"' }}>{{ cat }}</a>
-      {% for art in articles %}
-      <li><a class="footer-nav__article" href="articles/see/{{ art[1] }}" {{ art[1]==article.id ? 'aria-current="page"' }}>{{ art[0] }}</a></li>
+      <a class="footer-nav__category fs-2" href="articles/see/{{ details.articles[0][1] }}"
+      {{ cat==category.name ? 'aria-current="step"' }}>{{ cat }}</a>
+      {% for art in details.articles %}
+      <li><a class="footer-nav__article" href="articles/see/{{ art[1] }}" {{ art[1]==article.id ? 'aria-current="page"'
+          }}>{{ art[0] }}</a></li>
       {% endfor %}
     </ul>
     {% endfor %}

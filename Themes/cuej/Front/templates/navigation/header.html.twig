@@ -8,18 +8,19 @@
 		<a class="header-nav__home-btn" href="{{ site_default_route }}">
 			<img class="header-nav__home" src="public/front/img/svg/icon-home.svg" alt="{{ site_name }}">
 		</a>
-		{% for cat, articles in site_navigation %}
-		<a class="header-nav__category fs-2" href="articles/see/{{ articles[0][1] }}" {{ cat == category.name ? 'aria-current="step" id="active-category"' }}>
+		{% for cat, details in site_navigation %}
+		<a class="header-nav__category fs-2" href="articles/see/{{ details.articles[0][1] }}"
+			{{ cat==category.name ? 'aria-current="step" id="active-category"' }} aria-describedby="chapter-desc{{ details.articles[0][1] }}">
 			<img src="public/front/img/svg/{{ cat|replace({' ' : '_'})|lower|replace({'é':'e'}) }}.svg" alt="{{ cat }}">
 		</a>
-
 		<ul class="header-nav__list row center-x">
-			{% for art in articles %}
+			{% for art in details.articles %}
 			<li>
-				<a href="articles/see/{{ art[1] }}" {{ art[1] == article.id ? 'aria-current="page"' }}>{{ art[0] }}</a>
+				<a href="articles/see/{{ art[1] }}" {{ art[1]==article.id ? 'aria-current="page"' }}>{{ art[0] }}</a>
 			</li>
 			{% endfor %}
 		</ul>
+		<p id="chapter-desc{{ details.articles[0][1] }}" class="header-nav__desc center-x bold">{{ details.description }}</p>
 		{% endfor %}
 	</nav>
 </header>

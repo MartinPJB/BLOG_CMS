@@ -132,7 +132,7 @@ class SiteSettings {
    */
   public function getNavigation() {
     $tmp = Manager::readWithJoin('articles',
-      ['articles.title', 'articles.id', 'articles.published', 'categories.name'], [],
+      ['articles.title', 'articles.id', 'articles.published', 'categories.name', 'categories.description'], [],
       ['categories'],
       ['articles.category_id = categories.id']
     );
@@ -142,14 +142,17 @@ class SiteSettings {
       if ($row['published']) {
         $categoryName = $row['name'];
         if (!isset($res[$categoryName])) {
-          $res[$categoryName] = [];
+          $res[$categoryName] = [
+            'description' => $row['description'],
+            'articles' => []
+          ];
         }
-        $res[$categoryName][] = [$row['title'], $row['id']];
+        $res[$categoryName]['articles'][] = [$row['title'], $row['id']];
       }
     }
 
-    foreach ($res as &$categoryArticles) {
-      usort($categoryArticles, function ($a, $b) {
+    foreach ($res as $categoryArticles) {
+      usort($categoryArticles['articles'], function ($a, $b) {
         return $a[1] - $b[1];
       });
     }

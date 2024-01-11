@@ -38,7 +38,7 @@
 .header-nav__category:nth-child(2) {
   border-radius: 15px 0 0 15px;
 }
-.header-nav__category:nth-child(8) {
+.header-nav__category:nth-child(11) {
   border-radius: 0 15px 15px 0;
 }
 .header-nav__category::before {
@@ -51,7 +51,7 @@
   width: .16rem;
   background-color: var(--color-black);
 }
-.header-nav__category:nth-child(8)::before {
+.header-nav__category:nth-child(11)::before {
   display: none;
 }
 .header-nav__category:hover {
@@ -78,10 +78,10 @@
 .header-nav__category:nth-child(2):hover:after {
   content: "Se frayer un chemin";
 }
-.header-nav__category:nth-child(4):hover:after {
+.header-nav__category:nth-child(5):hover:after {
   content: "Premiers contacts";
 }
-.header-nav__category:nth-child(6):hover:after {
+.header-nav__category:nth-child(8):hover:after {
   content: "Vies en suspens";
 }
 .header-nav__category:last-of-type:hover:after {
@@ -127,4 +127,19 @@
 }
 .header-nav__list>li:last-child::after {
   display: none;
+}
+
+.header-nav__desc {
+  color: var(--color-white);
+  position: absolute;
+  top: calc(120% + 3rem);
+  left: 57%;
+  text-align: center;
+  display: none;
+  width: 50em;
+  text-shadow: black 0 0 0.5em;
+}
+
+.header-nav__category:hover+.header-nav__list+.header-nav__desc {
+  display: block;
 }

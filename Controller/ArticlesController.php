@@ -60,25 +60,26 @@ class ArticlesController extends ControllerBase implements ControllerInterface
       ControllerBase::renderError(404, $this->requestContext);
     }
 
+    /* Gets sibblings, could be optimised */
     $tree = $this->siteSettings->getNavigation();
     $previous = $next = null;
     $keys = array_keys($tree);
     $nb_cats = count($tree);
 
-
     for ($i = 0; $i < $nb_cats; $i++) {
-      $nb_arts = count($tree[$keys[$i]]);
+      $nb_arts = count($tree[$keys[$i]]['articles']);
       for ($j = 0; $j < $nb_arts; $j++) {
-        if ($tree[$keys[$i]][$j][1] == $article_id) {
-          if (isset($tree[$keys[$i]][$j - 1][1])) {
-            $previous = $tree[$keys[$i]][$j - 1];
-          } elseif (isset($keys[$i - 1]) && isset($tree[$keys[$i - 1]])) {
-            $previous = [$keys[$i - 1] => $tree[$keys[$i - 1]]];
+        if ($tree[$keys[$i]]['articles'][$j][1] == $article_id) {
+          if ($j > 0 && isset($tree[$keys[$i]]['articles'][$j - 1][1])) {
+            $previous = $tree[$keys[$i]]['articles'][$j - 1];
+          } elseif ($i > 0 && isset($tree[$keys[$i - 1]]['articles'])) {
+            $previous = [$keys[$i - 1] => end($tree[$keys[$i - 1]]['articles'])];
           }
-          if (isset($tree[$keys[$i]][$j + 1][1])) {
-            $next = $tree[$keys[$i]][$j + 1];
-          } elseif (isset($keys[$i + 1]) && isset($tree[$keys[$i + 1]])) {
-            $next = [$keys[$i + 1] => $tree[$keys[$i + 1]]];
+
+          if ($j < $nb_arts - 1 && isset($tree[$keys[$i]]['articles'][$j + 1][1])) {
+            $next = $tree[$keys[$i]]['articles'][$j + 1];
+          } elseif ($i < $nb_cats - 1 && isset($tree[$keys[$i + 1]]['articles'])) {
+            $next = [$keys[$i + 1] => $tree[$keys[$i + 1]]['articles'][0]];
           }
           break 2;
         }
@@ -112,7 +113,7 @@ class ArticlesController extends ControllerBase implements ControllerInterface
         return ['type' => 'à l\'article', 'name' => $sibbling[0], 'id' => $sibbling[1]];
       }
       $cat_name = key($sibbling);
-      return ['type' => 'au chapitre', 'name' => $cat_name, 'id' => $sibbling[$cat_name][0][1]];
+      return ['type' => 'au chapitre', 'name' => $cat_name, 'id' => $sibbling[$cat_name][1]];
     }
   }
 }
