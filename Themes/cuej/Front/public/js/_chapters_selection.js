@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const firstArticleLinks = document.querySelectorAll('.footer-nav__category');
 
   function toggleActive(categoryId) {
-    const newIndex = categoryId - 1;
+    const newIndex = categoryId - 2;
     for (const elType in actives) {
       actives[elType].classList.remove('active');
       actives[elType] = elements[elType][newIndex];
@@ -32,14 +32,14 @@ document.addEventListener('DOMContentLoaded', function() {
     catIcon.href = firstArticleLinks[i].href;
     catIcon.addEventListener('mouseenter', () => {
       toggleActive(catId);
-      catIcon.firstElementChild.src = `public/front/img/gif/gif${catId}.gif`;
+      catIcon.firstElementChild.src = `public/front/img/gif/gif${catId-1}.gif`;
     });
     catIcon.addEventListener('mouseleave', () => {
-      catIcon.firstElementChild.src = `public/front/img/png/gif${catId}.png`;
+      catIcon.firstElementChild.src = `public/front/img/png/gif${catId-1}.png`;
     });
     elements.catIllustrations[i].addEventListener('click', (ev) => {
       if (ev.target == ev.target.parentElement.firstElementChild) {
-        window.location.href = firstArticleLinks[ev.target.dataset.category - 1].href;
+        window.location.href = firstArticleLinks[ev.target.dataset.category - 2].href;
       }
       toggleActive(catId);
     });

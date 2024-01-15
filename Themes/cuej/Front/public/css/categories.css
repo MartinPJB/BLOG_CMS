@@ -11,10 +11,16 @@
 @import '_header.css';
 @import '_footer.css';
 
+main {
+  background-color: black;
+}
+
 .land {
   height: 110vh;
+  margin-bottom: 0;
   width: 100%;
   position: relative;
+  transition: all .3s;
 }
 
 .land__foreground {
@@ -25,51 +31,92 @@
   gap: 2rem;
   justify-content: center;
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  height: 100vh;
+  background-image: rgba(0, 0, 0, 0.7);
   z-index: 1;
 }
-.site-scroll-indicator {
-  cursor: pointer;
+.site-title {
+  position: absolute;
+  width: 20vw;
+  top: 20vh;
+  left: 10vw;
+  transition: transform 1s ease, opacity .5s ease;
 }
+.land__baseline {
+  color: white;
+  position: absolute;
+  top: calc(20vh + 6.5vw);
+  left: 10vw;
+  font-size: 1.5vw;
+  transition: transform 1s ease, opacity .5s ease;
+}
+.site-scroll-indicator>img {
+  cursor: pointer;
+  width: 6vw;
+}
+.video-controls {
+  width: fit-content;
+}
+#play-pause-btn>img,
+#fullscreen-btn>img {
+  width: 6vw;
+}
+#fullscreen-btn {
+  display: none;
+}
+#play-pause-btn.paused>.play {
+  display: block;
+}
+#play-pause-btn.paused>.pause {
+  display: none;
+}
+#play-pause-btn.played>.play {
+  display: none;
+}
+#play-pause-btn.played>.pause {
+  display: block;
+}
+
 .land__foreground--videoplay {
   background-color: rgba(0, 0, 0, 0);
   transition: background-color 1s ease;
 }
-.land__foreground--videoplay .site-title {
+.land__foreground--videoplay>.site-title,
+.land__foreground--videoplay>.land__baseline {
   transform: translateX(-5rem);
   opacity: 0;
 }
-.land__foreground--videoplay .site-scroll-indicator {
+.land__foreground--videoplay>.site-scroll-indicator {
   opacity: 0;
   transform: translateY(5rem);
 }
-.land__foreground--videoplay .video-controls #play-pause-btn {
+.land__foreground--videoplay>.video-controls>#play-pause-btn {
   position: absolute;
-  bottom: 2rem;
-  left: 3rem;
-  width: 3.5rem;
+  bottom: 2vw;
+  left: 3vw;
+  width: 6vw;
 }
-.land__foreground--videoplay .video-controls #fullscreen-btn {
+.land__foreground--videoplay>.video-controls>#fullscreen-btn {
   position: absolute;
-  bottom: 2rem;
-  right: 3rem;
-  width: 3.5rem;
+  bottom: 2vw;
+  right: 3vw;
+  width: 6vw;
   display: block;
 }
-.land__foreground .site-title {
-  width: 20rem;
-  margin-left: -7rem;
-  transition: transform 1s ease, opacity .5s ease;
-}
-.land__foreground .site-scroll-indicator {
+.site-scroll-indicator {
   position: absolute;
   color: white;
   bottom: 4rem;
   font-size: 2rem;
   transition: opacity .5s ease, transform 1s ease;
 }
-
+@keyframes blink {
+  0%,100% {opacity: 1;}
+  50% {opacity: 0;}
+}
+.land__foreground--blink {
+  animation: blink 1s ease-in-out infinite;
+}
 
 .land__video {
   height: 100%;
@@ -78,33 +125,8 @@
   position: absolute;
   top: 0;
   z-index: 0;
-}
-
-.video-controls {
-  width: fit-content;
-}
-.video-controls #play-pause-btn {
-  width: 6rem;
-}
-.video-controls #play-pause-btn.paused .play {
-  display: block;
-}
-.video-controls #play-pause-btn.paused .pause {
-  display: none;
-}
-
-.video-controls #play-pause-btn.played .play {
-  display: none;
-}
-.video-controls #play-pause-btn.played .pause {
-  display: block;
-}
-.video-controls #play-pause-btn img,
-.video-controls #fullscreen-btn img {
-  width: 100%;
-}
-.video-controls #fullscreen-btn {
-  display: none;
+  background-image: url('https://www.cuej.info/mini-sites/migrations/public/front/img/video_poster.png');
+    background-size: cover;
 }
 
 .chapters {
