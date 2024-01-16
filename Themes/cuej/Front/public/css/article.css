@@ -110,3 +110,17 @@ article {
   width: 0;
   background-color: var(--color-primary);
 }
+
+@media screen and (max-width: 1024px) {
+  .intro__title {
+    margin-top: 0;
+  }
+  .bottom-nav {
+    flex-direction: column;
+    gap: 2em;
+    padding-top: 0;
+  }
+  .back-top__icon {
+    height: 4em;
+  }
+}

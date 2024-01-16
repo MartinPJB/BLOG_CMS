@@ -17,3 +17,9 @@
   width: 100%;
   overflow: hidden;
 }
+
+@media screen and (max-width: 1024px) {
+  .imgandtxt {
+    flex-direction: column;
+  }
+}

@@ -67,7 +67,7 @@ Custom block : Caroussel1
   }
   .carousel__button:before {
     content: "";
-    background: url(public/front/img/svg/icon-back-top.svg) center / cover;
+    background: url(public/front/img/svg/icon-back_top.svg) center / cover;
     position: absolute;
     filter: var(--fill-filter--primary);
     top: 50%;
@@ -85,6 +85,17 @@ Custom block : Caroussel1
   .carousel__button-container>.carousel__button:nth-child(2) {
     float: right;
     transform: rotate(90deg);
+  }
+  @media screen and (max-width: 1024px) {
+    .carousel {
+      height: 80vw;
+    }
+    .carousel__item {
+      width: 75vw;
+    }
+    .carousel__button-container {
+      width: 74.5vw;
+    }
   }
 </style>
 <div class="carousel" id="carousel1">

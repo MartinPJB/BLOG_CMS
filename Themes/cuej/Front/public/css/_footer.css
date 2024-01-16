@@ -20,3 +20,10 @@
 .footer-nav__article {
   font-weight: 700;
 }
+
+@media screen and (max-width: 1024px) {
+  .footer-nav {
+    padding: 3em 3rem 3rem 6em;
+    flex-direction: column;
+  }
+}

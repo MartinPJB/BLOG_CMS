@@ -34,3 +34,20 @@
   width: 4em;
   transform: translateX(-110%);
 }
+
+@media screen and (max-width: 1024px) {
+  .quoted {
+    padding: 0;
+  }
+  .quoted__ref {
+    right: unset;
+    bottom: -2em;
+  }
+  .quoted__icon {
+    height: 3em;
+  }
+  .quoted__icon--left {
+    left: -2em;
+    top: -2em;
+  }
+}

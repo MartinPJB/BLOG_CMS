@@ -143,3 +143,12 @@
 .header-nav__category:hover+.header-nav__list+.header-nav__desc {
   display: block;
 }
+
+@media screen and (max-width: 1024px) {
+  .header-nav {
+    transform: scale(.55) translate(-75%);
+  }
+  .header-nav--small {
+    top: -3.5rem;
+  }
+}

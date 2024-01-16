@@ -14,3 +14,9 @@
   width: 33vw;
   margin: auto;
 }
+@media screen and (max-width: 1024px) {
+  .image-block--t,
+  .image-block--m {
+    width: 74vw;
+  }
+}

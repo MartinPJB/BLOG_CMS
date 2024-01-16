@@ -8,9 +8,13 @@
   margin: 1rem 0;
 }
 
-.audio-block .audio-block__control.audio-block__control--play .pause {
-  display: none;
-}
+.audio-block .audio-block__control.audio-block__control--play .pause,
 .audio-block .audio-block__control.audio-block__control--pause .play {
   display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .audio-block {
+    padding: 0;
+  }
 }

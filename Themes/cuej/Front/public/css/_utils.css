@@ -5,6 +5,11 @@
 .contained--small {
   padding: 0 8rem;
 }
+@media screen and (max-width: 1024px) {
+  .contained--small {
+    padding: 0;
+  }
+}
 
 .full-width {
   width: 100vw;
