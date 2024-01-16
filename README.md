@@ -54,8 +54,8 @@ The Controller must extend the `ControllerBase` class, and must implement the `C
 namespace Controller;
 
 // Import the required classes.
-use \Core\ControllerBase;
-use \Core\ControllerInterface;
+use \Core\Controller\ControllerInterface;
+use \Core\Controller\ControllerBase;
 use \Core\RequestContext;
 
 // Create the Controller class.
