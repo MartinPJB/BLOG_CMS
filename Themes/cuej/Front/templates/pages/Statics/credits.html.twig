@@ -1,0 +1,154 @@
+{#
+Name: credits.html.twig
+Path: cuej/Front/templates/pages/S gap-1tatics/credits.html.twig
+#}
+{% extends "index.html.twig" %}
+
+{% block title %}Crédits{% endblock %}
+
+{# Set stylesheets #}
+{% block stylesheets %}
+<link rel="stylesheet" href="public/front/css/credits.css">
+{% endblock %}
+
+{# Set javascript #}
+{% block javascript %}
+<script src="public/front/js/credits.js" type="module" defer></script>
+{% endblock %}
+
+{# Set content #}
+{% block content %}
+<div class="static-container">
+  <section class="intro container gap-1" id="intro">
+    <img class="intro__image center-x full-width" src="public/front/img/jpg/photo_groupe.jpg" alt="" loading="lazy">
+    <h1 class="intro__title">Crédits</h1>
+    <p class="intro__description fs-2">Projet réalisé grâce au partenariat entre le CUEJ et l&rsquo;IUT de Haguenau</p>
+  </section>
+  <section id="article" class="container article-content col gap-2">
+    <div class="team">
+      <h2>Directeur de publication :</h2>
+      <p class="emp col jc-c">Christophe Deleu</p>
+
+      <h2>Encadrement :</h2>
+      <ul class="emp col jc-c">
+        <li>
+          <h3>Cuej :</h3>
+          <ul>
+            <li>Cédric Pellen</li>
+            <li>Aurélien Lachaud</li>
+            <li>Yann Gallic</li>
+            <li>Joseph Pasquier</li>
+          </ul>
+        </li>
+        <li>
+          <h3>IUT de Haguenau :</h3>
+          <ul>
+            <li>David Cazier</li>
+            <li>Sophie Behal</li>
+            <li>Jean-Baptiste Bailly</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="team">
+      <h2>Membres du CUEJ :</h2>
+      <ul class="emp col jc-c">
+        <li>
+          <h3>Rédacteur en chef :</h3>
+          <p>Kilian Bigogne</p>
+        </li>
+        <li>
+          <h3>Chef éditorial :</h3>
+          <p>Eva Pontecaille</p>
+        </li>
+        <li>
+          <h3>Chef iconographie :</h3>
+          <p>Yann Greff-Scheffer</p>
+        </li>
+        <li>
+          <h3>Étudiants CUEJ :</h3>
+          <ul>
+            <li>Adélie Aubaret</li>
+            <li>Laura Beaudoin</li>
+            <li>Anis Boukerna</li>
+            <li>Audrey Burla</li>
+            <li>Rémi Casalis</li>
+            <li>Erwan Drouillac</li>
+            <li>Marine Fersing</li>
+            <li>Yohan Glemarec</li>
+            <li>Clara Grouzis</li>
+            <li>Mathilda Idri</li>
+            <li>Alexia Lamble</li>
+            <li>Marine Lebegue</li>
+            <li>Julie Lescarmontier</li>
+            <li>Mathilde Lopinski</li>
+            <li>Salomé Martin</li>
+            <li>Johanna Mohr</li>
+            <li>Franziska Müller</li>
+            <li>Julia Paasch</li>
+            <li>Robin Schmidt</li>
+            <li>Clélia Wefelsheid-Wang</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="team">
+      <h2>Membres de l'IUT :</h2>
+      <ul class="emp col jc-c">
+        <li>
+          <h3>Chef de projet :</h3>
+          <p>Emilien Marchand</p>
+        </li>
+        <li>
+          <h3>Développeurs :</h3>
+          <ul>
+            <li>Martin Brönnimann</li>
+            <li>Maël Garrigues</li>
+          </ul>
+        </li>
+        <li>
+          <h3>Graphistes :</h3>
+          <ul>
+            <li>Adel Adjissi</li>
+            <li>Ismaïl Bachiri</li>
+            <li>William Duong</li>
+            <li>Anna Zahnow</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="team">
+      <h2>CUEJ (Centre universitaire de l'enseignement du journalisme) Université de Strasbourg :</h2>
+      <div class="emp col jc-c">
+        <p>1 gap-11, rue du Maréchal Juin - 67046 STRASBOURG</p>
+        <p>Tél. : 03.68.85.83.00</p>
+      </div>
+    </div>
+
+    <div class="easter row ai-c gap-2">
+      <img src="public/front/img/png/logo-CUEJ.png" alt="Logo du CUEJ">
+      <img class="easter__separator" src="public/front/img/svg/icon-cross.svg" alt="">
+      <img src="public/front/img/png/logo-IUT.png" alt="Logo de l'IUT">
+    </div>
+
+    <div class="ai-c bottom-nav container row jc-sb">
+      <a></a>
+      <a class="back-home col jc-c ai-c" href="accueil">
+        <svg width="30" height="32" viewBox="0 0 30 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M16.7158 0.672252C15.753 -0.224084 14.247 -0.224084 13.2843 0.672252L1.1881 11.9342C0.439683 12.631 0.015625 13.6005 0.015625 14.6147V28.3111C0.015625 30.3483 1.6928 32 3.76172 32H7.50782C9.57674 32 11.2539 30.3483 11.2539 28.3111V22.1629C11.2539 21.4838 11.813 20.9333 12.5026 20.9333H17.4974C18.187 20.9333 18.7461 21.4838 18.7461 22.1629V28.3111C18.7461 30.3483 20.4234 32 22.4922 32H26.2383C28.3072 32 29.9844 30.3483 29.9844 28.3111V14.6147C29.9844 13.6005 29.5604 12.631 28.8119 11.9342L16.7158 0.672252Z"
+            fill="#000000" />
+        </svg>
+        <p class="back-home__txt bold">Revenir à la page d'accueil</p>
+      </a>
+      <a></a>
+    </div>
+
+    <button class="back-top on-top" id="back-to-top" title="Retourner en haut de la page">
+      <img class="back-top__icon" src="public/front/img/svg/icon-back-top.svg" alt="Retourner en haut de la page">
+    </button>
+  </section>
+</div>
+{% endblock %}

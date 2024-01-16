@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@300;500;800&family=Merriweather+Sans:ital,wght@0,300;0,700;1,300;1,400;1,700&family=Montserrat:wght@800&display=swap');
+
+@import '_reset.css';
+
+@import '_globals.css';
+@import '_utils.css';
+@import 'variants/cat1.css';
+
+/* @import '_fonts.css'; */
+@import '_typography.css';
+
+@import '_header.css';
+@import '_footer.css';
+
+.static-container {
+  margin: 0 20vw;
+}
+.intro {
+  color: var(--color-white);
+  position: relative;
+  display: grid;
+  align-content: center;
+  height: 80vh;
+}
+.intro__image {
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  filter: brightness(.75) grayscale(0.5);
+}
+.intro__title {
+  margin-top: 3.5em;
+  text-transform: uppercase;
+}
+
+.article-content {
+  margin-top: 2em;
+}
+.team {
+  font-size: 24px;
+  color: var(--color-primary--dark);
+}
+h2, h3, p {
+  font-family: 'Catamaran', 'Palanquin', sans-serif;
+}
+h2 {
+  margin: .5em 0;
+  font-size: 1.5em;
+}
+h3 {
+  font-weight: 500;
+  font-size: 1.25em;
+}
+h3,
+h3+p,
+h3+ul,
+h3+ul>li {
+  display: inline;
+  margin-right: .1em;
+}
+h3+ul>li::after {
+  content: ", ";
+}
+h3+ul>li:last-child::after {
+  content: "";
+}
+.emp {
+  margin-left: 1em;
+  line-height: 150%;
+  position: relative;
+  padding: .5em 0;
+  gap: 1.5em;
+}
+.emp::before {
+  content: '';
+  display: block;
+  background-color: var(--color-primary--dark);
+  height: 100%;
+  width: .1em;
+  position: absolute;
+  left: -1em;
+}
+
+.easter__separator {
+  height: 50%;
+}
+
+.bottom-nav {
+  filter: var(--fill-filter--primary);
+  max-width: 1660px;
+  margin-bottom: -4em;
+}
+.bottom-nav>a {
+  flex-basis: 30%;
+}
+.back-home {
+  gap: .5em;
+}
+.back-home__txt {
+  text-align: center;
+  width: 7em;
+}
+
+/* back to top button */
+.back-top {
+  position: sticky;
+  bottom: 1vw;
+  outline: none;
+  width: fit-content;
+  margin-right: -9vw;
+  margin-left: auto;
+}
+.back-top__icon {
+  height: 4vw;
+  filter: var(--fill-filter--primary);
+}

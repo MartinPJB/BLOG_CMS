@@ -6,6 +6,7 @@ use \Controller\CategoriesController;
 use \Controller\UsersController;
 use \Controller\PublicController;
 use \Controller\AdminController;
+use \Controller\StaticsController;
 use \Controller\AdminSubControllers\AdminArticlesController;
 use \Controller\AdminSubControllers\AdminBlocksController;
 use \Controller\AdminSubControllers\AdminMediasController;
@@ -82,3 +83,8 @@ Router::addRoute('admin', 'upload_media', '\Controller\AdminSubControllers\Admin
 Router::addRoute('admin', 'edit_media', '\Controller\AdminSubControllers\AdminMediasController', 2, 'POST');
 Router::addRoute('admin', 'delete_media', '\Controller\AdminSubControllers\AdminMediasController', 2, 'POST');
 Router::addRoute('admin', 'unassign_media', '\Controller\AdminSubControllers\AdminMediasController', 2, 'POST');
+
+
+/* -- Statics routes -- */
+// GET
+Router::addRoute('credits', '', '\Controller\StaticsController', 0, 'GET');
