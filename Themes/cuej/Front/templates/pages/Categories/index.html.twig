@@ -4,7 +4,7 @@ Path: cuej/Front/templates/pages/Categories/index.html.twig
 
 Variables:
 - {@object} category
-  - {@string} name: Category name
+- {@string} name: Category name
 #}
 {% extends "index.html.twig" %}
 
@@ -13,7 +13,7 @@ Variables:
 
 {# Set stylesheets #}
 {% block stylesheets %}
-  <link rel="stylesheet" href="public/front/css/categories.css">
+<link rel="stylesheet" href="public/front/css/categories.css">
 {% endblock %}
 
 {# Set javascript #}
@@ -28,7 +28,8 @@ Variables:
     <img src="public/front/img/logov2.png" alt="{{ site_name }}" class="site-title">
     <p class="land__baseline">Les migrants à l&rsquo;épreuve de l&rsquo;Europe</p>
 
-    <a id="scroll-btn" class="site-scroll-indicator"><img src="public/front/img/svg/icon-arow_down.svg" alt="Scroll down"></a>
+    <a id="scroll-btn" class="site-scroll-indicator"><img src="public/front/img/svg/icon-arow_down.svg"
+        alt="Scroll down"></a>
     <div class="video-controls">
       <button id="play-pause-btn" class="paused">
         <img src="public/front/img/svg/icon-play.svg" class="play" alt="Jouer">
@@ -40,10 +41,10 @@ Variables:
     </div>
   </div>
 
-  <video id="introvid" class="land__video" preload="none">
-    <source src="public/front/vid/introvid.mp4" type="video/mp4">
+  <video playsinline id="introvid" class="land__video" preload="none">
+    <source src="uploads/mp4/65a7c9e8ded9c.mp4" type="video/mp4">
     Votre navigateur ne peut pas lire la vidéo mais vous pouvez toujours la
-    <a href="public/front/vid/introvid.mp4"> télécharger</a>
+    <a href="uploads/mp4/65a7c9e8ded9c.mp4"> télécharger</a>
   </video>
 </section>
 
@@ -81,13 +82,15 @@ Variables:
       <img class="selector__lechemin" src="public/front/img/svg/lechemin.svg" alt="">
       {% for category in categories %}
       <a class="selector__icon" data-category="{{ category.id }}">
-        <img class="selector__icon-img" src="public/front/img/png/gif{{ category.id - 1 }}.png" alt="{{ category.name|raw }}">
+        <img class="selector__icon-img" src="public/front/img/png/gif{{ category.id - 1 }}.png"
+          alt="{{ category.name|raw }}">
       </a>
       {% endfor %}
     </div>
     <div class="selector__details">
       {% for category in categories %}
-      <img class="selector__illustration" data-category="{{ category.id }}" src="public/front/img/jpg/illu_{{ category.id - 1 }}.jpg" alt="">
+      <img class="selector__illustration" data-category="{{ category.id }}"
+        src="public/front/img/jpg/illu_{{ category.id - 1 }}.jpg" alt="">
       {% endfor %}
     </div>
     {% for category in categories %}
@@ -97,6 +100,7 @@ Variables:
   {% else %}
   <p>Créez une catégorie pour l'afficher ici.</p>
   {% endif %}
+  <p class="disclaimer">Cet accueil est prévu pour être visualisé au format paysage</p>
 </section>
 
 <svg class="home-separator" viewBox="0 0 1938 178" fill="#000" xmlns="http://www.w3.org/2000/svg">

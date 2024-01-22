@@ -3,7 +3,6 @@
   top: 1.2em;
   height: 4.5rem;
   transition: top .3s ease-in-out;
-  margin-left: -3.5em;
 }
 .header-nav--small {
   top: -5rem;
@@ -146,7 +145,7 @@
 
 @media screen and (max-width: 1024px) {
   .header-nav {
-    transform: scale(.55) translate(-75%);
+    transform: scale(.55) translate(-90%);
   }
   .header-nav--small {
     top: -3.5rem;

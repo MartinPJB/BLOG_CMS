@@ -151,7 +151,7 @@ class SiteSettings {
       }
     }
 
-    foreach ($res as $categoryArticles) {
+    foreach ($res as &$categoryArticles) {
       usort($categoryArticles['articles'], function ($a, $b) {
         return $a[1] - $b[1];
       });

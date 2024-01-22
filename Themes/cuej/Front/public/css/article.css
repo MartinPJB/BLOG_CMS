@@ -23,6 +23,9 @@
 @import 'blocks/signature.css';
 @import 'blocks/image.css';
 
+main {
+  width: 100vw;
+}
 article {
   margin: 0 12vw;
 }

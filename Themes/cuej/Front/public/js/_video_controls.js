@@ -8,8 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function playPause() {
     if (neverStarted) {
-      landfg.parentElement.style.height = "100vh";
-      landfg.parentElement.style.marginBottom = "10vw";
+      landfg.parentElement.style.height = "120vh";
       neverStarted = false;
     }
     if (video.paused || video.endend) {

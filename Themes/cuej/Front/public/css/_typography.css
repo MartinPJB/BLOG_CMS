@@ -3,12 +3,6 @@ body {
   font-family: 'Merriweather Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-@media screen and (max-width: 1280px) {
-  body {
-    font-size: 16px;
-  }
-}
-
 h1,
 .fs-1 {
   font-family: 'Catamaran', 'Palanquin', sans-serif;
@@ -47,4 +41,16 @@ blockquote {
 }
 .bold {
   font-weight: 700;
+}
+
+@media screen and (max-width: 1280px) {
+  html {
+    font-size: 62.5%;
+  }
+  body {
+    font-size: 1.4rem;
+  }
+  h1, .fs-1 {
+    font-size: 3.25em;
+  }
 }

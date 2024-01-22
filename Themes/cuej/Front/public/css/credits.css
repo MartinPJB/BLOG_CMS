@@ -42,7 +42,7 @@
   font-size: 24px;
   color: var(--color-primary--dark);
 }
-h2, h3, p {
+h2, h3, p, li {
   font-family: 'Catamaran', 'Palanquin', sans-serif;
 }
 h2 {
@@ -52,6 +52,10 @@ h2 {
 h3 {
   font-weight: 500;
   font-size: 1.25em;
+}
+li {
+  line-height: 140%;
+  font-weight: 300;
 }
 h3,
 h3+p,
@@ -83,6 +87,9 @@ h3+ul>li:last-child::after {
   left: -1em;
 }
 
+.easter {
+  position: relative;
+}
 .easter__separator {
   height: 50%;
 }

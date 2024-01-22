@@ -86,6 +86,28 @@ Custom block : Caroussel1
     float: right;
     transform: rotate(90deg);
   }
+
+  .carousel__indicators {
+  	position: absolute;
+  	bottom: -1em;
+  	left: 50%;
+  	display: flex;
+  	gap: .5em;
+  	transform: translateX(-50%);
+  }
+  .carousel__indicator {
+  	border-radius: 100%;
+      display: block;
+      width: 1em;
+      height: 1em;
+      border: var(--color-primary) .1em solid;
+  	background-color: #fff;
+  	transition: background-color .3s;
+  }
+  .carousel__indicator.active {
+  	background-color: var(--color-primary);
+  }
+
   @media screen and (max-width: 1024px) {
     .carousel {
       height: 80vw;
@@ -143,11 +165,16 @@ Custom block : Caroussel1
       this.carousel = document.getElementById(carouselId);
       this.items = this.carousel.querySelectorAll('.carousel__item');
       this.buttons = this.carousel.querySelectorAll('.carousel__button');
+      this.indicatorContainer = document.createElement('div');
+      this.indicators = [];
 
       this.current = 0;
       this.prev = this.items.length - 1;
       this.next = 1;
 
+      this.setupIndicators();
+      this.updateIndicators();
+      this.updateButtons();
       this.setupListeners();
     }
 
@@ -155,6 +182,28 @@ Custom block : Caroussel1
       for (let i = 0; i < this.buttons.length; i++) {
         this.buttons[i].addEventListener('click', () => (i === 0 ? this.gotoPrev() : this.gotoNext()));
       }
+    }
+
+    setupIndicators() {
+      this.indicatorContainer.className = 'carousel__indicators';
+      this.carousel.appendChild(this.indicatorContainer);
+
+      for (let i = 0; i < this.items.length; i++) {
+        let indicator = document.createElement('div');
+        indicator.className = 'carousel__indicator';
+        this.indicatorContainer.appendChild(indicator);
+        this.indicators.push(indicator);
+      }
+    }
+
+    updateIndicators() {
+      this.indicators.forEach((indicator, index) => {
+        if (index === this.current) {
+          indicator.classList.add('active');
+        } else {
+          indicator.classList.remove('active');
+        }
+      });
     }
 
     gotoPrev() {
@@ -182,6 +231,23 @@ Custom block : Caroussel1
       this.items[this.current].classList.add('active');
       this.items[this.prev].classList.add('prev');
       this.items[this.next].classList.add('next');
+
+      this.updateIndicators();
+      this.updateButtons();
+    }
+
+    updateButtons() {
+      if (this.current === 0) {
+        this.buttons[0].style.visibility = 'hidden';
+      } else {
+        this.buttons[0].style.visibility = 'visible';
+      }
+
+      if (this.current === this.items.length - 1) {
+        this.buttons[1].style.visibility = 'hidden';
+      } else {
+        this.buttons[1].style.visibility = 'visible';
+      }
     }
   }
 
