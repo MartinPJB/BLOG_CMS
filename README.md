@@ -188,6 +188,39 @@ Themes/
           somestuff.html.twig
 ```
 
+### II. Creating a Template
+
+A template is a simple file that contains the HTML structure of the page. It can also contain Twig's syntax, which will allow you to use variables, loops, conditions, etc...
+
+It is recommended to create a `index.html.twig` file at the root of the template, which will be the base template for all the other templates. This file will contain the basic structure of the page, and will be extended by all the other templates. (Example [here](https://github.com/MartinPJB/BLOG_CMS/blob/master/Themes/default/Front/templates/index.html.twig))
+
+The templates should also use the `extends` and `block` keywords to extend the base template, and to define the content of the page.
+
+I also recommend adding a comment at the top of the template in order to describe what the template is used for.
+
+Example:
+
+```twig
+{#
+Name: index.html.twig
+Path: default/Front/templates/pages/Articles/index.html.twig
+
+Variables:
+  - {@array} articles: Articles list to display:
+    - {@object} article: Article to display:
+      - {@object} image: Image to display:
+        - {@string} path: Image path
+        - {@string} alt: Image alt
+      - {@string} title: Article title
+      - {@string} description: Article description
+      - {@string} date: Article date
+      - {@string} author: Article author
+      - {@object} category: Article category:
+        - {@string} name: Category name
+      - {@array} tags: Article tags list
+#}
+```
+
 ### II. Using the Theme
 
 For now, the only way to use the theme is to modify directly your database in the `site_settings` table. You must add a new row with the **key** `theme`, and the `value` the name of your theme.
