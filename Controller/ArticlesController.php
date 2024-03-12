@@ -31,7 +31,7 @@ class ArticlesController extends ControllerBase implements ControllerInterface
    */
   public function index($params)
   {
-    $articles = Articles::getAllArticles();
+    $articles = Articles::getAllPublishedArticles();
     $this->render('Articles/index', [
       'articles' => $articles,
     ]);
@@ -60,7 +60,7 @@ class ArticlesController extends ControllerBase implements ControllerInterface
       ControllerBase::renderError(404, $this->requestContext);
     }
 
-    /* Gets sibblings, could be optimised */
+    /* Gets siblings, could be optimised */
     $tree = $this->siteSettings->getNavigation();
     $previous = $next = null;
     $keys = array_keys($tree);
@@ -86,14 +86,14 @@ class ArticlesController extends ControllerBase implements ControllerInterface
       }
     }
 
-    $previous = $this->formatSibblings($previous);
-    $next = $this->formatSibblings($next);
+    $previous = $this->formatSibling($previous);
+    $next = $this->formatSibling($next);
 
     $blocks = Blocks::getBlocksByArticle($article_id);
     $this->render('Articles/see', [
       'article' => $article,
       'blocks' => $blocks,
-      'sibbling' => [
+      'sibling' => [
         'previous' => $previous,
         'next' => $next
       ]
@@ -101,19 +101,19 @@ class ArticlesController extends ControllerBase implements ControllerInterface
   }
 
   /**
-   * Format a sibbling
+   * Format a sibling
    *
-   * @param array $sibbling The sibbling that need to be formatted
+   * @param array $sibling The sibling that need to be formatted
    */
-  private function formatSibblings($sibbling) {
-    if(!$sibbling) return false;
-    $len = count($sibbling);
+  private function formatSibling($sibling) {
+    if(!$sibling) return false;
+    $len = count($sibling);
     if ($len) {
       if ($len > 1) {
-        return ['type' => 'à l\'article', 'name' => $sibbling[0], 'id' => $sibbling[1]];
+        return ['type' => 'to the article', 'name' => $sibling[0], 'id' => $sibling[1]];
       }
-      $cat_name = key($sibbling);
-      return ['type' => 'au chapitre', 'name' => $cat_name, 'id' => $sibbling[$cat_name][1]];
+      $cat_name = key($sibling);
+      return ['type' => 'to the category', 'name' => $cat_name, 'id' => $sibling[$cat_name][1]];
     }
   }
 }

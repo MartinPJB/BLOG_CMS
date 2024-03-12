@@ -1,12 +1,15 @@
 {#
   Name: menu.html.twig
-  Path: default/Front/templates/navigation/menu.html.twig
+  Path: blog/Front/templates/navigation/menu.html.twig
 #}
 
-<aside>
-  <h2>Administration</h2>
+<aside class="blog-sidebar flex flex-column">
+  <h2 class="blog-sidebar__title">BLOG - Admin</h2>
 
-  <ul>
-    li
+  <ul class="blog-sidebar__links">
+    <li><a href="admin/">Dashboard</a></li>
+    <li><a href="admin/articles">Articles</a></li>
+    <li><a href="admin/categories">Categories</a></li>
+    <li><a href="admin/medias">Media library</a></li>
   </ul>
 </aside>

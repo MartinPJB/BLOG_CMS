@@ -1,0 +1,9 @@
+{#
+Fields:
+- block_src (file): { label: 'Video', accept: '.mp4' }
+- block_ref (text): { label: 'Caption', min: 3, max: 64, required: true }
+#}
+<video controls>
+  <source src="{{ media.path }}" type="video/mp4">
+  Your browser does not support the video tag.
+</video>

@@ -55,12 +55,7 @@ Variables:
           <time datetime="{{ date|date(" Y-d-m H:i") }}">{{ date|date("d/m/Y H:i", "Europe/Paris") }}</time>
           by <a href="./users/see/{{ author.id }}">{{ author.username }}</a>
         </p>
-        <ul>Tags:
-          {% for tag in tags %}
-            <li>{{ tag }}</li>
-          {% endfor %}
-        </ul>
-        <p>{{ category.name }}</p>
+        <a href="./categories/see/{{category.id}}">{{ category.name }}</a>
       </div>
     </article>
   {% endfor %}

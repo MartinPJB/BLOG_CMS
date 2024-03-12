@@ -1,6 +1,6 @@
 {#
   Name: index.html.twig
-  Path: cuej/Front/templates/index.html.twig
+  Path: blog/Front/templates/index.html.twig
 
   Global variables:
     - {@string} site_name: Website's name
@@ -25,18 +25,22 @@
 
     {# JS and CSS blocks #}
     <link rel="stylesheet" href="public/back/css/index.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="public/back/bootstrap-icons-1.11.2/font/bootstrap-icons.min.css">
+    <script src="public/back/js/swal.js"></script>
+
+    {# Easter egg #}
+    <script src="public/back/js/easter-egg.js" defer></script>
 
     {% block stylesheet %}{% endblock %}
     {% block javascript %}{% endblock %}
 	</head>
 
-	<body>
+	<body class="flex">
     {# Menu #}
     {% include "navigation/menu.html.twig" %}
 
     {# Display content #}
-    <main>
+    <main class="blog-content flex flex-column flex-1">
       {# Display errors / messages if defined #}
       {% include "misc/errors.html.twig" %}
       {% include "misc/messages.html.twig" %}

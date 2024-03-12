@@ -164,7 +164,7 @@ class Installer
 
     // Articles
     Manager::create('articles', [
-      'title' => 'Welcome to CUEJ_CMS',
+      'title' => 'Welcome to BLOG_CMS',
       'description' => 'This is your first article. You can edit it or delete it.',
       'author_id' => 1,
       'date' => date('Y-m-d H:i:s'),

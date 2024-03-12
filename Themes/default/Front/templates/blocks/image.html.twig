@@ -1,0 +1,6 @@
+{#
+Fields:
+- block_src (file): { label: 'Image', accept: '.png, .jpg, .jpeg, .gif, .webp, .svg', max: '20MO'}
+- block_alt (text): { label: 'Alternative text', min: 3, max: 256, required: true }
+#}
+<img src="{{ media.path }}" alt="{{ json.block_alt|raw }}">

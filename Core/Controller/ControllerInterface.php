@@ -7,7 +7,7 @@ use \Core\RequestContext;
 /**
  * Controller interface | Represents a controller
  *
- * @package CUEJ_CMS\Controller
+ * @package BLOG_CMS\Controller
  * @version 0.0.1
  * @since 0.0.1
  * @property string $name Controller name

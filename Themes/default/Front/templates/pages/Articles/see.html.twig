@@ -1,29 +1,51 @@
 {#
-Name: index.html.twig
-Path: default/Front/templates/pages/Categories/index.html.twig
+Name: see.html.twig
+Path: default/Front/templates/pages/Articles/see.html.twig
 
 Variables:
-- {@object} category
-  - {@string} name: Category name
+  - {@object} article: Article to display:
+    - {@object} image: Image to display:
+      - {@string} path: Image path
+      - {@string} alt: Image alt
+    - {@string} title: Article title
+    - {@string} description: Article description
+    - {@string} date: Article date
+    - {@string} author: Article author
+    - {@object} category: Article category:
+      - {@string} name: Category name
+    - {@array} tags: Article tags list
 #}
 {% extends "index.html.twig" %}
 
-{# Set title #}
-{% block title %}Home{% endblock %}
+{% block title %}{{ article.title }}{% endblock %}
 
-{# Set content #}
+{# Variables #}
+{% set image = article.image %}
+{% set title = article.title %}
+{% set description = article.description %}
+{% set date = article.date %}
+{% set author = article.author %}
+{% set category = article.category %}
+{% set tags = article.tags %}
+
+{# Display #}
 {% block content %}
-  <h1>List of Categories</h1>
-  {% if categories %}
-    <nav>
-      {# Display each category #}
-      {% for category in categories %}
-        <a href="categories/see/{{ category.id }}">
-          <h2>{{ category.name }}</h2>
-        </a>
-      {% endfor %}
-    </nav>
-  {% else %}
-    <p>No category has been published.</p>
-  {% endif %}
+  <img src="{{ image.path }}" alt="{{ image.alt }}" loading="lazy">
+  <div>
+    <h1>{{ title }}</h1>
+    <p>{{ description }}</p>
+    <p>Published on
+      <time datetime="{{ date|date("Y-d-m H:i") }}">{{ date|date("d/m/Y H:i", "Europe/Paris") }}</time>
+      by <a href="./users/see/{{ author.id }}">{{ author.username }}</a>
+    </p>
+    <p>Category: {{ category.name }}</p>
+  </div>
+
+  <div>
+    {% for blockTemplate in blocks %}
+      {% autoescape false %}
+        {% include 'blocks/' ~ blockTemplate.type ~ '.html.twig' with { 'json': blockTemplate.getJsonContent(), 'media': blockTemplate.getMedia() } %}
+      {% endautoescape %}
+    {% endfor %}
+  </div>
 {% endblock %}

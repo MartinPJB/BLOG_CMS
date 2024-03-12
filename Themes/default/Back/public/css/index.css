@@ -1,15 +1,85 @@
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
+/* Font */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;0,9..40,1000;1,9..40,100;1,9..40,200;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700;1,9..40,800;1,9..40,900;1,9..40,1000&display=swap');
+
+/* Import components */
+@import "components/utils/variables.css";
+@import "components/navigation/aside.css";
+@import "components/utils/flex.css";
+@import "components/utils/infobox.css";
+@import "components/elements/medias.css";
+@import "components/elements/content.css";
+@import "components/elements/tables.css";
+@import "components/elements/buttons.css";
+@import "components/elements/forms.css";
+
+/* Global styles */
+* {
+    box-sizing: border-box;
 }
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
+*:disabled {
+    cursor: not-allowed;
+    opacity: .5;
 }
 
-tr:nth-child(even) {
-  background-color: #e8e8e8;
+/* Utils */
+.visible {
+    display: block;
+}
+
+.visible-flex {
+    display: flex;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Layout */
+html {
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Links */
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:visited {
+    color: var(--primary-dark);
+}
+
+/* Cedric */
+#cedric {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  z-index: 1000;
+  animation: funny 1s linear infinite;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+@keyframes funny {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
 }

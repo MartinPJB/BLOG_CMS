@@ -1,0 +1,7 @@
+{#
+Fields:
+- block_content (textarea): { label: 'Content', min: 10, max: 10000, required: true }
+#}
+<h2>
+  {{ json.block_content|clean_content_for_html|nl2br|raw }}
+</h2>

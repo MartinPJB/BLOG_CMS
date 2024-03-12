@@ -1,9 +1,9 @@
-# CUEJ_CMS 📰
+# BLOG_CMS 📰
 
 > Authors: [Martin B.](https://github.com/MartinPJB) & [Mael G.](https://github.com/Surreal-Maggie).
 > Project made for a school project at the [IUT of Haguenau](https://iuthaguenau.unistra.fr/), France.
 
-This is a simple Blog CMS made for the CUEJ (Centre Universitaire d'Enseignement du Journalisme) in Strasbourg, France.
+This is a simple blog CMS made during our PHP classes.
 
 This project is a school project, and is not meant to be used in a big production environment. It uses PHP, MySQL, and the code is Object-Oriented.
 
@@ -148,3 +148,46 @@ Router::addRoute('home', '', HomeController::class, 0, 'GET');
 // Register a new route -> GET /home/somestuff (the action will be somestuff, which means that the method to be called will be somestuff)
 Router::addRoute('home', 'somestuff', HomeController::class, 0, 'GET');
 ```
+
+<hr>
+
+## Theming 🎨
+
+The theming system is based on the `Twig` templating engine. This means that you can use Twig's syntax in your views.
+
+### I. Creating a Theme
+
+> The default theme is `Default`. It is meant to be used as an example and as a base for your own themes. It is not complete, and is not meant to be used in a production environment. The semantic of the HTML is not good at all, and there are no styles.
+
+To create a new theme, you must create a new folder in the `Themes/` folder. The name of the folder will be the name of the theme.
+
+The theme folder must contain two folders: `Front` and `Back`. The `Front` folder will contain the templates for the front office, and the `Back` folder will contain the templates for the back office.
+
+The `Front` and `Back` folders must contain a `templates` folder, which will contain the actual templates.
+
+The `templates` folder must contain a `base.html.twig` file, which will be the base template for all the other templates.
+
+All the templates must have the `.html.twig` extension, and must be located in a subfolder named after the name of the Controller that will use the template.
+
+Here is an example of a theme structure:
+
+```
+Themes/
+  MyTheme/
+    Front/
+      templates/
+        base.html.twig
+        MyController/
+          index.html.twig
+          somestuff.html.twig
+    Back/
+      templates/
+        base.html.twig
+        MyOtherController/
+          index.html.twig
+          somestuff.html.twig
+```
+
+### II. Using the Theme
+
+For now, the only way to use the theme is to modify directly your database in the `site_settings` table. You must add a new row with the **key** `theme`, and the `value` the name of your theme.

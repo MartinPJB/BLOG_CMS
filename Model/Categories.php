@@ -76,6 +76,17 @@ class Categories
   }
 
   /**
+   * Get the articles of a category
+   *
+   * @param integer $id Category ID
+   * @return array Array of articles
+   */
+  public function getArticles()
+  {
+    return Articles::getAllPublishedArticles($this->id);
+  }
+
+  /**
    * Create a category
    *
    * @param string $name Category name

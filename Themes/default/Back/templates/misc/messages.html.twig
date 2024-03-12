@@ -1,10 +1,10 @@
 {#
   Name: messages.html.twig
-  Path: default/Front/templates/misc/messages.html.twig
+  Path: blog/Front/templates/misc/messages.html.twig
 #}
 
-{% if messages is defined %}
-	<ul class="messages">
+{% if messages is defined and messages is not empty %}
+	<ul class="infobox messages">
 		{% for message in messages %}
 			<li>{{ message }}</li>
 		{% endfor %}

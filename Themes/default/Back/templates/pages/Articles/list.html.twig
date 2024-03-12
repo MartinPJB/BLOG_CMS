@@ -1,6 +1,6 @@
 {#
   Name: list.html.twig
-  Path: default/Back/templates/pages/Articles/list.html.twig
+  Path: blog/Back/templates/pages/Articles/list.html.twig
 
   Variables:
     - {@array} articles: Articles list to display:
@@ -32,9 +32,7 @@
         <th>Title</th>
         <th>Description</th>
         <th>Date</th>
-        <th>Author</th>
         <th>Category</th>
-        <th>Tags</th>
         <th>Status</th>
         <th>Actions</th>
       </tr>
@@ -55,13 +53,7 @@
           <td>{{ title|raw }}</td>
           <td>{{ description|raw }}</td>
           <td>{{ date|date("d/m/Y H:i", "Europe/Paris") }}</td>
-          <td>{{ author.username }}</td>
           <td><a href="admin/categories/edit/{{ category.id }}">{{ category.name }}</a></td>
-          <td>
-            {% for tag in tags %}
-              {{ tag }}
-            {% endfor %}
-          </td>
           <td>
             {% if article.isPublished() and not article.isDraft() %}
               Published ✅
@@ -69,9 +61,10 @@
               Draft 📄
             {% endif %}
           </td>
-          <td>
-            <a href="admin/articles/edit/{{ id }}">Edit</a>
-            <a href="admin/articles/delete/{{ id }}">Delete</a>
+          <td class="flex flex-between flex-gap flex-center">
+            <a href="admin/articles/blocks/{{ id }}" title="Edit content" class="btn"><i class="bi bi-pencil-square"></i></a>
+            <a href="admin/articles/edit/{{ id }}" title="Edit" class="btn"><i class="bi bi-gear-fill"></i></a>
+            <a href="admin/articles/delete/{{ id }}" title="Delete" class="btn btn--danger"><i class="bi bi-trash3-fill"></i></a>
           </td>
         </tr>
       {% else %}
@@ -82,6 +75,6 @@
     </tbody>
   </table>
 
-  <a href="admin/articles/create">Create an article</a>
+  <a href="admin/articles/create" class="btn btn--primary">Create an article</a>
 
 {% endblock %}

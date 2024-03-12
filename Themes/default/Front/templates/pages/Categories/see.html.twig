@@ -1,48 +1,61 @@
 {#
 Name: see.html.twig
-Path: default/Front/templates/pages/Articles/see.html.twig
+Path: default/Front/templates/pages/Categories/see.html.twig
 
 Variables:
-  - {@object} article: Article to display:
-    - {@object} image: Image to display:
-      - {@string} path: Image path
-      - {@string} alt: Image alt
-    - {@string} title: Article title
-    - {@string} description: Article description
-    - {@string} date: Article date
-    - {@string} author: Article author
-    - {@object} category: Article category:
-      - {@string} name: Category name
-    - {@array} tags: Article tags list
+- {@object} category:
+  - {@object} image: Image to display:
+    - {@string} path: Image path
+    - {@string} alt: Image alt
+  - {@string} name: The category name
+  - {@string} description: The category description
+
 #}
 {% extends "index.html.twig" %}
 
-{% block title %}{{ article.title }}{% endblock %}
-
 {# Variables #}
-{% set image = article.image %}
-{% set title = article.title %}
-{% set description = article.description %}
-{% set date = article.date %}
-{% set author = article.author %}
-{% set category = article.category %}
-{% set tags = article.tags %}
+{% set image = category.image %}
+{% set name = category.name %}
+{% set description = category.description %}
 
-{# Display #}
+{# Set title #}
+{% block title %}{{ name }}{% endblock %}
+
+{# Set content #}
 {% block content %}
   <img src="{{ image.path }}" alt="{{ image.alt }}" loading="lazy">
   <div>
-    <h1>{{ title }}</h1>
+    <h1>Category: {{ title }}</h1>
     <p>{{ description }}</p>
-    <p>Published on
-      <time datetime="{{ date|date("Y-d-m H:i") }}">{{ date|date("d/m/Y H:i", "Europe/Paris") }}</time>
-      by <a href="./users/see/{{ author.id }}">{{ author.username }}</a>
-    </p>
-    <ul>Tags:
-      {% for tag in tags %}
-        <li>{{ tag }}</li>
-      {% endfor %}
-    </ul>
-    <p>Category: {{ category.name }}</p>
+
+    <h2>Articles:</h2>
+    {# Display each article #}
+    {% for article in category.getArticles()|sort((a, b) => a.getDate() < b.getDate()) %}
+
+      {# Variables #}
+      {% set image = article.image %}
+      {% set title = article.title %}
+      {% set description = article.description %}
+      {% set date = article.date %}
+      {% set author = article.author %}
+      {% set category = article.category %}
+      {% set tags = article.tags %}
+
+      {# Display #}
+      <article>
+        <a href="articles/see/{{ article.getId() }}">
+          <img src="{{ image.path }}" alt="{{ image.alt }}" loading="lazy">
+          <h2>{{ title }}</h2>
+        </a>
+        <div>
+          <p>{{ description }}</p>
+          <p>Published on
+            <time datetime="{{ date|date(" Y-d-m H:i") }}">{{ date|date("d/m/Y H:i", "Europe/Paris") }}</time>
+            by <a href="./users/see/{{ author.id }}">{{ author.username }}</a>
+          </p>
+          <a href="./categories/see/{{category.id}}">{{ category.name }}</a>
+        </div>
+      </article>
+    {% endfor %}
   </div>
 {% endblock %}

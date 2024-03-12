@@ -6,11 +6,11 @@
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'reference' => NULL,
-        'name' => 'cazier/cuej',
+        'name' => 'cazier/blog',
         'dev' => true,
     ),
     'versions' => array(
-        'cazier/cuej' => array(
+        'cazier/blog' => array(
             'pretty_version' => '1.0.0+no-version-set',
             'version' => '1.0.0.0',
             'type' => 'library',

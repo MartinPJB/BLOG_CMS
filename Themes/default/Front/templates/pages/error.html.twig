@@ -1,0 +1,20 @@
+{#
+Name: index.html.twig
+Path: default/Front/templates/pages/error.html.twig
+
+Variables:
+- {@string} errorCode : Error code
+- {@string} controllerType: Type of the controller where the error occurred
+#}
+{% extends "index.html.twig" %}
+
+{# Set title #}
+{% block title %}Erreur
+	{{ errorCode }}
+{% endblock %}
+
+{# Set content #}
+{% block content %}
+	<h1 class="title">Error {{ errorCode }}</h1>
+  <p>Controller where the error occured: {{ controllerType }}</p>
+{% endblock %}
