@@ -1,7 +1,6 @@
 # BLOG_CMS 📰
 
-> Authors: [Martin B.](https://github.com/MartinPJB) & [Mael G.](https://github.com/Surreal-Maggie).
-> Project made for a school project at the [IUT of Haguenau](https://iuthaguenau.unistra.fr/), France.
+> Authors: [Martin](https://github.com/MartinPJB) & [Surreal-Maggie](https://github.com/Surreal-Maggie).
 
 This is a simple blog CMS made during our PHP classes.
 
